@@ -571,6 +571,7 @@ export default {
    - `favicon-{32,180}.png`、`og-1200x630.jpg`。
 4. 圓形徽章、卡片框與陰影用同一套樣式，確保三隻貓視覺一致；不要改角色花紋與配色。
 5. 原始參考圖留在 `docs/assets/characters/`，不要壓縮覆蓋；去背檔與各尺寸輸出放 `brand/`。
+6. 這些是**賽前品牌／參考素材**，不是比賽期間的遊戲內美術。遊戲內角色圖在 11/14 09:00 後重新生成並放 `src/assets/`；`brand/` 只作識別與參考。來源與 AI 使用記在 `brand/README.md`，提交時寫進 SI disclosure。
 
 ### 5.6 Nano Banana 加圖規則
 
@@ -953,8 +954,8 @@ jobs:
 - [x] GitHub repo：`lovelykittenmimi/meowstronauts`（private；11/15 送出前轉 public）。
 - [ ] Cloudflare：加入 `flymymind.com` zone、改 nameserver。
 - [x] 建立 repo：README、LICENSE（Apache-2.0）、`.gitignore`、`docs/`；首個 commit `1e4b4d7`。
-- [ ] 三張貓圖去背，產出 avatar / full / favicon / OG。
-- [ ] 建立 `brand/style-guide.md`（色彩、字體、元件、Nano Banana prompt）。
+- [x] 三張貓圖去背，產出 avatar / full / favicon / OG（`brand/`，去背母檔在 `brand/source/`）。
+- [x] 建立 `brand/style-guide.md`（色彩、字體、元件、角色資產、生成規則）。
 - [ ] 建立 `docs/data-sources.md` 初稿。
 
 ### 9.2 11/11（三）
