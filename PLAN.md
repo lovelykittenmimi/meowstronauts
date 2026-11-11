@@ -950,9 +950,9 @@ jobs:
 ### 9.1 11/11（三）
 
 - [x] 確認遊戲名稱：《喵航員：火星基地》／Meowstronauts: Mars Outpost（2026-11-11 定案，不改名）。
-- [ ] 確認 GitHub repo 名稱與擁有者（建議 `mars-cat-outpost`）。
+- [x] GitHub repo：`lovelykittenmimi/meowstronauts`（private；11/15 送出前轉 public）。
 - [ ] Cloudflare：加入 `flymymind.com` zone、改 nameserver。
-- [ ] 建立空 repo：README、LICENSE（Apache-2.0）、`.gitignore`、`docs/`。
+- [x] 建立 repo：README、LICENSE（Apache-2.0）、`.gitignore`、`docs/`；首個 commit `1e4b4d7`。
 - [ ] 三張貓圖去背，產出 avatar / full / favicon / OG。
 - [ ] 建立 `brand/style-guide.md`（色彩、字體、元件、Nano Banana prompt）。
 - [ ] 建立 `docs/data-sources.md` 初稿。
@@ -1066,7 +1066,7 @@ jobs:
 
 ### 12.1 GitHub Repo
 
-- [ ] Public repo，包含完整原始碼。
+- [ ] 11/15 送出前把 `lovelykittenmimi/meowstronauts` 由 private 轉 public，包含完整原始碼。
 - [ ] `LICENSE`（Apache-2.0；或團隊選擇的 OSI 授權）。
 - [ ] `README.md`：
   - [ ] 一句話介紹與截圖。
@@ -1181,11 +1181,11 @@ jobs:
 | 2026-11-11 | 「強烈太陽風暴」文案改為資料驅動，當時 `strongStormConfirmed = false` | 現有 20 筆 CME 最快 974 km/s 但半角 11°、最寬 43°，沒有 halo CME；CME 速度不是風暴強度分類。需 FLR（X 級／M5+）或 GST（Kp ≥ 7）；待真實 key 補抓 G5 窗口 |
 | 2026-11-11 | 太空天氣快照由 2026-11 改為 2025-05-13～17；確認 X2.7 閃焰 | 2025-05-14 08:25Z 的 X2.7 閃焰（AR 14087）使 `strongFlare=true`、`strongStormConfirmed=true`；Kp 6.33 未達 Kp ≥ 7，`strongGeomagneticStorm=false`。可寫「強烈太陽閃焰」，不可寫「強烈地磁風暴」。DONKI 將 1755 km/s、半角 16° 的窄 CME 連到 M1.2；X2.7 對應的是 08:48Z、1036 km/s、半角 40° 的 CME。兩者都不是 halo，也不宣稱擊中火星 |
 | 2026-11-11 | OSDR 失敗覆盤用預寫靜態模板，不在 runtime 呼叫 LLM | 避免金鑰、延遲、成本與兒童內容風險；資料仍標 OSDR dataset ID |
+| 2026-11-11 | GitHub repo 定為 `lovelykittenmimi/meowstronauts`，先 private | 與產品英文名一致、網址短；先不公開，11/15 送出前轉 public；公開後 commit 時間戳可證明遊戲從 11/14 09:00 才開始 |
 
 **待確認：**
 
 - [ ] 重新產生 NASA API key（舊 key 已在 2026-11-11 對話中曝光）並更新 Cloudflare Worker secret。
-- [ ] GitHub repo 擁有者與名稱。
 - [ ] 台北 local event 的實際報到、pitch、judging 時間（目前頁面顯示 virtual，schedule 為空）。
 - [ ] 是否要在 11/14 前先部署「Coming soon」頁（不包含遊戲）。
 - [ ] 小孩的 playtest 時間與家長同意。
@@ -1195,8 +1195,7 @@ jobs:
 ## 16. 今天就能做的下一步
 
 1. **你：** 在 Cloudflare 加入 `flymymind.com`，把 nameserver 改成 Cloudflare 配發的。
-2. **你：** 確認 GitHub repo 名稱（建議 `mars-cat-outpost`）與 public/private。
-3. **Claude：** 建 repo skeleton（README、LICENSE、docs、brand 資料夾）。
+2. **Claude：** 建 repo skeleton（README、LICENSE、docs、brand 資料夾）。已完成 repo 與首個 commit；`brand/` 待去背後建立。
 4. **Claude：** 三張貓圖去背、產出 avatar／favicon／OG。
 5. **Claude：** 整理 20 個候選術語與 NASA 來源，建立 `glossary` 研究草案（只列術語與連結，不寫遊戲文案）。
 6. **Claude：** 寫 `docs/data-sources.md`、`docs/ai-disclosure.md`、`docs/playtest.md` 初稿。
