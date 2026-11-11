@@ -1,0 +1,24 @@
+# dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# local secrets — never commit
+.env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+
+# editor and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+
+# local Claude Code settings (machine-specific permissions)
+.claude/settings.local.json

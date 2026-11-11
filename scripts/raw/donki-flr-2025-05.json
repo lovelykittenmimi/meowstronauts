@@ -1,0 +1,42 @@
+[
+  {
+    "flrID": "2025-05-14T11:04:00-FLR-001",
+    "beginTime": "2025-05-14T11:04Z",
+    "peakTime": "2025-05-14T11:19Z",
+    "endTime": null,
+    "classType": "M7.7",
+    "sourceLocation": "N16E62",
+    "activeRegionNum": 14087,
+    "linkedEvents": []
+  },
+  {
+    "flrID": "2025-05-14T08:04:00-FLR-001",
+    "beginTime": "2025-05-14T08:04Z",
+    "peakTime": "2025-05-14T08:25Z",
+    "endTime": null,
+    "classType": "X2.7",
+    "sourceLocation": "N16E64",
+    "activeRegionNum": 14087,
+    "linkedEvents": []
+  },
+  {
+    "flrID": "2025-05-14T03:05:00-FLR-001",
+    "beginTime": "2025-05-14T03:05Z",
+    "peakTime": "2025-05-14T03:25Z",
+    "endTime": null,
+    "classType": "M5.3",
+    "sourceLocation": "N16E65",
+    "activeRegionNum": 14087,
+    "linkedEvents": []
+  },
+  {
+    "flrID": "2025-05-13T15:25:00-FLR-001",
+    "beginTime": "2025-05-13T15:25Z",
+    "peakTime": "2025-05-13T15:38Z",
+    "endTime": null,
+    "classType": "X1.2",
+    "sourceLocation": "N07W80",
+    "activeRegionNum": 14086,
+    "linkedEvents": []
+  }
+]

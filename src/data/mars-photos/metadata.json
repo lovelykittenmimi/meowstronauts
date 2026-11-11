@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "fetched_at": "2026-11-11T05:07:26.487Z",
+    "source_url": "https://images-api.nasa.gov/",
+    "license": "NASA Media Usage Guidelines",
+    "usage_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+    "note": "NASA images are generally not copyrighted, but credit must be shown. Each photo includes nasaId, dateCreated and credit; display them in the UI. The mars-photos API (api.nasa.gov/mars-photos) returned HTTP 404 on 2026-11-11 and is not used."
+  },
+  "photos": [
+    {
+      "nasaId": "PIA24487",
+      "title": "Perseverance Is Roving on Mars",
+      "dateCreated": "2021-03-05",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech",
+      "description": "This image was taken during the first drive of NASA's Perseverance rover on Mars on March 4, 2021. Perseverance landed on Feb. 18, 2021, and the team has been spending the weeks since landing checking out the rover to prepare for surface operations. This image was taken by the rover's Navigation Cameras. A key objective for Perseverance's mission on Mars is astrobiology, including the search for s",
+      "file": "mars-photos/PIA24487.jpg",
+      "bytes": 249165,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA24487/PIA24487~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA24487"
+    },
+    {
+      "nasaId": "PIA24542",
+      "title": "Perseverance's Selfie with Ingenuity",
+      "dateCreated": "2021-04-07",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech/MSSS",
+      "description": "NASA's Perseverance Mars rover took a selfie with the Ingenuity helicopter, seen here about 13 feet (3.9 meters) from the rover in this image taken April 6, 2021, the 46th Martian day, or sol, of the mission by the WATSON (Wide Angle Topographic Sensor for Operations and eNgineering) camera on the SHERLOC (Scanning Habitable Environments with Raman and Luminescence for Organics and Chemicals) inst",
+      "file": "mars-photos/PIA24542.jpg",
+      "bytes": 166854,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA24542/PIA24542~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA24542"
+    },
+    {
+      "nasaId": "PIA26344",
+      "title": "Perseverance's Selfie With 'Cheyava Falls'",
+      "dateCreated": "2024-07-25",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech/MSSS",
+      "description": "NASA's Perseverance Mars rover took this selfie on July 23, 2024, the 1,218th Martian day, or sol, of the mission. To the left of the rover near the center of the image is the arrowhead-shaped rock nicknamed \"Cheyava Falls,\" which has features that may bear on the question of whether Mars was home to microscopic life in the distant past. The small dark hole in the rock is where Perseverance took a",
+      "file": "mars-photos/PIA26344.jpg",
+      "bytes": 217669,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA26344/PIA26344~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA26344"
+    },
+    {
+      "nasaId": "PIA24173",
+      "title": "Curiosity's Selfie at the 'Mary Anning' location on Mars",
+      "dateCreated": "2020-11-12",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech/MSSS",
+      "description": "NASA's Curiosity Mars rover took this selfie at a location nicknamed \"Mary Anning\" after a 19th century English paleontologist. Curiosity snagged three samples of drilled rock at this site on its way out of the Glen Torridon region, which scientists believe was a site where ancient conditions would have been favorable to supporting life, if it ever was present. Curiosity took the selfie using a ca",
+      "file": "mars-photos/PIA24173.jpg",
+      "bytes": 232093,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA24173/PIA24173~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA24173"
+    },
+    {
+      "nasaId": "PIA26632",
+      "title": "Curiosity Captures Mars Landscape While Talking to an Orbiter",
+      "dateCreated": "2025-08-04",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech",
+      "description": "NASA's Curiosity Mars rover demonstrated a new multitasking capability when capturing this view: It snapped the 15 images that make up the mosaic while simultaneously communicating with an orbiter. The images were taken by the right navigation camera on Curiosity's mast July 26, 2025, the 4,611th sol, or day, of the mission. The rover's tracks cross through a region filled with boxwork formations ",
+      "file": "mars-photos/PIA26632.jpg",
+      "bytes": 159254,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA26632/PIA26632~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA26632"
+    },
+    {
+      "nasaId": "PIA24264",
+      "title": "Mastcam-Z's First 360-Degree Panorama",
+      "dateCreated": "2021-02-24",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech/MSSS/ASU",
+      "description": "This is the first 360-degree panorama taken by Mastcam-Z, a zoomable pair of cameras aboard NASA's Perseverance Mars rover. The panorama was stitched together on Earth from 142 individual images taken on Sol 3, the third Martian day of the mission (Feb. 21, 2021). Annotated versions of this panorama include a scale bar and close-ups of rock features seen in the distance. A detail shot from the top",
+      "file": "mars-photos/PIA24264.jpg",
+      "bytes": 74636,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA24264/PIA24264~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA24264"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "fetched_at": "2026-11-11T06:07:33.816Z",
+  "generator": "scripts/fetch-snapshots.mjs",
+  "api_key": "NASA_API_KEY",
+  "files": {
+    "spaceweather": "spaceweather.snapshot.json",
+    "marsWeather": "mars-weather.snapshot.json",
+    "marsPhotos": "mars-photos/metadata.json"
+  },
+  "counts": {
+    "cme": 20,
+    "flr": 4,
+    "gst": 1,
+    "weatherSols": 14,
+    "photos": 6
+  },
+  "selection": {
+    "donkiWindow": {
+      "startDate": "2025-05-13",
+      "endDate": "2025-05-17"
+    },
+    "weatherMode": "cold-week",
+    "weatherObservation": {
+      "start": "2025-05-08",
+      "end": "2025-05-22",
+      "startSol": 4534,
+      "endSol": 4547,
+      "missingDates": [
+        "2025-05-18"
+      ]
+    },
+    "weatherCore": {
+      "start": "2025-05-15",
+      "end": "2025-05-22",
+      "sols": 7,
+      "missingDates": [
+        "2025-05-18"
+      ],
+      "avgMaxTempC": -29.7,
+      "avgMinTempC": -79.7,
+      "rank": 52,
+      "tiedWindows": 14,
+      "totalWindows": 4547,
+      "topPercent": 1.14
+    },
+    "strongStormConfirmed": true,
+    "strongFlare": true,
+    "strongGeomagneticStorm": false,
+    "maxFlareClass": "X2.7",
+    "maxKp": 6.33
+  },
+  "errors": [],
+  "weather_updated_at": "2026-11-11T06:04:35.835Z",
+  "spaceweather_updated_at": "2026-11-11T06:07:33.816Z",
+  "last_run": {
+    "mode": "spaceweather-only",
+    "at": "2026-11-11T06:07:33.816Z",
+    "errors": []
+  }
+}

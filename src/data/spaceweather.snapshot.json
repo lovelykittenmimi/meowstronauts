@@ -1,0 +1,435 @@
+{
+  "meta": {
+    "fetched_at": "2026-11-11T06:07:33.816Z",
+    "source_url": "https://api.nasa.gov/DONKI/",
+    "license": "NASA Open Data",
+    "window": {
+      "startDate": "2025-05-13",
+      "endDate": "2025-05-17"
+    },
+    "mode": "cached",
+    "cached_files": [
+      "scripts/raw/donki-cme-2025-05.json",
+      "scripts/raw/donki-flr-2025-05.json",
+      "scripts/raw/donki-gst-2025-05.json"
+    ],
+    "assessment": {
+      "strongStormConfirmed": true,
+      "strongFlare": true,
+      "strongGeomagneticStorm": false,
+      "maxFlareClass": "X2.7",
+      "maxKp": 6.33,
+      "fastestCmeKms": 1755,
+      "widestCmeHalfAngleDeg": 47,
+      "missingFlrGst": false,
+      "thresholds": "strong flare = X-class or M5+; strong geomagnetic storm = Kp >= 7",
+      "summary": "Confirmed strong flare (X2.7); geomagnetic response max Kp 6.33 is below the Kp >= 7 threshold. Call it a strong solar flare, not a strong geomagnetic storm."
+    },
+    "note": "Real NASA DONKI events. Show the event date and a DONKI link in-game; do not present snapshots as live data. strongFlare means an X-class or M5+ flare; strongGeomagneticStorm means Kp >= 7. A strong flare alone does not prove a strong geomagnetic storm, and Kp is Earth's geomagnetic index, not a Mars measurement. Use meta.assessment to choose wording."
+  },
+  "cme": [
+    {
+      "id": "2025-05-17T23:15:00-CME-001",
+      "startTime": "2025-05-17T23:15Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "GOES: CCOR-1",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2"
+      ],
+      "speedKms": 350,
+      "halfAngleDeg": 22,
+      "type": "S",
+      "note": "Faint CME seen eastward in SOHO LASCO C3, GOES CCOR and STEREO A COR2, but not yet well-formed in C2 until it exits its field of view. Its source is uncertain but is likely one of the many instances of gradual opening of field lines seen on or beyond the SE limb in UV imagery. One such instance of subtle movement can be seen in SDO AIA 171 and GOES SUVI 171 around 2025-05-17T21:00Z, located at abo",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-16T10:24:00-CME-001",
+      "startTime": "2025-05-16T10:24Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2"
+      ],
+      "speedKms": 287,
+      "halfAngleDeg": 14,
+      "type": "S",
+      "note": "CME first seen in the SE by SOHO LASCO C2 beginning at 2025-05-16T10:24Z, as well as by SOHO LASCO C3, GOES CCOR-1 and STEREO A COR2 in later frames. The source of this event is a minor eruption seen along the SE limb in SDO AIA 304 along with field line opening seen in SDO AIA 171, 193 and 211.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-16T08:24:00-CME-001",
+      "startTime": "2025-05-16T08:24Z",
+      "sourceLocation": "N25E50",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "STEREO A: SECCHI/COR2"
+      ],
+      "speedKms": 439,
+      "halfAngleDeg": 10,
+      "type": "S",
+      "note": "Very minor CME/jet first seen in the southeast by SOHO LASCO C2 beginning at 2025-05-16T08:24Z, and possibly seen in one timestamp of SOHO LASCO C3 and STEREO A COR2 running difference imagery. The source of this event may be a very faint dimming/post-eruptive arcades at around (N25E50) prior to 2025-05-16T08:00Z, best seen in SDO AIA 211.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-16T04:28:00-CME-001",
+      "startTime": "2025-05-16T04:28Z",
+      "sourceLocation": "S12E75",
+      "activeRegionNum": 14090,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 208,
+      "halfAngleDeg": 40,
+      "type": "S",
+      "note": "CME first visible to the E in SOHO LASCO C2 starting at 2025-05-16T04:28Z. CME is also faintly visible in SOHO LASCO C3 and in GOES CORR-1 but is not visible in STEREO A COR2. The beginning of this CME is covered by short data gaps in both SOHO LACSO C2 and GOES CCOR-1, so the actual start time is likely a few frames earlier. CME is much easier to distinguish in running difference imagery. The sou",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-16T04:17:00-CME-001",
+      "startTime": "2025-05-16T04:17Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1",
+        "SOHO: LASCO/C3"
+      ],
+      "speedKms": 617,
+      "halfAngleDeg": 23,
+      "type": "C",
+      "note": "CME first seen to the NE in SOHO LASCO C2 starting at 2025-05-16T04:17Z. Also seen to the NE in SOHO LASCO C3, STEREO A COR2, and GOES CCOR-1. The beginning of this CME is covered by short data gaps in both SOHO LACSO C2 and GOES CCOR-1, so the actual start time is likely a few frames earlier. The source of this CME is most likely some field line movement from on or slightly beyond the NE limb bes",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-15T21:28:00-CME-001",
+      "startTime": "2025-05-15T21:28Z",
+      "sourceLocation": "N15W42",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 338,
+      "halfAngleDeg": 12,
+      "type": "S",
+      "note": "CME first seen in the NNE by SOHO LASCO C2 beginning at 2025-05-15T21:28Z, as well as by SOHO LASCO C3 and GOES CCOR in later frames. This event only visible in later frames of STEREO A COR2 due to a data gap from 2025-05-25T19:53Z to 2025-05-18T01:53Z. The source of this event is a filament eruption from AR 4087 (N15W42) following an M2.1 class flare which resulted in associated CME: 2025-05-15T1",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-15T20:24:00-CME-001",
+      "startTime": "2025-05-15T20:24Z",
+      "sourceLocation": "N15E45",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "GOES: CCOR-1",
+        "STEREO A: SECCHI/COR2"
+      ],
+      "speedKms": 818,
+      "halfAngleDeg": 17,
+      "type": "C",
+      "note": "CME first seen to the NE in SOHO LASCO C2 starting at 2025-05-15T20:24Z. CME is also visible to the NE in SOHO LASCO C3 and GOES CCOR-1. Also faintly visible for a single frame in STEREO A COR2. The source of this CME is possibly the more southern portion of some ejecta from a small filament eruption from AR 14087 (N14E40-50) best seen in SDO AIA 193 starting around 2025-05-15T18:30Z.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-15T18:00:00-CME-001",
+      "startTime": "2025-05-15T18:00Z",
+      "sourceLocation": "N17E47",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2"
+      ],
+      "speedKms": 496,
+      "halfAngleDeg": 18,
+      "type": "S",
+      "note": "Faint CME visible to the NE in SOHO LASCO C2. It is unclear if this CME is also visible in STEREO A COR2 due to data quality as well as GOES CCOR-1 due to obstruction from the control arm. The source appears to be an M2.1 flare from AR 14087 with associated filament ejecta best seen in SDO/AIA 304 and 131.",
+      "linkedEvents": [
+        "2025-05-15T17:08:00-FLR-001"
+      ]
+    },
+    {
+      "id": "2025-05-15T16:12:00-CME-001",
+      "startTime": "2025-05-15T16:12Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 840,
+      "halfAngleDeg": 11,
+      "type": "C",
+      "note": "Faint, narrow CME to the NE in SOHO LASCO C2, C3, STEREO A COR2, and GOES CCOR-1 imagery. The source is unclear, but may be associated with minor activity from AR 14087 in the NE.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-15T03:48:00-CME-001",
+      "startTime": "2025-05-15T03:48Z",
+      "sourceLocation": "S34E80",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "GOES: CCOR-1",
+        "STEREO A: SECCHI/COR2",
+        "SOHO: LASCO/C3"
+      ],
+      "speedKms": 953,
+      "halfAngleDeg": 11,
+      "type": "C",
+      "note": "Diffuse, fast CME front observed to the southeast in SOHO LASCO C2/C3, STEREO A COR2, and GOES CCOR-1. The source is observed approximately around S34E80, as a small filament eruption in SDO AIA 304 and field line movement/small post-eruptive arcade in SDO AIA 171/193, beginning around 2025-05-15T02:45Z.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-15T02:24:00-CME-001",
+      "startTime": "2025-05-15T02:24Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 1015,
+      "halfAngleDeg": 13,
+      "type": "O",
+      "note": "CME observed to the south in SOHO LASCO C2/C3 and GOES CCOR-1, and southwest in STEREO A COR2. The source is best observed in SDO AIA 304 and GOES SUVI 304 as filament ejecta peeking over the SW limb starting around 2025-05-15T01:09Z, and field line movement in SDO AIA 171/193 as early as 2025-05-15T00:21Z.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-14T18:36:00-CME-001",
+      "startTime": "2025-05-14T18:36Z",
+      "sourceLocation": "N18E60",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 582,
+      "halfAngleDeg": 41,
+      "type": "C",
+      "note": "This CME is visible to the northeast in SOHO LASCO C2/C3, GOES CCOR-1, and is visible for one frame in STEREO A COR2 imagery prior to a data gap starting at 2025-05-14T18:53Z. The source is associated with the M4.7 flare and eruption from Active Region 14087 (N18E60) starting around 2025-05-14T18:00Z as seen in SDO AIA 131, 171, 193, 304 imagery.",
+      "linkedEvents": [
+        "2025-05-14T17:59:00-FLR-001"
+      ]
+    },
+    {
+      "id": "2025-05-14T15:24:00-CME-001",
+      "startTime": "2025-05-14T15:24Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 1015,
+      "halfAngleDeg": 27,
+      "type": "O",
+      "note": "Faint CME observed to the west in SOHO LASCO C2/C3 and GOES CCOR-1, and about 4 frames at the edge of STEREO A COR2's field-of-view after a brief data gap from 2025-05-14T12:23Z-T15:53Z. The source may be field line movement over the southwest limb observed starting around 2025-05-14T15:15Z in SDO AIA 171 and GOES SUVI 284.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-14T11:48:00-CME-001",
+      "startTime": "2025-05-14T11:48Z",
+      "sourceLocation": "N16E62",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "GOES: CCOR-1",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2"
+      ],
+      "speedKms": 670,
+      "halfAngleDeg": 28,
+      "type": "C",
+      "note": "This CME is visible to the northeast in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 imagery. The source is associated with an M7.7 flare and eruption from Active Region 14087 (N16E62) starting around 2025-05-14T11:00Z as seen in SDO AIA 131, 171, 193, 304 imagery.",
+      "linkedEvents": [
+        "2025-05-14T11:04:00-FLR-001"
+      ]
+    },
+    {
+      "id": "2025-05-14T08:48:00-CME-001",
+      "startTime": "2025-05-14T08:48Z",
+      "sourceLocation": "N16E64",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 1036,
+      "halfAngleDeg": 40,
+      "type": "O",
+      "note": "This CME is visible to the northeast in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 imagery. The source is related to the X2.7 flare and eruption from Active Region 14087 (N16E64) starting around 2025-05-14T08:00Z as seen in SDO AIA 131, 171, 193, 304 imagery.",
+      "linkedEvents": [
+        "2025-05-14T08:04:00-FLR-001"
+      ]
+    },
+    {
+      "id": "2025-05-14T08:00:00-CME-001",
+      "startTime": "2025-05-14T08:00Z",
+      "sourceLocation": "N17E88",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 1755,
+      "halfAngleDeg": 16,
+      "type": "O",
+      "note": "This CME is visible to the northeast in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 coronagraph imagery. The source is related to an M1.2 flare and eruption from Active Region 14087 (N17E88) starting around 2025-05-14T07:42Z as seen in SDO AIA 131, 171, 193, 304 imagery. A subsequent narrow opening of field lines lines is visible over the northeast limb at this time in SDO AIA 171 and 193 ima",
+      "linkedEvents": [
+        "2025-05-14T07:36:00-FLR-001"
+      ]
+    },
+    {
+      "id": "2025-05-14T07:12:00-CME-001",
+      "startTime": "2025-05-14T07:12Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 678,
+      "halfAngleDeg": 47,
+      "type": "C",
+      "note": "This event is visible to the northwest in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 imagery. The source is likely related to an opening of field lines observed over the northwest limb starting around 2025-05-14T06:40Z as seen in SDO AIA 171,193 and GOES SUVI 284 imagery. This event overlaps with CME: 2025-05-14T06:24Z.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-14T06:24:00-CME-001",
+      "startTime": "2025-05-14T06:24Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 432,
+      "halfAngleDeg": 37,
+      "type": "S",
+      "note": "This CME is visible to the northwest in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 imagery for a few frames before overlapping CME: 2025-05-14T07:12Z overtakes this event. The source is likely far-sided and related to an opening of field lines observed over the northwest limb starting around 2025-05-14T06:00Z as seen in SDO AIA 171,193 and GOES SUVI 284 imagery.",
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-14T03:48:00-CME-001",
+      "startTime": "2025-05-14T03:48Z",
+      "sourceLocation": "N16E65",
+      "activeRegionNum": 14087,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "GOES: CCOR-1",
+        "STEREO A: SECCHI/COR2",
+        "SOHO: LASCO/C3"
+      ],
+      "speedKms": 961,
+      "halfAngleDeg": 29,
+      "type": "C",
+      "note": "This CME is visible to the northeast in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 coronagraphs. The source is related to the M5.3 flare and eruption from Active Region 14087 (N16E65) starting around 2025-05-14T03:05Z as seen in SDO AIA 131, 171, 193, 304 imagery. A subsequent opening of field lines is visible over the northeast limb in SDO AIA 171 and 193 imagery starting around 2025-05-14T",
+      "linkedEvents": [
+        "2025-05-14T03:05:00-FLR-001"
+      ]
+    },
+    {
+      "id": "2025-05-14T02:00:00-CME-001",
+      "startTime": "2025-05-14T02:00Z",
+      "sourceLocation": "",
+      "activeRegionNum": null,
+      "instruments": [
+        "SOHO: LASCO/C2",
+        "SOHO: LASCO/C3",
+        "STEREO A: SECCHI/COR2",
+        "GOES: CCOR-1"
+      ],
+      "speedKms": 1224,
+      "halfAngleDeg": 12,
+      "type": "O",
+      "note": "This CME is visible to the northeast in SOHO LASCO C2/C3, GOES CCOR-1, and STEREO A COR2 coronagraphs. The source is likely an eruption observed just beyond the northeast limb starting around 2025-05-14T01:45Z as seen in SDO AIA 131, 171, 193, 304 imagery. A subsequent opening of field lines can be observed over the northeast limb at this time in SDO AIA 171 and 193 imagery as well.",
+      "linkedEvents": []
+    }
+  ],
+  "flr": [
+    {
+      "id": "2025-05-14T11:04:00-FLR-001",
+      "beginTime": "2025-05-14T11:04Z",
+      "peakTime": "2025-05-14T11:19Z",
+      "endTime": null,
+      "classType": "M7.7",
+      "sourceLocation": "N16E62",
+      "activeRegionNum": 14087,
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-14T08:04:00-FLR-001",
+      "beginTime": "2025-05-14T08:04Z",
+      "peakTime": "2025-05-14T08:25Z",
+      "endTime": null,
+      "classType": "X2.7",
+      "sourceLocation": "N16E64",
+      "activeRegionNum": 14087,
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-14T03:05:00-FLR-001",
+      "beginTime": "2025-05-14T03:05Z",
+      "peakTime": "2025-05-14T03:25Z",
+      "endTime": null,
+      "classType": "M5.3",
+      "sourceLocation": "N16E65",
+      "activeRegionNum": 14087,
+      "linkedEvents": []
+    },
+    {
+      "id": "2025-05-13T15:25:00-FLR-001",
+      "beginTime": "2025-05-13T15:25Z",
+      "peakTime": "2025-05-13T15:38Z",
+      "endTime": null,
+      "classType": "X1.2",
+      "sourceLocation": "N07W80",
+      "activeRegionNum": 14086,
+      "linkedEvents": []
+    }
+  ],
+  "gst": [
+    {
+      "id": "2025-05-17T00:00:00-GST-001",
+      "startTime": "2025-05-17T00:00Z",
+      "maxKp": 6.33,
+      "kpIndex": [
+        {
+          "time": "2025-05-17T03:00Z",
+          "kp": 6.33,
+          "source": "NOAA"
+        }
+      ],
+      "linkedEvents": [
+        "2025-05-16T20:10:00-IPS-001"
+      ]
+    }
+  ]
+}

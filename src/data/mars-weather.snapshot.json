@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "fetched_at": "2026-11-11T06:04:35.835Z",
+    "source_url": "https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json",
+    "cached_file": "scripts/raw/msl-weather-2026-11-11.json",
+    "license": "NASA/JPL-Caltech — Mars Science Laboratory (Curiosity) REMS outreach feed",
+    "mission": "Mars Science Laboratory (Curiosity)",
+    "observation": {
+      "start": "2025-05-08",
+      "end": "2025-05-22",
+      "startSol": 4534,
+      "endSol": 4547,
+      "missingDates": [
+        "2025-05-18"
+      ]
+    },
+    "selection": {
+      "mode": "cold-week",
+      "requestedWindow": {
+        "start": "2025-05-08",
+        "end": "2025-05-22"
+      },
+      "description": "Historical cold window chosen for the game opening. Real Curiosity observations, not the latest weather and not a forecast.",
+      "whyThisWindow": "The last 7 sols (2025-05-15..2025-05-22; 2025-05-18 is missing) average -29.7 C daytime high, in the coldest 1.1% of 4,547 7-sol windows. The coldest day in that window, 2025-05-16, reached -33 C (rank 17/4,717, top 0.3%). This is a recent, sustained cold spell: 2025-05-13..05-20 daytime highs were -24, -27, -29, -33, -31, -31, -28 C. The 2019-08-22..29 window is colder (4th of 4,547) and is kept as a historical comparison. Do not use the isolated 2026-01-10 -59 C reading: neighbouring days were +7/+1 C and it is treated as a sensor/archive artifact.",
+      "core": {
+        "start": "2025-05-15",
+        "end": "2025-05-22",
+        "sols": 7,
+        "missingDates": [
+          "2025-05-18"
+        ],
+        "avgMaxTempC": -29.7,
+        "avgMinTempC": -79.7,
+        "rank": 52,
+        "tiedWindows": 14,
+        "totalWindows": 4547,
+        "topPercent": 1.14
+      }
+    },
+    "climatePercentiles": {
+      "maxTempC": {
+        "p1": -32,
+        "p10": -27,
+        "p90": 1
+      },
+      "pressurePa": {
+        "p10": 728
+      }
+    },
+    "note": "Real Curiosity REMS observations, not real-time and not a forecast. Always display the observation date. This feed does not publish wind speed (always \"--\"), so gameplay modifiers must use air temperature, ground temperature and pressure; do not invent wind speed from this feed. gameplayTags are heuristic labels from archive-wide percentiles (cold_snap = maxTempC <= p10; severe_cold = maxTempC <= p1; warm_day = maxTempC >= p90; pressure_drop = pressurePa <= p10), not NASA classifications. maxTempPercentile is the share of all valid archive sols with a lower daytime high; 0 means coldest. Rank and percentile are provided for provenance and judge Q&A; in-game copy may simply say \"a very cold day\" and does not need to display a rank, as long as it does not claim \"the coldest day\". The default 2025 window is recent; 2019-08-22..29 remains a colder historical comparison (rank 4/4,547)."
+  },
+  "sols": [
+    {
+      "sol": 4534,
+      "terrestrialDate": "2025-05-08",
+      "season": "Month 3",
+      "minTempC": -80,
+      "maxTempC": -26,
+      "minGroundTempC": -94,
+      "maxGroundTempC": -8,
+      "pressurePa": 818,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:57",
+      "sunset": "17:39",
+      "windSpeedMs": null,
+      "gameplayTags": [],
+      "maxTempPercentile": 10.8
+    },
+    {
+      "sol": 4535,
+      "terrestrialDate": "2025-05-09",
+      "season": "Month 3",
+      "minTempC": -81,
+      "maxTempC": -22,
+      "minGroundTempC": -93,
+      "maxGroundTempC": -11,
+      "pressurePa": 816,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:56",
+      "sunset": "17:39",
+      "windSpeedMs": null,
+      "gameplayTags": [],
+      "maxTempPercentile": 22.9
+    },
+    {
+      "sol": 4536,
+      "terrestrialDate": "2025-05-10",
+      "season": "Month 3",
+      "minTempC": -81,
+      "maxTempC": -27,
+      "minGroundTempC": -94,
+      "maxGroundTempC": -11,
+      "pressurePa": 816,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:56",
+      "sunset": "17:39",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 8.4
+    },
+    {
+      "sol": 4537,
+      "terrestrialDate": "2025-05-11",
+      "season": "Month 3",
+      "minTempC": -81,
+      "maxTempC": -24,
+      "minGroundTempC": -106,
+      "maxGroundTempC": -10,
+      "pressurePa": 815,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:56",
+      "sunset": "17:39",
+      "windSpeedMs": null,
+      "gameplayTags": [],
+      "maxTempPercentile": 16.7
+    },
+    {
+      "sol": 4538,
+      "terrestrialDate": "2025-05-12",
+      "season": "Month 3",
+      "minTempC": -81,
+      "maxTempC": -24,
+      "minGroundTempC": -100,
+      "maxGroundTempC": -8,
+      "pressurePa": 814,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:56",
+      "sunset": "17:39",
+      "windSpeedMs": null,
+      "gameplayTags": [],
+      "maxTempPercentile": 16.7
+    },
+    {
+      "sol": 4539,
+      "terrestrialDate": "2025-05-13",
+      "season": "Month 3",
+      "minTempC": -81,
+      "maxTempC": -24,
+      "minGroundTempC": -94,
+      "maxGroundTempC": -11,
+      "pressurePa": 812,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:56",
+      "sunset": "17:38",
+      "windSpeedMs": null,
+      "gameplayTags": [],
+      "maxTempPercentile": 16.7
+    },
+    {
+      "sol": 4540,
+      "terrestrialDate": "2025-05-14",
+      "season": "Month 3",
+      "minTempC": -80,
+      "maxTempC": -27,
+      "minGroundTempC": -92,
+      "maxGroundTempC": -11,
+      "pressurePa": 811,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:56",
+      "sunset": "17:38",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 8.4
+    },
+    {
+      "sol": 4541,
+      "terrestrialDate": "2025-05-15",
+      "season": "Month 3",
+      "minTempC": -81,
+      "maxTempC": -29,
+      "minGroundTempC": -87,
+      "maxGroundTempC": -8,
+      "pressurePa": 810,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:38",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 3.5
+    },
+    {
+      "sol": 4542,
+      "terrestrialDate": "2025-05-16",
+      "season": "Month 3",
+      "minTempC": -79,
+      "maxTempC": -33,
+      "minGroundTempC": -91,
+      "maxGroundTempC": -11,
+      "pressurePa": 809,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:38",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap",
+        "severe_cold"
+      ],
+      "maxTempPercentile": 0.3
+    },
+    {
+      "sol": 4543,
+      "terrestrialDate": "2025-05-17",
+      "season": "Month 3",
+      "minTempC": -80,
+      "maxTempC": -31,
+      "minGroundTempC": -89,
+      "maxGroundTempC": -12,
+      "pressurePa": 808,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:38",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 1.2
+    },
+    {
+      "sol": 4544,
+      "terrestrialDate": "2025-05-19",
+      "season": "Month 3",
+      "minTempC": -79,
+      "maxTempC": -31,
+      "minGroundTempC": -93,
+      "maxGroundTempC": -12,
+      "pressurePa": 806,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:37",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 1.2
+    },
+    {
+      "sol": 4545,
+      "terrestrialDate": "2025-05-20",
+      "season": "Month 3",
+      "minTempC": -80,
+      "maxTempC": -28,
+      "minGroundTempC": -87,
+      "maxGroundTempC": -18,
+      "pressurePa": 805,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:37",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 5.8
+    },
+    {
+      "sol": 4546,
+      "terrestrialDate": "2025-05-21",
+      "season": "Month 3",
+      "minTempC": -80,
+      "maxTempC": -26,
+      "minGroundTempC": -83,
+      "maxGroundTempC": -12,
+      "pressurePa": 803,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:37",
+      "windSpeedMs": null,
+      "gameplayTags": [],
+      "maxTempPercentile": 10.8
+    },
+    {
+      "sol": 4547,
+      "terrestrialDate": "2025-05-22",
+      "season": "Month 3",
+      "minTempC": -79,
+      "maxTempC": -30,
+      "minGroundTempC": -89,
+      "maxGroundTempC": -15,
+      "pressurePa": 803,
+      "pressureTrend": "Higher",
+      "opacity": "Sunny",
+      "sunrise": "05:55",
+      "sunset": "17:37",
+      "windSpeedMs": null,
+      "gameplayTags": [
+        "cold_snap"
+      ],
+      "maxTempPercentile": 2.3
+    }
+  ]
+}
