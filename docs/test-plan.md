@@ -199,18 +199,18 @@
 ### 14.2 夜間：runner 管迴圈，Claude 只修一次
 
 - **只在 A 機**；22:30 開始，02:00 停止修復，07:30 更新報告。B 機關機，C 機做 30 秒影片（不跑測試迴圈）。
-- 步驟：先跑一般 suite（`npm run lint`（若有）、`npm test`、`npm run build`、`npm run test:e2e`）→ 綠了再跑 `npm run test:e2e:known` 佇列 → 一次只把**一個** failing test 交給 `claude -p` → 修完重新 `npm run build`，重跑該測試＋一般 suite → 綠才 commit／push → 最多 6 次、3 個未解、02:00 停止。
+- 步驟：先跑一般 suite（`npm run lint`（若有）、`npm test`、`npm run build`、`npm run test:e2e`）→ 綠了再跑 `npm run test:e2e:known` 佇列 → 一次只把**一個** failing test 交給 `claude -p` → 修完重新 `npm run build`，重跑該測試＋一般 suite → 綠才 commit（留在本機，**不 push**，push 即上線）→ 最多 6 次、3 個未解、02:00 停止。
 - 綠的定義：lint＋一般 suite 全綠＋這次修的 known test 綠；其他 known test 可以仍紅。
 - known test 變綠後，**runner** 移除 `@known-bug` 標記並一併 commit（只改 tag，不改 assertion）。
 - 護欄：測試檔 hash 不變（runner 的 tag 移除除外）、`package.json`／lock／test config 不變、不 deploy、不碰 secret、不 force、不改測試內容、不把 failing test 改成 skip／fixme、不放寬 assertion。
 - **影片 freeze lock：** §3.4／§5.2 的 HUD 數值與 `?video=report` 必須保持綠；若修正會改變影片數值，runner 不得改測試／fixture，記報告，早上 A 決定重錄或 revert。
-- 失敗不 push；push 後 CI 紅，runner 嘗試 revert 剛推的 SHA 並停止。報告寫 `output/overnight/report.md`，同時用 `gh issue comment` 貼到 `overnight` issue，C／B 從 GitHub 讀。
+- 失敗不 commit；夜間不 push，所以不會觸發 Workers Builds 部署。runner 停下來後報告寫 `output/overnight/report.md`，同時用 `gh issue comment` 貼到 `overnight` issue，C／B 從 GitHub 讀。
 - 22:30 前由 A 選模式：`logic-only`（預設，只修 logic／state／data／i18n key／a11y，不改字串值；視覺問題只寫報告）或 `allow-visual`（可改 UI／文案，commit 加 `[visual]`，早上 C 重錄或 A revert）。
 - C 的影片從 A 21:00 部署的 freeze build 錄；A 夜間**不 deploy**，也不改 `tools/video/**`（22:00 已交接給 C）。
 - 完整時間表與風險見 `docs/pre-event/multi-machine-plan.md` §7.1、§11。
 
 ### 14.3 早上驗收
 
-- **A：** 讀報告、`git log`、GitHub Actions；跑一次全套。壞的 commit `git revert`；有 `[visual]` 就交給 C 重錄或 revert。重新 deploy 後才讓 C 錄最終影片。
+- **A：** 讀報告、`git log`、GitHub Actions；跑一次全套。壞的 commit `git revert`；有 `[visual]` 就交給 C 重錄或 revert。驗收綠才 push（push 即由 Workers Builds 部署），部署完成後才讓 C 錄最終影片。
 - **C：** 看影片 v1 的長度、旁白、字幕、畫面數字；若 A 夜間有 `[visual]` 或早上 deploy 了新 build，重錄受影響鏡頭。
 - **B：** 09:00 後測新 build；不改夜間 commit。

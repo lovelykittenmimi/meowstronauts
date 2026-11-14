@@ -323,7 +323,7 @@ C 的煙霧測試（11/13，不碰遊戲）：
 - Runner 放 `tests/e2e/overnight.mjs`（A 管）；A 在 `package.json` 加 `test:e2e:known`，runner 用 `node` 直接跑。
 - 夜間修復用 Sonnet 等級以上的模型；不要用 Haiku 修 P0／P1。
 - 22:30 前關掉 A 的互動 Claude session 與編輯器自動儲存；夜間只有 runner 這一個 process 會寫 repo。
-- **C 機不跑測試迴圈**；22:00 接手 `tools/video/**` 後只寫 `output/` 與影片管線，不改遊戲 `src/`。C 的影片從 **A 21:00 部署的 freeze build** 錄，所以 A 夜間 commit 不會改變錄影內容；A 夜間**不 deploy**。
+- **C 機不跑測試迴圈**；22:00 接手 `tools/video/**` 後只寫 `output/` 與影片管線，不改遊戲 `src/`。C 的影片從 **A 21:00 部署的 freeze build** 錄；A 夜間**只 commit、不 push**（`main` 每次 push 由 Workers Builds 自動上線），所以錄影內容不會被夜間改動。
 
 1. 22:30 `git pull --rebase origin main`；確認 working tree 乾淨、`npm ci` 已完成；開一個 `overnight` issue（`gh issue create --label overnight --title "Overnight QA 11/14" --body "..."`，非互動）。
 2. 若 pull 後 `package.json`／lock 有變，先 `npm ci`；跑 `npm run lint`（若有）、`npm test`、`npm run build`、`npm run test:e2e`（一般 suite，排除 `@known-bug`；對 local `npm run preview`，不是部署版）。
@@ -332,9 +332,9 @@ C 的煙霧測試（11/13，不碰遊戲）：
 4. 一次只把**一個 failing test** 的錯誤訊息與相關檔交給 `claude -p`（headless）修一次。
 5. 修完先 `npm run build`（E2E 對 `dist/`），再重跑同一測試＋一般 suite；綠才 commit；不綠就丟棄該次修改，重試一次。第二次仍失敗 → 停止這個 bug，記進報告。
 6. 綠的定義：lint＋一般 suite 全綠＋這次修的 known test 綠；其他 known test 可以仍紅。該 known test 變綠後，**runner** 移除 `@known-bug` 標記並一併 commit（只改 tag，不改 assertion）。
-7. 綠色 commit：`fix: issue-<n> ...`（`[visual]` 另加）；`git pull --rebase origin main` → `git push origin main`；push 被拒就再 pull 一次，仍失敗就停止，**不 force**。
+7. 綠色 commit：`fix: issue-<n> ...`（`[visual]` 另加）；commit 留在 A 本機，**夜間不 push、不 pull**——push 等於直接上線，早上 A 驗收後才推。
 8. 最多 6 次修復、3 個未解 bug、或 02:00（以先到者為準）停止，避免燒光額度。
-9. push 後看 GitHub Actions 一次；CI 紅就嘗試 `git revert <剛推的 SHA>` 並 push，然後停止迴圈；revert 失敗就停止並在報告標記，不要無人時一直重試。
+9. 夜間不 push，所以不會觸發 GitHub Actions 或 Workers Builds 部署；CI 驗證留給早上 09:30 推送之後，不要在無人時一直重試。
 10. 迴圈結束（02:00 或全綠）先寫 `output/overnight/report.md`；07:30 再跑一次全套，更新報告：測試結果、commit SHA、未解問題、需要的早晨動作。用 `gh issue comment <n> --body-file output/overnight/report.md` 貼回 issue；A 早上直接讀本機報告，C／B 從 GitHub issue 讀。
 
 **護欄（runner 強制，不靠 Claude 自律）：**
@@ -360,7 +360,7 @@ C 的煙霧測試（11/13，不碰遊戲）：
 - 先 `git pull --rebase origin main`，再看本機 `output/overnight/report.md`、GitHub 上的 `overnight` issue 與 `git log --oneline`。
 - 跑一次全套測試；看 GitHub Actions。
 - 壞的 commit `git revert`；有 `[visual]` 就由 C 重錄或 A revert。
-- 決定是否重新 deploy；deploy 後 C 才錄影片的最終版。
+- 驗收綠才 push（push 即由 Workers Builds 部署）；部署完成後 C 才錄影片的最終版。
 
 ## 8. 11/15 時間表（三機）
 
@@ -409,7 +409,7 @@ C 的煙霧測試（11/13，不碰遊戲）：
 | 小孩累了 | 注意力下降 | 停止測試，不勉強；正式場只有 20 分鐘 |
 | 三台同時改同一檔 | 衝突 | 檔案所有權＋LOCK 公告；先做別的 |
 | **C 工作量過載（圖片＋測試＋影片）** | 下午 E2E 還沒綠、晚上才開始摸影片 | 優先序：影片 > 影片路徑 E2E > 其他 E2E > 圖片壓縮 > P1/P2；圖片先去背，壓縮可 11/15 補；E2E 只保 P0 與影片路徑 |
-| 夜間自動修復改壞 `main` | 早上 CI 紅燈或白屏 | 測試檔 hash 不可變、綠才 push、最多 6 次；早上 A 先跑全套，壞的 `git revert` |
+| 夜間自動修復改壞 `main` | 早上 CI 紅燈或白屏 | 測試檔 hash 不可變、綠才 commit、夜間不 push（所以不會上線）、最多 6 次；早上 A 先跑全套再 push，壞的 `git revert` |
 | E2E 偶發紅（flaky） | 同一測試有時過有時不過 | 只 retry 1 次；flaky 不自動修，記報告；不要放寬 assertion |
 | 夜間修到視覺／文案 | 影片與 build 對不上 | commit 加 `[visual]`；早上 C 重錄或 A revert；不確定就不要在夜間改 |
 | **A 機器睡著／斷網** | 07:30 沒有報告 | 插電、關休眠；沒報告就當沒修，09:00 手動跑全套 |
@@ -429,7 +429,7 @@ C 的煙霧測試（11/13，不碰遊戲）：
 - [ ] 確認 C 上午圖片去背／壓縮、下午寫 E2E、晚上做影片；A 晚上跑 §7.1；B 不留守、晚上關機。
 - [ ] 確認 C 已裝 Pillow／rembg／ffmpeg／edge-tts，並跑過 §6.7 煙霧測試。
 - [ ] 確認 22:00 `tools/video/**` 交接給 C；A 之後不改。
-- [ ] 確認夜間規則：A 的 runner 測試檔不可改、綠色才 push、不 deploy、`[visual]` 早上 C 重錄。
+- [ ] 確認夜間規則：A 的 runner 測試檔不可改、綠色才 commit、夜間不 push／不 deploy、`[visual]` 早上 C 重錄。
 - [ ] 確認模型分配與額度（A 夜間 Sonnet+；C 影片以腳本為主）。
 - [ ] 確認 11/14 08:30 全員 ready。
 
@@ -449,4 +449,4 @@ C 的煙霧測試（11/13，不碰遊戲）：
 - 事件卡與知識卡文案以 `docs/event-cards.md`、`docs/glossary.md` 為準；不自行新增 NASA 事實。
 - 所有 NASA 數字要能回指 `docs/data-sources.md`；不確定就開 issue 問，不要猜。
 - 修正只改 issue 指名的檔案；不順手重構、不改文案風格、不加新功能。
-- 夜間自動修復只在 A 機、照 §7.1：測試檔不可改、綠色才 push、不 deploy；C 機晚上做 30 秒影片，不跑測試迴圈；早上 A 驗收、C 審影片。
+- 夜間自動修復只在 A 機、照 §7.1：測試檔不可改、綠色才 commit、夜間不 push（push 即上線）也不 deploy；C 機晚上做 30 秒影片，不跑測試迴圈；早上 A 驗收後才 push、C 審影片。
