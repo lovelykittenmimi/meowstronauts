@@ -1542,6 +1542,41 @@ h1 {
   animation: caption-in 0.6s ease forwards;
 }
 
+.story-live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--coral);
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* One line at a time: the current line enters, the previous one stays dim. */
+.story-chat-current {
+  animation: caption-in 0.32s ease-out;
+}
+
+.story-chat-current .story-radio-line {
+  opacity: 1;
+  animation: none;
+}
+
+.story-radio-past {
+  opacity: 0.55;
+  animation: none;
+}
+
+.story-past {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
 .story-radio-line strong {
   color: var(--coral-ink);
 }
@@ -1549,11 +1584,6 @@ h1 {
 .story-radio-narrator {
   color: var(--navy);
   font-style: italic;
-}
-
-.story-wait {
-  min-height: 18px;
-  margin: 0;
 }
 
 .story-radio .primary-button {
@@ -1963,6 +1993,15 @@ h1 {
     animation-delay: 0s !important;
     opacity: 1;
   }
+
+  .story-live-dot {
+    animation: none;
+    opacity: 1;
+  }
+
+  .story-past {
+    opacity: 0.72;
+  }
 }
 
 @media (max-width: 820px) {
@@ -2063,5 +2102,10 @@ h1 {
 
   .story-radio-line {
     font-size: 15px;
+  }
+
+  /* Compact landscape keeps the panel to the current line only. */
+  .story-past {
+    display: none;
   }
 }

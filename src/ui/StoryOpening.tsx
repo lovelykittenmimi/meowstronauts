@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import crashScene from '../assets/generated/scenes/06-crash.webp';
 import lineupScene from '../assets/generated/scenes/05-team-lineup.webp';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
+import { getKnowledgeCard } from '../game/knowledge';
 import type { Lang, Localized } from '../game/types';
 import { RichText } from './RichText';
 
@@ -137,21 +138,40 @@ const TAP_TERMS: Record<Tap['id'], string> = {
   shield: 'radiationShielding',
 };
 
+const READY_LINES: Line[] = [
+  { cat: 'silver', text: l('Seven Mars days. Every choice has a cost. Ready, Commander?', '七個火星日。每個選擇都有代價。準備好了嗎，指揮官？') },
+  { cat: 'ginger', text: l('Wait. Can I eat one tomato first?', '等等，我可以先吃一顆番茄嗎？') },
+  { cat: 'silver', text: l('No.', '不行。') },
+  { cat: 'ginger', text: l('That is the cost.', '這就是代價。') },
+];
+
+/** Terms render as read-only text on lines that are no longer the current one. */
+function stripTerms(text: string, lang: Lang): string {
+  return text.replace(/\{\{([a-zA-Z]+)\}\}/g, (_, id: string) => {
+    const card = getKnowledgeCard(id);
+    return card ? card.term[lang] : id;
+  });
+}
+
 function DialogueLine({
   line,
   lang,
   onTerm,
+  interactive = true,
 }: {
   line: Line;
   lang: Lang;
   onTerm: (id: string) => void;
+  interactive?: boolean;
 }) {
+  const body = interactive ? (
+    <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
+  ) : (
+    stripTerms(line.text[lang], lang)
+  );
+
   if (line.cat === 'narrator') {
-    return (
-      <p className="story-narration">
-        <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
-      </p>
-    );
+    return <p className="story-narration">{body}</p>;
   }
 
   return (
@@ -164,11 +184,153 @@ function DialogueLine({
       />
       <div>
         <strong className="story-speaker">{SPEAKER_NAMES[line.cat]}</strong>
-        <p>
-          <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
-        </p>
+        <p>{body}</p>
       </div>
     </div>
+  );
+}
+
+function RadioLine({
+  line,
+  lang,
+  onTerm,
+  past = false,
+}: {
+  line: Line;
+  lang: Lang;
+  onTerm: (id: string) => void;
+  past?: boolean;
+}) {
+  return (
+    <p
+      className={`story-radio-line story-radio-${line.cat}${
+        past ? ' story-radio-past story-past' : ''
+      }`}
+    >
+      {line.cat === 'narrator' ? null : (
+        <strong>{SPEAKER_NAMES[line.cat]}: </strong>
+      )}
+      {past ? (
+        stripTerms(line.text[lang], lang)
+      ) : (
+        <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
+      )}
+    </p>
+  );
+}
+
+function PlainLine({
+  line,
+  lang,
+  onTerm,
+  past = false,
+}: {
+  line: Line;
+  lang: Lang;
+  onTerm: (id: string) => void;
+  past?: boolean;
+}) {
+  return (
+    <p className={past ? 'story-final-line story-past' : 'story-final-line'}>
+      {line.cat === 'narrator' ? null : (
+        <>
+          <strong>{SPEAKER_NAMES[line.cat]}:</strong>{' '}
+        </>
+      )}
+      {past ? (
+        stripTerms(line.text[lang], lang)
+      ) : (
+        <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
+      )}
+    </p>
+  );
+}
+
+interface DialogueSequenceProps {
+  lines: Line[];
+  lang: Lang;
+  onTerm: (id: string) => void;
+  variant?: 'chat' | 'radio' | 'plain';
+  cta?: string;
+  onCta?: () => void;
+  ctaTestId?: string;
+  ctaClassName?: string;
+  between?: ReactNode;
+}
+
+/**
+ * Shows one cat line at a time. The previous line stays on screen, dimmed and
+ * non-interactive, on roomy layouts; compact landscape hides it so the panel
+ * keeps to a single line. On the last line the CTA replaces "Next".
+ */
+function DialogueSequence({
+  lines,
+  lang,
+  onTerm,
+  variant = 'chat',
+  cta,
+  onCta,
+  ctaTestId = 'opening-next',
+  ctaClassName = 'primary-button',
+  between,
+}: DialogueSequenceProps) {
+  const [step, setStep] = useState(0);
+  const current = lines[step];
+  const previous = step > 0 ? lines[step - 1] : null;
+  const isLast = step === lines.length - 1;
+
+  const renderLine = (line: Line, past: boolean) => {
+    if (variant === 'radio') {
+      return <RadioLine line={line} lang={lang} onTerm={onTerm} past={past} />;
+    }
+    if (variant === 'plain') {
+      return <PlainLine line={line} lang={lang} onTerm={onTerm} past={past} />;
+    }
+    return (
+      <DialogueLine
+        line={line}
+        lang={lang}
+        onTerm={onTerm}
+        interactive={!past}
+      />
+    );
+  };
+
+  return (
+    <>
+      <div className="story-chat" aria-live="polite">
+        {previous && (
+          <div className="story-past" aria-hidden="true">
+            {renderLine(previous, true)}
+          </div>
+        )}
+        <div className="story-chat-current" data-testid="dialogue-current" key={step}>
+          {renderLine(current, false)}
+        </div>
+      </div>
+      {between}
+      {isLast ? (
+        cta && onCta ? (
+          <button
+            type="button"
+            className={ctaClassName}
+            data-testid={ctaTestId}
+            onClick={onCta}
+          >
+            {cta}
+          </button>
+        ) : null
+      ) : (
+        <button
+          type="button"
+          className="primary-button"
+          data-testid="dialogue-next"
+          onClick={() => setStep((value) => value + 1)}
+        >
+          {lang === 'en' ? 'Next' : '下一句'}
+        </button>
+      )}
+    </>
   );
 }
 
@@ -181,28 +343,15 @@ interface StoryOpeningProps {
 
 /**
  * The playable opening from docs/wireframes.md §10. Six scenes, skippable,
- * with three resource taps before Sol 1. The `?scene=opening2` video shot is
- * a separate component and is not affected by this flow.
+ * with three resource taps before Sol 1. Each cat speaks one line at a time;
+ * "Next" advances. The `?scene=opening2` video shot is a separate component
+ * and is not affected by this flow.
  */
 export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpeningProps) {
   const [scene, setScene] = useState(1);
   const [reply, setReply] = useState<'command' | 'cadet' | null>(null);
   const [tapped, setTapped] = useState<Tap['id'][]>([]);
   const [lastTap, setLastTap] = useState<Tap['id'] | null>(null);
-  const [crashDone, setCrashDone] = useState(false);
-  const [radioStep, setRadioStep] = useState(0);
-  const [compact, setCompact] = useState(false);
-
-  useEffect(() => {
-    if (typeof window.matchMedia !== 'function') return;
-    const query = window.matchMedia(
-      '(orientation: landscape) and (max-width: 700px) and (max-height: 520px)',
-    );
-    const update = () => setCompact(query.matches);
-    update();
-    query.addEventListener?.('change', update);
-    return () => query.removeEventListener?.('change', update);
-  }, []);
 
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo(0, 0);
@@ -214,23 +363,6 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     return () => window.clearTimeout(timer);
   }, [scene]);
 
-  useEffect(() => {
-    if (scene !== 2 || paused) return;
-    const timers = CRASH_LINES.map((_, index) =>
-      window.setTimeout(
-        () => setRadioStep((step) => Math.max(step, index + 1)),
-        4000 + index * 2400,
-      ),
-    );
-    return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [scene, paused]);
-
-  useEffect(() => {
-    if (scene !== 2 || crashDone || paused) return;
-    const timer = window.setTimeout(() => setCrashDone(true), 18000);
-    return () => window.clearTimeout(timer);
-  }, [scene, crashDone, paused]);
-
   const tap = (id: Tap['id']) => {
     setTapped((current) => (current.includes(id) ? current : [...current, id]));
     setLastTap(id);
@@ -239,11 +371,6 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
   const introDone = reply !== null;
   const allTapped = tapped.length === TAPS.length;
-  // Compact landscape: two entries max, so the panel stays within three
-  // rendered lines at 15px (the last line wraps to two).
-  const radioLines = compact
-    ? CRASH_LINES.slice(Math.max(0, radioStep - 2), radioStep)
-    : CRASH_LINES.slice(0, radioStep);
 
   useEffect(() => {
     if (!allTapped) return;
@@ -299,31 +426,17 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
           <img className="opening-mars" src={crashScene} alt="" />
           <div className="story-radio">
             <p className="eyebrow">
+              <span className="story-live-dot" aria-hidden="true" />
               {lang === 'en' ? 'Radio · Stardust' : '無線電 · 星塵號'}
             </p>
-            {radioLines.map((line, index) => (
-              <p
-                key={index}
-                className={`story-radio-line story-radio-${line.cat}`}
-              >
-                {line.cat === 'narrator' ? null : (
-                  <strong>{(line.cat === 'shadow' ? 'Shadow' : 'Ginger')}: </strong>
-                )}
-                <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
-              </p>
-            ))}
-            {crashDone ? (
-              <button
-                type="button"
-                className="primary-button"
-                data-testid="opening-next"
-                onClick={() => setScene(3)}
-              >
-                {lang === 'en' ? 'Continue' : '繼續'}
-              </button>
-            ) : (
-              <p className="story-wait" data-testid="opening-scene2-wait" />
-            )}
+            <DialogueSequence
+              lines={CRASH_LINES}
+              lang={lang}
+              onTerm={onTerm}
+              variant="radio"
+              cta={lang === 'en' ? 'Continue' : '繼續'}
+              onCta={() => setScene(3)}
+            />
           </div>
         </section>
       )}
@@ -333,7 +446,17 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
           <img className="story-lineup" src={lineupScene} alt="" />
           <div className="story-panel story-dialogue">
             <p className="eyebrow">{lang === 'en' ? 'Scene 3 · Three cats' : '第 3 幕 · 三隻貓'}</p>
-            <DialogueLine line={INTRO_QUESTION} lang={lang} onTerm={onTerm} />
+            <div
+              className={introDone ? 'story-past' : undefined}
+              aria-hidden={introDone}
+            >
+              <DialogueLine
+                line={INTRO_QUESTION}
+                lang={lang}
+                onTerm={onTerm}
+                interactive={!introDone}
+              />
+            </div>
             {!introDone && (
               <div className="story-replies">
                 <button
@@ -354,23 +477,15 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
                 </button>
               </div>
             )}
-            {reply && REPLY_LINES[reply].map((line, index) => (
-              <DialogueLine key={index} line={line} lang={lang} onTerm={onTerm} />
-            ))}
-            {introDone && (
-              <>
-                {INTRO_REST.map((line, index) => (
-                  <DialogueLine key={index} line={line} lang={lang} onTerm={onTerm} />
-                ))}
-                <button
-                  type="button"
-                  className="primary-button"
-                  data-testid="opening-next"
-                  onClick={() => setScene(4)}
-                >
-                  {lang === 'en' ? 'Continue' : '繼續'}
-                </button>
-              </>
+            {reply && (
+              <DialogueSequence
+                key={reply}
+                lines={[...REPLY_LINES[reply], ...INTRO_REST]}
+                lang={lang}
+                onTerm={onTerm}
+                cta={lang === 'en' ? 'Continue' : '繼續'}
+                onCta={() => setScene(4)}
+              />
             )}
           </div>
         </section>
@@ -389,23 +504,21 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
           </div>
           <div className="story-panel story-dialogue">
             <p className="eyebrow">{lang === 'en' ? 'Scene 4 · Seven days' : '第 4 幕 · 七天'}</p>
-            {MAP_LINES.map((line, index) => (
-              <DialogueLine key={index} line={line} lang={lang} onTerm={onTerm} />
-            ))}
-            <div className="story-countdown" aria-hidden="true">
-              {Array.from({ length: 7 }, (_, index) => (
-                <span key={index} className="story-day" />
-              ))}
-              <strong>7 SOLS</strong>
-            </div>
-            <button
-              type="button"
-              className="primary-button"
-              data-testid="opening-next"
-              onClick={() => setScene(5)}
-            >
-              {lang === 'en' ? 'Continue' : '繼續'}
-            </button>
+            <DialogueSequence
+              lines={MAP_LINES}
+              lang={lang}
+              onTerm={onTerm}
+              between={
+                <div className="story-countdown" aria-hidden="true">
+                  {Array.from({ length: 7 }, (_, index) => (
+                    <span key={index} className="story-day" />
+                  ))}
+                  <strong>7 SOLS</strong>
+                </div>
+              }
+              cta={lang === 'en' ? 'Continue' : '繼續'}
+              onCta={() => setScene(5)}
+            />
           </div>
         </section>
       )}
@@ -449,9 +562,12 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
           </div>
           <div className="story-panel story-tap-dialogue">
             {lastTap ? (
-              tapLines.map((line, index) => (
-                <DialogueLine key={index} line={line} lang={lang} onTerm={onTerm} />
-              ))
+              <DialogueSequence
+                key={lastTap}
+                lines={tapLines}
+                lang={lang}
+                onTerm={onTerm}
+              />
             ) : (
               <p className="muted">
                 {lang === 'en'
@@ -493,33 +609,16 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               <span style={{ width: '82%' }}>💧</span>
               <span style={{ width: '66%' }}>🛡️</span>
             </div>
-            <p className="story-final-line">
-              <strong>Silver:</strong>{' '}
-              {lang === 'en'
-                ? 'Seven Mars days. Every choice has a cost. Ready, Commander?'
-                : '七個火星日。每個選擇都有代價。準備好了嗎，指揮官？'}
-            </p>
-            <p className="story-final-line">
-              <strong>Ginger:</strong>{' '}
-              {lang === 'en'
-                ? 'Wait. Can I eat one tomato first?'
-                : '等等，我可以先吃一顆番茄嗎？'}
-            </p>
-            <p className="story-final-line">
-              <strong>Silver:</strong> {lang === 'en' ? 'No.' : '不行。'}
-            </p>
-            <p className="story-final-line">
-              <strong>Ginger:</strong>{' '}
-              {lang === 'en' ? 'That is the cost.' : '這就是代價。'}
-            </p>
-            <button
-              type="button"
-              className="primary-button start-button"
-              data-testid="opening-start"
-              onClick={onDone}
-            >
-              {lang === 'en' ? 'Start the mission' : '開始任務'}
-            </button>
+            <DialogueSequence
+              lines={READY_LINES}
+              lang={lang}
+              onTerm={onTerm}
+              variant="plain"
+              cta={lang === 'en' ? 'Start the mission' : '開始任務'}
+              ctaTestId="opening-start"
+              ctaClassName="primary-button start-button"
+              onCta={onDone}
+            />
           </div>
         </section>
       )}

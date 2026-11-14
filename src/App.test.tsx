@@ -88,6 +88,32 @@ describe('normal game', () => {
     expect(screen.getByTestId('begin-sol')).toBeTruthy();
   });
 
+  it('steps through the crash radio one line at a time', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-next'));
+
+    const current = () => screen.getByTestId('dialogue-current').textContent ?? '';
+    expect(current()).toContain('Stardust calling Mars Base');
+    expect(current()).not.toContain('My tail is on fire too');
+    expect(screen.queryByTestId('opening-next')).toBeNull();
+
+    fireEvent.click(screen.getByTestId('dialogue-next'));
+    expect(current()).toContain('My tail is on fire too');
+    expect(current()).not.toContain('Stardust calling Mars Base');
+
+    // Six lines in total: one advance is already done.
+    for (let index = 0; index < 4; index += 1) {
+      fireEvent.click(screen.getByTestId('dialogue-next'));
+    }
+    expect(current()).toContain('twelve minutes');
+    expect(screen.queryByTestId('dialogue-next')).toBeNull();
+
+    fireEvent.click(screen.getByTestId('opening-next'));
+    expect(screen.queryByTestId('opening-scene2-story')).toBeNull();
+    expect(screen.getByTestId('opening-reply-command')).toBeTruthy();
+  });
+
   it('opens the data panel with both snapshot charts', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
