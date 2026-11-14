@@ -16,6 +16,9 @@ const SPOTS = [
 interface DustMinigameProps {
   src: string;
   alt: string;
+  /** The same place swept clean, shown once every patch is gone. */
+  clearedSrc?: string;
+  clearedAlt?: string;
   lang: Lang;
   onDone: () => void;
 }
@@ -25,9 +28,17 @@ interface DustMinigameProps {
  * patch on the panels. Purely presentational — it never touches game state,
  * so the reducer, the balance sheet and the video contract are unchanged.
  */
-export function DustMinigame({ src, alt, lang, onDone }: DustMinigameProps) {
+export function DustMinigame({
+  src,
+  alt,
+  clearedSrc,
+  clearedAlt,
+  lang,
+  onDone,
+}: DustMinigameProps) {
   const [cleared, setCleared] = useState<number[]>([]);
   const left = SPOTS.length - cleared.length;
+  const sweptClean = left === 0 && Boolean(clearedSrc);
 
   const clear = (index: number) => {
     if (cleared.includes(index)) return;
@@ -40,8 +51,11 @@ export function DustMinigame({ src, alt, lang, onDone }: DustMinigameProps) {
 
   return (
     <div className="dust-game" data-testid="dust-game">
-      <div className="dust-stage">
-        <SceneStage src={src} alt={alt} />
+      <div className="dust-stage" data-testid="dust-stage" data-plate={sweptClean ? 'clean' : 'dusty'}>
+        <SceneStage
+          src={sweptClean && clearedSrc ? clearedSrc : src}
+          alt={sweptClean && clearedAlt ? clearedAlt : alt}
+        />
         {SPOTS.map((spot, index) =>
           cleared.includes(index) ? null : (
             <button

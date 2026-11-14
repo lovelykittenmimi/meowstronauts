@@ -13,6 +13,7 @@ import debriefEmpty from '../assets/generated/scenes/12-debrief-nocat.webp';
 import silverHero from '../assets/generated/scenes/20-silver-hero.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
 import shadowHeroEmpty from '../assets/generated/scenes/21-shadow-hero-nocat.webp';
+import shadowHeroSwept from '../assets/generated/scenes/21-shadow-hero-nocat-clean.webp';
 import gingerHero from '../assets/generated/scenes/22-ginger-hero.webp';
 import silverWide from '../assets/generated/scenes/26-silver-wide.webp';
 import shadowWide from '../assets/generated/scenes/27-shadow-wide.webp';
@@ -22,6 +23,16 @@ export interface EventArt {
   src: string;
   /** Cat-free plate of the same place, shown on the daily briefing. */
   briefingSrc?: string;
+  /**
+   * Dust-sweeping beat. Starts on the cat-free dusty plate; once every patch
+   * is cleared it swaps to the same place swept clean.
+   */
+  sweep?: {
+    src: string;
+    alt: Localized;
+    clearedSrc: string;
+    clearedAlt: Localized;
+  };
   alt: Localized;
 }
 
@@ -41,6 +52,18 @@ export const EVENT_ART: Record<string, EventArt> = {
   T1: {
     src: shadowHero,
     briefingSrc: shadowHeroEmpty,
+    sweep: {
+      src: shadowHeroEmpty,
+      alt: {
+        en: 'Dust on the solar panels with the outpost dome behind, no crew in frame.',
+        'zh-TW': '太陽能板積著沙塵，背後是基地圓頂，畫面中沒有貓。',
+      },
+      clearedSrc: shadowHeroSwept,
+      clearedAlt: {
+        en: 'The solar panels swept clean at dusk with the outpost dome behind, no crew in frame.',
+        'zh-TW': '黃昏時清理乾淨的太陽能板，背後是基地圓頂，畫面中沒有貓。',
+      },
+    },
     alt: {
       en: 'Shadow in a dark suit standing on dusty solar panels at dusk, the outpost dome behind him.',
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
@@ -50,6 +73,18 @@ export const EVENT_ART: Record<string, EventArt> = {
   P1: {
     src: shadowHero,
     briefingSrc: shadowHeroEmpty,
+    sweep: {
+      src: shadowHeroEmpty,
+      alt: {
+        en: 'Dust on the solar panels with the outpost dome behind, no crew in frame.',
+        'zh-TW': '太陽能板積著沙塵，背後是基地圓頂，畫面中沒有貓。',
+      },
+      clearedSrc: shadowHeroSwept,
+      clearedAlt: {
+        en: 'The solar panels swept clean at dusk with the outpost dome behind, no crew in frame.',
+        'zh-TW': '黃昏時清理乾淨的太陽能板，背後是基地圓頂，畫面中沒有貓。',
+      },
+    },
     alt: {
       en: 'Shadow in a dark suit standing on dusty solar panels at dusk, the outpost dome behind him.',
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',

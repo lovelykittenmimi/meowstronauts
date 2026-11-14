@@ -484,6 +484,23 @@
       "note": "background plate candidate (no cats), 2026-11-14"
     },
     {
+      "file": "scenes/21-shadow-hero-nocat-clean.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "21.jpeg (no-cat plate, swept clean)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 62526,
+      "quality": 82,
+      "alt": {
+        "en": "The solar panel array swept clean at dusk with the outpost dome behind, no crew in frame.",
+        "zh-TW": "黃昏時清理乾淨的太陽能陣列，背後是基地圓頂，畫面中沒有貓。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14; same scene as 21 with the dust swept off; shows as the dust game's cleared state"
+    },
+    {
       "file": "cutouts/14-silver-turnaround.webp",
       "type": "cutout",
       "background": "transparent",

@@ -265,8 +265,10 @@ export function EventCardView({
 
       {showDustGame && art && pendingChoice && (
         <DustMinigame
-          src={art.src}
-          alt={art.alt[lang]}
+          src={art.sweep?.src ?? art.src}
+          alt={(art.sweep?.alt ?? art.alt)[lang]}
+          clearedSrc={art.sweep?.clearedSrc}
+          clearedAlt={art.sweep?.clearedAlt[lang]}
           lang={lang}
           onDone={() => onChoose(pendingChoice)}
         />
