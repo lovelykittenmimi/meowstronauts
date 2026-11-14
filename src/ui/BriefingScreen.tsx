@@ -1,10 +1,17 @@
 import { briefForSol } from '../game/daily';
+import { briefingArtFor } from '../game/eventArt';
 import { getKnowledgeCard } from '../game/knowledge';
-import type { EventCard, GameState } from '../game/types';
+import type { EventCard, GameState, Localized } from '../game/types';
 import { t } from '../i18n';
 import keyArt from '../assets/generated/scenes/01-keyart.webp';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
+
+/** Only shown if a future event has no art entry yet. */
+const KEY_ART_ALT: Localized = {
+  en: 'Three cat astronauts on a rocky Mars ridge at dawn, looking toward the Hope-1 outpost.',
+  'zh-TW': '三隻貓太空人黎明時站在火星岩脊上，望向希望一號基地。',
+};
 
 interface BriefingScreenProps {
   state: GameState;
@@ -18,17 +25,15 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
   const brief = briefForSol(state.sol);
   const isCold = state.weather.tags.includes('cold_snap') || state.weather.tags.includes('severe_cold');
 
-  // The briefing is the recurring daily cover: the key art keeps the same
-  // crew-and-base shot every sol. Event cards still show their own scene.
+  // The briefing previews the day's event: the same place the card will show,
+  // with the cat-free plate when the event has one.
+  const art = briefingArtFor(event.id);
+
   return (
     <main className="briefing-shell">
       <SceneStage
-        src={keyArt}
-        alt={
-          lang === 'en'
-            ? 'Three cat astronauts on a rocky Mars ridge at dawn, looking toward the Hope-1 outpost.'
-            : '三隻貓太空人黎明時站在火星岩脊上，望向希望一號基地。'
-        }
+        src={art?.src ?? keyArt}
+        alt={(art?.alt ?? KEY_ART_ALT)[lang]}
       />
       <section className="briefing-card">
         <div className="briefing-body">

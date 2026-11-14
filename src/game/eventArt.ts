@@ -23,10 +23,13 @@ import supplyCrate from '../assets/generated/scenes/35-supply-crate.webp';
 export interface EventArt {
   src: string;
   /**
-   * Cat-free plate of the same place. Kept for per-event briefing art; the
-   * daily briefing currently shows the key art instead.
+   * Cat-free plate of the same place, used by the daily briefing. The card
+   * itself shows `src` with the crew in frame; the briefing sets the scene
+   * before the crew steps in.
    */
   briefingSrc?: string;
+  /** Alt text for `briefingSrc`; `alt` describes the card picture instead. */
+  briefingAlt?: Localized;
   /**
    * Dust-sweeping beat. Starts on the cat-free dusty plate; once every patch
    * is cleared it swaps to the same place swept clean.
@@ -56,6 +59,10 @@ export const EVENT_ART: Record<string, EventArt> = {
   T1: {
     src: shadowHero,
     briefingSrc: shadowHeroEmpty,
+    briefingAlt: {
+      en: 'The solar panel array at dusk with dust on the panels and the outpost dome behind, no crew in frame.',
+      'zh-TW': '黃昏的太陽能陣列，板面覆著沙塵，背後是基地圓頂，畫面中沒有貓。',
+    },
     sweep: {
       src: shadowHeroEmpty,
       alt: {
@@ -79,6 +86,10 @@ export const EVENT_ART: Record<string, EventArt> = {
   P1: {
     src: nightRepair,
     briefingSrc: nightRepairEmpty,
+    briefingAlt: {
+      en: 'A solar panel array under the night sky with a repair drone and a portable light pod, no crew.',
+      'zh-TW': '夜空下的太陽能陣列，有維修無人機與行動燈具，畫面中沒有貓。',
+    },
     sweep: {
       src: shadowHeroEmpty,
       alt: {
@@ -100,6 +111,10 @@ export const EVENT_ART: Record<string, EventArt> = {
   P4: {
     src: coldPatrol,
     briefingSrc: coldPatrolEmpty,
+    briefingAlt: {
+      en: 'A frost-dusted Martian plain with fresh rover tracks and a thin dust devil at dawn; no rover in frame.',
+      'zh-TW': '覆霜的火星平原，有新的探測車車轍與遠方細長塵捲風；畫面中沒有探測車。',
+    },
     alt: {
       en: 'Shadow drives a rover across a frost-dusted plain with Ginger beside him, a dust devil spinning in the distance.',
       'zh-TW': '暗影開著探測車載著金桔駛過結霜的平原，遠處有塵捲風。',
@@ -125,6 +140,10 @@ export const EVENT_ART: Record<string, EventArt> = {
   L3: {
     src: debrief,
     briefingSrc: debriefEmpty,
+    briefingAlt: {
+      en: 'An empty debrief room with a floating holographic report above a low table.',
+      'zh-TW': '空無一貓的任務覆盤室，低桌上空浮著全像報告。',
+    },
     alt: {
       en: 'The three cats gathered around a glowing holographic display in the habitat.',
       'zh-TW': '三隻貓圍在基地裡發光的全像顯示器前。',
@@ -134,6 +153,10 @@ export const EVENT_ART: Record<string, EventArt> = {
   S1: {
     src: controlRoom,
     briefingSrc: controlRoomEmpty,
+    briefingAlt: {
+      en: 'An empty habitat control room with a curved holographic display and a tomato crate.',
+      'zh-TW': '空無一貓的基地控制室，有弧形全像顯示器與一箱番茄。',
+    },
     alt: {
       en: 'The three cats in the control room beneath a wall display showing Mars weather and solar alert icons.',
       'zh-TW': '三隻貓在控制室裡，牆上大螢幕顯示火星天氣與太陽警示圖示。',
@@ -159,6 +182,10 @@ export const EVENT_ART: Record<string, EventArt> = {
   F1: {
     src: greenhouse,
     briefingSrc: greenhouseEmpty,
+    briefingAlt: {
+      en: 'An empty greenhouse with tomato seedlings, a robotic watering arm and a ripe tomato on the counter.',
+      'zh-TW': '空無一貓的溫室，番茄幼苗、自動澆水臂與檯面上的一顆熟番茄。',
+    },
     alt: {
       en: 'Ginger beside a tomato plant and a watering arm in the greenhouse under pink grow lights.',
       'zh-TW': '金桔在溫室裡守著番茄植株與澆水機械臂，頭頂是粉紫色植物燈。',
@@ -192,4 +219,19 @@ export const EVENT_ART: Record<string, EventArt> = {
 
 export function artForEvent(eventId: string): EventArt | undefined {
   return EVENT_ART[eventId];
+}
+
+/**
+ * The daily briefing previews the day's event: use the cat-free plate when
+ * one exists, otherwise the card picture itself.
+ */
+export function briefingArtFor(
+  eventId: string,
+): { src: string; alt: Localized } | undefined {
+  const art = EVENT_ART[eventId];
+  if (!art) return undefined;
+  return {
+    src: art.briefingSrc ?? art.src,
+    alt: art.briefingSrc ? art.briefingAlt ?? art.alt : art.alt,
+  };
 }
