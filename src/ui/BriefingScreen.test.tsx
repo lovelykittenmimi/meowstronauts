@@ -11,6 +11,7 @@ function renderBriefing(
   eventId: string,
   sol = 4,
   onHopPractice?: () => void,
+  onFoodPractice?: () => void,
 ) {
   const event = EVENT_BY_ID.get(eventId);
   if (!event) throw new Error(`unknown event ${eventId}`);
@@ -21,6 +22,7 @@ function renderBriefing(
       onBegin={() => {}}
       onTerm={() => {}}
       onHopPractice={onHopPractice}
+      onFoodPractice={onFoodPractice}
     />,
   );
 }
@@ -73,5 +75,27 @@ describe('low-gravity hop entry', () => {
     renderBriefing('T1', 2, () => {});
 
     expect(screen.queryByTestId('hop-practice')).toBeNull();
+  });
+});
+
+describe('space food flip entry', () => {
+  it('offers the food flip on Sol 7 and calls back', () => {
+    let opened = 0;
+    renderBriefing('T1', 7, undefined, () => {
+      opened += 1;
+    });
+
+    const button = screen.getByTestId('food-practice');
+    expect(button.textContent).toContain('space food flip');
+    fireEvent.click(button);
+    expect(opened).toBe(1);
+  });
+
+  it('keeps the food flip out of earlier sol briefings', () => {
+    renderBriefing('T1', 1, undefined, () => {});
+    expect(screen.queryByTestId('food-practice')).toBeNull();
+
+    renderBriefing('T1', 6, undefined, () => {});
+    expect(screen.queryByTestId('food-practice')).toBeNull();
   });
 });

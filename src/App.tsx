@@ -1,10 +1,12 @@
 import { useEffect, useReducer, useState } from 'react';
+import { FOOD_CAP } from './game/balance';
 import { drawEventFor } from './game/deck';
 import { KNOWLEDGE_IDS } from './game/knowledge';
 import { createInitialState, gameReducer } from './game/reducer';
 import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
 import LanderOverlay from './minigames/LanderOverlay';
+import SpaceFoodFlip from './minigames/food/SpaceFoodFlip';
 import LowGravityHop from './minigames/hop/LowGravityHop';
 import { Backpack } from './ui/Backpack';
 import { BriefingScreen } from './ui/BriefingScreen';
@@ -68,6 +70,7 @@ export default function App() {
   const [viewSol, setViewSol] = useState<number | null>(null);
   const [landerOpen, setLanderOpen] = useState(false);
   const [hopOpen, setHopOpen] = useState(false);
+  const [foodOpen, setFoodOpen] = useState(false);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -233,6 +236,7 @@ export default function App() {
           onSelect={(sol) => setViewSol(sol < state.sol ? sol : null)}
           onLander={() => setLanderOpen(true)}
           onHop={videoMode ? undefined : () => setHopOpen(true)}
+          onFood={videoMode ? undefined : () => setFoodOpen(true)}
         />
       )}
 
@@ -252,6 +256,7 @@ export default function App() {
               onBegin={(eventId) => dispatch({ type: 'OPEN_EVENT', eventId })}
               onTerm={openCard}
               onHopPractice={videoMode ? undefined : () => setHopOpen(true)}
+              onFoodPractice={videoMode ? undefined : () => setFoodOpen(true)}
             />
           )}
 
@@ -301,6 +306,16 @@ export default function App() {
           rewarded={state.hopRewarded}
           onComplete={(samples) => dispatch({ type: 'COMPLETE_HOP', samples })}
           onExit={() => setHopOpen(false)}
+        />
+      )}
+
+      {foodOpen && (
+        <SpaceFoodFlip
+          lang={state.lang}
+          rewarded={state.foodGameRewarded}
+          foodFull={state.resources.food >= FOOD_CAP}
+          onComplete={(pairs) => dispatch({ type: 'COMPLETE_FOOD_GAME', pairs })}
+          onExit={() => setFoodOpen(false)}
         />
       )}
     </div>

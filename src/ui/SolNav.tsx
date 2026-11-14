@@ -13,6 +13,8 @@ interface SolNavProps {
   onLander?: () => void;
   /** Opens the Sol 1 low-gravity practice; omitted in video mode. */
   onHop?: () => void;
+  /** Opens the Sol 7 space-food practice; omitted in video mode. */
+  onFood?: () => void;
 }
 
 const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
@@ -30,6 +32,7 @@ export function SolNav({
   onSelect,
   onLander,
   onHop,
+  onFood,
 }: SolNavProps) {
   return (
     <nav className="sol-nav" aria-label={t(lang, 'solnav.aria')} data-testid="sol-nav">
@@ -74,6 +77,19 @@ export function SolNav({
         >
           <span aria-hidden="true">🦘</span>
           <span className="sol-nav-label">{t(lang, 'solnav.hop')}</span>
+        </button>
+      )}
+      {onFood && (
+        <button
+          type="button"
+          className="sol-nav-button sol-nav-food"
+          data-testid="food-open"
+          aria-label={t(lang, 'solnav.food')}
+          title={t(lang, 'solnav.food')}
+          onClick={onFood}
+        >
+          <span aria-hidden="true">🍽️</span>
+          <span className="sol-nav-label">{t(lang, 'solnav.food')}</span>
         </button>
       )}
     </nav>

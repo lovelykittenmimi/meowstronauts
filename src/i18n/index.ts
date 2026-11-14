@@ -44,6 +44,10 @@ export const STRINGS = {
     en: 'Try the low-gravity hop',
     'zh-TW': '試試低重力跳躍',
   },
+  'briefing.foodGame': {
+    en: 'Try the space food flip',
+    'zh-TW': '試試太空食物翻卡',
+  },
   'briefing.snapshot': {
     en: 'Historical snapshot, not live data or a forecast.',
     'zh-TW': '歷史快照，不是即時資料，也不是預報。',
@@ -53,6 +57,7 @@ export const STRINGS = {
   'solnav.locked': { en: 'Not reached yet', 'zh-TW': '還沒進行到這一天' },
   'solnav.lander': { en: 'Landing practice', 'zh-TW': '著陸練習' },
   'solnav.hop': { en: 'Low-gravity hop', 'zh-TW': '低重力跳躍' },
+  'solnav.food': { en: 'Space food flip', 'zh-TW': '太空食物翻卡' },
   'review.eyebrow': { en: 'Sol review', 'zh-TW': '火星日回顧' },
   'review.chose': { en: 'Your crew chose', 'zh-TW': '你們選了' },
   'review.back': { en: 'Back to Sol {sol}', 'zh-TW': '回到第 {sol} 日' },

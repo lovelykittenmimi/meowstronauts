@@ -12,6 +12,12 @@ export const BACKPACK_SIZE = 20;
 export const HOP_SAMPLE_TOTAL = 3;
 export const HOP_REWARD_SCIENCE = 1;
 
+/** Optional Sol 7 practice: match all six food pairs for a one-time bonus. */
+export const FOOD_PAIR_TOTAL = 6;
+export const FOOD_GAME_REWARD_FOOD = 1;
+/** Food cannot go above this; the practice bonus waits until there is room. */
+export const FOOD_CAP = 12;
+
 export const INITIAL_RESOURCES: Record<Difficulty, Resources> = {
   cadet: {
     power: 80,
@@ -57,7 +63,7 @@ const CAPS: Record<ResourceKey, number> = {
   power: 100,
   lifeSupport: 100,
   shield: 100,
-  food: 12,
+  food: FOOD_CAP,
   health: 100,
   science: Number.POSITIVE_INFINITY,
 };

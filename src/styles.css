@@ -592,7 +592,8 @@ h1 {
   text-underline-offset: 3px;
 }
 
-.hop-practice-button {
+.hop-practice-button,
+.food-practice-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -606,7 +607,8 @@ h1 {
   font-weight: 800;
 }
 
-.hop-practice-button:hover {
+.hop-practice-button:hover,
+.food-practice-button:hover {
   background: #d3e9e6;
 }
 
@@ -662,7 +664,8 @@ h1 {
 
 /* The practice games sit at the end of the row as actions, not sols. */
 .sol-nav-lander,
-.sol-nav-hop {
+.sol-nav-hop,
+.sol-nav-food {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -676,6 +679,11 @@ h1 {
 .sol-nav-hop {
   margin-left: 2px;
   background: #f3dfb8;
+}
+
+.sol-nav-food {
+  margin-left: 2px;
+  background: #e9e2f6;
 }
 
 /* Short landscape: keep the row slim so the card keeps its height. */
@@ -696,16 +704,18 @@ h1 {
     margin-left: 6px;
   }
 
-  /* Two practice buttons plus seven sols do not fit with labels. */
+  /* Three practice buttons plus seven sols do not fit with labels. */
   .sol-nav-label {
     display: none;
   }
 
-  .sol-nav-hop {
+  .sol-nav-hop,
+  .sol-nav-food {
     margin-left: 0;
   }
 
-  .hop-practice-button {
+  .hop-practice-button,
+  .food-practice-button {
     margin-top: 8px;
     padding: 5px 10px;
     font-size: 12px;

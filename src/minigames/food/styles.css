@@ -1,0 +1,672 @@
+/* Space food flip — all selectors are .food-* so the shared styles stay untouched. */
+
+.food-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(232, 163, 61, 0.16), transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(49, 122, 116, 0.2), transparent 46%),
+    #0b1320;
+  color: var(--paper);
+}
+
+.food-app {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.food-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding:
+    max(8px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    8px
+    max(12px, env(safe-area-inset-left));
+  background: rgba(8, 14, 26, 0.94);
+  border-bottom: 2px solid rgba(247, 243, 234, 0.16);
+}
+
+.food-heading {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.food-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.food-title {
+  margin: 0;
+  font-size: clamp(15px, 2.4vh, 21px);
+  line-height: 1.15;
+  color: var(--paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.food-badge {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--silver);
+  color: #0e1738;
+  font-size: clamp(10px, 1.7vh, 12px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.food-close {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid rgba(247, 243, 234, 0.5);
+  background: rgba(247, 243, 234, 0.08);
+  color: var(--paper);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.food-close:hover {
+  background: rgba(247, 243, 234, 0.2);
+}
+
+.food-close:focus-visible,
+.food-button:focus-visible,
+.food-card:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.food-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px max(10px, env(safe-area-inset-right)) 10px
+    max(10px, env(safe-area-inset-left));
+}
+
+/* ---------- HUD ---------- */
+
+.food-hud {
+  flex: none;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(12, 20, 36, 0.78);
+  border: 2px solid rgba(247, 243, 234, 0.25);
+  color: var(--paper);
+  font-size: clamp(12px, 1.8vh, 14px);
+}
+
+.food-hud-label {
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.food-hud-count {
+  font-weight: 800;
+  color: var(--amber);
+}
+
+.food-hud-divider {
+  opacity: 0.45;
+}
+
+/* ---------- Card board ---------- */
+
+.food-board {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: clamp(5px, 1.2vh, 10px);
+  outline: none;
+}
+
+.food-card {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: clamp(4px, 1vh, 10px);
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: #16213a;
+  color: var(--ink);
+  font: inherit;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    background-color 120ms ease,
+    border-color 120ms ease;
+}
+
+.food-card:hover:not(.food-card-matched) {
+  transform: translateY(-2px);
+  border-color: var(--amber);
+}
+
+.food-card-up {
+  background: var(--paper);
+  animation: food-pop 160ms ease-out;
+}
+
+.food-card-food.food-card-up {
+  background: #fff5e2;
+}
+
+.food-card-matched {
+  border-color: var(--teal);
+  background: #e4f1ef;
+  cursor: default;
+}
+
+@keyframes food-pop {
+  from {
+    transform: scale(0.94);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.food-card-back {
+  font-size: clamp(20px, 4.6vh, 40px);
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.food-card-tag {
+  font-size: clamp(8px, 1.2vh, 10px);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.food-card-emoji {
+  font-size: clamp(18px, 3.6vh, 32px);
+  line-height: 1;
+}
+
+.food-card-name {
+  font-size: clamp(10px, 1.75vh, 15px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.food-card-fact {
+  font-size: clamp(9px, 1.55vh, 13.5px);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
+}
+
+.food-hint {
+  flex: none;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(11px, 1.6vh, 13px);
+  color: rgba(247, 243, 234, 0.75);
+}
+
+/* ---------- Panels ---------- */
+
+.food-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(700px, calc(100% - 24px));
+  max-height: calc(100% - 20px);
+  overflow: auto;
+  padding: clamp(14px, 2.4vh, 26px);
+  border: 3px solid var(--navy);
+  border-radius: 20px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  animation: food-panel-in 180ms ease-out;
+}
+
+@keyframes food-panel-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.food-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(170px, 0.85fr);
+  grid-template-areas:
+    'copy art'
+    'actions actions';
+  gap: 10px 18px;
+}
+
+.food-intro-copy {
+  grid-area: copy;
+  min-width: 0;
+}
+
+.food-intro-art {
+  grid-area: art;
+  align-self: center;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.food-intro-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: #1b2348;
+  font-size: clamp(22px, 4vh, 34px);
+}
+
+.food-intro .food-panel-actions {
+  grid-area: actions;
+}
+
+.food-kicker {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.food-panel-title {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 3.6vh, 30px);
+  line-height: 1.1;
+  color: var(--navy);
+}
+
+.food-fact-title {
+  margin: 12px 0 4px;
+  font-size: clamp(13px, 1.9vh, 15px);
+  color: var(--navy);
+}
+
+.food-body {
+  margin: 0 0 10px;
+  font-size: clamp(13px, 1.8vh, 15px);
+  line-height: 1.5;
+}
+
+.food-facts {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: clamp(12px, 1.7vh, 14px);
+  line-height: 1.45;
+}
+
+.food-facts li::marker {
+  color: var(--amber-ink);
+}
+
+.food-reward {
+  margin: 0;
+  padding: 8px 10px;
+  border-left: 4px solid var(--amber);
+  border-radius: 8px;
+  background: #fdf0d6;
+  font-size: clamp(12px, 1.7vh, 13px);
+  font-weight: 600;
+}
+
+.food-reward-won {
+  border-left-color: var(--teal);
+  background: #e4f1ef;
+}
+
+.food-panel-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+  padding: 8px 0 2px;
+  background: var(--paper);
+}
+
+.food-button {
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.food-button:hover {
+  background: #eef1f6;
+}
+
+.food-primary {
+  background: var(--amber);
+}
+
+.food-primary:hover {
+  background: #f0b45a;
+}
+
+/* ---------- Result ---------- */
+
+.food-result {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.food-result-body {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.food-result .food-panel-actions {
+  position: static;
+  flex: none;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 2px solid var(--silver);
+}
+
+.food-result-stats {
+  display: flex;
+  gap: 10px;
+  margin: 4px 0 12px;
+}
+
+.food-stat {
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  border: 2px solid var(--navy);
+  border-radius: 14px;
+  background: #eef1f6;
+}
+
+.food-stat-value {
+  font-size: clamp(20px, 3.4vh, 26px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--navy);
+}
+
+.food-stat-label {
+  font-size: 12px;
+  color: #46536a;
+}
+
+.food-result-facts {
+  margin-top: 6px;
+}
+
+.food-sources {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.food-sources-label {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.food-sources ul {
+  margin: 3px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 2px;
+}
+
+.food-sources a {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.food-sources a:hover {
+  color: var(--rust);
+}
+
+/* ---------- Toast and live region ---------- */
+
+.food-toast {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(14px, 4vh, 30px);
+  transform: translateX(-50%);
+  max-width: min(560px, calc(100% - 24px));
+  margin: 0;
+  padding: 10px 16px;
+  border: 2px solid rgba(232, 163, 61, 0.6);
+  border-radius: 14px;
+  background: rgba(12, 20, 36, 0.9);
+  color: var(--paper);
+  text-align: center;
+  font-size: clamp(12px, 1.8vh, 14px);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.food-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Narrow and short screens ---------- */
+
+@media (max-width: 640px) and (min-height: 480px) {
+  .food-board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+  }
+
+  .food-intro {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'actions';
+  }
+
+  .food-intro-art {
+    display: none;
+  }
+}
+
+@media (max-height: 520px) {
+  .food-header {
+    gap: 8px;
+    padding-bottom: 5px;
+  }
+
+  .food-eyebrow {
+    font-size: 9px;
+  }
+
+  .food-close {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .food-badge {
+    padding: 3px 8px;
+  }
+
+  .food-stage {
+    gap: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .food-hud {
+    padding: 3px 10px;
+  }
+
+  .food-card {
+    gap: 1px;
+    padding: 3px;
+    border-radius: 9px;
+  }
+
+  .food-card-tag {
+    display: none;
+  }
+
+  .food-card-fact {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+
+  .food-hint {
+    display: none;
+  }
+
+  .food-panel {
+    padding: 11px 14px;
+    border-radius: 16px;
+    max-height: calc(100% - 12px);
+  }
+
+  .food-intro {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'actions';
+    gap: 6px;
+  }
+
+  .food-intro-art,
+  .food-intro .food-facts {
+    display: none;
+  }
+
+  .food-panel-title {
+    margin-bottom: 5px;
+    font-size: 20px;
+  }
+
+  .food-body {
+    margin-bottom: 6px;
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .food-reward {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .food-button {
+    min-height: 38px;
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .food-panel-actions {
+    gap: 8px;
+    padding-top: 5px;
+  }
+
+  .food-result-stats {
+    margin-bottom: 8px;
+  }
+
+  .food-stat {
+    padding: 5px 9px;
+  }
+
+  .food-stat-value {
+    font-size: 18px;
+  }
+
+  .food-result-facts {
+    margin-top: 8px;
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .food-toast {
+    bottom: 10px;
+    padding: 7px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .food-panel,
+  .food-card-up {
+    animation: none;
+  }
+
+  .food-card {
+    transition: none;
+  }
+
+  .food-card:hover:not(.food-card-matched) {
+    transform: none;
+  }
+}

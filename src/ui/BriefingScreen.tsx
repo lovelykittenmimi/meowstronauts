@@ -20,6 +20,8 @@ interface BriefingScreenProps {
   onTerm: (cardId: string) => void;
   /** Optional Sol 1 practice run; other sols do not show the button. */
   onHopPractice?: () => void;
+  /** Optional Sol 7 practice run; other sols do not show the button. */
+  onFoodPractice?: () => void;
 }
 
 export function BriefingScreen({
@@ -28,6 +30,7 @@ export function BriefingScreen({
   onBegin,
   onTerm,
   onHopPractice,
+  onFoodPractice,
 }: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
@@ -93,6 +96,18 @@ export function BriefingScreen({
           >
             <span aria-hidden="true">🦘</span>
             {t(lang, 'briefing.hop')}
+          </button>
+        )}
+
+        {state.sol === 7 && onFoodPractice && (
+          <button
+            type="button"
+            className="food-practice-button"
+            data-testid="food-practice"
+            onClick={onFoodPractice}
+          >
+            <span aria-hidden="true">🍽️</span>
+            {t(lang, 'briefing.foodGame')}
           </button>
         )}
         </div>
