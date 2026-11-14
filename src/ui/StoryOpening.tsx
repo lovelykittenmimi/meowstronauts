@@ -56,6 +56,9 @@ const CRASH_LINES: Line[] = [
   { cat: 'narrator', text: l('The storm knocked out the antenna. Radio delay to Earth is about twelve minutes.', '風暴撞壞了天線。與地球的無線電通訊單向延遲約十二分鐘。') },
 ];
 
+// Index of "Then they hit us." — the clip starts when this line appears.
+const CRASH_VIDEO_LINE = 4;
+
 interface NasaShot {
   key: string;
   src: string;
@@ -66,8 +69,9 @@ interface NasaShot {
 }
 
 // Real NASA imagery before the crash clip. Durations produce the 5-second
-// solar-storm -> Mars -> Gale approach; when it ends the crash clip starts
-// from 0 s, so no frame of the clip is ever covered.
+// solar-storm -> Mars -> Gale approach; the last still then holds while the
+// radio is read, and the clip starts from 0 s at "Then they hit us.", so no
+// frame of the clip is ever covered.
 const NASA_SHOTS: NasaShot[] = [
   {
     key: 'flare',
@@ -354,6 +358,7 @@ interface DialogueSequenceProps {
   ctaTestId?: string;
   ctaClassName?: string;
   between?: ReactNode;
+  onStep?: (step: number) => void;
 }
 
 /**
@@ -371,11 +376,16 @@ function DialogueSequence({
   ctaTestId = 'opening-next',
   ctaClassName = 'primary-button',
   between,
+  onStep,
 }: DialogueSequenceProps) {
   const [step, setStep] = useState(0);
   const current = lines[step];
   const previous = step > 0 ? lines[step - 1] : null;
   const isLast = step === lines.length - 1;
+
+  useEffect(() => {
+    onStep?.(step);
+  }, [onStep, step]);
 
   const renderLine = (line: Line, past: boolean) => {
     if (variant === 'radio') {
@@ -473,6 +483,9 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const reduceMotion = usePrefersReducedMotion();
   const [nasaShot, setNasaShot] = useState(0);
   const [nasaDone, setNasaDone] = useState(reduceMotion);
+  const [crashStep, setCrashStep] = useState(0);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [videoBlocked, setVideoBlocked] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const crashStarted = useRef(false);
   const [landerPromptOpen, setLanderPromptOpen] = useState(false);
@@ -512,6 +525,9 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     if (!video) return;
 
     if (video.paused) {
+      // A manual Play replaces the scripted start, so reaching the line later
+      // does not yank the clip back to 0 s.
+      crashStarted.current = true;
       if (video.ended) video.currentTime = 0;
       const playback = video.play?.();
       if (playback) void playback.catch(() => undefined);
@@ -562,17 +578,21 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     askLander();
   }, [scene, reduceMotion, nasaDone, askLander]);
 
-  // After the montage, play the clip from its first frame. Only once:
-  // opening and closing a knowledge card must not restart the clip.
+  // After the montage, the last still holds and the clip stays paused. It
+  // starts from its first frame when the radio reaches "Then they hit us."
+  // Only once: opening and closing a knowledge card must not restart it.
   useEffect(() => {
     if (!nasaDone || reduceMotion || paused || crashStarted.current) return;
+    if (crashStep < CRASH_VIDEO_LINE) return;
     const video = videoRef.current;
     if (!video) return;
     crashStarted.current = true;
     video.currentTime = 0;
     const playback = video.play?.();
-    if (playback) void playback.catch(() => undefined);
-  }, [nasaDone, reduceMotion, paused]);
+    // Autoplay can be refused (e.g. iPhone Low Power Mode); then the player
+    // gets a Play button that starts the clip on tap.
+    if (playback) void playback.catch(() => setVideoBlocked(true));
+  }, [nasaDone, reduceMotion, paused, crashStep]);
 
   return (
     <main
@@ -636,7 +656,10 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             aria-hidden="true"
             tabIndex={-1}
             disablePictureInPicture
-            onPlay={() => setVideoPlaying(true)}
+            onPlay={() => {
+              setVideoPlaying(true);
+              setVideoStarted(true);
+            }}
             onPause={() => setVideoPlaying(false)}
             onEnded={() => {
               setVideoPlaying(false);
@@ -644,7 +667,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               askLander();
             }}
           />
-          {!nasaDone && (
+          {!reduceMotion && (!nasaDone || !videoStarted) && (
             <div className="nasa-intro" data-testid="opening-scene2-intro">
               {NASA_SHOTS.map((shot, index) => (
                 <figure
@@ -668,7 +691,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               ))}
             </div>
           )}
-          {nasaDone && (
+          {nasaDone && (videoStarted || videoBlocked || reduceMotion) && (
             <button
               type="button"
               className="ghost-button story-video-toggle"
@@ -695,6 +718,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               lang={lang}
               onTerm={onTerm}
               variant="radio"
+              onStep={setCrashStep}
               cta={lang === 'en' ? 'Continue' : '繼續'}
               onCta={() => setScene(3)}
             />

@@ -2087,7 +2087,8 @@ h1 {
 
 .story-video-toggle {
   position: absolute;
-  top: clamp(10px, 2vw, 18px);
+  /* Below the NASA credit chip, which stays visible while a still holds. */
+  top: clamp(46px, 5vw, 56px);
   left: clamp(10px, 2vw, 18px);
   z-index: 6;
   min-width: 44px;

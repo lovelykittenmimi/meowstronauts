@@ -98,7 +98,8 @@ describe('normal game', () => {
     expect(video.muted).toBe(true);
     expect(video.getAttribute('poster')).toBeTruthy();
 
-    // The NASA montage plays first; the clip waits, then starts from 0 s.
+    // The NASA montage plays first; the clip waits for the montage and for
+    // the "Then they hit us." line, then starts from 0 s.
     expect(screen.getByTestId('opening-scene2-intro')).toBeTruthy();
     expect(screen.getByTestId('nasa-shot-flare').className).toContain('is-current');
     expect(screen.getByText('NASA / SDO')).toBeTruthy();

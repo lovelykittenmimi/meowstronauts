@@ -16,8 +16,9 @@ these are 1600 px WebP versions for the game build.
 - The CME still is cropped to a 16:9 band through the sun. The SDO and Mars
   globes stay square and are letterboxed on black; do not crop the flare limb.
 - Scene 2 shows these in order (flare → CME → Mars → Gale wide/mid/close) for
-  about 5 s. Since 2026-11-14 the crash clip waits until the montage ends and
-  then plays from 0 s, so the stills never cover the clip. Credits are rendered
-  as HTML captions.
+  about 5 s, then the last still holds behind the radio dialogue. Since
+  2026-11-14 the crash clip waits for the montage to end and for the radio to
+  reach "Then they hit us.", then plays from 0 s, so the stills never cover the
+  clip. Credits are rendered as HTML captions.
 - Not NASA footage of the fictional crash. The on-screen disclosure still says
   the crash is a training simulation.
