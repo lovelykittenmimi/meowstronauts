@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-12（新增 §0.4 生成批次清單）
+> 最後更新：2026-11-14（全部 prompt 已出圖；新增 §0.6 產出結果、§7 成品路徑）
 
 ---
 
@@ -37,22 +37,22 @@
 ### 0.4 11/12 生成批次清單（給 GEM 用）
 
 > 02–04 是既有參考圖，不重新生成。實際要生成 27 張，加上 3 張參考圖＝30。
-> **今天生成的圖是參考與測試素材；遊戲內正式美術在 11/14 09:00 後用同一批 prompt 重出並挑選**（見 `brand/style-guide.md` 5.5）。
+> 2026-11-14：本表批次已全部出圖，網頁用成品與路徑見 §0.6；本節保留 11/12 的批次規劃紀錄。
 
 | 批次 | 張數 | 編號 | 目的 | 完成 |
 |---|---:|---|---|---|
-| A1 角色穩定 | 6 | 14、15、16、17、18、19 | 六視圖＋表情表；先確認三隻貓不走鐘 | [ ] |
-| A2 對話特寫 | 3 | 23、24、25 | 3:4 頭像，測裁切與眼神 | [ ] |
-| B1 主視覺 | 4 | 01、05、06、07 | 標題、團隊、迫降、基地外觀 | [ ] |
-| B2 場景 | 6 | 08、09、10、11、12、13 | 控制室、溫室、夜修、低溫、覆盤、結局 | [ ] |
-| B3 英雄／遠景 | 6 | 20、21、22、26、27、28 | 低角度與高角度各三張 | [ ] |
-| B4 故事板 | 1 | 29 | 開場六格 | [ ] |
-| C OG 卡 | 1 | 30 | 最後做，等主視覺定稿 | [ ] |
+| A1 角色穩定 | 6 | 14、15、16、17、18、19 | 六視圖＋表情表；先確認三隻貓不走鐘 | [x] |
+| A2 對話特寫 | 3 | 23、24、25 | 3:4 頭像，測裁切與眼神 | [x] |
+| B1 主視覺 | 4 | 01、05、06、07 | 標題、團隊、迫降、基地外觀 | [x] |
+| B2 場景 | 6 | 08、09、10、11、12、13 | 控制室、溫室、夜修、低溫、覆盤、結局 | [x] |
+| B3 英雄／遠景 | 6 | 20、21、22、26、27、28 | 低角度與高角度各三張 | [x] |
+| B4 故事板 | 1 | 29 | 開場六格 | [x]（實際 16:9） |
+| C OG 卡 | 1 | 30 | 最後做，等主視覺定稿 | [ ] 暫用 11/11 版 |
 
 **執行順序**
 
 1. A1 → 檢查第 8 節一致性清單；有任何一隻走鐘，先修 prompt 重出，不要往下做。
-2. A2 → B1 → B2 → B3 → B4；每批做完立刻挑圖、改名、放進 `docs/assets/generated/`（暫存），不要等到最後一次挑。
+2. A2 → B1 → B2 → B3 → B4；每批做完立刻挑圖、改名、放進 `src/assets/generated/`，不要等到最後一次挑。
 3. C 最後做；OG 標題仍由程式疊，不讓模型寫字。
 4. 每張保留：prompt 版本、seed（若有）、生成日期、淘汰原因。這份紀錄 11/15 要寫進 AI disclosure。
 
@@ -68,8 +68,8 @@
 
 ### 0.5 11/14 MVP 最小圖集（8 張）
 
-> 11/12 的圖是參考／測試素材，**不要直接當遊戲內正式美術**。11/14 09:00 後用同一批 prompt 生成、挑選、去背，放 `src/assets/`。
-> 27 張完整批次不列入 MVP；11/15 有時間再補。事件卡插圖用 Lucide 圖示或 NASA 照片，知識卡純文字。
+> 2026-11-14 已完成：下列 8 張都有成品，放 `src/assets/`（路徑見 §0.6、§7）。MVP 打包以這 8 張為準。
+> 27 張完整批次不列入 MVP 載入量；其他圖與頭像是替換與後續使用素材。事件卡插圖用 Lucide 圖示或 NASA 照片，知識卡純文字。
 > **幕 2 動畫不需新增圖**：背景用 07＋橘紅 overlay，飛船用 SVG 剪影；06 留給幕 3（三貓爬出船艙）。若 07 的太陽能陣列位置真的不合，才補一張 16:9 風暴天空。
 
 | 用途 | 編號 | 張數 | 備註 |
@@ -81,9 +81,35 @@
 | 基地外觀（16:9） | 07 | 1 | 開場、影片第 1 鏡 |
 | 控制室（16:9） | 08 | 1 | 遊戲背景、資料面板背景 |
 
-**總計 8 張。** 若時間不足，先做 3 頭像＋01＋06＋07（6 張）；05、08 可先用現有圖或 CSS 背景。
+**總計 8 張，2026-11-14 已全部完成**（打包約 779 KB）。
 
-**不要生成：** 14–19 六視圖、20–22 低角度、26–28 高角度、29 故事板、30 OG（除非 11/15 有時間）。
+**11/14 後續：** 14–19 六視圖、20–22 低角度、26–28 高角度、29 故事板後來都已出圖（見 §0.6）；30 OG 仍未重生成，維持 11/11 暫行版。
+
+---
+
+### 0.6 2026-11-14 產出結果（repo 內成品）
+
+> 原圖（PNG）不在 repo 內；repo 放的是處理過的 WebP 與 manifest，原圖未被修改或覆寫。
+
+| 項目 | 對應 prompt | 數量 | 位置 |
+|---|---|---:|---|
+| 場景、劇照、對話頭像、英雄鏡、遠景、故事板 | 01、05–13、20–29 | 20 檔 | `src/assets/generated/scenes/`（最長邊 1280 px、WebP q=82） |
+| 去背六視圖／表情表 | 14–19 | 9 檔（6 張基本＋3 張 `_hat` 頭盔版） | `src/assets/generated/cutouts/`（最長邊 1600 px、WebP q=85、透明 alpha） |
+| 單格頭像 | 17–19 切格 | 36 張（3 貓 × 6 表情 × 一般／頭盔）× 3 尺寸＝108 檔 | `src/assets/avatars/`（800／400／200 px） |
+| 角色參考圖 | 02–04 | 3 檔 | `docs/assets/characters/`（既有，未重新生成） |
+| OG 分享卡 | 30 | 1 檔 | `public/brand/og-1200x630.jpg`（**仍是 11/11 暫行版，尚未用第 30 號 prompt 重生成**） |
+
+- 機器可讀清單、中英 `alt`、`srcset`、bytes 與處理參數：`src/assets/generated/manifest.json`、`src/assets/avatars/manifest.json`。
+- 使用說明與表情定義：`src/assets/generated/README.md`、`src/assets/avatars/README.md`。
+- 01、05–29 全部有對應成品；17–19 的 `_hat` 是額外產出（prompt 未要求，用來做戴頭盔頭像）。
+- MVP 打包仍只載入 §0.5 的 8 張（約 779 KB），其餘是替換與後續素材。
+
+**已知偏差（2026-11-14 抽查 01、06、23、25、29 與 OG）：**
+
+- 29 故事板實際輸出 16:9（原圖 2752×1536），不是 prompt 指定的 3:2。
+- 01、06 的 Silver 胸前有金色星形徽章，與 §2.1「不要星形別針」有出入。
+- 06 的太空船艙身與 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。
+- 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 
 ---
 
@@ -437,42 +463,45 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 
 ## 7. 輸出規格與檔名
 
-| # | 檔名 | 比例 | 遊戲內尺寸 | 用途 |
-|---|---|---|---|---|
-| 01 | `01-keyart.png` | 16:9 | 1920×1080 | 標題、封面 |
-| 02–04 | `ref-silver.jpg` / `ref-shadow.jpg` / `ref-ginger.jpg`（`docs/assets/characters/`） | 約 16:9 | 2750×1536（現有） | 角色參考圖，已內建於 GEM，不再生成 |
-| 05 | `05-team-lineup.png` | 16:9 | 1920×1080 | 角色選擇 |
-| 06 | `06-crash.png` | 16:9 | 1920×1080 | 開場、任務背景 |
-| 07 | `07-base-exterior.png` | 16:9 | 1920×1080 | 基地底圖 |
-| 08 | `08-control-room.png` | 16:9 | 1920×1080 | 主介面 |
-| 09 | `09-greenhouse.png` | 4:3 | 1600×1200 | 事件卡 |
-| 10 | `10-night-repair.png` | 16:9 | 1920×1080 | 夜間關卡 |
-| 11 | `11-cold-patrol.png` | 16:9 | 1920×1080 | 探索關卡 |
-| 12 | `12-debrief.png` | 16:9 | 1920×1080 | 失敗畫面 |
-| 13 | `13-ending.png` | 16:9 | 1920×1080 | 結局 |
-| 14 | `14-silver-turnaround.png` | 3:2 | 1800×1200 | 六視圖 |
-| 15 | `15-shadow-turnaround.png` | 3:2 | 1800×1200 | 六視圖 |
-| 16 | `16-ginger-turnaround.png` | 3:2 | 1800×1200 | 六視圖 |
-| 17 | `17-silver-expressions.png` | 3:2 | 1800×1200 | 表情表 |
-| 18 | `18-shadow-expressions.png` | 3:2 | 1800×1200 | 表情表 |
-| 19 | `19-ginger-expressions.png` | 3:2 | 1800×1200 | 表情表 |
-| 20 | `20-silver-hero.png` | 16:9 | 1920×1080 | 低角度英雄鏡 |
-| 21 | `21-shadow-hero.png` | 16:9 | 1920×1080 | 低角度英雄鏡 |
-| 22 | `22-ginger-hero.png` | 16:9 | 1920×1080 | 低角度英雄鏡 |
-| 23 | `23-silver-portrait.png` | 3:4 | 1200×1600 | 對話特寫 |
-| 24 | `24-shadow-portrait.png` | 3:4 | 1200×1600 | 對話特寫 |
-| 25 | `25-ginger-portrait.png` | 3:4 | 1200×1600 | 對話特寫 |
-| 26 | `26-silver-wide.png` | 16:9 | 1920×1080 | 高角度遠景 |
-| 27 | `27-shadow-wide.png` | 16:9 | 1920×1080 | 高角度遠景 |
-| 28 | `28-ginger-wide.png` | 16:9 | 1920×1080 | 高角度遠景 |
-| 29 | `29-opening-storyboard.png` | 3:2 | 1800×1200 | 開場故事板 |
-| 30 | `og-1200x630.jpg` | 1.9:1 | 1200×630 | OG 社群卡（標題由程式疊） |
+> 「檔名」欄是生成時的原檔名（PNG，原圖不在 repo 內）；repo 內放的是處理後 WebP。
+> 下表 `scenes/`＝`src/assets/generated/scenes/`，`cutouts/`＝`src/assets/generated/cutouts/`；括號內為實際像素。
+
+| # | 檔名（生成原檔） | 比例 | 遊戲內尺寸 | 用途 | repo 內成品（2026-11-14） |
+|---|---|---|---|---|---|
+| 01 | `01-keyart.png` | 16:9 | 1920×1080 | 標題、封面 | `scenes/01-keyart.webp`（1280×714） |
+| 02–04 | `ref-silver.jpg` / `ref-shadow.jpg` / `ref-ginger.jpg`（`docs/assets/characters/`） | 約 16:9 | 2750×1536（現有） | 角色參考圖，已內建於 GEM，不再生成 | 原檔沿用（未重新生成） |
+| 05 | `05-team-lineup.png` | 16:9 | 1920×1080 | 角色選擇 | `scenes/05-team-lineup.webp`（1280×714） |
+| 06 | `06-crash.png` | 16:9 | 1920×1080 | 開場、任務背景 | `scenes/06-crash.webp`（1280×714） |
+| 07 | `07-base-exterior.png` | 16:9 | 1920×1080 | 基地底圖 | `scenes/07-base-exterior.webp`（1280×714） |
+| 08 | `08-control-room.png` | 16:9 | 1920×1080 | 主介面 | `scenes/08-control-room.webp`（1280×714） |
+| 09 | `09-greenhouse.png` | 4:3 | 1600×1200 | 事件卡 | `scenes/09-greenhouse.webp`（1280×956） |
+| 10 | `10-night-repair.png` | 16:9 | 1920×1080 | 夜間關卡 | `scenes/10-night-repair.webp`（1280×714） |
+| 11 | `11-cold-patrol.png` | 16:9 | 1920×1080 | 探索關卡 | `scenes/11-cold-patrol.webp`（1280×714） |
+| 12 | `12-debrief.png` | 16:9 | 1920×1080 | 失敗畫面 | `scenes/12-debrief.webp`（1280×714） |
+| 13 | `13-ending.png` | 16:9 | 1920×1080 | 結局 | `scenes/13-ending.webp`（1280×714） |
+| 14 | `14-silver-turnaround.png` | 3:2 | 1800×1200 | 六視圖 | `cutouts/14-silver-turnaround.webp`（1600×1073） |
+| 15 | `15-shadow-turnaround.png` | 3:2 | 1800×1200 | 六視圖 | `cutouts/15-shadow-turnaround.webp`（1600×1073） |
+| 16 | `16-ginger-turnaround.png` | 3:2 | 1800×1200 | 六視圖 | `cutouts/16-ginger-turnaround.webp`（1600×1073） |
+| 17 | `17-silver-expressions.png` | 3:2 | 1800×1200 | 表情表 | `cutouts/17-silver-expressions.webp`（1600×1073）；頭盔版 `_hat.webp`（1600×1195） |
+| 18 | `18-shadow-expressions.png` | 3:2 | 1800×1200 | 表情表 | `cutouts/18-shadow-expressions.webp`（1600×1073）；頭盔版 `_hat.webp`（1600×1195） |
+| 19 | `19-ginger-expressions.png` | 3:2 | 1800×1200 | 表情表 | `cutouts/19-ginger-expressions.webp`（1600×1073）；頭盔版 `_hat.webp`（1600×1195） |
+| 20 | `20-silver-hero.png` | 16:9 | 1920×1080 | 低角度英雄鏡 | `scenes/20-silver-hero.webp`（1280×714） |
+| 21 | `21-shadow-hero.png` | 16:9 | 1920×1080 | 低角度英雄鏡 | `scenes/21-shadow-hero.webp`（1280×714） |
+| 22 | `22-ginger-hero.png` | 16:9 | 1920×1080 | 低角度英雄鏡 | `scenes/22-ginger-hero.webp`（1280×714） |
+| 23 | `23-silver-portrait.png` | 3:4 | 1200×1600 | 對話特寫 | `scenes/23-silver-portrait.webp`（956×1280） |
+| 24 | `24-shadow-portrait.png` | 3:4 | 1200×1600 | 對話特寫 | `scenes/24-shadow-portrait.webp`（956×1280） |
+| 25 | `25-ginger-portrait.png` | 3:4 | 1200×1600 | 對話特寫 | `scenes/25-ginger-portrait.webp`（956×1280） |
+| 26 | `26-silver-wide.png` | 16:9 | 1920×1080 | 高角度遠景 | `scenes/26-silver-wide.webp`（1280×714） |
+| 27 | `27-shadow-wide.png` | 16:9 | 1920×1080 | 高角度遠景 | `scenes/27-shadow-wide.webp`（1280×714） |
+| 28 | `28-ginger-wide.png` | 16:9 | 1920×1080 | 高角度遠景 | `scenes/28-ginger-wide.webp`（1280×714） |
+| 29 | `29-opening-storyboard.png` | 3:2 | 1800×1200 | 開場故事板 | `scenes/29-opening-storyboard.webp`（1280×714；原圖 16:9） |
+| 30 | `og-1200x630.jpg` | 1.9:1 | 1200×630 | OG 社群卡（標題由程式疊） | `public/brand/og-1200x630.jpg`（1200×630；11/11 暫行版） |
 
 ---
 
 ## 8. 一致性檢查清單
 
-生成後逐張檢查：
+目視驗收用；2026-11-14 只完成檔案齊備與 manifest 核對，下列項目仍待看圖者逐項勾選：
 
 - [ ] 三隻貓都是**四足**，沒有擬人站立、沒有手。
 - [ ] Silver 是白金長毛、藍綠眼；沒有圍裙、腰帶、星形別針。
@@ -492,6 +521,7 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 ## 9. 備註
 
 - 這份文件只放圖像 prompt，不放 NASA 資料出處；資料來源與誠實性說明見 `docs/data-sources.md`。
+- 2026-11-14 產出的網頁資產、中英 `alt`、`srcset` 與處理參數見 `src/assets/generated/manifest.json`、`src/assets/avatars/manifest.json`；使用說明見兩份 `README.md`。
 - 圖像屬遊戲虛構；太陽閃焰是真實事件，迫降與火星受災是訓練模擬，相關文案見 `PLAN.md`。
 - 若之後新增角色或場景，沿用第 1 節的風格句與第 2 節的角色錨點，不要另創風格。
 - 三張參考圖已內建於 GEM；本文件與 `docs/gem-instructions.md` 都假設 GEM 看得到它們。若 GEM 重置，先把 `docs/assets/characters/` 的三張圖重新上傳。
