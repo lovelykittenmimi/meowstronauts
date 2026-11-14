@@ -286,6 +286,8 @@ Thanks
 
 拍攝要求：真實遊戲畫面，不用合成圖；文字在 1280 寬下可讀；不要出現網址列或桌面。
 
+> **拍攝時間：11/15 上午**（11/14 17:45 決定延後）。一律從 11/14 21:00 freeze build 拍，畫面才與送出的 build 一致。
+
 ## 12. 送出前檢查（11/15）
 
 - [ ] **GitHub repo 已由 private 轉 public**（`lovelykittenmimi/meowstronauts`），用無痕視窗開得到。
