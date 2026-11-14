@@ -105,11 +105,12 @@
 - MVP 打包仍只載入 §0.5 的 8 張（約 779 KB），其餘是替換與後續素材。
 - OG 底圖由第 30 號 prompt 生成（2848×1504）。原圖貓群高於上方 30%、也超出中央 80%，處理時把整張等比縮進安全區（三貓上緣 y=197、左右 199–1001 px），再用邊緣像素延伸深色漸層補滿留白，最後由程式疊標題與 `Fly My Mind`。
 
-**已知偏差（2026-11-14 抽查 01、06、23、25、29 與 OG）：**
+**已知偏差（2026-11-14 抽查 01、06、13、23、25、29 與 OG）：**
 
 - 29 故事板實際輸出 16:9（原圖 2752×1536），不是 prompt 指定的 3:2。
 - 已解除：Silver 胸前的金色星形為太空裝刺繡徽飾；2026-11-14 刪除「星形別針」限制，成品保留。
-- 06 的太空船艙身與 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。
+- 06 的太空船艙身、13 的補給艙身與 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。
+- 13 重出後艙身仍有極小字樣；縮到 1280 px 寬後字高約 5 px，無法辨識。番茄籃已移除。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
 
@@ -285,6 +286,8 @@ Aspect ratio 16:9, target size 1920x1080. Match the three character reference im
 ```text
 Aspect ratio 16:9, target size 1920x1080. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Sunrise on Mars. A small supply spacecraft descends toward a landing pad beside the Hope-1 habitat dome, parachute and retro-rocket glow, dust billowing softly. Three suited cats stand at the edge of the pad with their tails up: Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim; Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and a translucent blue holographic visor; Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, wearing a puffy orange-and-cream astronaut suit, sitting beside a small crate of tomatoes. Keep the landing ship and the three cats inside the central 80% of the frame. Warm golden light, long shadows, hopeful and celebratory. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
+
+> 2026-11-14 重出：成品已移除停機坪旁的番茄籃——火星地表溫度會讓番茄立刻凍壞，與世界觀不符；其他構圖不變。prompt 保留原樣作生成紀錄。
 
 ---
 
