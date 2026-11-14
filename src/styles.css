@@ -451,13 +451,17 @@ h1 {
 }
 
 .term-link {
-  display: inline;
+  display: inline-block;
   border: 0;
-  border-bottom: 2px dashed var(--rust);
   background: transparent;
   color: var(--rust-ink);
-  padding: 0 1px;
+  /* Pad to a 32px tap target; negative margin keeps the text flow unchanged. */
+  padding: 6px 2px;
+  margin: -6px 0;
   font-weight: 800;
+  text-decoration: underline dashed var(--rust);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 .briefing-next {
