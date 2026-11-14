@@ -112,6 +112,7 @@
 - 已解除：Silver 胸前的金色星形為太空裝刺繡徽飾；2026-11-14 刪除「星形別針」限制，成品保留。
 - 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。縮到 1280 px 高後非常不明顯，2026-11-14 決定保留、不重出。06 的太空船艙身與服裝上的美國國旗貼布已於 11/14 重出移除，重出後多出的番茄也在同日第二次重出時移除。
 - 13 已於 11/14 重出兩次：移除番茄籃、美國國旗貼布與艙身小字樣；艙身只剩幾個抽象小標記，縮到 1280 px 寬後無法辨識。
+- 01 已於 11/14 重出：移除 Ginger 旁岩石上的番茄，理由同 06／13／22。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
 - 2026-11-14 晚間新增 §3.1 的 31–35（事件卡補圖），尚未生成；這 5 張不在上面的批次與 §0.6 成品清單內。
@@ -216,6 +217,8 @@ High-end 3D animated character design sheet in a warm Pixar-like style, even sof
 ```text
 Aspect ratio 16:9, target size 1920x1080. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Wide cinematic key art for a family-friendly Mars survival game. Three suited cat astronauts are on a rocky ridge at dawn, looking toward a small domed outpost with solar arrays in the distance. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back, sits tall at the center, tail curled around her paws. Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and carbon-fiber panels, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings, stands alert at her left, a small holographic star map projected from its backpack. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, with a rounded orange backpack, sits at the right, a single ripe tomato resting on the rock beside it. Behind them a small cream-and-teal rounded spacecraft rests tilted against a solar panel array, thin smoke rising. Butterscotch Mars sky, pale blue glow near the horizon, Earth as a tiny blue dot. Keep the three cats inside the central 80% of the frame with safe margins for UI overlays. Mood of wonder and teamwork, not danger. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
+
+> 2026-11-14 重出：成品已移除 Ginger 旁岩石上的番茄——火星地表溫度會讓番茄立刻凍壞，與世界觀不符；與 06／13／22 的處理一致。其他構圖不變。prompt 保留原樣作生成紀錄。
 
 ### 05. 三貓團隊合照
 
