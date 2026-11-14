@@ -110,7 +110,7 @@
 
 - 29 故事板實際輸出 16:9（原圖 2752×1536），不是 prompt 指定的 3:2。
 - 已解除：Silver 胸前的金色星形為太空裝刺繡徽飾；2026-11-14 刪除「星形別針」限制，成品保留。
-- 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。06 的太空船艙身與服裝上的美國國旗貼布已於 11/14 重出移除，重出後多出的番茄也在同日第二次重出時移除。
+- 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。縮到 1280 px 高後非常不明顯，2026-11-14 決定保留、不重出。06 的太空船艙身與服裝上的美國國旗貼布已於 11/14 重出移除，重出後多出的番茄也在同日第二次重出時移除。
 - 13 已於 11/14 重出兩次：移除番茄籃、美國國旗貼布與艙身小字樣；艙身只剩幾個抽象小標記，縮到 1280 px 寬後無法辨識。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
@@ -411,6 +411,8 @@ Aspect ratio 3:4, target size 1200x1600. Match the Shadow reference image in the
 ```text
 Aspect ratio 3:4, target size 1200x1600. Match the Ginger reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Head-and-shoulders dialogue portrait of Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets and straps, looking slightly off-camera with a calm, slightly stoic expression. Soft warm kitchen light, blurred greenhouse background with pink-purple grow lights and a tomato on the counter, shallow depth of field. Keep the face in the upper third of the frame, leave calm space below for UI text. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, no text, no lettering, no logos, no watermark.
 ```
+
+> 2026-11-14：成品袖子上有美國國旗貼布，縮到 1280 px 高後非常不明顯；決定保留、不重出。prompt 保留原樣作生成紀錄。
 
 #### 4.3.3 高角度遠景
 
