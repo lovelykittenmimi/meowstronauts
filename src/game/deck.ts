@@ -35,28 +35,26 @@ export function drawEventFor(state: GameState): EventCard {
   );
   const eligibleIds = new Set(eligible.map((card) => card.id));
 
+  const lastEventId = state.history[state.history.length - 1]?.eventId;
+
   // Prefer unseen cards whose conditions hold.
   let pool = inRange.filter((card) => !seen.has(card.id) && eligibleIds.has(card.id));
 
-  // Fewer than six candidates: allow a repeat rather than break the conditions.
-  // Never repeat the event played on the previous sol.
-  const lastEventId = state.history[state.history.length - 1]?.eventId;
-  if (pool.length < 6) {
-    pool = [
-      ...pool,
-      ...inRange.filter(
-        (card) =>
-          seen.has(card.id) &&
-          card.id !== lastEventId &&
-          eligibleIds.has(card.id),
-      ),
-    ];
-  }
-
-  // No eligible card in range: another eligible card outside the range beats
-  // both an ineligible card and repeating yesterday's event, because card copy
-  // must match the current sol's conditions.
+  // One run must not repeat a card while an unseen eligible one exists
+  // (docs/test-plan.md). Check outside the sol window too: Sol 7 has only F1
+  // in range, so looking at the window alone repeats an earlier sol (often the
+  // Sol 2 card) even though plenty of unseen cards still qualify. Card copy
+  // must match the current sol's conditions, so `when` still applies.
   if (pool.length === 0) pool = eligible.filter((card) => !seen.has(card.id));
+
+  // Every eligible card was already played: a repeat cannot be avoided.
+  // Prefer a card whose sol window fits; never repeat yesterday's event.
+  if (pool.length === 0) {
+    pool = inRange.filter(
+      (card) =>
+        seen.has(card.id) && eligibleIds.has(card.id) && card.id !== lastEventId,
+    );
+  }
   if (pool.length === 0) {
     pool = eligible.filter((card) => card.id !== lastEventId);
   }

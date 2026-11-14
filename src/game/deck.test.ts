@@ -185,6 +185,26 @@ describe('fallback rules', () => {
     expect(drawn.when?.(context)).toBe(true);
   });
 
+  it('does not repeat an earlier sol card while unseen cards qualify on Sol 7', () => {
+    // Sol 7 has only F1 in range; the old draw put the already-played F1 back
+    // in the pool and replayed it even though other cards had never appeared.
+    const low: Resources = {
+      power: 50,
+      lifeSupport: 50,
+      shield: 50,
+      food: 2,
+      health: 60,
+      science: 0,
+    };
+    const seen = ['P1', 'F1', 'L2', 'C1', 'S1'];
+    const ids = drawAcrossSeeds(stateAt(7, { resources: low, weather: COLD }, seen), 40);
+    expect(ids.length).toBeGreaterThan(0);
+    for (const id of ids) {
+      expect(seen, `drew seen card ${id} on Sol 7`).not.toContain(id);
+      expect(id).not.toBe('S1');
+    }
+  });
+
   it('prefers another eligible card over repeating yesterday on Sol 7', () => {
     const low: Resources = {
       power: 50,
