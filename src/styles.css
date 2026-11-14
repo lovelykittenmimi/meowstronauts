@@ -602,6 +602,61 @@ h1 {
   border-top: 2px solid var(--silver);
 }
 
+/* Sol switcher ---------------------------------------------------------- */
+.sol-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(247, 243, 234, 0.96);
+  border-bottom: 2px solid var(--silver);
+}
+
+.sol-nav-button {
+  min-width: 56px;
+  min-height: 38px;
+  padding: 6px 12px;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.sol-nav-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.sol-nav-button[aria-current='step'] {
+  background: var(--amber);
+}
+
+/* Sols the crew has not reached yet: visible, but not a way in. */
+.sol-nav-button:disabled {
+  border-color: var(--silver);
+  background: transparent;
+  color: #9aa0ad;
+  cursor: not-allowed;
+}
+
+/* Short landscape: keep the row slim so the card keeps its height. */
+@media (max-height: 520px) {
+  .sol-nav {
+    gap: 4px;
+    padding: 3px 8px;
+  }
+
+  .sol-nav-button {
+    min-width: 44px;
+    min-height: 30px;
+    padding: 3px 9px;
+    font-size: 12px;
+  }
+}
+
 /* Event ---------------------------------------------------------------- */
 .event-shell {
   position: relative;
@@ -971,6 +1026,12 @@ h1 {
 .result-panel h2 {
   margin-bottom: 6px;
   color: var(--navy);
+}
+
+.review-chose {
+  margin-bottom: 8px;
+  color: var(--navy);
+  font-size: 16px;
 }
 
 .result-outcome {

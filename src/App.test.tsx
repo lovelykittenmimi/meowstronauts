@@ -76,6 +76,38 @@ describe('normal game', () => {
     expect(screen.queryByTestId('continue-button')).toBeNull();
   });
 
+  it('shows the seven sols and lets the crew look back at a finished one', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('difficulty-cadet'));
+    fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-skip'));
+
+    // Sol 1 is live; later sols stay locked until the crew gets there.
+    expect(screen.getByTestId('sol-nav-1').getAttribute('aria-current')).toBe('step');
+    expect((screen.getByTestId('sol-nav-2') as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByTestId('sol-nav-7') as HTMLButtonElement).disabled).toBe(true);
+
+    fireEvent.click(screen.getByTestId('begin-sol'));
+    fireEvent.click(screen.getByTestId('choice-rest'));
+    fireEvent.click(screen.getByTestId('continue-button'));
+
+    // Sol 2 is live; Sol 1 is now open for a look back, Sol 3 still locked.
+    expect(screen.getByTestId('sol-nav-2').getAttribute('aria-current')).toBe('step');
+    expect((screen.getByTestId('sol-nav-1') as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByTestId('sol-nav-3') as HTMLButtonElement).disabled).toBe(true);
+
+    fireEvent.click(screen.getByTestId('sol-nav-1'));
+    const review = screen.getByTestId('sol-review');
+    expect(review.textContent).toContain('First Order at Hope-1');
+    expect(review.textContent).toContain('Let the crew rest');
+    expect(screen.queryByTestId('begin-sol')).toBeNull();
+    expect(screen.getByTestId('sol-nav-1').getAttribute('aria-current')).toBe('step');
+
+    fireEvent.click(screen.getByTestId('sol-review-back'));
+    expect(screen.getByTestId('begin-sol')).toBeTruthy();
+    expect(screen.queryByTestId('sol-review')).toBeNull();
+  });
+
   it('walks the opening reply and tap scenes', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));

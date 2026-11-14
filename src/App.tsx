@@ -14,6 +14,8 @@ import { MissionReport } from './ui/MissionReport';
 import { OpeningScene } from './ui/OpeningScene';
 import { ResourceHud } from './ui/ResourceHud';
 import { RotateHint } from './ui/RotateHint';
+import { SolNav } from './ui/SolNav';
+import { SolReview } from './ui/SolReview';
 import { StoryOpening } from './ui/StoryOpening';
 import { TitleScreen } from './ui/TitleScreen';
 
@@ -58,6 +60,8 @@ export default function App() {
   const [knowledgeId, setKnowledgeId] = useState<string | null>(null);
   const [backpackOpen, setBackpackOpen] = useState(false);
   const [dataOpen, setDataOpen] = useState(false);
+  /** A finished sol the crew is looking back at; null keeps the live screens. */
+  const [viewSol, setViewSol] = useState<number | null>(null);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -90,6 +94,11 @@ export default function App() {
     if (videoMode) return;
     if (window.scrollY > 0) window.scrollTo(0, 0);
   }, [state.phase, videoMode]);
+
+  // A new sol always opens live; a review never carries over to tomorrow.
+  useEffect(() => {
+    setViewSol(null);
+  }, [state.sol]);
 
   const toggleLang = () => {
     dispatch({ type: 'SET_LANG', lang: state.lang === 'en' ? 'zh-TW' : 'en' });
@@ -191,6 +200,9 @@ export default function App() {
   }
 
   const briefingEvent = state.phase === 'briefing' ? drawEventFor(state) : undefined;
+  const missionPhase =
+    state.phase === 'briefing' || state.phase === 'choice' || state.phase === 'result';
+  const reviewSol = missionPhase && viewSol !== null && viewSol < state.sol ? viewSol : null;
 
   return (
     <div className="app-shell">
@@ -202,26 +214,46 @@ export default function App() {
         onToggleLang={videoMode ? undefined : toggleLang}
       />
 
-      {state.phase === 'briefing' && briefingEvent && (
-        <BriefingScreen
-          state={state}
-          event={briefingEvent}
-          onBegin={(eventId) => dispatch({ type: 'OPEN_EVENT', eventId })}
-          onTerm={openCard}
+      {missionPhase && (
+        <SolNav
+          lang={state.lang}
+          currentSol={state.sol}
+          selectedSol={reviewSol ?? state.sol}
+          onSelect={(sol) => setViewSol(sol < state.sol ? sol : null)}
         />
       )}
 
-      {(state.phase === 'choice' || state.phase === 'result') && (
-        <EventCardView
+      {reviewSol !== null ? (
+        <SolReview
           state={state}
-          onChoose={(choiceId) => dispatch({ type: 'CHOOSE', choiceId })}
-          onAssist={(cat: CatId, variant?: 'power' | 'food' | 'lifeSupport') =>
-            dispatch({ type: 'USE_ASSIST', cat, variant })
-          }
+          sol={reviewSol}
+          onBack={() => setViewSol(null)}
           onTerm={openCard}
-          onContinue={() => dispatch({ type: 'CONTINUE' })}
-          onOpenCard={openCard}
         />
+      ) : (
+        <>
+          {state.phase === 'briefing' && briefingEvent && (
+            <BriefingScreen
+              state={state}
+              event={briefingEvent}
+              onBegin={(eventId) => dispatch({ type: 'OPEN_EVENT', eventId })}
+              onTerm={openCard}
+            />
+          )}
+
+          {(state.phase === 'choice' || state.phase === 'result') && (
+            <EventCardView
+              state={state}
+              onChoose={(choiceId) => dispatch({ type: 'CHOOSE', choiceId })}
+              onAssist={(cat: CatId, variant?: 'power' | 'food' | 'lifeSupport') =>
+                dispatch({ type: 'USE_ASSIST', cat, variant })
+              }
+              onTerm={openCard}
+              onContinue={() => dispatch({ type: 'CONTINUE' })}
+              onOpenCard={openCard}
+            />
+          )}
+        </>
       )}
 
       {knowledgeId && (

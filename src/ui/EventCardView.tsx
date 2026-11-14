@@ -34,7 +34,7 @@ function signed(value: number): string {
   return value > 0 ? `+${value}` : `−${Math.abs(value)}`;
 }
 
-function EffectChips({
+export function EffectChips({
   effects,
   lang,
 }: {
