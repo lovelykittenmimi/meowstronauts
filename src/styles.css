@@ -1985,8 +1985,8 @@ h1 {
 
 .story-narration {
   color: var(--ink);
-  font-size: 17px;
-  line-height: 1.55;
+  font-size: clamp(19px, 1.6vw, 24px);
+  line-height: 1.5;
   margin-bottom: 6px;
 }
 
@@ -2069,7 +2069,7 @@ h1 {
   position: relative;
   z-index: 5;
   align-self: end;
-  width: min(560px, 92%);
+  width: min(640px, 94%);
   margin: 0 0 clamp(14px, 3vw, 28px) clamp(10px, 2.4vw, 24px);
   padding: 14px 18px;
   color: var(--ink);
@@ -2085,11 +2085,24 @@ h1 {
 }
 
 .story-radio-line {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
   margin: 0 0 8px;
-  font-size: 15px;
+  font-size: clamp(17px, 1.4vw, 20px);
   line-height: 1.45;
   opacity: 0;
   animation: caption-in 0.6s ease forwards;
+}
+
+.story-radio-line p {
+  margin: 0;
+}
+
+.story-avatar-radio {
+  width: 64px;
+  height: 64px;
 }
 
 .story-live-dot {
@@ -2117,27 +2130,14 @@ h1 {
   animation: none;
 }
 
-.story-radio-past {
-  opacity: 0.55;
-  animation: none;
-}
-
-.story-past {
-  opacity: 0.55;
-  pointer-events: none;
-}
-
 .story-radio-line strong {
   color: var(--coral-ink);
 }
 
 .story-radio-narrator {
+  display: block;
   color: var(--navy);
   font-style: italic;
-}
-
-.story-radio .primary-button {
-  margin-top: 10px;
 }
 
 .story-video-toggle {
@@ -2199,7 +2199,7 @@ h1 {
   z-index: 2;
   justify-self: start;
   align-self: end;
-  width: min(600px, 94%);
+  width: min(660px, 94%);
   margin: 0 0 clamp(12px, 2.6vw, 24px) clamp(10px, 2.4vw, 24px);
 }
 
@@ -2228,16 +2228,17 @@ h1 {
 
 .story-line {
   display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 10px;
-  margin: 0 0 10px;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 16px;
+  margin: 0 0 14px;
+  align-items: center;
 }
 
 .story-avatar {
-  width: 40px;
-  height: 40px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
-  border: 2px solid var(--navy);
+  border: 3px solid var(--navy);
   object-fit: cover;
   background: var(--paper-2);
 }
@@ -2245,14 +2246,37 @@ h1 {
 .story-speaker {
   display: block;
   color: var(--rust-ink);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .story-line p {
-  margin: 2px 0 0;
-  line-height: 1.45;
+  margin: 4px 0 0;
+  font-size: clamp(19px, 1.6vw, 25px);
+  line-height: 1.5;
+}
+
+/* Back / next under the single visible line. The CTA takes "Next"'s place. */
+.story-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.story-nav .primary-button {
+  margin-top: 0;
+  margin-left: auto;
+}
+
+.story-nav-back {
+  min-height: 44px;
+}
+
+.story-nav-back:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .story-replies {
@@ -2265,10 +2289,6 @@ h1 {
 .story-replies .choice-button {
   min-height: 0;
   padding: 10px 12px;
-}
-
-.story-dialogue .primary-button {
-  margin-top: 8px;
 }
 
 /* Scene 4 ------------------------------------------------------------- */
@@ -2528,20 +2548,6 @@ h1 {
   text-align: left;
 }
 
-.story-final-line {
-  margin: 0 0 8px;
-  line-height: 1.45;
-  text-align: left;
-}
-
-.story-final-line strong {
-  color: var(--rust-ink);
-}
-
-.story-ready .primary-button {
-  margin-top: 14px;
-}
-
 .story-footnote {
   margin: 10px auto 0;
   max-width: 860px;
@@ -2559,10 +2565,6 @@ h1 {
   .story-live-dot {
     animation: none;
     opacity: 1;
-  }
-
-  .story-past {
-    opacity: 0.72;
   }
 }
 
@@ -2663,12 +2665,33 @@ h1 {
   }
 
   .story-radio-line {
-    font-size: 15px;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 8px;
+    font-size: 16px;
   }
 
-  /* Compact landscape keeps the panel to the current line only. */
-  .story-past {
-    display: none;
+  .story-avatar-radio {
+    width: 44px;
+    height: 44px;
+  }
+
+  .story-line {
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .story-avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .story-line p {
+    font-size: 17px;
+  }
+
+  .story-nav {
+    gap: 8px;
+    margin-top: 8px;
   }
 
   /* Keep scene 1's caption clear of the Skip button. */
@@ -2677,7 +2700,7 @@ h1 {
   }
 
   .story-narration {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
   }
 

@@ -9,9 +9,9 @@ import sdoFlare from '../assets/nasa/sdo-flare.webp';
 import sohoCme from '../assets/nasa/soho-cme.webp';
 import scene2Video from '../assets/video/scene2-crash.mp4';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
-import { getKnowledgeCard } from '../game/knowledge';
 import type { Lang, Localized } from '../game/types';
 import LanderOverlay from '../minigames/LanderOverlay';
+import { moodFace, type FaceMood } from './catFaces';
 import { Modal } from './Modal';
 import { RichText } from './RichText';
 
@@ -21,6 +21,12 @@ type Speaker = 'silver' | 'shadow' | 'ginger' | 'narrator';
 
 interface Line {
   cat: Speaker;
+  /**
+   * Tone of this line, matched to one of the six cat expressions. Written by
+   * hand per line: sarcasm is not "worried", and the joke lines would read
+   * wrong with a default face.
+   */
+  mood?: FaceMood;
   text: Localized;
 }
 
@@ -48,10 +54,10 @@ const SCENE_ONE: Line = {
 };
 
 const CRASH_LINES: Line[] = [
-  { cat: 'shadow', text: l('Stardust calling Mars Base! We were hit by the {{solarStorm}}! The tail is on fire and the dashboard keeps—', '星塵號呼叫火星基地！我們被{{solarStorm}}打中了！船尾著火，儀表板一直嗶嗶叫，還有——') },
-  { cat: 'ginger', text: l('My tail is on fire too!', '我的尾巴也著火了！') },
-  { cat: 'shadow', text: l('That is the tail.', '那是船尾。') },
-  { cat: 'ginger', text: l('Oh.', '哦。') },
+  { cat: 'shadow', mood: 'worried', text: l('Stardust calling Mars Base! We were hit by the {{solarStorm}}! The tail is on fire and the dashboard keeps—', '星塵號呼叫火星基地！我們被{{solarStorm}}打中了！船尾著火，儀表板一直嗶嗶叫，還有——') },
+  { cat: 'ginger', mood: 'surprised', text: l('My tail is on fire too!', '我的尾巴也著火了！') },
+  { cat: 'shadow', mood: 'neutral', text: l('That is the tail.', '那是船尾。') },
+  { cat: 'ginger', mood: 'neutral', text: l('Oh.', '哦。') },
   { cat: 'narrator', text: l('Then they hit us.', '然後，他們就撞上來了。') },
   { cat: 'narrator', text: l('The storm knocked out the antenna. Radio delay to Earth is about twelve minutes.', '風暴撞壞了天線。與地球的無線電通訊單向延遲約十二分鐘。') },
 ];
@@ -135,6 +141,7 @@ const NASA_SHOT_STARTS = NASA_SHOTS.map((_, index) =>
 
 const INTRO_QUESTION: Line = {
   cat: 'silver',
+  mood: 'determined',
   text: l(
     'I am Silver, captain of the Stardust. Who is the highest-ranking officer here?',
     '我是銀白，星塵號艦長。這裡的最高指揮官是誰？',
@@ -143,38 +150,38 @@ const INTRO_QUESTION: Line = {
 
 const REPLY_LINES: Record<'command' | 'cadet', Line[]> = {
   command: [
-    { cat: 'silver', text: l('Good. Courage is useful. Now use the same courage on the repair bill.', '很好。勇氣可嘉。現在請用同樣的勇氣面對維修帳單。') },
+    { cat: 'silver', mood: 'happy', text: l('Good. Courage is useful. Now use the same courage on the repair bill.', '很好。勇氣可嘉。現在請用同樣的勇氣面對維修帳單。') },
   ],
   cadet: [
-    { cat: 'silver', text: l('Better. Cadets learn fast, and they are cheap.', '更好。見習生學得快，而且便宜。') },
+    { cat: 'silver', mood: 'happy', text: l('Better. Cadets learn fast, and they are cheap.', '更好。見習生學得快，而且便宜。') },
   ],
 };
 
 const INTRO_REST: Line[] = [
-  { cat: 'silver', text: l('From now on, you are the commander. Congratulations. Your salary is one tomato a day.', '從現在起，你就是指揮官。恭喜升遷，薪水是每天一顆番茄。') },
-  { cat: 'ginger', text: l('What about me?', '那我呢？') },
-  { cat: 'silver', text: l('You are the cook. The tomatoes are yours to grow.', '你是廚師，番茄歸你種。') },
-  { cat: 'ginger', text: l('...Fair.', '……合理。') },
-  { cat: 'shadow', text: l('Shadow, navigator. Sorry about your solar panels. I will fix them. ...Probably.', '我是暗影，導航員。抱歉撞壞了你們的太陽能板。我會修。……大概。') },
-  { cat: 'silver', text: l('Probably?', '大概？') },
-  { cat: 'shadow', text: l('An engineer’s “probably” is sincere. “Definitely” is a lie.', '工程師的「大概」是很有誠意的。「一定」是騙人的。') },
-  { cat: 'ginger', text: l('Ginger, cook. Where is your fridge? I am hungry.', '我是金桔，廚師。你們的冰箱在哪裡？我餓了。') },
+  { cat: 'silver', mood: 'happy', text: l('From now on, you are the commander. Congratulations. Your salary is one tomato a day.', '從現在起，你就是指揮官。恭喜升遷，薪水是每天一顆番茄。') },
+  { cat: 'ginger', mood: 'worried', text: l('What about me?', '那我呢？') },
+  { cat: 'silver', mood: 'neutral', text: l('You are the cook. The tomatoes are yours to grow.', '你是廚師，番茄歸你種。') },
+  { cat: 'ginger', mood: 'neutral', text: l('...Fair.', '……合理。') },
+  { cat: 'shadow', mood: 'worried', text: l('Shadow, navigator. Sorry about your solar panels. I will fix them. ...Probably.', '我是暗影，導航員。抱歉撞壞了你們的太陽能板。我會修。……大概。') },
+  { cat: 'silver', mood: 'surprised', text: l('Probably?', '大概？') },
+  { cat: 'shadow', mood: 'neutral', text: l('An engineer’s “probably” is sincere. “Definitely” is a lie.', '工程師的「大概」是很有誠意的。「一定」是騙人的。') },
+  { cat: 'ginger', mood: 'neutral', text: l('Ginger, cook. Where is your fridge? I am hungry.', '我是金桔，廚師。你們的冰箱在哪裡？我餓了。') },
   { cat: 'narrator', text: l('Mars has no fridge.', '火星沒有冰箱。') },
-  { cat: 'ginger', text: l('What? We are doomed.', '什麼？那我們完了。') },
-  { cat: 'silver', text: l('We just got here.', '我們才剛到。') },
-  { cat: 'ginger', text: l('All the more reason to eat first.', '所以更要先吃飽。') },
-  { cat: 'silver', text: l('Before you eat, walk slowly. Months in space made us weaker.', '吃飽之前，先慢慢走。在太空待了好幾個月，我們的身體變弱了。') },
+  { cat: 'ginger', mood: 'surprised', text: l('What? We are doomed.', '什麼？那我們完了。') },
+  { cat: 'silver', mood: 'neutral', text: l('We just got here.', '我們才剛到。') },
+  { cat: 'ginger', mood: 'determined', text: l('All the more reason to eat first.', '所以更要先吃飽。') },
+  { cat: 'silver', mood: 'determined', text: l('Before you eat, walk slowly. Months in space made us weaker.', '吃飽之前，先慢慢走。在太空待了好幾個月，我們的身體變弱了。') },
 ];
 
 const MAP_LINES: Line[] = [
-  { cat: 'shadow', text: l('This is the map. Here is Meowstar. Here is Mars. And here is the solar panel we broke.', '這是星圖。這裡是喵星。這裡是火星。這裡是我們撞壞的太陽能板。') },
-  { cat: 'silver', text: l('You do not need to mark that one.', '最後那個不用標。') },
-  { cat: 'shadow', text: l('For the record.', '要做紀錄。') },
-  { cat: 'shadow', text: l('The supply ship arrives in seven days with engine parts. Until then, we cannot go home.', '補給船七天後到，會帶來星塵號的引擎零件。在那之前，我們回不了家。') },
-  { cat: 'ginger', text: l('So we survive seven days together?', '所以我們要一起活過七天？') },
-  { cat: 'silver', text: l('Correct. The regular crew will be coming back too.', '正式隊員也會一起回來。') },
-  { cat: 'ginger', text: l('Will they bring snacks?', '他們會帶零食嗎？') },
-  { cat: 'silver', text: l('...I will add that to the mission list.', '……我會把這個問題列入任務清單。') },
+  { cat: 'shadow', mood: 'neutral', text: l('This is the map. Here is Meowstar. Here is Mars. And here is the solar panel we broke.', '這是星圖。這裡是喵星。這裡是火星。這裡是我們撞壞的太陽能板。') },
+  { cat: 'silver', mood: 'neutral', text: l('You do not need to mark that one.', '最後那個不用標。') },
+  { cat: 'shadow', mood: 'neutral', text: l('For the record.', '要做紀錄。') },
+  { cat: 'shadow', mood: 'determined', text: l('The supply ship arrives in seven days with engine parts. Until then, we cannot go home.', '補給船七天後到，會帶來星塵號的引擎零件。在那之前，我們回不了家。') },
+  { cat: 'ginger', mood: 'worried', text: l('So we survive seven days together?', '所以我們要一起活過七天？') },
+  { cat: 'silver', mood: 'neutral', text: l('Correct. The regular crew will be coming back too.', '正式隊員也會一起回來。') },
+  { cat: 'ginger', mood: 'happy', text: l('Will they bring snacks?', '他們會帶零食嗎？') },
+  { cat: 'silver', mood: 'neutral', text: l('...I will add that to the mission list.', '……我會把這個問題列入任務清單。') },
 ];
 
 interface Tap {
@@ -190,9 +197,9 @@ const TAPS: Tap[] = [
     icon: '⚡',
     place: l('Solar array', '太陽能陣列'),
     lines: [
-      { cat: 'shadow', text: l('Power first. No power means no oxygen, no heat, and no heated blanket.', '電力優先。沒有電，氧氣、暖氣、還有我的加熱毯都會停。') },
-      { cat: 'silver', text: l('The outpost does not have a heated blanket.', '基地沒有加熱毯。') },
-      { cat: 'shadow', text: l('That is why I said first.', '所以我說「優先」。') },
+      { cat: 'shadow', mood: 'determined', text: l('Power first. No power means no oxygen, no heat, and no heated blanket.', '電力優先。沒有電，氧氣、暖氣、還有我的加熱毯都會停。') },
+      { cat: 'silver', mood: 'neutral', text: l('The outpost does not have a heated blanket.', '基地沒有加熱毯。') },
+      { cat: 'shadow', mood: 'neutral', text: l('That is why I said first.', '所以我說「優先」。') },
     ],
   },
   {
@@ -200,9 +207,9 @@ const TAPS: Tap[] = [
     icon: '💧',
     place: l('Greenhouse', '溫室'),
     lines: [
-      { cat: 'ginger', text: l('Food and water. I will bring the greenhouse back to life. The first tomato is mine.', '食物和水。我會讓溫室活過來。第一顆番茄是我的。') },
-      { cat: 'silver', text: l('It is communal property.', '那是公共財產。') },
-      { cat: 'ginger', text: l('I grew it.', '我種的。') },
+      { cat: 'ginger', mood: 'happy', text: l('Food and water. I will bring the greenhouse back to life. The first tomato is mine.', '食物和水。我會讓溫室活過來。第一顆番茄是我的。') },
+      { cat: 'silver', mood: 'neutral', text: l('It is communal property.', '那是公共財產。') },
+      { cat: 'ginger', mood: 'determined', text: l('I grew it.', '我種的。') },
     ],
   },
   {
@@ -210,10 +217,10 @@ const TAPS: Tap[] = [
     icon: '🛡️',
     place: l('Outer wall', '外牆'),
     lines: [
-      { cat: 'silver', text: l('The {{atmosphere}} is too thin to protect us. The outer wall is our shield.', '火星的{{atmosphere}}太稀薄，保護不了我們。防護外牆就是我們的護盾。') },
-      { cat: 'ginger', text: l('And my sunbathing spot.', '也是我的曬太陽區。') },
-      { cat: 'silver', text: l('You cannot sunbathe on Mars. You would become roast orange cat.', '你不能在火星曬太陽。你會變成烤橘貓。') },
-      { cat: 'ginger', text: l('...Then I will wear sunscreen.', '……那我塗防曬。') },
+      { cat: 'silver', mood: 'determined', text: l('The {{atmosphere}} is too thin to protect us. The outer wall is our shield.', '火星的{{atmosphere}}太稀薄，保護不了我們。防護外牆就是我們的護盾。') },
+      { cat: 'ginger', mood: 'happy', text: l('And my sunbathing spot.', '也是我的曬太陽區。') },
+      { cat: 'silver', mood: 'neutral', text: l('You cannot sunbathe on Mars. You would become roast orange cat.', '你不能在火星曬太陽。你會變成烤橘貓。') },
+      { cat: 'ginger', mood: 'determined', text: l('...Then I will wear sunscreen.', '……那我塗防曬。') },
     ],
   },
 ];
@@ -241,36 +248,22 @@ const LANDER_PROMPT = {
 };
 
 const READY_LINES: Line[] = [
-  { cat: 'silver', text: l('Seven Mars days. Every choice has a cost. Ready, Commander?', '七個火星日。每個選擇都有代價。準備好了嗎，指揮官？') },
-  { cat: 'ginger', text: l('Wait. Can I eat one tomato first?', '等等，我可以先吃一顆番茄嗎？') },
-  { cat: 'silver', text: l('No.', '不行。') },
-  { cat: 'ginger', text: l('That is the cost.', '這就是代價。') },
+  { cat: 'silver', mood: 'determined', text: l('Seven Mars days. Every choice has a cost. Ready, Commander?', '七個火星日。每個選擇都有代價。準備好了嗎，指揮官？') },
+  { cat: 'ginger', mood: 'worried', text: l('Wait. Can I eat one tomato first?', '等等，我可以先吃一顆番茄嗎？') },
+  { cat: 'silver', mood: 'neutral', text: l('No.', '不行。') },
+  { cat: 'ginger', mood: 'neutral', text: l('That is the cost.', '這就是代價。') },
 ];
-
-/** Terms render as read-only text on lines that are no longer the current one. */
-function stripTerms(text: string, lang: Lang): string {
-  return text.replace(/\{\{([a-zA-Z]+)\}\}/g, (_, id: string) => {
-    const card = getKnowledgeCard(id);
-    return card ? card.term[lang] : id;
-  });
-}
 
 function DialogueLine({
   line,
   lang,
   onTerm,
-  interactive = true,
 }: {
   line: Line;
   lang: Lang;
   onTerm: (id: string) => void;
-  interactive?: boolean;
 }) {
-  const body = interactive ? (
-    <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
-  ) : (
-    stripTerms(line.text[lang], lang)
-  );
+  const body = <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />;
 
   if (line.cat === 'narrator') {
     return <p className="story-narration">{body}</p>;
@@ -280,7 +273,7 @@ function DialogueLine({
     <div className={`story-line story-line-${line.cat}`}>
       <img
         className="story-avatar"
-        src={`/brand/avatar-${line.cat}-512.webp`}
+        src={moodFace(line.cat, line.mood)}
         alt=""
         aria-hidden="true"
       />
@@ -296,55 +289,30 @@ function RadioLine({
   line,
   lang,
   onTerm,
-  past = false,
 }: {
   line: Line;
   lang: Lang;
   onTerm: (id: string) => void;
-  past?: boolean;
 }) {
-  return (
-    <p
-      className={`story-radio-line story-radio-${line.cat}${
-        past ? ' story-radio-past story-past' : ''
-      }`}
-    >
-      {line.cat === 'narrator' ? null : (
-        <strong>{SPEAKER_NAMES[line.cat]}: </strong>
-      )}
-      {past ? (
-        stripTerms(line.text[lang], lang)
-      ) : (
-        <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
-      )}
-    </p>
-  );
-}
+  const body = <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />;
 
-function PlainLine({
-  line,
-  lang,
-  onTerm,
-  past = false,
-}: {
-  line: Line;
-  lang: Lang;
-  onTerm: (id: string) => void;
-  past?: boolean;
-}) {
+  if (line.cat === 'narrator') {
+    return <p className="story-radio-line story-radio-narrator">{body}</p>;
+  }
+
   return (
-    <p className={past ? 'story-final-line story-past' : 'story-final-line'}>
-      {line.cat === 'narrator' ? null : (
-        <>
-          <strong>{SPEAKER_NAMES[line.cat]}:</strong>{' '}
-        </>
-      )}
-      {past ? (
-        stripTerms(line.text[lang], lang)
-      ) : (
-        <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
-      )}
-    </p>
+    <div className={`story-radio-line story-radio-${line.cat}`}>
+      <img
+        className="story-avatar story-avatar-radio"
+        src={moodFace(line.cat, line.mood)}
+        alt=""
+        aria-hidden="true"
+      />
+      <p>
+        <strong>{SPEAKER_NAMES[line.cat]}: </strong>
+        {body}
+      </p>
+    </div>
   );
 }
 
@@ -352,19 +320,21 @@ interface DialogueSequenceProps {
   lines: Line[];
   lang: Lang;
   onTerm: (id: string) => void;
-  variant?: 'chat' | 'radio' | 'plain';
+  variant?: 'chat' | 'radio';
   cta?: string;
   onCta?: () => void;
   ctaTestId?: string;
   ctaClassName?: string;
   between?: ReactNode;
   onStep?: (step: number) => void;
+  /** Start on this line; "Back" still reaches the lines before it. */
+  initialStep?: number;
 }
 
 /**
- * Shows one cat line at a time. The previous line stays on screen, dimmed and
- * non-interactive, on roomy layouts; compact landscape hides it so the panel
- * keeps to a single line. On the last line the CTA replaces "Next".
+ * Shows exactly one line at a time, large, with the speaker's expression for
+ * that line. Old lines never stack up above the current one; "Back" steps to
+ * the previous line instead. On the last line the CTA replaces "Next".
  */
 function DialogueSequence({
   lines,
@@ -377,67 +347,63 @@ function DialogueSequence({
   ctaClassName = 'primary-button',
   between,
   onStep,
+  initialStep = 0,
 }: DialogueSequenceProps) {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(initialStep);
   const current = lines[step];
-  const previous = step > 0 ? lines[step - 1] : null;
   const isLast = step === lines.length - 1;
 
   useEffect(() => {
     onStep?.(step);
   }, [onStep, step]);
 
-  const renderLine = (line: Line, past: boolean) => {
+  const renderLine = (line: Line) => {
     if (variant === 'radio') {
-      return <RadioLine line={line} lang={lang} onTerm={onTerm} past={past} />;
+      return <RadioLine line={line} lang={lang} onTerm={onTerm} />;
     }
-    if (variant === 'plain') {
-      return <PlainLine line={line} lang={lang} onTerm={onTerm} past={past} />;
-    }
-    return (
-      <DialogueLine
-        line={line}
-        lang={lang}
-        onTerm={onTerm}
-        interactive={!past}
-      />
-    );
+    return <DialogueLine line={line} lang={lang} onTerm={onTerm} />;
   };
 
   return (
     <>
       <div className="story-chat" aria-live="polite">
-        {previous && (
-          <div className="story-past" aria-hidden="true">
-            {renderLine(previous, true)}
-          </div>
-        )}
         <div className="story-chat-current" data-testid="dialogue-current" key={step}>
-          {renderLine(current, false)}
+          {renderLine(current)}
         </div>
       </div>
       {between}
-      {isLast ? (
-        cta && onCta ? (
-          <button
-            type="button"
-            className={ctaClassName}
-            data-testid={ctaTestId}
-            onClick={onCta}
-          >
-            {cta}
-          </button>
-        ) : null
-      ) : (
+      <div className="story-nav">
         <button
           type="button"
-          className="primary-button"
-          data-testid="dialogue-next"
-          onClick={() => setStep((value) => value + 1)}
+          className="ghost-button story-nav-back"
+          data-testid="dialogue-prev"
+          onClick={() => setStep((value) => Math.max(0, value - 1))}
+          disabled={step === 0}
         >
-          {lang === 'en' ? 'Next' : '下一句'}
+          {lang === 'en' ? 'Back' : '上一句'}
         </button>
-      )}
+        {isLast ? (
+          cta && onCta ? (
+            <button
+              type="button"
+              className={ctaClassName}
+              data-testid={ctaTestId}
+              onClick={onCta}
+            >
+              {cta}
+            </button>
+          ) : null
+        ) : (
+          <button
+            type="button"
+            className="primary-button"
+            data-testid="dialogue-next"
+            onClick={() => setStep((value) => value + 1)}
+          >
+            {lang === 'en' ? 'Next' : '下一句'}
+          </button>
+        )}
+      </div>
     </>
   );
 }
@@ -470,9 +436,10 @@ interface StoryOpeningProps {
 
 /**
  * The playable opening from docs/wireframes.md §10. Six scenes, skippable,
- * with three resource taps before Sol 1. Each cat speaks one line at a time;
- * "Next" advances. The `?scene=opening2` video shot is a separate component
- * and is not affected by this flow.
+ * with three resource taps before Sol 1. Each cat speaks one line at a time,
+ * large, with the expression that matches the line; "Next" and "Back" move
+ * between lines without stacking them. The `?scene=opening2` video shot is a
+ * separate component and is not affected by this flow.
  */
 export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpeningProps) {
   const [scene, setScene] = useState(1);
@@ -537,7 +504,6 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   };
 
   const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
-  const introDone = reply !== null;
   const allTapped = tapped.length === TAPS.length;
 
   useEffect(() => {
@@ -741,41 +707,34 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
           <img className="story-lineup" src={lineupScene} alt="" />
           <div className="story-panel story-dialogue">
             <p className="eyebrow">{lang === 'en' ? 'Scene 3 · Three cats' : '第 3 幕 · 三隻貓'}</p>
-            <div
-              className={introDone ? 'story-past' : undefined}
-              aria-hidden={introDone}
-            >
-              <DialogueLine
-                line={INTRO_QUESTION}
-                lang={lang}
-                onTerm={onTerm}
-                interactive={!introDone}
-              />
-            </div>
-            {!introDone && (
-              <div className="story-replies">
-                <button
-                  type="button"
-                  className="choice-button"
-                  data-testid="opening-reply-command"
-                  onClick={() => setReply('command')}
-                >
-                  {lang === 'en' ? 'I am the commander!' : '我就是指揮官！'}
-                </button>
-                <button
-                  type="button"
-                  className="choice-button"
-                  data-testid="opening-reply-cadet"
-                  onClick={() => setReply('cadet')}
-                >
-                  {lang === 'en' ? 'I am only a cadet...' : '我只是見習生……'}
-                </button>
-              </div>
+            {!reply && (
+              <>
+                <DialogueLine line={INTRO_QUESTION} lang={lang} onTerm={onTerm} />
+                <div className="story-replies">
+                  <button
+                    type="button"
+                    className="choice-button"
+                    data-testid="opening-reply-command"
+                    onClick={() => setReply('command')}
+                  >
+                    {lang === 'en' ? 'I am the commander!' : '我就是指揮官！'}
+                  </button>
+                  <button
+                    type="button"
+                    className="choice-button"
+                    data-testid="opening-reply-cadet"
+                    onClick={() => setReply('cadet')}
+                  >
+                    {lang === 'en' ? 'I am only a cadet...' : '我只是見習生……'}
+                  </button>
+                </div>
+              </>
             )}
             {reply && (
               <DialogueSequence
                 key={reply}
-                lines={[...REPLY_LINES[reply], ...INTRO_REST]}
+                lines={[INTRO_QUESTION, ...REPLY_LINES[reply], ...INTRO_REST]}
+                initialStep={1}
                 lang={lang}
                 onTerm={onTerm}
                 cta={lang === 'en' ? 'Continue' : '繼續'}
@@ -908,7 +867,6 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               lines={READY_LINES}
               lang={lang}
               onTerm={onTerm}
-              variant="plain"
               cta={lang === 'en' ? 'Start the mission' : '開始任務'}
               ctaTestId="opening-start"
               ctaClassName="primary-button start-button"

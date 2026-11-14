@@ -126,6 +126,30 @@ describe('normal game', () => {
     expect(screen.getByTestId('opening-reply-command')).toBeTruthy();
   });
 
+  it('steps back to the previous line instead of stacking old lines', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-next'));
+
+    const current = () => screen.getByTestId('dialogue-current').textContent ?? '';
+    const back = () => screen.getByTestId('dialogue-prev') as HTMLButtonElement;
+
+    expect(back().disabled).toBe(true);
+    expect(document.querySelectorAll('.story-past')).toHaveLength(0);
+
+    fireEvent.click(screen.getByTestId('dialogue-next'));
+    expect(current()).toContain('My tail is on fire too');
+    expect(back().disabled).toBe(false);
+
+    fireEvent.click(back());
+    expect(current()).toContain('Stardust calling Mars Base');
+    expect(document.querySelectorAll('.story-past')).toHaveLength(0);
+
+    fireEvent.click(screen.getByTestId('dialogue-next'));
+    fireEvent.click(screen.getByTestId('dialogue-next'));
+    expect(current()).toContain('That is the tail');
+  });
+
   it('opens the data panel with both snapshot charts', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
