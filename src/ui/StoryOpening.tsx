@@ -572,6 +572,11 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             >
               {lang === 'en' ? 'Next' : '下一幕'}
             </button>
+            <p className="story-credit">
+              {lang === 'en'
+                ? 'NASA/JPL-Caltech · Curiosity Navcam · original image is black and white'
+                : 'NASA/JPL-Caltech · Curiosity 導航相機 · 原始影像為黑白'}
+            </p>
           </div>
         </section>
       )}

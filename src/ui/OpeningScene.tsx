@@ -29,7 +29,11 @@ export function OpeningScene({ lang, onDone }: OpeningSceneProps) {
             ? 'A strong solar flare. A rough landing.'
             : '強烈的太陽閃焰。一次粗暴的降落。'}
         </h1>
-        <p className="snapshot-note">NASA imagery · historical snapshot</p>
+        <p className="snapshot-note">
+          {lang === 'en'
+            ? 'NASA imagery · historical snapshot · Navcam original is black and white'
+            : 'NASA 影像 · 歷史快照 · 導航相機原始影像為黑白'}
+        </p>
       </div>
       <button type="button" className="ghost-button opening-skip" onClick={onDone}>
         {lang === 'en' ? 'Skip' : '跳過'}

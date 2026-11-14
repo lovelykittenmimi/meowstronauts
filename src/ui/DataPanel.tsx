@@ -41,10 +41,84 @@ function flareX(peakTime: string): number {
   return pad.left + ratio * plotWidth;
 }
 
+// 5.0 leaves headroom above X-class flares so the X2.7 and M7.7 labels on
+// 14 May do not overlap at 1920x1080 (the video recording size).
 function flareY(classType: string): number {
-  const ratio = Math.min(1, Math.max(0, (flareValue(classType) - 1) / 4.3));
+  const ratio = Math.min(1, Math.max(0, (flareValue(classType) - 1) / 5));
   return pad.top + (1 - ratio) * plotHeight;
 }
+
+interface FlarePoint {
+  key: string;
+  classType: string;
+  x: number;
+  y: number;
+  isKey: boolean;
+}
+
+const flarePoints: FlarePoint[] = flares.map((flare) => ({
+  key: `${flare.peakTime}-${flare.classType}`,
+  classType: flare.classType,
+  x: flareX(flare.peakTime),
+  y: flareY(flare.classType),
+  isKey: flare.classType === 'X2.7',
+}));
+
+interface LabelBox {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+}
+
+const LABEL_HEIGHT = 16;
+
+function labelBox(x: number, y: number, anchor: 'start' | 'middle' | 'end', text: string): LabelBox {
+  // Approximate width at fontSize 14; only used to avoid overlaps.
+  const width = text.length * 7 + 2;
+  const left = anchor === 'middle' ? x - width / 2 : anchor === 'start' ? x : x - width;
+  return { left, right: left + width, top: y - LABEL_HEIGHT, bottom: y };
+}
+
+function boxHits(a: LabelBox, b: LabelBox): boolean {
+  return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+}
+
+/**
+ * Place each flare label above its dot. When that box would cover a
+ * neighbouring dot or label (X2.7 and M7.7 peak three hours apart on
+ * 14 May), try the right of the dot, then the left, then below. Labels are
+ * drawn after every dot so no circle can paint over a label.
+ */
+function placeFlareLabels(): Array<FlarePoint & { labelX: number; labelY: number; anchor: 'start' | 'middle' | 'end' }> {
+  const dotBoxes = flarePoints.map((point) => ({
+    left: point.x - (point.isKey ? 8 : 6),
+    right: point.x + (point.isKey ? 8 : 6),
+    top: point.y - (point.isKey ? 8 : 6),
+    bottom: point.y + (point.isKey ? 8 : 6),
+  }));
+  const placed: LabelBox[] = [];
+
+  return [...flarePoints]
+    .sort((a, b) => a.x - b.x)
+    .map((point) => {
+      const candidates = [
+        { labelX: point.x, labelY: point.y - 12, anchor: 'middle' as const },
+        { labelX: point.x + 12, labelY: point.y + 5, anchor: 'start' as const },
+        { labelX: point.x - 12, labelY: point.y + 5, anchor: 'end' as const },
+        { labelX: point.x, labelY: point.y + 26, anchor: 'middle' as const },
+      ];
+      const choice =
+        candidates.find((candidate) => {
+          const box = labelBox(candidate.labelX, candidate.labelY, candidate.anchor, point.classType);
+          return !dotBoxes.some((dot) => boxHits(box, dot)) && !placed.some((label) => boxHits(box, label));
+        }) ?? candidates[0];
+      placed.push(labelBox(choice.labelX, choice.labelY, choice.anchor, point.classType));
+      return { ...point, ...choice };
+    });
+}
+
+const flareLabels = placeFlareLabels();
 
 const tempMin = -85;
 const tempMax = -15;
@@ -106,27 +180,32 @@ export function DataPanel({ lang, onClose }: { lang: Lang; onClose: () => void }
           <text x={chartWidth - pad.right} y={chartHeight - 8} textAnchor="end" fontSize="14" fill="#172033">
             17 May
           </text>
-          {flares.map((flare) => {
-            const x = flareX(flare.peakTime);
-            const y = flareY(flare.classType);
-            const isKey = flare.classType === 'X2.7';
-            return (
-              <g key={`${flare.peakTime}-${flare.classType}`}>
-                <line x1={x} x2={x} y1={y} y2={chartHeight - pad.bottom} stroke={isKey ? '#E07A5F' : '#4E8C8A'} strokeDasharray="3 3" />
-                <circle cx={x} cy={y} r={isKey ? 8 : 6} fill={isKey ? '#E07A5F' : '#4E8C8A'} />
-                <text
-                  x={x}
-                  y={y - 12}
-                  textAnchor="middle"
-                  fontSize="14"
-                  fontWeight={isKey ? 800 : 600}
-                  fill="#172033"
-                >
-                  {flare.classType}
-                </text>
-              </g>
-            );
-          })}
+          {flarePoints.map((point) => (
+            <g key={point.key}>
+              <line
+                x1={point.x}
+                x2={point.x}
+                y1={point.y}
+                y2={chartHeight - pad.bottom}
+                stroke={point.isKey ? '#E07A5F' : '#4E8C8A'}
+                strokeDasharray="3 3"
+              />
+              <circle cx={point.x} cy={point.y} r={point.isKey ? 8 : 6} fill={point.isKey ? '#E07A5F' : '#4E8C8A'} />
+            </g>
+          ))}
+          {flareLabels.map((label) => (
+            <text
+              key={`label-${label.key}`}
+              x={label.labelX}
+              y={label.labelY}
+              textAnchor={label.anchor}
+              fontSize="14"
+              fontWeight={label.isKey ? 800 : 600}
+              fill="#172033"
+            >
+              {label.classType}
+            </text>
+          ))}
         </svg>
         <p className="chart-key">{t(lang, 'data.flare')}</p>
       </section>

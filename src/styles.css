@@ -695,7 +695,7 @@ h1 {
 
 .modal-panel {
   width: min(560px, 100%);
-  max-height: min(88dvh, 820px);
+  max-height: min(94dvh, 960px);
   overflow: auto;
   padding: 20px;
   background: var(--paper);
@@ -1505,6 +1505,14 @@ h1 {
   color: var(--navy);
 }
 
+.story-credit {
+  margin: 10px 0 0;
+  color: #4b5161;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
 .story-narration {
   color: var(--ink);
   font-size: 17px;
@@ -2190,5 +2198,24 @@ h1 {
   /* Compact landscape keeps the panel to the current line only. */
   .story-past {
     display: none;
+  }
+
+  /* Keep scene 1's caption clear of the Skip button. */
+  .story-caption h1 {
+    font-size: 22px;
+  }
+
+  .story-narration {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .story-caption .primary-button {
+    margin-top: 8px;
+  }
+
+  .story-credit {
+    margin-top: 6px;
+    font-size: 10px;
   }
 }
