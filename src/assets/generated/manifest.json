@@ -697,6 +697,91 @@
       },
       "credit": null,
       "note": "expressions 3x2 grid / Ginger / helmet"
+    },
+    {
+      "file": "scenes/31-meteorite-breach.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "31-meteorite-breach.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 47992,
+      "quality": 82,
+      "alt": {
+        "en": "At night Shadow in a dark suit inspects a fresh puncture in the habitat module, dust drifting from the hole while a small repair drone hovers and the base windows glow behind.",
+        "zh-TW": "夜裡暗影穿著深色太空衣，檢查基地艙壁上新被擊穿的破洞，粉塵從洞口飄出，維修無人機浮在旁邊，背後的艙窗亮著燈。"
+      },
+      "credit": null,
+      "note": "event card S2 / micrometeorite breach / added 2026-11-14"
+    },
+    {
+      "file": "scenes/32-oxygen-unit.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "32-oxygen-unit.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 64804,
+      "quality": 82,
+      "alt": {
+        "en": "At night the opened oxygen unit glows cyan while a small repair robot works on its pipes, amber status lights above, Shadow sitting beside it.",
+        "zh-TW": "夜裡的基地內部，氧氣回收機的艙門打開、內部透著青光，小型維修機器人伸著工具手臂檢修管線，上方亮著橙色狀態燈，暗影坐在一旁看著。"
+      },
+      "credit": null,
+      "note": "event card L1 / oxygen unit repair / added 2026-11-14"
+    },
+    {
+      "file": "scenes/33-shelter-door.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "33-shelter-door.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 63916,
+      "quality": 82,
+      "alt": {
+        "en": "Silver in a white suit tests the green-lit control panel beside the shelter’s heavy round hatch, folded blankets and storage crates on the shelves around.",
+        "zh-TW": "銀白穿著白色太空衣，用前掌按下避難艙厚重圓門旁亮著綠燈的控制面板，兩側架上放著毯子與收納箱。"
+      },
+      "credit": null,
+      "note": "event card S3 / shelter hatch check / added 2026-11-14"
+    },
+    {
+      "file": "scenes/34-water-line.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "34-water-line.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 98126,
+      "quality": 82,
+      "alt": {
+        "en": "Ginger crouches by a dripping, corroded pipe joint in the greenhouse corridor while a robotic arm tightens the fitting and water falls into a metal bowl, pink grow lights and seedlings behind.",
+        "zh-TW": "金桔蹲在溫室走道漏水、生鏽的水管接頭旁，機械臂正轉緊接頭，水滴落進下方的金屬盆，背後是粉紫植物燈與幼苗。"
+      },
+      "credit": null,
+      "note": "event card L2 / clogged water line / added 2026-11-14"
+    },
+    {
+      "file": "scenes/35-supply-crate.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "35-supply-crate.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 57028,
+      "quality": 82,
+      "alt": {
+        "en": "At golden hour Ginger taps the cargo console beside an empty supply cradle, stacked crates by the open hatch and a rover out on the plain behind.",
+        "zh-TW": "黃昏時金桔按著貨運控制台，旁邊是空著的補給托架，敞開的艙口旁堆著補給箱，遠處平原上有一台探測車。"
+      },
+      "credit": null,
+      "note": "event card F3 / delayed supply crate / added 2026-11-14; US flag patch on the right shoulder still waiting for a re-roll"
     }
   ],
   "avatars": {

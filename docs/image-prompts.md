@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-14（01–30 已出圖，見 §0.6、§7；新增 §3.1 事件卡補圖 31–35，待生成）
+> 最後更新：2026-11-14（01–35 已出圖，見 §0.6、§7；§3.1 的 31–35 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 有國旗貼布待重出）
 
 ---
 
@@ -298,10 +298,13 @@ Aspect ratio 16:9, target size 1920x1080. Match the three character reference im
 
 ---
 
-### 3.1 事件卡補圖 31–35（2026-11-14，待生成）
+### 3.1 事件卡補圖 31–35（2026-11-14，已出圖並接入）
 
-> 補 `eventArt.ts` 裡「有圖、但圖沒拍到事件本身」的 5 張事件卡。S2、L1、S3 是主辦重點（破洞、氧氣機、避難艙門目前都沒入鏡）；L2、F3 是加分項。
-> 生成後放 `src/assets/generated/scenes/`，處理到最長邊 1280 px、WebP q=82，由 `src/game/eventArt.ts` 一行一張接上；`alt` 依實際畫面在該檔重寫。
+> 補 `eventArt.ts` 裡「有圖、但圖沒拍到事件本身」的 5 張事件卡。S2、L1、S3 是主辦重點；L2、F3 是加分項。
+> 原圖為 2752×1536 JPEG，已處理成 1280×714 WebP q=82（46–95 KB）放在 `src/assets/generated/scenes/`，
+> 由 `src/game/eventArt.ts` 一行一張接上；`alt` 已依實際畫面在該檔與 `manifest.json` 重寫。
+> **31–35 與原始 prompt 的差異**：31 的掃描光束未出現，改成洞口揚塵；
+> 35 的 Ginger 右肩多了美國國旗貼布，違反本批「不放國旗」規則，待重出後同名替換。
 > 事件卡以寬橫幅顯示（`object-fit: cover`），主體壓在畫面中央，重要細節不要貼上下緣。
 
 #### 31. 微隕石擊穿外牆（S2）
@@ -561,11 +564,11 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 | 28 | `28-ginger-wide.png` | 16:9 | 1920×1080 | 高角度遠景 | `scenes/28-ginger-wide.webp`（1280×714） |
 | 29 | `29-opening-storyboard.png` | 3:2 | 1800×1200 | 開場故事板 | `scenes/29-opening-storyboard.webp`（1280×714；原圖 16:9） |
 | 30 | `og-1200x630.jpg` | 1.9:1 | 1200×630 | OG 社群卡（標題由程式疊） | `brand/og-1200x630.jpg`＋`public/brand/og-1200x630.jpg`（1200×630；112,505 B；11/14 定稿，兩份位元相同） |
-| 31 | `31-meteorite-breach.png` | 16:9 | 1920×1080 | S2 事件卡：微隕石擊穿外牆（§3.1） | 待生成 |
-| 32 | `32-oxygen-unit.png` | 16:9 | 1920×1080 | L1 事件卡：氧氣回收機故障（§3.1） | 待生成 |
-| 33 | `33-shelter-door.png` | 16:9 | 1920×1080 | S3 事件卡：避難艙檢查（§3.1） | 待生成 |
-| 34 | `34-water-line.png` | 16:9 | 1920×1080 | L2 事件卡：水循環堵塞（§3.1） | 待生成 |
-| 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | 待生成 |
+| 31 | `31-meteorite-breach.png` | 16:9 | 1920×1080 | S2 事件卡：微隕石擊穿外牆（§3.1） | `scenes/31-meteorite-breach.webp`（1280×714；原檔為 `.jpeg`） |
+| 32 | `32-oxygen-unit.png` | 16:9 | 1920×1080 | L1 事件卡：氧氣回收機故障（§3.1） | `scenes/32-oxygen-unit.webp`（1280×714；原檔為 `.jpeg`） |
+| 33 | `33-shelter-door.png` | 16:9 | 1920×1080 | S3 事件卡：避難艙檢查（§3.1） | `scenes/33-shelter-door.webp`（1280×714；原檔為 `.jpeg`） |
+| 34 | `34-water-line.png` | 16:9 | 1920×1080 | L2 事件卡：水循環堵塞（§3.1） | `scenes/34-water-line.webp`（1280×714；原檔為 `.jpeg`） |
+| 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | `scenes/35-supply-crate.webp`（1280×714；原檔為 `.jpeg`；國旗貼布待重出） |
 
 ---
 

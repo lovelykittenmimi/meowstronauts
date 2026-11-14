@@ -4,20 +4,19 @@ import controlRoom from '../assets/generated/scenes/08-control-room.webp';
 import controlRoomEmpty from '../assets/generated/scenes/08-control-room-nocat.webp';
 import greenhouse from '../assets/generated/scenes/09-greenhouse.webp';
 import greenhouseEmpty from '../assets/generated/scenes/09-greenhouse-nocat.webp';
-import nightRepair from '../assets/generated/scenes/10-night-repair.webp';
-import nightRepairEmpty from '../assets/generated/scenes/10-night-repair-nocat.webp';
 import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import coldPatrolEmpty from '../assets/generated/scenes/11-cold-patrol-nocar.webp';
 import debrief from '../assets/generated/scenes/12-debrief.webp';
 import debriefEmpty from '../assets/generated/scenes/12-debrief-nocat.webp';
-import silverHero from '../assets/generated/scenes/20-silver-hero.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
 import shadowHeroEmpty from '../assets/generated/scenes/21-shadow-hero-nocat.webp';
 import shadowHeroSwept from '../assets/generated/scenes/21-shadow-hero-nocat-clean.webp';
-import gingerHero from '../assets/generated/scenes/22-ginger-hero.webp';
 import silverWide from '../assets/generated/scenes/26-silver-wide.webp';
-import shadowWide from '../assets/generated/scenes/27-shadow-wide.webp';
-import gingerWide from '../assets/generated/scenes/28-ginger-wide.webp';
+import meteoriteBreach from '../assets/generated/scenes/31-meteorite-breach.webp';
+import oxygenUnit from '../assets/generated/scenes/32-oxygen-unit.webp';
+import shelterDoor from '../assets/generated/scenes/33-shelter-door.webp';
+import waterLine from '../assets/generated/scenes/34-water-line.webp';
+import supplyCrate from '../assets/generated/scenes/35-supply-crate.webp';
 
 export interface EventArt {
   src: string;
@@ -102,21 +101,20 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '暗影開著探測車載著金桔駛過結霜的平原，遠處有塵捲風。',
     },
   },
-  // L1 — the oxygen unit fails at night; Shadow does the repair.
+  // L1 — the oxygen unit fails at night; Shadow watches the drone repair it.
   L1: {
-    src: nightRepair,
-    briefingSrc: nightRepairEmpty,
+    src: oxygenUnit,
     alt: {
-      en: 'At night Shadow works on the solar array while Silver waits below and Ginger sits in the rover, repair drones hovering.',
-      'zh-TW': '夜裡暗影在太陽能陣列上維修，銀白在下方等待，金桔坐在探測車裡，維修無人機盤旋。',
+      en: 'At night the opened oxygen unit glows cyan while a small repair robot works on its pipes, amber status lights above, Shadow sitting beside it.',
+      'zh-TW': '夜裡的基地內部，氧氣回收機的艙門打開、內部透著青光，小型維修機器人伸著工具手臂檢修管線，上方亮著橙色狀態燈，暗影坐在一旁看著。',
     },
   },
   // L2 — the water line clogs; Ginger works on it among the seedlings.
   L2: {
-    src: gingerWide,
+    src: waterLine,
     alt: {
-      en: 'Ginger among seedling trays in the greenhouse under pink grow lights.',
-      'zh-TW': '金桔坐在溫室的幼苗盤之間，頭頂是粉紫色植物燈。',
+      en: 'Ginger crouches by a dripping, corroded pipe joint in the greenhouse corridor while a robotic arm tightens the fitting and water falls into a metal bowl, pink grow lights and seedlings behind.',
+      'zh-TW': '金桔蹲在溫室走道漏水、生鏽的水管接頭旁，機械臂正轉緊接頭，水滴落進下方的金屬盆，背後是粉紫植物燈與幼苗。',
     },
   },
   // L3 — CO₂ climbing; the crew reads the levels off the display.
@@ -139,18 +137,18 @@ export const EVENT_ART: Record<string, EventArt> = {
   },
   // S2 — the breach is found while Shadow is outside at night.
   S2: {
-    src: shadowWide,
+    src: meteoriteBreach,
     alt: {
-      en: 'Night shot of Shadow crossing the dark plain toward the lit outpost.',
-      'zh-TW': '夜景：暗影穿越黑暗的火星平原，朝亮著燈的基地走去。',
+      en: 'At night Shadow in a dark suit inspects a fresh puncture in the habitat module, dust drifting from the hole while a small repair drone hovers and the base windows glow behind.',
+      'zh-TW': '夜裡暗影穿著深色太空衣，檢查基地艙壁上新被擊穿的破洞，粉塵從洞口飄出，維修無人機浮在旁邊，背後的艙窗亮著燈。',
     },
   },
-  // S3 — Silver walks the outside of the shelter before the next flare.
+  // S3 — Silver checks the shelter before the next flare.
   S3: {
-    src: silverHero,
+    src: shelterDoor,
     alt: {
-      en: 'Silver in a white suit walking a rocky ledge at dawn.',
-      'zh-TW': '銀白穿著白色太空衣走在黎明的岩脊上。',
+      en: 'Silver in a white suit tests the green-lit control panel beside the shelter’s heavy round hatch, folded blankets and storage crates on the shelves around.',
+      'zh-TW': '銀白穿著白色太空衣，用前掌按下避難艙厚重圓門旁亮著綠燈的控制面板，兩側架上放著毯子與收納箱。',
     },
   },
   // F1 — the tomato harvest.
@@ -162,12 +160,12 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '金桔在溫室裡守著番茄植株與澆水機械臂，頭頂是粉紫色植物燈。',
     },
   },
-  // F3 — the delayed crate; Ginger is outside when the lander comes in.
+  // F3 — the delayed crate; Ginger checks the cargo console by the empty cradle.
   F3: {
-    src: gingerHero,
+    src: supplyCrate,
     alt: {
-      en: 'Ginger on a rock at dawn with a lander exhaust plume rising in the distance.',
-      'zh-TW': '金桔站在黎明的岩石上，遠處升起著陸器的排氣煙柱。',
+      en: 'At golden hour Ginger taps the cargo console beside an empty supply cradle, stacked crates by the open hatch and a rover out on the plain behind.',
+      'zh-TW': '黃昏時金桔按著貨運控制台，旁邊是空著的補給托架，敞開的艙口旁堆著補給箱，遠處平原上有一台探測車。',
     },
   },
   // C1 — the call from Earth; the outpost's dish is on the base.
