@@ -1,5 +1,4 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { afterEach, beforeEach, vi } from 'vitest';
 import { FOOD_PAIRS } from './game/state';
 import SpaceFoodFlip from './SpaceFoodFlip';
 
