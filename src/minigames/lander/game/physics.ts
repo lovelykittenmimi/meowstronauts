@@ -123,6 +123,8 @@ export function makeZones(sol: number, phaseIndex: number, phase: WeatherPhase):
       attempts < 40 &&
       (distancePx({ x, y }, START) < 170 ||
         distancePx({ x, y }, TARGET) < 150 ||
+        // Keep hazard markers clear of the top-right weather HUD.
+        (x > MAP_WIDTH * 0.52 && y < MAP_HEIGHT * 0.38) ||
         placed.some((point) => distancePx(point, { x, y }) < 150))
     );
     placed.push({ x, y });
