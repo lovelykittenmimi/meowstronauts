@@ -21,13 +21,16 @@ export function TitleScreen({
   return (
     <main className="title-shell" data-testid="title-screen">
       <section className="title-card">
-        <div className="title-art" aria-hidden="true">
-          <img
-            className="title-keyart"
-            src="/brand/og-1200x630.jpg"
-            alt=""
-            style={{ objectFit: 'contain' }}
-          />
+        {/* The OG key art already carries the title, so the two lines sit
+            under the picture instead of repeating it as a heading. */}
+        <div className="title-art">
+          <div className="title-art-frame">
+            <img className="title-keyart" src="/brand/og-1200x630.jpg" alt="" />
+          </div>
+          <div className="title-art-caption">
+            <p className="tagline">{t(lang, 'app.subtitle')}</p>
+            <p className="title-pitch">{t(lang, 'title.tagline')}</p>
+          </div>
         </div>
         <div className="title-copy">
           <div className="title-topline">
@@ -36,9 +39,7 @@ export function TitleScreen({
               {t(lang, 'common.lang')}
             </button>
           </div>
-          <h1>{t(lang, 'app.title')}</h1>
-          <p className="tagline">{t(lang, 'app.subtitle')}</p>
-          <p className="title-pitch">{t(lang, 'title.tagline')}</p>
+          <h1 className="visually-hidden">{t(lang, 'app.title')}</h1>
 
           <fieldset className="difficulty-picker">
             <legend>{t(lang, 'title.difficulty')}</legend>
