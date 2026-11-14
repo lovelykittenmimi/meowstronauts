@@ -1924,7 +1924,7 @@ h1 {
   color: var(--ink);
   /* See-through so the cats behind the card stay visible; the blur keeps the
      dark text readable on top of the scene art. */
-  background: rgba(247, 243, 234, 0.8);
+  background: rgba(247, 243, 234, 0.72);
   -webkit-backdrop-filter: blur(10px) saturate(1.05);
   backdrop-filter: blur(10px) saturate(1.05);
   border: 3px solid var(--navy);
@@ -2085,7 +2085,7 @@ h1 {
   margin: 0 0 clamp(10px, 2vw, 20px) clamp(8px, 2vw, 18px);
   padding: 14px 18px;
   color: var(--ink);
-  background: rgba(247, 243, 234, 0.78);
+  background: rgba(247, 243, 234, 0.66);
   -webkit-backdrop-filter: blur(12px) saturate(1.06);
   backdrop-filter: blur(12px) saturate(1.06);
   border-left: 5px solid var(--coral);
