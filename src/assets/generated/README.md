@@ -34,8 +34,7 @@
   `13`（任務報告），另加 `*-nocat`／`*-nocar` 無貓底板（08、09、11、12、21）；其餘與 `cutouts/` 是替換與後續使用的素材。
 - **11/14 事件卡換圖**：S2 用 `31-meteorite-breach`、L1 用 `32-oxygen-unit`、S3 用 `33-shelter-door`、
   L2 用 `34-water-line`、F3 用 `35-supply-crate`（原圖 JPEG 2752×1536 → WebP 1280×714、q=82、46–95 KB）。
-  `35` 的 Ginger 右肩仍有美國國旗貼布（其他貼布是抽象任務布章），違反本批「不放國旗」的規則；
-  重出後同名替換即可，不必改 `eventArt.ts`。
+  `35` 第一版的 Ginger 右肩帶美國國旗貼布，已於同日重出移除、同名替換，`eventArt.ts` 不需再改。
 - 場景舞台由 [`src/ui/SceneStage.tsx`](../../ui/SceneStage.tsx) 呈現：同一張圖的模糊 cover 填滿框、
   清晰版用 `object-fit: contain` 完整顯示（不裁切），換圖只改 `eventArt.ts`。
 - 寬螢幕（≥1024px 橫放）與手機橫放（矮於 520px）都是場景在左、內容卡在右；
