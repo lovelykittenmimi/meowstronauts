@@ -30,10 +30,13 @@ export function drawEventFor(state: GameState): EventCard {
       card.id !== 'S1' && state.sol >= card.minSol && state.sol <= card.maxSol,
   );
 
-  // Prefer unseen cards whose conditions hold.
-  let pool = inRange.filter(
-    (card) => !seen.has(card.id) && (!card.when || card.when(context)),
+  const eligible = EVENT_CARDS.filter(
+    (card) => card.id !== 'S1' && (!card.when || card.when(context)),
   );
+  const eligibleIds = new Set(eligible.map((card) => card.id));
+
+  // Prefer unseen cards whose conditions hold.
+  let pool = inRange.filter((card) => !seen.has(card.id) && eligibleIds.has(card.id));
 
   // Fewer than six candidates: allow a repeat rather than break the conditions.
   // Never repeat the event played on the previous sol.
@@ -45,15 +48,24 @@ export function drawEventFor(state: GameState): EventCard {
         (card) =>
           seen.has(card.id) &&
           card.id !== lastEventId &&
-          (!card.when || card.when(context)),
+          eligibleIds.has(card.id),
       ),
     ];
   }
 
-  // Last resort: draw an unseen card rather than repeat yesterday's event.
+  // No eligible card in range: another eligible card outside the range beats
+  // both an ineligible card and repeating yesterday's event, because card copy
+  // must match the current sol's conditions.
+  if (pool.length === 0) pool = eligible.filter((card) => !seen.has(card.id));
   if (pool.length === 0) {
-    pool = EVENT_CARDS.filter((card) => card.id !== 'S1' && !seen.has(card.id));
+    pool = eligible.filter((card) => card.id !== lastEventId);
   }
+  // Only one eligible card exists: repeating it is better than an ineligible one.
+  if (pool.length === 0) {
+    pool = inRange.filter((card) => eligibleIds.has(card.id));
+  }
+  if (pool.length === 0) pool = eligible;
+  // Last resort: any non-S1 card, still avoiding S1 outside Sol 4.
   if (pool.length === 0) pool = inRange;
   if (pool.length === 0) pool = EVENT_CARDS.filter((card) => card.id !== 'S1');
 
