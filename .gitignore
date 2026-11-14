@@ -3,6 +3,7 @@ node_modules/
 dist/
 coverage/
 output/
+test-results/
 
 # local secrets — never commit
 .env

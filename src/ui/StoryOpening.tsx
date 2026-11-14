@@ -9,6 +9,7 @@ import sdoFlare from '../assets/nasa/sdo-flare.webp';
 import sohoCme from '../assets/nasa/soho-cme.webp';
 import scene2Video from '../assets/video/scene2-crash.mp4';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
+import { SolarAssembly } from '../puzzle/SolarAssembly';
 import type { Lang, Localized } from '../game/types';
 import LanderOverlay from '../minigames/LanderOverlay';
 import { moodFace, type FaceMood } from './catFaces';
@@ -224,12 +225,6 @@ const TAPS: Tap[] = [
     ],
   },
 ];
-
-const TAP_TERMS: Record<Tap['id'], string> = {
-  power: 'solarPower',
-  lifeSupport: 'greenhouse',
-  shield: 'radiationShielding',
-};
 
 const LANDER_PROMPT = {
   eyebrow: l('Optional training · Landing', '選修訓練 · 著陸'),
@@ -469,6 +464,7 @@ function usePrefersReducedMotion(): boolean {
 
 interface StoryOpeningProps {
   lang: Lang;
+  initialScene?: number;
   paused?: boolean;
   onDone: () => void;
   onTerm: (cardId: string) => void;
@@ -481,11 +477,18 @@ interface StoryOpeningProps {
  * between lines without stacking them. The `?scene=opening2` video shot is a
  * separate component and is not affected by this flow.
  */
-export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpeningProps) {
-  const [scene, setScene] = useState(1);
+export function StoryOpening({
+  lang,
+  initialScene = 1,
+  paused = false,
+  onDone,
+  onTerm,
+}: StoryOpeningProps) {
+  const [scene, setScene] = useState(initialScene);
   const [reply, setReply] = useState<'command' | 'cadet' | null>(null);
   const [tapped, setTapped] = useState<Tap['id'][]>([]);
   const [lastTap, setLastTap] = useState<Tap['id'] | null>(null);
+  const [puzzleHint, setPuzzleHint] = useState<string | null>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
   const [nasaShot, setNasaShot] = useState(0);
@@ -524,6 +527,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   }, [scene]);
 
   const tap = (id: Tap['id']) => {
+    setPuzzleHint(null);
     setTapped((current) => (current.includes(id) ? current : [...current, id]));
     setLastTap(id);
   };
@@ -544,9 +548,27 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     }
   };
 
-  const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
-  const introLines = reply ? [INTRO_QUESTION, ...REPLY_LINES[reply], ...INTRO_REST] : [];
+  const tapLines = lastTap
+    ? TAPS.find((item) => item.id === lastTap)?.lines ?? []
+    : [];
+  const dialogueContent = puzzleHint ? (
+    <p className="assembly-hint-text">{puzzleHint}</p>
+  ) : lastTap ? (
+    <DialogueSequence key={lastTap} lines={tapLines} lang={lang} onTerm={onTerm} />
+  ) : (
+    <p className="assembly-hint-text">
+      {lang === 'en'
+        ? 'Drag a module onto its pad.'
+        : '把模組拖到它的位置。'}
+    </p>
+  );
   const allTapped = tapped.length === TAPS.length;
+  // The "I am the commander" reply already establishes the role, so Silver
+  // should not reintroduce the player as commander in the following lines.
+  const introRestLines = reply === 'command' ? INTRO_REST.slice(1) : INTRO_REST;
+  const introLines = reply
+    ? [INTRO_QUESTION, ...REPLY_LINES[reply], ...introRestLines]
+    : [];
 
   useEffect(() => {
     if (!allTapped) return;
@@ -831,78 +853,35 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
       )}
 
       {scene === 5 && (
-        <section className="story-stage story-stage-taps">
+        <section className="story-stage story-stage-taps is-puzzle">
           <div className="story-tap-head">
             <p className="eyebrow">{lang === 'en' ? 'Scene 5 · Three systems' : '第 5 幕 · 三個系統'}</p>
             <h1>{lang === 'en' ? 'Build the outpost' : '組裝基地'}</h1>
             <p>
               {lang === 'en'
-                ? 'Tap each system to bring it online.'
-                : '點一下每個系統，把它接上基地。'}
+                ? 'Drag a module onto its pad on the base.'
+                : '把模組拖到它在基地上的位置。'}
             </p>
           </div>
-          <div className="story-tap-grid">
-            {TAPS.map((item) => (
+
+          <SolarAssembly
+            placed={tapped}
+            lang={lang}
+            onPlace={tap}
+            onHint={setPuzzleHint}
+            message={dialogueContent}
+            dialogueAction={
               <button
-                key={item.id}
                 type="button"
-                className={`story-tap ${tapped.includes(item.id) ? 'is-on' : ''}`}
-                data-testid={`opening-tap-${item.id}`}
-                onClick={() => tap(item.id)}
+                className="primary-button"
+                data-testid="opening-next"
+                disabled={!allTapped}
+                onClick={() => setScene(6)}
               >
-                <span className="story-tap-icon" aria-hidden="true">{item.icon}</span>
-                <strong>{item.place[lang]}</strong>
-                <small>
-                  {tapped.includes(item.id)
-                    ? lang === 'en' ? 'Online' : '已上線'
-                    : lang === 'en' ? 'Tap to connect' : '點擊接上'}
-                </small>
+                {lang === 'en' ? 'Continue' : '繼續'}
               </button>
-            ))}
-          </div>
-          <div className="story-mini-hud" aria-hidden="true">
-            {TAPS.map((item) => (
-              <span key={item.id} className={tapped.includes(item.id) ? 'is-on' : ''}>
-                {item.icon} {item.place[lang]}
-              </span>
-            ))}
-          </div>
-          <div className="story-panel story-tap-dialogue">
-            {lastTap ? (
-              <DialogueSequence
-                key={lastTap}
-                lines={tapLines}
-                lang={lang}
-                onTerm={onTerm}
-              />
-            ) : (
-              <p className="muted">
-                {lang === 'en'
-                  ? 'Each tap adds one system to your HUD.'
-                  : '每點一個，HUD 就會多一條資源。'}
-              </p>
-            )}
-            {lastTap && (
-              <p className="story-term-hint">
-                {lang === 'en' ? 'Dotted words open a knowledge card.' : '虛線字可以點開知識卡。'}
-                {' '}
-                <RichText
-                  text={`{{${TAP_TERMS[lastTap]}}}`}
-                  lang={lang}
-                  onTerm={onTerm}
-                />
-              </p>
-            )}
-          </div>
-          <button
-            type="button"
-            className="primary-button"
-            data-testid="opening-next"
-            disabled={!allTapped}
-            onClick={() => setScene(6)}
-          >
-            {lang === 'en' ? 'Continue' : '繼續'}
-          </button>
+            }
+          />
         </section>
       )}
 

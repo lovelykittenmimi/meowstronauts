@@ -1,0 +1,67 @@
+import { expect, test } from '@playwright/test';
+import { watchConsoleErrors } from './_helpers';
+
+/**
+ * P0 §5.1: title -> skip opening -> seven sols -> mission report.
+ * The default seed is fixed, so the deck is deterministic. These choices
+ * prioritise survival rather than a three-star score.
+ */
+const SAFE_CHOICE: Record<string, string> = {
+  T1: 'sweep',
+  P1: 'clean',
+  P4: 'insulate',
+  L1: 'repair',
+  L2: 'clean',
+  L3: 'scrubber',
+  S1: 'keep-generating',
+  S2: 'patch',
+  S3: 'key-points',
+  F1: 'harvest-all',
+  F3: 'stores',
+  C1: 'relay',
+  SC2: 'radar',
+};
+
+test.describe('P0 §5.1 — full run', () => {
+  test('plays from the title screen to the mission report', async ({ page }) => {
+    test.slow();
+    const errors = watchConsoleErrors(page);
+
+    await page.goto('/?reset=1');
+    await expect(page.getByTestId('title-screen')).toBeVisible();
+
+    await page.getByTestId('start-game').click();
+    await expect(page.getByTestId('opening-story')).toBeVisible();
+    await page.getByTestId('opening-skip').click();
+    await expect(page.getByTestId('begin-sol')).toBeVisible();
+
+    for (let sol = 1; sol <= 7; sol += 1) {
+      await page.getByTestId('begin-sol').click();
+
+      const card = page.locator('[data-testid^="event-card-"]');
+      await expect(card).toBeVisible();
+      const cardTestId = await card.getAttribute('data-testid');
+      const eventId = cardTestId?.replace('event-card-', '') ?? '';
+      const preferred = SAFE_CHOICE[eventId];
+      const choice = preferred
+        ? page.getByTestId(`choice-${preferred}`)
+        : page.locator('[data-testid^="choice-"]:not([disabled])').first();
+
+      await expect(choice).toBeEnabled();
+      await choice.click();
+      await expect(page.getByTestId('result-panel')).toBeVisible();
+
+      const continueButton = page.getByTestId('continue-button');
+      await expect(continueButton).toBeVisible();
+      await continueButton.click();
+
+      if (sol < 7) {
+        await expect(page.getByTestId('begin-sol')).toBeVisible();
+      }
+    }
+
+    await expect(page.getByTestId('mission-report')).toBeVisible();
+    await expect(page.getByTestId('mission-report-stars')).toHaveText(/^[★☆]{3}$/);
+    expect(errors).toEqual([]);
+  });
+});

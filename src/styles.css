@@ -1985,6 +1985,7 @@ h1 {
   display: grid;
   flex: 1;
   width: min(1180px, 100%);
+  min-height: 0;
   margin: 0 auto;
   padding-top: 38px;
   overflow: hidden;
@@ -2944,5 +2945,67 @@ h1 {
 
   .story-lander-note {
     font-size: 10px;
+  }
+}
+
+/* Scene 5 — outpost assembly ----------------------------------------- */
+.story-scene-5 {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.story-scene-5 .story-stage {
+  min-height: 0;
+}
+
+.story-stage-taps.is-puzzle {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  height: 100%;
+  min-height: 0;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+.story-stage-taps.is-puzzle .story-tap-head {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: none;
+}
+
+.story-stage-taps.is-puzzle .story-tap-head h1 {
+  margin-bottom: 0;
+  font-size: clamp(20px, 2.4vw, 30px);
+}
+
+.story-stage-taps.is-puzzle .story-tap-head p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-height: 620px) {
+  .story-stage-taps.is-puzzle {
+    gap: 6px;
+  }
+
+  .story-stage-taps.is-puzzle .story-tap-head .eyebrow,
+  .story-stage-taps.is-puzzle .story-tap-head p {
+    display: none;
+  }
+
+  .story-stage-taps.is-puzzle .story-tap-head h1 {
+    font-size: clamp(17px, 2.4vw, 22px);
+  }
+
+  .story-scene-5 .story-footnote {
+    display: none;
+  }
+}
+
+@media (max-height: 360px) {
+  .story-stage-taps.is-puzzle .story-tap-head {
+    display: none;
   }
 }

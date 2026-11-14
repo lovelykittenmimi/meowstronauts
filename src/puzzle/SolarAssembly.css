@@ -1,0 +1,631 @@
+.solar-assembly {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  gap: 6px;
+  min-height: 0;
+}
+
+.assembly-main {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0, 1fr) clamp(140px, 26vw, 230px);
+  gap: clamp(7px, 1.1vw, 14px);
+  min-height: 0;
+}
+
+.assembly-board-column {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+}
+
+.assembly-board-wrap {
+  display: grid;
+  min-height: 0;
+  container-type: size;
+  place-items: center;
+}
+
+.assembly-board {
+  position: relative;
+  width: min(100cqw, calc(100cqh * 4 / 3));
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 3px solid var(--navy);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #f3c188 0%, #d9834f 42%, #a95034 100%);
+  box-shadow: var(--shadow);
+  isolation: isolate;
+  user-select: none;
+}
+
+.assembly-base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.assembly-cutout {
+  position: absolute;
+  z-index: 3;
+  height: auto;
+  opacity: 0.12;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 12px rgba(40, 15, 8, 0.35));
+  transition: opacity 0.2s ease;
+}
+
+.assembly-cutout.is-ghost {
+  opacity: 0.42;
+}
+
+.assembly-cutout.is-placed {
+  opacity: 1;
+}
+
+.assembly-cutout-solar {
+  bottom: 10%;
+  left: 3%;
+  width: 38%;
+}
+
+.assembly-cutout-greenhouse {
+  right: 3%;
+  bottom: 12%;
+  width: 31%;
+}
+
+.assembly-cutout-wall {
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: 92%;
+  transform: translate(-50%, -50%);
+}
+
+.assembly-sky {
+  position: absolute;
+  inset: 0 0 45% 0;
+  background: linear-gradient(180deg, #f8d09a 0%, #edab72 58%, #db8f5b 100%);
+}
+
+.assembly-ground {
+  position: absolute;
+  inset: 45% 0 0 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255, 220, 170, 0.18) 0 18%, transparent 19%),
+    radial-gradient(ellipse at 76% 55%, rgba(80, 35, 25, 0.22) 0 14%, transparent 15%),
+    linear-gradient(180deg, #c9764c 0%, #a85336 46%, #7f3a28 100%);
+}
+
+.assembly-ground::after {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, rgba(30, 12, 10, 0.32));
+  content: '';
+}
+
+.assembly-dome {
+  position: absolute;
+  top: 34%;
+  left: 34%;
+  z-index: 2;
+  width: 32%;
+  height: 30%;
+  border: 2px solid rgba(27, 42, 91, 0.28);
+  border-radius: 50% 50% 16% 16% / 62% 62% 18% 18%;
+  background: linear-gradient(180deg, #fff8e8, #e9ddc4 70%, #cfc0a6);
+  box-shadow:
+    inset -10px -12px 0 rgba(27, 42, 91, 0.06),
+    0 10px 18px rgba(60, 20, 10, 0.25);
+}
+
+.assembly-dome::before {
+  position: absolute;
+  top: 42%;
+  right: 8%;
+  left: 8%;
+  height: 2px;
+  background: var(--teal);
+  box-shadow: 0 8px 0 var(--teal), 0 16px 0 var(--teal);
+  opacity: 0.65;
+  content: '';
+}
+
+.assembly-dome::after {
+  position: absolute;
+  right: 22%;
+  bottom: 8%;
+  left: 22%;
+  height: 22%;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(
+    90deg,
+    #f2b45c 0 18%,
+    transparent 18% 32%,
+    #f2b45c 32% 50%,
+    transparent 50% 64%,
+    #f2b45c 64% 82%,
+    transparent 82%
+  );
+  opacity: 0.85;
+  content: '';
+}
+
+.assembly-dish {
+  position: absolute;
+  top: 32%;
+  left: 67%;
+  z-index: 3;
+  width: 7%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(27, 42, 91, 0.3);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, #c9d2dc 60%, #8e9aaa);
+  transform: rotate(-20deg);
+}
+
+.assembly-dish::after {
+  position: absolute;
+  top: 92%;
+  left: 48%;
+  width: 2px;
+  height: 70%;
+  background: #f7f3ea;
+  content: '';
+}
+
+.assembly-rover {
+  position: absolute;
+  right: 8%;
+  bottom: 16%;
+  z-index: 3;
+  width: 15%;
+  height: 7%;
+  border: 1px solid rgba(27, 42, 91, 0.3);
+  border-radius: 4px 8px 3px 3px;
+  background: linear-gradient(180deg, #f2ede1, #cfc6b4);
+}
+
+.assembly-rover::before,
+.assembly-rover::after {
+  position: absolute;
+  bottom: -4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1b2a5b;
+  content: '';
+}
+
+.assembly-rover::before {
+  left: 3px;
+}
+
+.assembly-rover::after {
+  right: 3px;
+}
+
+.assembly-rocks {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 78%, #7d3d2b 0 2.2%, transparent 2.4%),
+    radial-gradient(circle at 22% 88%, #6c3325 0 1.4%, transparent 1.6%),
+    radial-gradient(circle at 84% 82%, #8b4630 0 2%, transparent 2.2%),
+    radial-gradient(circle at 58% 91%, #6a3123 0 1.2%, transparent 1.4%);
+}
+
+.assembly-slot {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 3px;
+  border: 2px dashed rgba(247, 243, 234, 0.38);
+  border-radius: 12px;
+  color: var(--paper);
+  background: rgba(13, 22, 51, 0.08);
+  font-size: clamp(8px, 2.2cqw, 12px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.assembly-slot:hover,
+.assembly-slot:focus-visible {
+  border-color: var(--amber);
+  background: rgba(232, 163, 61, 0.24);
+  outline: none;
+}
+
+.assembly-slot.is-target {
+  border-color: var(--amber);
+  background: rgba(232, 163, 61, 0.32);
+  box-shadow: 0 0 0 4px rgba(232, 163, 61, 0.22);
+}
+
+.assembly-slot.is-placed {
+  border-color: transparent;
+  background: transparent;
+  color: transparent;
+  pointer-events: none;
+}
+
+.assembly-slot-power {
+  bottom: 10%;
+  left: 3%;
+  width: 38%;
+  height: 33%;
+}
+
+.assembly-slot-lifeSupport {
+  right: 3%;
+  bottom: 12%;
+  width: 31%;
+  height: 28%;
+}
+
+.assembly-slot-shield {
+  bottom: 3%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  padding: 2px;
+  transform: translateX(-50%);
+}
+
+.assembly-slot-shield.is-placed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.assembly-wall-ring {
+  position: absolute;
+  inset: 3%;
+  z-index: 4;
+  border: 6px solid #8b8374;
+  border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  box-shadow:
+    inset 0 0 0 2px rgba(247, 243, 234, 0.25),
+    0 4px 10px rgba(30, 12, 10, 0.3);
+  pointer-events: none;
+}
+
+.assembly-wall-gate {
+  position: absolute;
+  right: 43%;
+  bottom: 3%;
+  left: 43%;
+  z-index: 5;
+  height: 7%;
+  border-radius: 4px 4px 0 0;
+  background: #8b8374;
+  box-shadow: inset 0 2px 0 rgba(247, 243, 234, 0.25);
+  pointer-events: none;
+}
+
+.assembly-dialogue {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  height: clamp(64px, 8vh, 84px);
+  padding: 6px 10px;
+  overflow: hidden;
+  border: 3px solid var(--navy);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.assembly-dialogue-copy {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.assembly-dialogue .story-chat {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.assembly-dialogue .story-past {
+  display: none;
+}
+
+.assembly-dialogue .story-line {
+  grid-template-columns: 36px 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.assembly-dialogue .story-avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.assembly-dialogue .story-speaker {
+  font-size: 12px;
+}
+
+.assembly-dialogue .story-line p {
+  display: -webkit-box;
+  margin: 1px 0 0;
+  overflow: hidden;
+  font-size: clamp(12px, 1.1vw, 15px);
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.assembly-dialogue .primary-button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  margin: 0;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+.assembly-hint-text {
+  margin: 0;
+  font-size: clamp(11px, 1.1vw, 14px);
+  line-height: 1.35;
+}
+
+.assembly-tray {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(5px, 0.9vh, 10px);
+  min-height: 0;
+  padding: clamp(6px, 0.9vw, 11px);
+  border: 1px solid rgba(247, 243, 234, 0.16);
+  border-radius: var(--radius);
+  background: rgba(247, 243, 234, 0.07);
+}
+
+.assembly-cards {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(44px, 1fr));
+  gap: clamp(4px, 0.8vh, 8px);
+  min-height: 0;
+}
+
+.assembly-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 2px;
+  overflow: hidden;
+  border: 2px solid rgba(247, 243, 234, 0.18);
+  border-radius: 12px;
+  color: var(--paper);
+  background: rgba(247, 243, 234, 0.08);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.assembly-card:active {
+  cursor: grabbing;
+}
+
+.assembly-card:hover,
+.assembly-card:focus-visible {
+  border-color: var(--amber);
+  background: rgba(232, 163, 61, 0.16);
+  outline: none;
+}
+
+.assembly-card.is-selected {
+  border-color: var(--amber);
+  background: rgba(232, 163, 61, 0.26);
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.18);
+}
+
+.assembly-card:disabled {
+  border-color: var(--teal);
+  background: rgba(78, 140, 138, 0.18);
+  opacity: 0.62;
+  cursor: default;
+}
+
+.assembly-card:disabled::after {
+  position: absolute;
+  right: 4px;
+  bottom: 2px;
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  content: '✓';
+}
+
+.assembly-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.25));
+  transition: opacity 0.15s ease;
+}
+
+.assembly-card.is-dragging .assembly-card-image,
+.assembly-card:disabled .assembly-card-image {
+  opacity: 0;
+}
+
+.assembly-card-icon {
+  flex: 0 0 auto;
+  font-size: clamp(17px, 2vw, 26px);
+  line-height: 1;
+}
+
+.assembly-card-copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.assembly-card-copy strong {
+  overflow: hidden;
+  font-size: clamp(11px, 1.1vw, 14px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.assembly-card-copy small {
+  overflow: hidden;
+  color: rgba(247, 243, 234, 0.6);
+  font-size: clamp(9px, 0.85vw, 11px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.assembly-card-state {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--amber);
+  font-size: 9px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.assembly-progress {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.assembly-progress span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px dashed rgba(247, 243, 234, 0.3);
+  border-radius: 50%;
+  color: rgba(247, 243, 234, 0.55);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.assembly-progress span.is-on {
+  border-style: solid;
+  border-color: var(--amber);
+  background: rgba(232, 163, 61, 0.2);
+  color: var(--paper);
+}
+
+.assembly-drag-ghost {
+  position: fixed;
+  z-index: 1000;
+  width: clamp(96px, 16vw, 180px);
+  height: auto;
+  pointer-events: none;
+  opacity: 0.92;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+  transform: translate(-50%, -60%);
+}
+
+@media (max-height: 620px) {
+  .assembly-main {
+    grid-template-columns: minmax(0, 1fr) clamp(132px, 26vw, 190px);
+    gap: 7px;
+  }
+
+  .assembly-dialogue {
+    height: 56px;
+    padding: 5px 8px;
+  }
+
+  .assembly-dialogue .story-line {
+    grid-template-columns: 30px 1fr;
+    gap: 6px;
+  }
+
+  .assembly-dialogue .story-avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .assembly-dialogue .story-speaker {
+    font-size: 10px;
+  }
+
+  .assembly-dialogue .story-line p {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .assembly-dialogue .primary-button {
+    min-height: 44px;
+    padding: 3px 9px;
+    font-size: 11px;
+  }
+
+  .assembly-hint-text {
+    font-size: 11px;
+  }
+
+  .assembly-card-copy small,
+  .assembly-card-state,
+  .assembly-progress {
+    display: none;
+  }
+
+  .assembly-tray {
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .assembly-cards {
+    gap: 4px;
+  }
+
+  .assembly-card {
+    padding: 2px;
+  }
+
+  .assembly-card-icon {
+    font-size: 18px;
+  }
+
+  .assembly-card-copy strong {
+    font-size: 11px;
+  }
+
+  .assembly-slot {
+    font-size: 9px;
+  }
+}

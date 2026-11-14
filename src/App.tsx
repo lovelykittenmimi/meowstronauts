@@ -52,11 +52,13 @@ export default function App() {
   const videoMode: VideoMode | undefined =
     rawVideo === 's1' || rawVideo === 'report' ? rawVideo : undefined;
   const scene = params.get('scene');
+  const storyScene = scene?.match(/^opening([1-6])$/)?.[1];
+  const storySceneNumber = storyScene && storyScene !== '2' ? Number(storyScene) : undefined;
   const langParam = params.get('lang');
   const reset = params.get('reset') === '1';
 
   const [opening, setOpening] = useState(scene === 'opening2');
-  const [storyOpen, setStoryOpen] = useState(false);
+  const [storyOpen, setStoryOpen] = useState(Boolean(storySceneNumber));
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>('officer');
   const [knowledgeId, setKnowledgeId] = useState<string | null>(null);
   const [backpackOpen, setBackpackOpen] = useState(false);
@@ -79,7 +81,11 @@ export default function App() {
 
     const lang: Lang =
       langParam === 'en' || langParam === 'zh-TW' ? langParam : readLang();
-    return createInitialState('officer', lang, undefined, reset ? [] : readBackpack());
+    const initial = createInitialState('officer', lang, undefined, reset ? [] : readBackpack());
+    if (storySceneNumber) {
+      return gameReducer(initial, { type: 'START_GAME', difficulty: 'officer' });
+    }
+    return initial;
   });
 
   useEffect(() => {
@@ -184,6 +190,7 @@ export default function App() {
         <RotateHint lang={state.lang} />
         <StoryOpening
           lang={state.lang}
+          initialScene={storySceneNumber ?? 1}
           paused={Boolean(knowledgeId)}
           onDone={() => setStoryOpen(false)}
           onTerm={openCard}
