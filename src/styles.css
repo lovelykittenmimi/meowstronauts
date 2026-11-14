@@ -466,6 +466,9 @@ h1 {
 
 /* Event ---------------------------------------------------------------- */
 .event-shell {
+  display: grid;
+  align-items: safe center;
+  justify-items: center;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
