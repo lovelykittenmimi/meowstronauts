@@ -152,6 +152,24 @@ Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 �
 - **不要引用 OSDR 當兒童文案的數字來源**：這些紀錄多為研究計畫與資料集，不是給 7–12 歲的科普結論。既有的 Mars Facts／NASA Science 條目仍是知識卡的主要來源。
 - 若真要寫「研究發現」，必須先讀該筆的 `results` 與連結論文；在 11/14–15 的時間內不建議。
 
+### 3.4 低重力跳躍小遊戲的教學引用
+
+`src/minigames/hop/` 的數字只用在遊戲化比例，不進平衡表，也不代表 NASA 的模擬或實測結果。可回指的事實：
+
+| 主題 | 可寫的事實 | 來源 | 遊戲用法 |
+|---|---|---|---|
+| 火星重力 | 火星表面重力約地球的 38%（0.38 g），是低重力，不是無重力 | S18（NASA Space Place, [What Is Gravity?](https://spaceplace.nasa.gov/what-is-gravity/en/)）、S5（[What Is Mars?](https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-mars-grades-5-8/)） | Intro 與 HUD 寫 0.38 g；同樣起跳速度的最高點與煞車距離都是地球的 `1/0.38 ≈ 2.6` 倍；常數用 3.71 與 9.81 m/s² |
+| 質量與慣性 | 重量變輕，質量與慣性不變 | 同上；glossary `gravity` 卡的既有說法 | 結果卡 `factMass`；不寫「火星沒有重力」或「在火星會飄起來」 |
+| 赤鐵礦 | 赤鐵礦是含鐵礦物；機會號（Opportunity）在 Meridiani Planum 發現富含赤鐵礦、暱稱 “blueberries” 的球形凝結物，被解讀為在含水沉積物中形成 | NASA Science, [Martian “Blueberries”](https://science.nasa.gov/resource/martian-blueberries-2/)、[Spheres in the Sand](https://science.nasa.gov/blog/spheres-in-the-sand/) | 3 個樣本與結果卡 `factHematite`；結果卡只連 “Martian Blueberries” 一頁 |
+| 塵捲風 | 火星塵捲風是小型的旋風，會揚起塵土；不是大範圍沙塵暴 | S15（NASA Science, [Dust Devils on Mars](https://science.nasa.gov/resource/dust-devils-on-mars/)） | 巡邏障礙與結果卡 `factDust`；碰撞只推開，不扣血、不失敗 |
+
+使用注意：
+
+- **遊戲物理是可玩的近似**：保留 0.38 g 的重力比例與「煞車距離隨之變長」的相對關係，時間感為 7–12 歲調整；遊戲數字不能當成 NASA 的模擬或實測結果。
+- **2.6× 是 9.81 / 3.71 的四捨五入**：文案寫「約 2.6 倍」，不寫 2.63 倍，也不寫百分位排名。
+- **不要把 Perseverance 的新發現混進來**：`Spheres in the Sand` 也寫了 Perseverance 在 Witch Hazel Hill 找到的球形顆粒，那是玄武岩質、可能來自撞擊熔融或火山，不是赤鐵礦「藍莓」；遊戲只講機會號那一批。
+- **赤鐵礦樣本是手繪 SVG**：小遊戲不引用照片，也不新增第 21 張知識卡；背包維持 20 張，赤鐵礦只出現在小遊戲回饋與本文件。
+
 ## 4. 重新產生
 
 ```bash
