@@ -1922,11 +1922,22 @@ h1 {
 
 .story-panel {
   color: var(--ink);
-  background: var(--paper);
+  /* See-through so the cats behind the card stay visible; the blur keeps the
+     dark text readable on top of the scene art. */
+  background: rgba(247, 243, 234, 0.8);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+  backdrop-filter: blur(10px) saturate(1.05);
   border: 3px solid var(--navy);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: clamp(16px, 2.4vw, 28px);
+}
+
+/* Browsers without backdrop blur get a nearly solid card so text stays legible. */
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+  .story-panel {
+    background: rgba(247, 243, 234, 0.94);
+  }
 }
 
 .story-panel .eyebrow {
@@ -2070,13 +2081,22 @@ h1 {
   z-index: 5;
   align-self: end;
   width: min(640px, 94%);
-  margin: 0 0 clamp(14px, 3vw, 28px) clamp(10px, 2.4vw, 24px);
+  /* Tucked a little further into the corner so it clears the cats behind. */
+  margin: 0 0 clamp(10px, 2vw, 20px) clamp(8px, 2vw, 18px);
   padding: 14px 18px;
   color: var(--ink);
-  background: rgba(247, 243, 234, 0.94);
+  background: rgba(247, 243, 234, 0.78);
+  -webkit-backdrop-filter: blur(12px) saturate(1.06);
+  backdrop-filter: blur(12px) saturate(1.06);
   border-left: 5px solid var(--coral);
   border-radius: 0 14px 14px 0;
   box-shadow: var(--shadow);
+}
+
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+  .story-radio {
+    background: rgba(247, 243, 234, 0.94);
+  }
 }
 
 .story-radio .eyebrow {
@@ -2100,7 +2120,9 @@ h1 {
   margin: 0;
 }
 
-.story-avatar-radio {
+/* Must out-rank `.story-avatar` below (it comes later in the file); otherwise
+   the 88px chat avatar would overflow the 64px column and sit on the text. */
+.story-avatar.story-avatar-radio {
   width: 64px;
   height: 64px;
 }
@@ -2200,7 +2222,8 @@ h1 {
   justify-self: start;
   align-self: end;
   width: min(660px, 94%);
-  margin: 0 0 clamp(12px, 2.6vw, 24px) clamp(10px, 2.4vw, 24px);
+  /* Tucked a little further into the corner so the cats' chests show. */
+  margin: 0 0 clamp(8px, 1.8vw, 16px) clamp(8px, 1.8vw, 16px);
 }
 
 .story-cat-silver {
@@ -2670,7 +2693,7 @@ h1 {
     font-size: 16px;
   }
 
-  .story-avatar-radio {
+  .story-avatar.story-avatar-radio {
     width: 44px;
     height: 44px;
   }
