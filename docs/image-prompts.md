@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-14（01–35 已出圖，見 §0.6、§7；§3.1 的 31–35 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 有國旗貼布待重出）
+> 最後更新：2026-11-14（01–35 已出圖，見 §0.6、§7；§3.1 的 31–35 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 同日重出移除國旗貼布）
 
 ---
 
@@ -103,14 +103,14 @@
 - 使用說明與表情定義：`src/assets/generated/README.md`、`src/assets/avatars/README.md`。
 - 01、05–29 全部有對應成品；17–19 的 `_hat` 是額外產出（prompt 未要求，用來做戴頭盔頭像）。
 - MVP 打包仍只載入 §0.5 的 8 張（約 779 KB），其餘是替換與後續素材。
-- 2026-11-14 另加入無貓背景底板（`scenes/06`、`08`–`10`、`12`–`13`、`21` 的 `*-nocat.webp`）。每日簡報目前固定使用 `01-keyart.webp`；各事件的 `briefingSrc` 仍保留在 `eventArt.ts`（P4、L1、L3、S1、F1、T1／P1），之後要改回逐日場景時可直接接上。06 的底板仍是候選素材。11 只有「有車＋貓」原圖與「沒車也沒貓」的 `11-cold-patrol-nocar.webp` 兩個版本，不做空車版。06 與 13 的底板已於同日重出，沒有美國國旗貼布；13 為 2.02:1、比其他張寬；06 仍有風格化的小火焰。21 有兩個底板：`21-shadow-hero-nocat`（同一片陣列、同一黃昏光線，板面積塵）與 `21-shadow-hero-nocat-clean`（同場景、沙子已清乾淨）；T1／P1 的掃沙小遊戲從積塵版開始，清完六個沙塵點後換成乾淨版。
+- 2026-11-14 另加入無貓背景底板（`scenes/06`、`08`–`10`、`12`–`13`、`21` 的 `*-nocat.webp`）。每日簡報目前固定使用 `01-keyart.webp`；各事件的 `briefingSrc` 仍保留在 `eventArt.ts`（P4、L1、L3、S1、F1、T1／P1），之後要改回逐日場景時可直接接上。06 的底板仍是候選素材；它來自 06 第二次重出的構圖，晚間第三次重出後已與主圖不同，目前未接入遊戲。11 只有「有車＋貓」原圖與「沒車也沒貓」的 `11-cold-patrol-nocar.webp` 兩個版本，不做空車版。06 與 13 的底板已於同日重出，沒有美國國旗貼布；13 為 2.02:1、比其他張寬；06 仍有風格化的小火焰。21 有兩個底板：`21-shadow-hero-nocat`（同一片陣列、同一黃昏光線，板面積塵）與 `21-shadow-hero-nocat-clean`（同場景、沙子已清乾淨）；T1／P1 的掃沙小遊戲從積塵版開始，清完六個沙塵點後換成乾淨版。
 - OG 底圖由第 30 號 prompt 生成（2848×1504）。原圖貓群高於上方 30%、也超出中央 80%，處理時把整張等比縮進安全區（三貓上緣 y=197、左右 199–1001 px），再用邊緣像素延伸深色漸層補滿留白，最後由程式疊標題與 `Fly My Mind`。
 
 **已知偏差（2026-11-14 抽查 01、06、13、23、25、29 與 OG）：**
 
 - 29 故事板實際輸出 16:9（原圖 2752×1536），不是 prompt 指定的 3:2。
 - 已解除：Silver 胸前的金色星形為太空裝刺繡徽飾；2026-11-14 刪除「星形別針」限制，成品保留。
-- 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。縮到 1280 px 高後非常不明顯，2026-11-14 決定保留、不重出。06 的太空船艙身與服裝上的美國國旗貼布已於 11/14 重出移除，重出後多出的番茄也在同日第二次重出時移除。
+- 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。縮到 1280 px 高後非常不明顯，2026-11-14 決定保留、不重出。06 的太空船艙身與服裝上的美國國旗貼布已於 11/14 重出移除，重出後多出的番茄也在同日第二次重出時移除；晚間第三次重出換成艙門冒煙、太陽能板碎裂的迫降畫面。
 - 13 已於 11/14 重出兩次：移除番茄籃、美國國旗貼布與艙身小字樣；艙身只剩幾個抽象小標記，縮到 1280 px 寬後無法辨識。
 - 01 已於 11/14 重出：移除 Ginger 旁岩石上的番茄，理由同 06／13／22。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
@@ -236,7 +236,7 @@ Aspect ratio 16:9, target size 1920x1080. Match the three character reference im
 Aspect ratio 16:9, target size 1920x1080. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. A small cream-and-teal rounded explorer spacecraft has crash-landed nose-down across a row of solar panels on Mars, hatch open, thin smoke drifting, panels slightly bent but no fire. Three suited cats pick their way out of the open hatch onto the dusty ground: Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back; Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings; Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, a small seed packet clipped to its suit. A small domed outpost with a communications dish stands nearby. Butterscotch sky, low sun, long shadows, dust motes in the air. Keep the ship and cats inside the central 80% of the frame for UI overlays. Dramatic but child-friendly, no injuries, no fire. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
 
-> 2026-11-14 重出兩次：第一次移除太空船艙身與服裝上的美國國旗貼布，但 Ginger 旁岩石上多了一顆番茄；同日第二次重出再移除番茄，與 13／22 因「火星地表會立刻凍壞」的處理一致。prompt 保留原樣作生成紀錄。
+> 2026-11-14 重出兩次：第一次移除太空船艙身與服裝上的美國國旗貼布，但 Ginger 旁岩石上多了一顆番茄；同日第二次重出再移除番茄，與 13／22 因「火星地表會立刻凍壞」的處理一致。晚間第三次重出：改用真正拍到迫降後的畫面（艙門冒煙、太陽能板碎裂在地、背景有基地圓頂），不再與 01 主視覺共用同一張圖。prompt 保留原樣作生成紀錄。
 
 ### 07. 基地外觀
 
@@ -304,7 +304,8 @@ Aspect ratio 16:9, target size 1920x1080. Match the three character reference im
 > 原圖為 2752×1536 JPEG，已處理成 1280×714 WebP q=82（46–95 KB）放在 `src/assets/generated/scenes/`，
 > 由 `src/game/eventArt.ts` 一行一張接上；`alt` 已依實際畫面在該檔與 `manifest.json` 重寫。
 > **31–35 與原始 prompt 的差異**：31 的掃描光束未出現，改成洞口揚塵；
-> 35 的 Ginger 右肩多了美國國旗貼布，違反本批「不放國旗」規則，待重出後同名替換。
+> 35 的第一版 Ginger 右肩帶美國國旗貼布，已於同日重出移除（同名替換，構圖不變），
+> 現在肩上是空白與抽象任務布章。
 > 事件卡以寬橫幅顯示（`object-fit: cover`），主體壓在畫面中央，重要細節不要貼上下緣。
 
 #### 31. 微隕石擊穿外牆（S2）
@@ -568,7 +569,7 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 | 32 | `32-oxygen-unit.png` | 16:9 | 1920×1080 | L1 事件卡：氧氣回收機故障（§3.1） | `scenes/32-oxygen-unit.webp`（1280×714；原檔為 `.jpeg`） |
 | 33 | `33-shelter-door.png` | 16:9 | 1920×1080 | S3 事件卡：避難艙檢查（§3.1） | `scenes/33-shelter-door.webp`（1280×714；原檔為 `.jpeg`） |
 | 34 | `34-water-line.png` | 16:9 | 1920×1080 | L2 事件卡：水循環堵塞（§3.1） | `scenes/34-water-line.webp`（1280×714；原檔為 `.jpeg`） |
-| 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | `scenes/35-supply-crate.webp`（1280×714；原檔為 `.jpeg`；國旗貼布待重出） |
+| 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | `scenes/35-supply-crate.webp`（1280×714；原檔為 `.jpeg`；同日重出移除國旗貼布） |
 
 ---
 

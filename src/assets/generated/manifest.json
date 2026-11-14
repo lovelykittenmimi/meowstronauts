@@ -49,14 +49,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 99226,
+      "bytes": 113638,
       "quality": 82,
       "alt": {
-        "en": "The three cats stand on rocks in front of their spacecraft and a solar panel array after the crash.",
-        "zh-TW": "三隻貓站在岩石上，背後是迫降的太空船與太陽能板。"
+        "en": "The three cats stand in front of their smoking crashed spacecraft, with shattered solar panels on the dusty ground.",
+        "zh-TW": "三隻貓站在冒煙的迫降太空船前，地上是碎裂的太陽能板。"
       },
       "credit": null,
-      "note": "opening / crash site; re-rolled 2026-11-14 without the US flag decal, then again without the tomato"
+      "note": "opening / crash site; re-rolled 2026-11-14 without the US flag decal, then again without the tomato, then once more with a true post-crash shot"
     },
     {
       "file": "scenes/07-base-exterior.webp",
@@ -774,14 +774,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 57028,
+      "bytes": 54908,
       "quality": 82,
       "alt": {
         "en": "At golden hour Ginger taps the cargo console beside an empty supply cradle, stacked crates by the open hatch and a rover out on the plain behind.",
         "zh-TW": "黃昏時金桔按著貨運控制台，旁邊是空著的補給托架，敞開的艙口旁堆著補給箱，遠處平原上有一台探測車。"
       },
       "credit": null,
-      "note": "event card F3 / delayed supply crate / added 2026-11-14; US flag patch on the right shoulder still waiting for a re-roll"
+      "note": "event card F3 / delayed supply crate / added and re-rolled without the US flag patch 2026-11-14"
     }
   ],
   "avatars": {
