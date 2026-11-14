@@ -1,6 +1,6 @@
 # 頭像使用說明（avatars）
 
-> 位置：`src/assets/generated/avatars/`
+> 位置：`src/assets/avatars/`
 > 產生日期：2026-11-14
 > 內容：3 隻貓 × 6 表情 × 一般／透明頭盔 = **36 張**；每張提供 **200／400／800 px** 三種寬度。
 
@@ -50,15 +50,16 @@ avatar-{cat}-{expression}-helmet-200.webp
 
 ```html
 <img
-  src="avatars/silver/avatar-silver-neutral.webp"
-  srcset="avatars/silver/avatar-silver-neutral-200.webp 200w,
-          avatars/silver/avatar-silver-neutral-400.webp 400w,
-          avatars/silver/avatar-silver-neutral.webp 800w"
+  src="silver/avatar-silver-neutral.webp"
+  srcset="silver/avatar-silver-neutral-200.webp 200w,
+          silver/avatar-silver-neutral-400.webp 400w,
+          silver/avatar-silver-neutral.webp 800w"
   sizes="96px" width="800" height="800"
   alt="Silver, the white long-haired cat, with a calm, neutral expression.">
 ```
 
-- 路徑以 `avatars/` 為基準；實際前綴依 Vite import 或 `public/` 設定調整。
+- 上例以本資料夾（`src/assets/avatars/`）為基準；若從 `src/assets/` 引用，加 `avatars/` 前綴。
+- 實際前綴依 Vite import 或 `public/` 設定調整。
 - HUD、對話小頭像用 200 或 400；角色卡、大圖才用 800。
 - 不要一次載入全部 36 張；依目前狀態只載入需要的那一張（或預載同角色常用表情）。
 - 圓形頭像用 CSS `border-radius: 50%; object-fit: cover;`，不需要另外裁圖。
@@ -107,4 +108,4 @@ avatar-{cat}-{expression}-helmet-200.webp
 - 來源：工作區 `pic/` 的 `17-silver-expressions(_hat).png`、`18-shadow-expressions(_hat).png`、`19-ginger-expressions(_hat).png`（repo 外，不進版控）。
 - 流程：全張 rembg `bria-rmbg` 去背 → 依 3×2 格線切格 → 800×800 頂部對齊方形裁切 → 200／400／800 WebP。
 - 切圖母檔在 `C:\Projects\Meow\_image_work\avatar_masters\`（repo 外）。
-- 若重出圖，請同步更新 `manifest.json`、本文件的對應表，以及 `src/assets/generated/README.md` 的統計數字。
+- 若重出圖，請同步更新 `manifest.json` 與本文件的對應表。
