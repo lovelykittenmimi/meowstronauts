@@ -155,12 +155,21 @@ describe('normal game', () => {
     fireEvent.click(screen.getByTestId('dialogue-next'));
     expect(current()).toContain('My tail is on fire too');
     expect(current()).not.toContain('Stardust calling Mars Base');
+    expect(screen.queryByTestId('story-narration')).toBeNull();
 
-    // Six lines in total: one advance is already done.
-    for (let index = 0; index < 4; index += 1) {
+    // Six lines in total: one advance is already done. The last two are
+    // narration: "Then they hit us." lands over the clip, then the antenna
+    // line stacks under it instead of replacing it.
+    for (let index = 0; index < 3; index += 1) {
       fireEvent.click(screen.getByTestId('dialogue-next'));
     }
-    expect(current()).toContain('twelve minutes');
+    const narration = () => screen.getByTestId('story-narration').textContent ?? '';
+    expect(narration()).toContain('Then they hit us.');
+    expect(narration()).not.toContain('twelve minutes');
+
+    fireEvent.click(screen.getByTestId('dialogue-next'));
+    expect(narration()).toContain('Then they hit us.');
+    expect(narration()).toContain('twelve minutes');
     expect(screen.queryByTestId('dialogue-next')).toBeNull();
 
     fireEvent.click(screen.getByTestId('opening-next'));
@@ -190,6 +199,42 @@ describe('normal game', () => {
     fireEvent.click(screen.getByTestId('dialogue-next'));
     fireEvent.click(screen.getByTestId('dialogue-next'));
     expect(current()).toContain('That is the tail');
+  });
+
+  it('puts the opening narration over the picture, not in the caption card', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+
+    const narration = screen.getByTestId('story-narration');
+    expect(narration.textContent).toContain('This is Mars');
+    expect(narration.closest('.story-caption')).toBeNull();
+    expect(screen.getByTestId('opening-next')).toBeTruthy();
+  });
+
+  it('shows the scene 3 narration over the cats', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-next'));
+
+    // Read the crash radio to its last line, then continue to scene 3.
+    for (let index = 0; index < 5; index += 1) {
+      fireEvent.click(screen.getByTestId('dialogue-next'));
+    }
+    fireEvent.click(screen.getByTestId('opening-next'));
+    fireEvent.click(screen.getByTestId('opening-reply-cadet'));
+
+    // [question, reply, ...INTRO_REST]; "Mars has no fridge." is the 9th
+    // line of INTRO_REST, so it is step 10 of the sequence.
+    for (let index = 0; index < 9; index += 1) {
+      fireEvent.click(screen.getByTestId('dialogue-next'));
+    }
+
+    expect(screen.getByTestId('story-narration').textContent).toContain(
+      'Mars has no fridge.',
+    );
+    expect(screen.getByTestId('dialogue-current').textContent).not.toContain(
+      'Mars has no fridge.',
+    );
   });
 
   it('opens the data panel with both snapshot charts', () => {

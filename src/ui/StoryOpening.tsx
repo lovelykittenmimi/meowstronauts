@@ -263,11 +263,8 @@ function DialogueLine({
   lang: Lang;
   onTerm: (id: string) => void;
 }) {
-  const body = <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />;
-
-  if (line.cat === 'narrator') {
-    return <p className="story-narration">{body}</p>;
-  }
+  // Narration is not a cat speaking; it lives in the top overlay instead.
+  if (line.cat === 'narrator') return null;
 
   return (
     <div className={`story-line story-line-${line.cat}`}>
@@ -279,7 +276,9 @@ function DialogueLine({
       />
       <div>
         <strong className="story-speaker">{SPEAKER_NAMES[line.cat]}</strong>
-        <p>{body}</p>
+        <p>
+          <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
+        </p>
       </div>
     </div>
   );
@@ -294,11 +293,8 @@ function RadioLine({
   lang: Lang;
   onTerm: (id: string) => void;
 }) {
-  const body = <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />;
-
-  if (line.cat === 'narrator') {
-    return <p className="story-radio-line story-radio-narrator">{body}</p>;
-  }
+  // Narration is not on the radio; it lives in the top overlay instead.
+  if (line.cat === 'narrator') return null;
 
   return (
     <div className={`story-radio-line story-radio-${line.cat}`}>
@@ -310,8 +306,52 @@ function RadioLine({
       />
       <p>
         <strong>{SPEAKER_NAMES[line.cat]}: </strong>
-        {body}
+        <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
       </p>
+    </div>
+  );
+}
+
+/**
+ * The consecutive narrator lines that lead up to this step, or none when the
+ * current line is spoken. "Then they hit us." is step 4 and the antenna line is
+ * step 5, so the overlay keeps the first line and adds the second underneath
+ * instead of replacing it — the beat reads as one piece of narration.
+ */
+function narrationRun(lines: Line[], step: number): Line[] {
+  if (lines[step]?.cat !== 'narrator') return [];
+  let start = step;
+  while (start > 0 && lines[start - 1].cat === 'narrator') start -= 1;
+  return lines.slice(start, step + 1);
+}
+
+/**
+ * Narration sits over the picture at the top of the stage, larger than the
+ * spoken lines: it is the voice of the scene, not one of the cats.
+ */
+function NarrationOverlay({
+  lines,
+  lang,
+  onTerm,
+}: {
+  lines: Line[];
+  lang: Lang;
+  onTerm: (id: string) => void;
+}) {
+  if (lines.length === 0) return null;
+
+  return (
+    <div className="story-narration-overlay" data-testid="story-narration" aria-live="polite">
+      {lines.map((line, index) => (
+        <p
+          key={index}
+          className={
+            index === 0 ? 'story-narration-lead' : 'story-narration-follow'
+          }
+        >
+          <RichText text={line.text[lang]} lang={lang} onTerm={onTerm} />
+        </p>
+      ))}
     </div>
   );
 }
@@ -451,6 +491,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const [nasaShot, setNasaShot] = useState(0);
   const [nasaDone, setNasaDone] = useState(reduceMotion);
   const [crashStep, setCrashStep] = useState(0);
+  const [introStep, setIntroStep] = useState(0);
   const [videoStarted, setVideoStarted] = useState(false);
   const [videoBlocked, setVideoBlocked] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -504,6 +545,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   };
 
   const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
+  const introLines = reply ? [INTRO_QUESTION, ...REPLY_LINES[reply], ...INTRO_REST] : [];
   const allTapped = tapped.length === TAPS.length;
 
   useEffect(() => {
@@ -587,10 +629,10 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
         <section className="story-stage story-stage-photo">
           <img className="story-photo" src={marsLandscape} alt="" />
           <div className="story-photo-shade" aria-hidden="true" />
+          <NarrationOverlay lines={[SCENE_ONE]} lang={lang} onTerm={onTerm} />
           <div className="story-panel story-caption">
             <p className="eyebrow">Sol 0 · Hope-1</p>
             <h1>{SCENE_TITLES[0][lang]}</h1>
-            <DialogueLine line={SCENE_ONE} lang={lang} onTerm={onTerm} />
             <button
               type="button"
               className="primary-button"
@@ -632,6 +674,11 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               setVideoEnded(true);
               askLander();
             }}
+          />
+          <NarrationOverlay
+            lines={narrationRun(CRASH_LINES, crashStep)}
+            lang={lang}
+            onTerm={onTerm}
           />
           {!reduceMotion && (!nasaDone || !videoStarted) && (
             <div className="nasa-intro" data-testid="opening-scene2-intro">
@@ -705,6 +752,11 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
       {scene === 3 && (
         <section className="story-stage story-stage-cats">
           <img className="story-lineup" src={lineupScene} alt="" />
+          <NarrationOverlay
+            lines={narrationRun(introLines, introStep)}
+            lang={lang}
+            onTerm={onTerm}
+          />
           <div className="story-panel story-dialogue">
             <p className="eyebrow">{lang === 'en' ? 'Scene 3 · Three cats' : '第 3 幕 · 三隻貓'}</p>
             {!reply && (
@@ -733,10 +785,11 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             {reply && (
               <DialogueSequence
                 key={reply}
-                lines={[INTRO_QUESTION, ...REPLY_LINES[reply], ...INTRO_REST]}
+                lines={introLines}
                 initialStep={1}
                 lang={lang}
                 onTerm={onTerm}
+                onStep={setIntroStep}
                 cta={lang === 'en' ? 'Continue' : '繼續'}
                 onCta={() => setScene(4)}
               />
