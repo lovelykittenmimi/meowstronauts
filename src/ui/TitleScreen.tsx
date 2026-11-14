@@ -1,4 +1,3 @@
-import keyart from '../assets/generated/scenes/01-keyart.webp';
 import type { Difficulty, Lang } from '../game/types';
 import { t, type StringKey } from '../i18n';
 
@@ -23,7 +22,12 @@ export function TitleScreen({
     <main className="title-shell" data-testid="title-screen">
       <section className="title-card">
         <div className="title-art" aria-hidden="true">
-          <img className="title-keyart" src={keyart} alt="" />
+          <img
+            className="title-keyart"
+            src="/brand/og-1200x630.jpg"
+            alt=""
+            style={{ objectFit: 'contain' }}
+          />
         </div>
         <div className="title-copy">
           <div className="title-topline">

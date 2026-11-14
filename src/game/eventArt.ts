@@ -1,10 +1,15 @@
 import type { Localized } from './types';
 import baseExterior from '../assets/generated/scenes/07-base-exterior.webp';
 import controlRoom from '../assets/generated/scenes/08-control-room.webp';
+import controlRoomEmpty from '../assets/generated/scenes/08-control-room-nocat.webp';
 import greenhouse from '../assets/generated/scenes/09-greenhouse.webp';
+import greenhouseEmpty from '../assets/generated/scenes/09-greenhouse-nocat.webp';
 import nightRepair from '../assets/generated/scenes/10-night-repair.webp';
+import nightRepairEmpty from '../assets/generated/scenes/10-night-repair-nocat.webp';
 import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
+import coldPatrolEmpty from '../assets/generated/scenes/11-cold-patrol-nocar.webp';
 import debrief from '../assets/generated/scenes/12-debrief.webp';
+import debriefEmpty from '../assets/generated/scenes/12-debrief-nocat.webp';
 import silverHero from '../assets/generated/scenes/20-silver-hero.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
 import gingerHero from '../assets/generated/scenes/22-ginger-hero.webp';
@@ -14,6 +19,8 @@ import gingerWide from '../assets/generated/scenes/28-ginger-wide.webp';
 
 export interface EventArt {
   src: string;
+  /** Cat-free plate of the same place, shown on the daily briefing. */
+  briefingSrc?: string;
   alt: Localized;
 }
 
@@ -37,17 +44,18 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
     },
   },
-  // P1 — dust on the panels again; the crew works the array after dark.
+  // P1 — dust on the panels again; same array, same cat as T1.
   P1: {
-    src: nightRepair,
+    src: shadowHero,
     alt: {
-      en: 'At night Shadow works on the solar array while Silver waits below and Ginger sits in the rover, repair drones hovering.',
-      'zh-TW': '夜裡暗影在太陽能陣列上維修，銀白在下方等待，金桔坐在探測車裡，維修無人機盤旋。',
+      en: 'Shadow in a dark suit standing on dusty solar panels at dusk, the outpost dome behind him.',
+      'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
     },
   },
   // P4 — the cold week; a rover out on the frost with a dust devil spinning.
   P4: {
     src: coldPatrol,
+    briefingSrc: coldPatrolEmpty,
     alt: {
       en: 'Shadow drives a rover across a frost-dusted plain with Ginger beside him, a dust devil spinning in the distance.',
       'zh-TW': '暗影開著探測車載著金桔駛過結霜的平原，遠處有塵捲風。',
@@ -56,6 +64,7 @@ export const EVENT_ART: Record<string, EventArt> = {
   // L1 — the oxygen unit fails at night; Shadow does the repair.
   L1: {
     src: nightRepair,
+    briefingSrc: nightRepairEmpty,
     alt: {
       en: 'At night Shadow works on the solar array while Silver waits below and Ginger sits in the rover, repair drones hovering.',
       'zh-TW': '夜裡暗影在太陽能陣列上維修，銀白在下方等待，金桔坐在探測車裡，維修無人機盤旋。',
@@ -72,6 +81,7 @@ export const EVENT_ART: Record<string, EventArt> = {
   // L3 — CO₂ climbing; the crew reads the levels off the display.
   L3: {
     src: debrief,
+    briefingSrc: debriefEmpty,
     alt: {
       en: 'The three cats gathered around a glowing holographic display in the habitat.',
       'zh-TW': '三隻貓圍在基地裡發光的全像顯示器前。',
@@ -80,6 +90,7 @@ export const EVENT_ART: Record<string, EventArt> = {
   // S1 — flare warning; the wall display is the story here.
   S1: {
     src: controlRoom,
+    briefingSrc: controlRoomEmpty,
     alt: {
       en: 'The three cats in the control room beneath a wall display showing Mars weather and solar alert icons.',
       'zh-TW': '三隻貓在控制室裡，牆上大螢幕顯示火星天氣與太陽警示圖示。',
@@ -104,6 +115,7 @@ export const EVENT_ART: Record<string, EventArt> = {
   // F1 — the tomato harvest.
   F1: {
     src: greenhouse,
+    briefingSrc: greenhouseEmpty,
     alt: {
       en: 'Ginger beside a tomato plant and a watering arm in the greenhouse under pink grow lights.',
       'zh-TW': '金桔在溫室裡守著番茄植株與澆水機械臂，頭頂是粉紫色植物燈。',

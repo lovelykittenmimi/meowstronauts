@@ -19,14 +19,15 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
   const brief = briefForSol(state.sol);
   const isCold = state.weather.tags.includes('cold_snap') || state.weather.tags.includes('severe_cold');
 
-  // The same scene the sol's event card uses: the briefing footer already
-  // names that event, so the picture must not contradict it.
+  // The same place as the sol's event card — the cat-free plate when one
+  // exists, so the briefing and the card are the same scene, not the same
+  // picture twice. The briefing footer already names that event.
   const art = artForEvent(event.id);
 
   return (
     <main className="briefing-shell">
       <SceneStage
-        src={art?.src ?? baseExterior}
+        src={art?.briefingSrc ?? art?.src ?? baseExterior}
         alt={
           art
             ? art.alt[lang]
