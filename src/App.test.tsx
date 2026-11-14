@@ -98,9 +98,11 @@ describe('normal game', () => {
     expect(video.muted).toBe(true);
     expect(video.getAttribute('poster')).toBeTruthy();
 
-    // The crash clip plays uncovered; no stills sit on top of it.
-    expect(screen.queryByTestId('opening-scene2-intro')).toBeNull();
-    expect(screen.getByTestId('opening-scene2-video-toggle')).toBeTruthy();
+    // The NASA montage plays first; the clip waits, then starts from 0 s.
+    expect(screen.getByTestId('opening-scene2-intro')).toBeTruthy();
+    expect(screen.getByTestId('nasa-shot-flare').className).toContain('is-current');
+    expect(screen.getByText('NASA / SDO')).toBeTruthy();
+    expect(screen.queryByTestId('opening-scene2-video-toggle')).toBeNull();
 
     const current = () => screen.getByTestId('dialogue-current').textContent ?? '';
     expect(current()).toContain('Stardust calling Mars Base');

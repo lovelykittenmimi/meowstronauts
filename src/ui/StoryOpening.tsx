@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import crashScene from '../assets/generated/scenes/06-crash.webp';
 import lineupScene from '../assets/generated/scenes/05-team-lineup.webp';
+import galeClose from '../assets/nasa/gale-close.webp';
+import galeMid from '../assets/nasa/gale-mid.webp';
+import galeWide from '../assets/nasa/gale-wide.webp';
+import marsGlobe from '../assets/nasa/mars-globe.webp';
+import sdoFlare from '../assets/nasa/sdo-flare.webp';
+import sohoCme from '../assets/nasa/soho-cme.webp';
 import scene2Video from '../assets/video/scene2-crash.mp4';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
 import { getKnowledgeCard } from '../game/knowledge';
@@ -47,6 +53,79 @@ const CRASH_LINES: Line[] = [
   { cat: 'narrator', text: l('Then they hit us.', '然後，他們就撞上來了。') },
   { cat: 'narrator', text: l('The storm knocked out the antenna. Radio delay to Earth is about twelve minutes.', '風暴撞壞了天線。與地球的無線電通訊單向延遲約十二分鐘。') },
 ];
+
+interface NasaShot {
+  key: string;
+  src: string;
+  credit: string;
+  duration: number;
+  fit: 'cover' | 'contain';
+  alt: Localized;
+}
+
+// Real NASA imagery before the crash clip. Durations produce the 5-second
+// solar-storm -> Mars -> Gale approach; when it ends the crash clip starts
+// from 0 s, so no frame of the clip is ever covered.
+const NASA_SHOTS: NasaShot[] = [
+  {
+    key: 'flare',
+    src: sdoFlare,
+    credit: 'NASA / SDO',
+    duration: 1000,
+    fit: 'contain',
+    alt: l('NASA SDO image of a solar flare', 'NASA SDO 拍攝的太陽閃焰'),
+  },
+  {
+    key: 'cme',
+    src: sohoCme,
+    credit: 'NASA / ESA / SOHO',
+    duration: 800,
+    fit: 'cover',
+    alt: l(
+      'NASA and ESA SOHO image of a coronal mass ejection',
+      'NASA 與 ESA SOHO 拍攝的日冕物質拋射',
+    ),
+  },
+  {
+    key: 'mars',
+    src: marsGlobe,
+    credit: 'NASA / USGS / Viking',
+    duration: 1000,
+    fit: 'contain',
+    alt: l(
+      'Viking image of Mars showing Valles Marineris',
+      'Viking 拍攝的火星，可見水手號峽谷',
+    ),
+  },
+  {
+    key: 'gale-wide',
+    src: galeWide,
+    credit: 'NASA/JPL-Caltech · Mars Trek',
+    duration: 800,
+    fit: 'cover',
+    alt: l('Mars Trek overhead view of Gale Crater', 'Mars Trek 的蓋爾撞擊坑俯瞰圖'),
+  },
+  {
+    key: 'gale-mid',
+    src: galeMid,
+    credit: 'NASA/JPL-Caltech · Mars Trek',
+    duration: 800,
+    fit: 'cover',
+    alt: l('Mars Trek close view of Gale Crater', 'Mars Trek 的蓋爾撞擊坑近照'),
+  },
+  {
+    key: 'gale-close',
+    src: galeClose,
+    credit: 'NASA/JPL-Caltech · Mars Trek',
+    duration: 600,
+    fit: 'cover',
+    alt: l('Mars Trek detail of Gale Crater', 'Mars Trek 的蓋爾撞擊坑細部影像'),
+  },
+];
+
+const NASA_SHOT_STARTS = NASA_SHOTS.map((_, index) =>
+  NASA_SHOTS.slice(0, index).reduce((total, shot) => total + shot.duration, 0),
+);
 
 const INTRO_QUESTION: Line = {
   cat: 'silver',
@@ -374,7 +453,10 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const [lastTap, setLastTap] = useState<Tap['id'] | null>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
+  const [nasaShot, setNasaShot] = useState(0);
+  const [nasaDone, setNasaDone] = useState(reduceMotion);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const crashStarted = useRef(false);
 
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo(0, 0);
@@ -419,6 +501,36 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     if (!paused && !reduceMotion) return;
     videoRef.current?.pause?.();
   }, [paused, reduceMotion]);
+
+  // Step through the NASA stills; the crash clip waits until they finish.
+  useEffect(() => {
+    if (scene !== 2 || nasaDone || paused) return;
+    const shot = NASA_SHOTS[nasaShot];
+    const timer = window.setTimeout(() => {
+      if (nasaShot + 1 >= NASA_SHOTS.length) {
+        setNasaDone(true);
+      } else {
+        setNasaShot(nasaShot + 1);
+      }
+    }, shot.duration);
+    return () => window.clearTimeout(timer);
+  }, [nasaShot, nasaDone, scene, paused]);
+
+  useEffect(() => {
+    if (reduceMotion) setNasaDone(true);
+  }, [reduceMotion]);
+
+  // After the montage, play the clip from its first frame. Only once:
+  // opening and closing a knowledge card must not restart the clip.
+  useEffect(() => {
+    if (!nasaDone || reduceMotion || paused || crashStarted.current) return;
+    const video = videoRef.current;
+    if (!video) return;
+    crashStarted.current = true;
+    video.currentTime = 0;
+    const playback = video.play?.();
+    if (playback) void playback.catch(() => undefined);
+  }, [nasaDone, reduceMotion, paused]);
 
   return (
     <main
@@ -476,7 +588,6 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             data-testid="opening-scene2-video"
             src={scene2Video}
             poster={crashScene}
-            autoPlay={!reduceMotion}
             muted
             playsInline
             preload="metadata"
@@ -487,21 +598,47 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             onPause={() => setVideoPlaying(false)}
             onEnded={() => setVideoPlaying(false)}
           />
-          <button
-            type="button"
-            className="ghost-button story-video-toggle"
-            data-testid="opening-scene2-video-toggle"
-            aria-label={
-              videoPlaying
-                ? lang === 'en' ? 'Pause the crash video' : '暫停迫降影片'
-                : lang === 'en' ? 'Play the crash video' : '播放迫降影片'
-            }
-            onClick={toggleVideo}
-          >
-            {videoPlaying
-              ? lang === 'en' ? 'Pause' : '暫停'
-              : lang === 'en' ? 'Play' : '播放'}
-          </button>
+          {!nasaDone && (
+            <div className="nasa-intro" data-testid="opening-scene2-intro">
+              {NASA_SHOTS.map((shot, index) => (
+                <figure
+                  key={shot.key}
+                  className={`nasa-shot ${index === nasaShot ? 'is-current' : ''} ${
+                    shot.fit === 'contain' ? 'is-contain' : ''
+                  }`}
+                  data-testid={`nasa-shot-${shot.key}`}
+                  aria-hidden={index !== nasaShot}
+                >
+                  <img
+                    src={shot.src}
+                    alt={index === nasaShot ? shot.alt[lang] : ''}
+                    draggable={false}
+                    style={{ animationDelay: `${NASA_SHOT_STARTS[index]}ms` }}
+                  />
+                  {index === nasaShot && (
+                    <figcaption className="nasa-credit">{shot.credit}</figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          )}
+          {nasaDone && (
+            <button
+              type="button"
+              className="ghost-button story-video-toggle"
+              data-testid="opening-scene2-video-toggle"
+              aria-label={
+                videoPlaying
+                  ? lang === 'en' ? 'Pause the crash video' : '暫停迫降影片'
+                  : lang === 'en' ? 'Play the crash video' : '播放迫降影片'
+              }
+              onClick={toggleVideo}
+            >
+              {videoPlaying
+                ? lang === 'en' ? 'Pause' : '暫停'
+                : lang === 'en' ? 'Play' : '播放'}
+            </button>
+          )}
           <div className="story-radio">
             <p className="eyebrow">
               <span className="story-live-dot" aria-hidden="true" />

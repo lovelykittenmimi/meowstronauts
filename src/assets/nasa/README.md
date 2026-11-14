@@ -1,8 +1,8 @@
-# NASA stills formerly used in the scene 2 opening
+# NASA stills in the scene 2 opening
 
-Real NASA imagery, public domain unless noted; keep the credit if reused.
-The source files are in `tools/video/assets/`; these are 1600 px WebP versions
-made for the game build. Since 2026-11-14 the game no longer shows them.
+Real NASA imagery shown before the crash clip. Public domain unless noted;
+keep the on-screen credit. The source files are in `tools/video/assets/`;
+these are 1600 px WebP versions for the game build.
 
 | File | Source | Credit |
 |---|---|---|
@@ -15,10 +15,9 @@ made for the game build. Since 2026-11-14 the game no longer shows them.
   X2.7 flare; that claim belongs only to the DONKI data panel.
 - The CME still is cropped to a 16:9 band through the sun. The SDO and Mars
   globes stay square and are letterboxed on black; do not crop the flare limb.
-- Until 2026-11-14 scene 2 showed these in order (flare → CME → Mars → Gale
-  wide/mid/close) on top of the crash clip, which then started at 3 s. The clip
-  now plays uncovered from 0 s, so the game no longer displays these files;
-  they stay here for the demo-video edit and possible reuse. The HTML caption
-  credits remain in this README for reuse.
+- Scene 2 shows these in order (flare → CME → Mars → Gale wide/mid/close) for
+  about 5 s. Since 2026-11-14 the crash clip waits until the montage ends and
+  then plays from 0 s, so the stills never cover the clip. Credits are rendered
+  as HTML captions.
 - Not NASA footage of the fictional crash. The on-screen disclosure still says
   the crash is a training simulation.
