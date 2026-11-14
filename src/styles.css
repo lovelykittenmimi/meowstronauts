@@ -1993,16 +1993,16 @@ h1 {
 @media (max-height: 520px) and (orientation: landscape) {
   .story-stage-photo,
   .story-stage-ready {
-    min-height: 320px;
+    min-height: 300px;
   }
 
   .story-stage-crash {
-    min-height: 360px;
+    min-height: calc(100dvh - 76px);
   }
 
   .story-cats,
   .story-map {
-    min-height: 300px;
+    min-height: 180px;
   }
 
   .story-radio {
@@ -2010,6 +2010,6 @@ h1 {
   }
 
   .story-radio-line {
-    font-size: 14px;
+    font-size: 15px;
   }
 }

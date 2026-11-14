@@ -189,6 +189,22 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const [lastTap, setLastTap] = useState<Tap['id'] | null>(null);
   const [crashDone, setCrashDone] = useState(false);
   const [radioStep, setRadioStep] = useState(0);
+  const [compact, setCompact] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return;
+    const query = window.matchMedia(
+      '(orientation: landscape) and (max-width: 700px) and (max-height: 520px)',
+    );
+    const update = () => setCompact(query.matches);
+    update();
+    query.addEventListener?.('change', update);
+    return () => query.removeEventListener?.('change', update);
+  }, []);
+
+  useEffect(() => {
+    if (window.scrollY > 0) window.scrollTo(0, 0);
+  }, [scene]);
 
   useEffect(() => {
     if (scene !== 1) return;
@@ -221,6 +237,9 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
   const introDone = reply !== null;
   const allTapped = tapped.length === TAPS.length;
+  const radioLines = compact
+    ? CRASH_LINES.slice(Math.max(0, radioStep - 3), radioStep)
+    : CRASH_LINES.slice(0, radioStep);
 
   return (
     <main
@@ -278,7 +297,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             <p className="eyebrow">
               {lang === 'en' ? 'Radio · Stardust' : '無線電 · 星塵號'}
             </p>
-            {CRASH_LINES.slice(0, radioStep).map((line, index) => (
+            {radioLines.map((line, index) => (
               <p
                 key={index}
                 className={`story-radio-line story-radio-${line.cat}`}
