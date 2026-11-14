@@ -18,9 +18,17 @@ interface BriefingScreenProps {
   event: EventCard;
   onBegin: (eventId: string) => void;
   onTerm: (cardId: string) => void;
+  /** Optional Sol 1 practice run; other sols do not show the button. */
+  onHopPractice?: () => void;
 }
 
-export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreenProps) {
+export function BriefingScreen({
+  state,
+  event,
+  onBegin,
+  onTerm,
+  onHopPractice,
+}: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
   const isCold = state.weather.tags.includes('cold_snap') || state.weather.tags.includes('severe_cold');
@@ -75,6 +83,18 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
             );
           })}
         </div>
+
+        {state.sol === 1 && onHopPractice && (
+          <button
+            type="button"
+            className="hop-practice-button"
+            data-testid="hop-practice"
+            onClick={onHopPractice}
+          >
+            <span aria-hidden="true">🦘</span>
+            {t(lang, 'briefing.hop')}
+          </button>
+        )}
         </div>
 
         <div className="briefing-next">

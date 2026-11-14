@@ -8,6 +8,10 @@ import type {
 export const MAX_SOL = 7;
 export const BACKPACK_SIZE = 20;
 
+/** Optional Sol 1 practice: collect all three samples for a one-time bonus. */
+export const HOP_SAMPLE_TOTAL = 3;
+export const HOP_REWARD_SCIENCE = 1;
+
 export const INITIAL_RESOURCES: Record<Difficulty, Resources> = {
   cadet: {
     power: 80,

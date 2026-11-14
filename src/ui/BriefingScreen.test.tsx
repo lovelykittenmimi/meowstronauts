@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { EVENT_BY_ID } from '../game/events';
 import { createInitialState } from '../game/reducer';
 import { BriefingScreen } from './BriefingScreen';
@@ -7,7 +7,11 @@ function briefingState(sol: number) {
   return { ...createInitialState('officer', 'en'), sol };
 }
 
-function renderBriefing(eventId: string, sol = 4) {
+function renderBriefing(
+  eventId: string,
+  sol = 4,
+  onHopPractice?: () => void,
+) {
   const event = EVENT_BY_ID.get(eventId);
   if (!event) throw new Error(`unknown event ${eventId}`);
   return render(
@@ -16,6 +20,7 @@ function renderBriefing(eventId: string, sol = 4) {
       event={event}
       onBegin={() => {}}
       onTerm={() => {}}
+      onHopPractice={onHopPractice}
     />,
   );
 }
@@ -48,5 +53,25 @@ describe('daily briefing art', () => {
       /solar panel array at dusk with dust/i,
     ) as HTMLImageElement;
     expect(image.src).toContain('21-shadow-hero-nocat');
+  });
+});
+
+describe('low-gravity hop entry', () => {
+  it('offers the hop on Sol 1 and calls back', () => {
+    let opened = 0;
+    renderBriefing('T1', 1, () => {
+      opened += 1;
+    });
+
+    const button = screen.getByTestId('hop-practice');
+    expect(button.textContent).toContain('low-gravity hop');
+    fireEvent.click(button);
+    expect(opened).toBe(1);
+  });
+
+  it('keeps the hop out of later sol briefings', () => {
+    renderBriefing('T1', 2, () => {});
+
+    expect(screen.queryByTestId('hop-practice')).toBeNull();
   });
 });

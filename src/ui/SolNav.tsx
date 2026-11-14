@@ -11,6 +11,8 @@ interface SolNavProps {
   onSelect: (sol: number) => void;
   /** Opens the landing mini-game; optional so a bare nav still works. */
   onLander?: () => void;
+  /** Opens the Sol 1 low-gravity practice; omitted in video mode. */
+  onHop?: () => void;
 }
 
 const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
@@ -21,7 +23,14 @@ const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
  * only, so it never changes the mission. The landing game lives at the end of
  * the same row, so practice is one tap away between sols.
  */
-export function SolNav({ currentSol, selectedSol, lang, onSelect, onLander }: SolNavProps) {
+export function SolNav({
+  currentSol,
+  selectedSol,
+  lang,
+  onSelect,
+  onLander,
+  onHop,
+}: SolNavProps) {
   return (
     <nav className="sol-nav" aria-label={t(lang, 'solnav.aria')} data-testid="sol-nav">
       {SOLS.map((sol) => {
@@ -46,9 +55,25 @@ export function SolNav({ currentSol, selectedSol, lang, onSelect, onLander }: So
           type="button"
           className="sol-nav-button sol-nav-lander"
           data-testid="lander-open"
+          aria-label={t(lang, 'solnav.lander')}
+          title={t(lang, 'solnav.lander')}
           onClick={onLander}
         >
-          <span aria-hidden="true">🚀</span> {t(lang, 'solnav.lander')}
+          <span aria-hidden="true">🚀</span>
+          <span className="sol-nav-label">{t(lang, 'solnav.lander')}</span>
+        </button>
+      )}
+      {onHop && (
+        <button
+          type="button"
+          className="sol-nav-button sol-nav-hop"
+          data-testid="hop-open"
+          aria-label={t(lang, 'solnav.hop')}
+          title={t(lang, 'solnav.hop')}
+          onClick={onHop}
+        >
+          <span aria-hidden="true">🦘</span>
+          <span className="sol-nav-label">{t(lang, 'solnav.hop')}</span>
         </button>
       )}
     </nav>

@@ -592,6 +592,24 @@ h1 {
   text-underline-offset: 3px;
 }
 
+.hop-practice-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 8px 14px;
+  border: 2px solid var(--teal);
+  border-radius: 999px;
+  background: #e4f1ef;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.hop-practice-button:hover {
+  background: #d3e9e6;
+}
+
 .briefing-next {
   display: flex;
   align-items: center;
@@ -642,10 +660,22 @@ h1 {
   cursor: not-allowed;
 }
 
-/* The landing game sits at the end of the row as an action, not a sol. */
+/* The practice games sit at the end of the row as actions, not sols. */
+.sol-nav-lander,
+.sol-nav-hop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .sol-nav-lander {
   margin-left: 10px;
   background: var(--teal);
+}
+
+.sol-nav-hop {
+  margin-left: 2px;
+  background: #f3dfb8;
 }
 
 /* Short landscape: keep the row slim so the card keeps its height. */
@@ -664,6 +694,21 @@ h1 {
 
   .sol-nav-lander {
     margin-left: 6px;
+  }
+
+  /* Two practice buttons plus seven sols do not fit with labels. */
+  .sol-nav-label {
+    display: none;
+  }
+
+  .sol-nav-hop {
+    margin-left: 0;
+  }
+
+  .hop-practice-button {
+    margin-top: 8px;
+    padding: 5px 10px;
+    font-size: 12px;
   }
 }
 

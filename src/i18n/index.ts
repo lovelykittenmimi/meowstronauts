@@ -40,6 +40,10 @@ export const STRINGS = {
   },
   'briefing.cold': { en: 'Very cold', 'zh-TW': '非常冷' },
   'briefing.begin': { en: 'Begin this sol', 'zh-TW': '開始這一天' },
+  'briefing.hop': {
+    en: 'Try the low-gravity hop',
+    'zh-TW': '試試低重力跳躍',
+  },
   'briefing.snapshot': {
     en: 'Historical snapshot, not live data or a forecast.',
     'zh-TW': '歷史快照，不是即時資料，也不是預報。',
@@ -48,6 +52,7 @@ export const STRINGS = {
   'solnav.sol': { en: 'Sol {sol}', 'zh-TW': '第 {sol} 日' },
   'solnav.locked': { en: 'Not reached yet', 'zh-TW': '還沒進行到這一天' },
   'solnav.lander': { en: 'Landing practice', 'zh-TW': '著陸練習' },
+  'solnav.hop': { en: 'Low-gravity hop', 'zh-TW': '低重力跳躍' },
   'review.eyebrow': { en: 'Sol review', 'zh-TW': '火星日回顧' },
   'review.chose': { en: 'Your crew chose', 'zh-TW': '你們選了' },
   'review.back': { en: 'Back to Sol {sol}', 'zh-TW': '回到第 {sol} 日' },

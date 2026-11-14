@@ -1,5 +1,7 @@
 import {
   DAILY_DRAIN,
+  HOP_REWARD_SCIENCE,
+  HOP_SAMPLE_TOTAL,
   INITIAL_RESOURCES,
   MAX_SOL,
   addEffects,
@@ -58,6 +60,7 @@ export function createInitialState(
     seed: DEFAULT_SEED,
     resourceHistory: [],
     emergencyUsed: false,
+    hopRewarded: false,
   };
 }
 
@@ -228,6 +231,41 @@ function handleAssist(
   return { ...state, catCharges, resources, collectedCards: cards, newCards };
 }
 
+/**
+ * The Sol 1 hop is optional practice: all three samples pay a small science
+ * bonus once per mission. It is allowed between sols and after a choice, but
+ * never in the deterministic `?video=` fixtures.
+ */
+function handleCompleteHop(state: GameState, samples: number): GameState {
+  if (
+    state.videoMode ||
+    state.hopRewarded ||
+    samples < HOP_SAMPLE_TOTAL ||
+    (state.phase !== 'briefing' &&
+      state.phase !== 'choice' &&
+      state.phase !== 'result')
+  ) {
+    return state;
+  }
+
+  const resources = addEffects(state.resources, {
+    science: HOP_REWARD_SCIENCE,
+  });
+
+  // During the result screen the latest history point is already on screen;
+  // keep it in sync so the report curve matches the final resources.
+  let resourceHistory = state.resourceHistory;
+  if (state.phase === 'result' && resourceHistory.length > 0) {
+    const last = resourceHistory[resourceHistory.length - 1];
+    resourceHistory = [
+      ...resourceHistory.slice(0, -1),
+      { ...last, science: resources.science },
+    ];
+  }
+
+  return { ...state, resources, resourceHistory, hopRewarded: true };
+}
+
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case 'START_GAME': {
@@ -286,6 +324,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'SET_LANG':
       return { ...state, lang: action.lang };
+
+    case 'COMPLETE_HOP':
+      return handleCompleteHop(state, action.samples);
 
     case 'RESTART':
       return {

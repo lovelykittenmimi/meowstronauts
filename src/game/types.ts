@@ -146,6 +146,8 @@ export interface GameState {
   lastOutcome?: Localized;
   videoMode?: 's1' | 'report';
   emergencyUsed: boolean;
+  /** True once the Sol 1 hop minigame has paid its once-per-mission bonus. */
+  hopRewarded: boolean;
 }
 
 export type GameAction =
@@ -156,4 +158,5 @@ export type GameAction =
   | { type: 'USE_ASSIST'; cat: CatId; variant?: 'power' | 'food' | 'lifeSupport' }
   | { type: 'CONTINUE' }
   | { type: 'RESTART' }
-  | { type: 'SET_LANG'; lang: Lang };
+  | { type: 'SET_LANG'; lang: Lang }
+  | { type: 'COMPLETE_HOP'; samples: number };
