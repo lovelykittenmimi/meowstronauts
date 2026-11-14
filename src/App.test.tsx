@@ -93,6 +93,11 @@ describe('normal game', () => {
     fireEvent.click(screen.getByTestId('start-game'));
     fireEvent.click(screen.getByTestId('opening-next'));
 
+    const video = screen.getByTestId('opening-scene2-video') as HTMLVideoElement;
+    expect(video.tagName).toBe('VIDEO');
+    expect(video.muted).toBe(true);
+    expect(video.getAttribute('poster')).toBeTruthy();
+
     const current = () => screen.getByTestId('dialogue-current').textContent ?? '';
     expect(current()).toContain('Stardust calling Mars Base');
     expect(current()).not.toContain('My tail is on fire too');

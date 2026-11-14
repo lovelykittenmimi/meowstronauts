@@ -21,5 +21,8 @@ Thumbs.db
 *.log
 npm-debug.log*
 
+# original AI video import; the compressed scene 2 clip is committed
+src/assets/gemini_generated_video_*.mp4
+
 # local Claude Code settings (machine-specific permissions)
 .claude/settings.local.json

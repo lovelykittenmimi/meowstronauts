@@ -1002,6 +1002,12 @@ h1 {
   filter: saturate(0.9) contrast(1.05);
 }
 
+.opening-mars-video {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
 .opening-ship {
   position: absolute;
   top: 38%;
@@ -1588,6 +1594,17 @@ h1 {
 
 .story-radio .primary-button {
   margin-top: 10px;
+}
+
+.story-video-toggle {
+  position: absolute;
+  top: clamp(10px, 2vw, 18px);
+  left: clamp(10px, 2vw, 18px);
+  z-index: 6;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgba(247, 243, 234, 0.92);
+  color: var(--navy);
 }
 
 .is-paused .opening-mars,

@@ -1,6 +1,7 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import crashScene from '../assets/generated/scenes/06-crash.webp';
 import lineupScene from '../assets/generated/scenes/05-team-lineup.webp';
+import scene2Video from '../assets/video/scene2-crash.mp4';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
 import { getKnowledgeCard } from '../game/knowledge';
 import type { Lang, Localized } from '../game/types';
@@ -334,6 +335,25 @@ function DialogueSequence({
   );
 }
 
+function usePrefersReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(() =>
+    typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false,
+  );
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return;
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReduced(query.matches);
+    update();
+    query.addEventListener?.('change', update);
+    return () => query.removeEventListener?.('change', update);
+  }, []);
+
+  return reduced;
+}
+
 interface StoryOpeningProps {
   lang: Lang;
   paused?: boolean;
@@ -352,6 +372,9 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const [reply, setReply] = useState<'command' | 'cadet' | null>(null);
   const [tapped, setTapped] = useState<Tap['id'][]>([]);
   const [lastTap, setLastTap] = useState<Tap['id'] | null>(null);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const reduceMotion = usePrefersReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo(0, 0);
@@ -368,6 +391,19 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     setLastTap(id);
   };
 
+  const toggleVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      if (video.ended) video.currentTime = 0;
+      const playback = video.play?.();
+      if (playback) void playback.catch(() => undefined);
+    } else {
+      video.pause?.();
+    }
+  };
+
   const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
   const introDone = reply !== null;
   const allTapped = tapped.length === TAPS.length;
@@ -377,6 +413,12 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     if (document.documentElement.scrollHeight <= window.innerHeight) return;
     window.scrollTo(0, document.documentElement.scrollHeight);
   }, [allTapped]);
+
+  // Pause the crash clip while a knowledge card is open and for reduced motion.
+  useEffect(() => {
+    if (!paused && !reduceMotion) return;
+    videoRef.current?.pause?.();
+  }, [paused, reduceMotion]);
 
   return (
     <main
@@ -423,7 +465,38 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
 
       {scene === 2 && (
         <section className="story-stage story-stage-crash" data-testid="opening-scene2-story">
-          <img className="opening-mars" src={crashScene} alt="" />
+          <video
+            ref={videoRef}
+            className="opening-mars opening-mars-video"
+            data-testid="opening-scene2-video"
+            src={scene2Video}
+            poster={crashScene}
+            autoPlay={!reduceMotion}
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+            disablePictureInPicture
+            onPlay={() => setVideoPlaying(true)}
+            onPause={() => setVideoPlaying(false)}
+            onEnded={() => setVideoPlaying(false)}
+          />
+          <button
+            type="button"
+            className="ghost-button story-video-toggle"
+            data-testid="opening-scene2-video-toggle"
+            aria-label={
+              videoPlaying
+                ? lang === 'en' ? 'Pause the crash video' : '暫停迫降影片'
+                : lang === 'en' ? 'Play the crash video' : '播放迫降影片'
+            }
+            onClick={toggleVideo}
+          >
+            {videoPlaying
+              ? lang === 'en' ? 'Pause' : '暫停'
+              : lang === 'en' ? 'Play' : '播放'}
+          </button>
           <div className="story-radio">
             <p className="eyebrow">
               <span className="story-live-dot" aria-hidden="true" />
