@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import crashScene from '../assets/generated/scenes/06-crash.webp';
 import lineupScene from '../assets/generated/scenes/05-team-lineup.webp';
 import galeClose from '../assets/nasa/gale-close.webp';
@@ -11,6 +11,8 @@ import scene2Video from '../assets/video/scene2-crash.mp4';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
 import { getKnowledgeCard } from '../game/knowledge';
 import type { Lang, Localized } from '../game/types';
+import LanderOverlay from '../minigames/LanderOverlay';
+import { Modal } from './Modal';
 import { RichText } from './RichText';
 
 const l = (en: string, zh: string): Localized => ({ en, 'zh-TW': zh });
@@ -216,6 +218,22 @@ const TAP_TERMS: Record<Tap['id'], string> = {
   power: 'solarPower',
   lifeSupport: 'greenhouse',
   shield: 'radiationShielding',
+};
+
+const LANDER_PROMPT = {
+  eyebrow: l('Optional training · Landing', '選修訓練 · 著陸'),
+  title: l('Practice the landing?', '要練習著陸嗎？'),
+  body: l(
+    'The Stardust is down, but you can practice steering through real Mars wind before Sol 1.',
+    '星塵號已經迫降，但在第一天開始前，你可以先用真實的火星風場練習著陸。',
+  ),
+  note: l(
+    'Real NASA Perseverance MEDA weather · Gale Crater map',
+    '真實 NASA Perseverance MEDA 風場 · 蓋爾隕石坑地圖',
+  ),
+  start: l('Start practice', '開始練習'),
+  later: l('Not now', '先不用'),
+  practice: l('Practice landing', '練習著陸'),
 };
 
 const READY_LINES: Line[] = [
@@ -457,6 +475,22 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const [nasaDone, setNasaDone] = useState(reduceMotion);
   const videoRef = useRef<HTMLVideoElement>(null);
   const crashStarted = useRef(false);
+  const [landerPromptOpen, setLanderPromptOpen] = useState(false);
+  const [landerOpen, setLanderOpen] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
+  const landerPromptShown = useRef(false);
+
+  const askLander = useCallback(() => {
+    if (landerPromptShown.current) return;
+    landerPromptShown.current = true;
+    setLanderPromptOpen(true);
+  }, []);
+  const closeLanderPrompt = useCallback(() => setLanderPromptOpen(false), []);
+  const openLander = useCallback(() => {
+    setLanderPromptOpen(false);
+    setLanderOpen(true);
+  }, []);
+  const closeLander = useCallback(() => setLanderOpen(false), []);
 
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo(0, 0);
@@ -519,6 +553,14 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   useEffect(() => {
     if (reduceMotion) setNasaDone(true);
   }, [reduceMotion]);
+
+  // Reduced-motion users skip the autoplay, but should still get the optional
+  // landing practice invitation after the NASA montage.
+  useEffect(() => {
+    if (scene !== 2 || !reduceMotion || !nasaDone) return;
+    setVideoEnded(true);
+    askLander();
+  }, [scene, reduceMotion, nasaDone, askLander]);
 
   // After the montage, play the clip from its first frame. Only once:
   // opening and closing a knowledge card must not restart the clip.
@@ -596,7 +638,11 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
             disablePictureInPicture
             onPlay={() => setVideoPlaying(true)}
             onPause={() => setVideoPlaying(false)}
-            onEnded={() => setVideoPlaying(false)}
+            onEnded={() => {
+              setVideoPlaying(false);
+              setVideoEnded(true);
+              askLander();
+            }}
           />
           {!nasaDone && (
             <div className="nasa-intro" data-testid="opening-scene2-intro">
@@ -652,6 +698,16 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
               cta={lang === 'en' ? 'Continue' : '繼續'}
               onCta={() => setScene(3)}
             />
+            {videoEnded && (
+              <button
+                type="button"
+                className="ghost-button story-lander-reopen"
+                data-testid="landing-practice-open"
+                onClick={openLander}
+              >
+                {LANDER_PROMPT.practice[lang]}
+              </button>
+            )}
           </div>
         </section>
       )}
@@ -843,6 +899,46 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
           ? 'Meowstar is fiction. The solar flare and Mars data are real. The crash is a training simulation.'
           : '喵星是虛構的，太陽閃焰與火星資料是真的；迫降是訓練模擬。'}
       </p>
+
+      {landerPromptOpen && !landerOpen && (
+        <Modal
+          title={LANDER_PROMPT.title[lang]}
+          onClose={closeLanderPrompt}
+          testId="landing-practice-prompt"
+        >
+          <div className="story-lander-prompt">
+            <div className="story-lander-hero">
+              <img src="/brand/avatar-silver-512.webp" alt="" />
+              <div>
+                <p className="story-lander-note">{LANDER_PROMPT.eyebrow[lang]}</p>
+                <p>{LANDER_PROMPT.body[lang]}</p>
+                <p className="story-lander-note">{LANDER_PROMPT.note[lang]}</p>
+              </div>
+            </div>
+            <div className="story-lander-actions">
+              <button
+                type="button"
+                className="primary-button"
+                data-testid="landing-practice-start"
+                onClick={openLander}
+                autoFocus
+              >
+                {LANDER_PROMPT.start[lang]}
+              </button>
+              <button
+                type="button"
+                className="ghost-button"
+                data-testid="landing-practice-later"
+                onClick={closeLanderPrompt}
+              >
+                {LANDER_PROMPT.later[lang]}
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {landerOpen && <LanderOverlay initialLang={lang} onClose={closeLander} />}
     </main>
   );
 }

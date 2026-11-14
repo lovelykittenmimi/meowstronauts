@@ -2634,3 +2634,77 @@ h1 {
     font-size: 10px;
   }
 }
+
+/* Embedded Mars Weather Lander ------------------------------------------ */
+.lander-overlay-host {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow: auto;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(232, 163, 61, 0.16), transparent 30%),
+    radial-gradient(circle at 92% 6%, rgba(78, 140, 138, 0.14), transparent 28%),
+    var(--paper);
+  overscroll-behavior: contain;
+}
+
+.story-lander-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--ink);
+}
+
+.story-lander-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.story-lander-hero img {
+  width: 76px;
+  height: 76px;
+  flex: none;
+  border-radius: 50%;
+  border: 3px solid var(--navy);
+  background: #dce4ee;
+  object-fit: cover;
+}
+
+.story-lander-hero p {
+  margin: 0 0 6px;
+  line-height: 1.42;
+}
+
+.story-lander-note {
+  color: #6b7180;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.story-lander-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.story-lander-reopen {
+  margin-top: 8px;
+  padding: 5px 11px;
+  font-size: 11px;
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .story-lander-hero img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .story-lander-hero p {
+    font-size: 12px;
+  }
+
+  .story-lander-note {
+    font-size: 10px;
+  }
+}

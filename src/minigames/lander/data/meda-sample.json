@@ -1,0 +1,601 @@
+{
+  "meta": {
+    "mission": "Mars 2020 Perseverance",
+    "instrument": "MEDA (Mars Environmental Dynamics Analyzer)",
+    "location": "Jezero Crater, Mars",
+    "solRange": [
+      300,
+      306
+    ],
+    "earthDates": "2021-12-23 to 2021-12-30",
+    "source": "NASA PDS Planetary Atmospheres Node — Mars 2020 MEDA bundle",
+    "sourceUrl": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/meda.html",
+    "productLevels": "data_derived_env (DER_WS, DER_PS) and data_calibrated_env (CAL_ATS)",
+    "credit": "NASA/JPL-Caltech/CAB/SEA — MEDA; PDS Atmospheres Node",
+    "windConvention": "MEDA wind direction is the azimuth the wind comes FROM, clockwise from north. Map arrows show the opposite (push) direction.",
+    "note": "Real MEDA observations from Jezero Crater, applied as a training sample to a Gale Crater map. Not a forecast; no NASA endorsement implied."
+  },
+  "sols": [
+    {
+      "sol": 300,
+      "sourceFiles": {
+        "wind": "WE__0300___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0300___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0300___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 49337,
+        "pressure": 54300,
+        "temperature": 54654
+      },
+      "daily": {
+        "windSpeedMeanMs": 3.63,
+        "windSpeedMedianMs": 3.2,
+        "windSpeedP90Ms": 7.51,
+        "windSpeedMaxMs": 15.71,
+        "windSamples": 47984,
+        "windDirectionMeanDeg": 66.0,
+        "windDirectionSpread": 0.656,
+        "windDirectionSamples": 47984,
+        "pressureMeanPa": 624.3,
+        "pressureMinPa": 607.4,
+        "pressureMaxPa": 640.7,
+        "airTempMeanC": -45.3,
+        "airTempMinC": -74.9,
+        "airTempMaxC": -7.4
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 1.38,
+          "windDirectionDeg": 27.0,
+          "windDirectionSpread": 0.664,
+          "windSamples": 7564,
+          "pressurePa": 633.7,
+          "airTempC": -71.8,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 3.04,
+          "windDirectionDeg": 143.6,
+          "windDirectionSpread": 0.513,
+          "windSamples": 13624,
+          "pressurePa": 629.7,
+          "airTempC": -42.9,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 5.23,
+          "windDirectionDeg": 76.5,
+          "windDirectionSpread": 0.139,
+          "windSamples": 15260,
+          "pressurePa": 612.4,
+          "airTempC": -19.6,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.68,
+          "windDirectionDeg": 337.6,
+          "windDirectionSpread": 0.37,
+          "windSamples": 11536,
+          "pressurePa": 624.0,
+          "airTempC": -54.8,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-23",
+      "provenance": {
+        "midpointUtc": "2021-12-23T23:14:32.60Z",
+        "startUtc": "2021-12-23T12:24:17.802Z",
+        "stopUtc": "2021-12-24T10:03:47.417Z",
+        "ls": 146.42,
+        "marsYear": 36
+      }
+    },
+    {
+      "sol": 301,
+      "sourceFiles": {
+        "wind": "WE__0301___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0301___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0301___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 43199,
+        "pressure": 44222,
+        "temperature": 44667
+      },
+      "daily": {
+        "windSpeedMeanMs": 3.24,
+        "windSpeedMedianMs": 2.97,
+        "windSpeedP90Ms": 5.77,
+        "windSpeedMaxMs": 16.05,
+        "windSamples": 41580,
+        "windDirectionMeanDeg": 86.6,
+        "windDirectionSpread": 0.819,
+        "windDirectionSamples": 41580,
+        "pressureMeanPa": 626.6,
+        "pressureMinPa": 606.9,
+        "pressureMaxPa": 637.7,
+        "airTempMeanC": -49.2,
+        "airTempMinC": -77.7,
+        "airTempMaxC": -5.9
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 1.35,
+          "windDirectionDeg": 270.6,
+          "windDirectionSpread": 0.836,
+          "windSamples": 10967,
+          "pressurePa": 634.2,
+          "airTempC": -72.7,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 3.37,
+          "windDirectionDeg": 125.5,
+          "windDirectionSpread": 0.296,
+          "windSamples": 11022,
+          "pressurePa": 625.7,
+          "airTempC": -38.4,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 4.73,
+          "windDirectionDeg": 91.8,
+          "windDirectionSpread": 0.291,
+          "windSamples": 8295,
+          "pressurePa": 614.1,
+          "airTempC": -17.1,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.86,
+          "windDirectionDeg": 330.6,
+          "windDirectionSpread": 0.48,
+          "windSamples": 11296,
+          "pressurePa": 629.0,
+          "airTempC": -60.0,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-24",
+      "provenance": {
+        "midpointUtc": "2021-12-24T23:20:36.79Z",
+        "startUtc": "2021-12-24T11:00:34.444Z",
+        "stopUtc": "2021-12-25T11:39:39.144Z",
+        "ls": 146.93,
+        "marsYear": 36
+      }
+    },
+    {
+      "sol": 302,
+      "sourceFiles": {
+        "wind": "WE__0302___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0302___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0302___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 50262,
+        "pressure": 51129,
+        "temperature": 51500
+      },
+      "daily": {
+        "windSpeedMeanMs": 3.14,
+        "windSpeedMedianMs": 2.63,
+        "windSpeedP90Ms": 6.16,
+        "windSpeedMaxMs": 16.77,
+        "windSamples": 49016,
+        "windDirectionMeanDeg": 43.2,
+        "windDirectionSpread": 0.794,
+        "windDirectionSamples": 49016,
+        "pressureMeanPa": 625.0,
+        "pressureMinPa": 610.3,
+        "pressureMaxPa": 639.2,
+        "airTempMeanC": -47.0,
+        "airTempMinC": -78.2,
+        "airTempMaxC": -7.2
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 1.11,
+          "windDirectionDeg": 316.1,
+          "windDirectionSpread": 0.73,
+          "windSamples": 11627,
+          "pressurePa": 631.2,
+          "airTempC": -72.9,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 2.86,
+          "windDirectionDeg": 166.9,
+          "windDirectionSpread": 0.762,
+          "windSamples": 11232,
+          "pressurePa": 630.8,
+          "airTempC": -45.6,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 4.99,
+          "windDirectionDeg": 82.3,
+          "windDirectionSpread": 0.178,
+          "windSamples": 14576,
+          "pressurePa": 614.0,
+          "airTempC": -19.6,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.12,
+          "windDirectionDeg": 330.8,
+          "windDirectionSpread": 0.399,
+          "windSamples": 11581,
+          "pressurePa": 626.6,
+          "airTempC": -56.8,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-25",
+      "provenance": {
+        "midpointUtc": "2021-12-25T23:31:49.48Z",
+        "startUtc": "2021-12-25T11:39:40.144Z",
+        "stopUtc": "2021-12-26T11:22:58.817Z",
+        "ls": 147.44,
+        "marsYear": 36
+      }
+    },
+    {
+      "sol": 303,
+      "sourceFiles": {
+        "wind": "WE__0303___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0303___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0303___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 50370,
+        "pressure": 51510,
+        "temperature": 51887
+      },
+      "daily": {
+        "windSpeedMeanMs": 3.24,
+        "windSpeedMedianMs": 3.08,
+        "windSpeedP90Ms": 5.65,
+        "windSpeedMaxMs": 15.11,
+        "windSamples": 48664,
+        "windDirectionMeanDeg": 53.0,
+        "windDirectionSpread": 0.777,
+        "windDirectionSamples": 48664,
+        "pressureMeanPa": 626.7,
+        "pressureMinPa": 612.0,
+        "pressureMaxPa": 638.0,
+        "airTempMeanC": -46.7,
+        "airTempMinC": -79.3,
+        "airTempMaxC": -5.6
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 1.19,
+          "windDirectionDeg": 303.2,
+          "windDirectionSpread": 0.613,
+          "windSamples": 11450,
+          "pressurePa": 633.3,
+          "airTempC": -74.4,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 3.05,
+          "windDirectionDeg": 140.4,
+          "windDirectionSpread": 0.598,
+          "windSamples": 11015,
+          "pressurePa": 627.5,
+          "airTempC": -39.2,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 4.69,
+          "windDirectionDeg": 79.0,
+          "windDirectionSpread": 0.118,
+          "windSamples": 14985,
+          "pressurePa": 616.2,
+          "airTempC": -19.3,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.6,
+          "windDirectionDeg": 325.5,
+          "windDirectionSpread": 0.461,
+          "windSamples": 11214,
+          "pressurePa": 632.5,
+          "airTempC": -60.7,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-27",
+      "provenance": {
+        "midpointUtc": "2021-12-27T00:39:47.19Z",
+        "startUtc": "2021-12-26T12:19:44.844Z",
+        "stopUtc": "2021-12-27T12:58:49.543Z",
+        "ls": 147.95,
+        "marsYear": 36
+      }
+    },
+    {
+      "sol": 304,
+      "sourceFiles": {
+        "wind": "WE__0304___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0304___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0304___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 43213,
+        "pressure": 44773,
+        "temperature": 45178
+      },
+      "daily": {
+        "windSpeedMeanMs": 2.33,
+        "windSpeedMedianMs": 1.98,
+        "windSpeedP90Ms": 4.5,
+        "windSpeedMaxMs": 14.27,
+        "windSamples": 41895,
+        "windDirectionMeanDeg": 303.7,
+        "windDirectionSpread": 0.886,
+        "windDirectionSamples": 41895,
+        "pressureMeanPa": 630.3,
+        "pressureMinPa": 613.2,
+        "pressureMaxPa": 638.4,
+        "airTempMeanC": -53.3,
+        "airTempMinC": -78.2,
+        "airTempMaxC": -5.7
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 0.96,
+          "windDirectionDeg": 290.7,
+          "windDirectionSpread": 0.73,
+          "windSamples": 11639,
+          "pressurePa": 632.7,
+          "airTempC": -74.1,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 2.22,
+          "windDirectionDeg": 160.5,
+          "windDirectionSpread": 0.605,
+          "windSamples": 14550,
+          "pressurePa": 631.9,
+          "airTempC": -47.2,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 4.58,
+          "windDirectionDeg": 76.6,
+          "windDirectionSpread": 0.235,
+          "windSamples": 4251,
+          "pressurePa": 622.0,
+          "airTempC": -14.7,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.04,
+          "windDirectionDeg": 315.4,
+          "windDirectionSpread": 0.239,
+          "windSamples": 11455,
+          "pressurePa": 629.6,
+          "airTempC": -57.4,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-28",
+      "provenance": {
+        "midpointUtc": "2021-12-28T00:50:29.88Z",
+        "startUtc": "2021-12-27T12:58:50.543Z",
+        "stopUtc": "2021-12-28T12:42:09.216Z",
+        "ls": 148.45,
+        "marsYear": 36
+      }
+    },
+    {
+      "sol": 305,
+      "sourceFiles": {
+        "wind": "WE__0305___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0305___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0305___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 43072,
+        "pressure": 48125,
+        "temperature": 48519
+      },
+      "daily": {
+        "windSpeedMeanMs": 3.12,
+        "windSpeedMedianMs": 2.85,
+        "windSpeedP90Ms": 5.66,
+        "windSpeedMaxMs": 14.64,
+        "windSamples": 41666,
+        "windDirectionMeanDeg": 34.3,
+        "windDirectionSpread": 0.847,
+        "windDirectionSamples": 41666,
+        "pressureMeanPa": 625.8,
+        "pressureMinPa": 611.9,
+        "pressureMaxPa": 635.9,
+        "airTempMeanC": -47.3,
+        "airTempMinC": -78.0,
+        "airTempMaxC": -6.6
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 1.15,
+          "windDirectionDeg": 305.7,
+          "windDirectionSpread": 0.84,
+          "windSamples": 11121,
+          "pressurePa": 629.4,
+          "airTempC": -73.6,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 3.32,
+          "windDirectionDeg": 111.9,
+          "windDirectionSpread": 0.528,
+          "windSamples": 11365,
+          "pressurePa": 625.6,
+          "airTempC": -35.1,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 5.62,
+          "windDirectionDeg": 82.2,
+          "windDirectionSpread": 0.158,
+          "windSamples": 7694,
+          "pressurePa": 618.5,
+          "airTempC": -19.5,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.14,
+          "windDirectionDeg": 310.0,
+          "windDirectionSpread": 0.277,
+          "windSamples": 11486,
+          "pressurePa": 629.7,
+          "airTempC": -61.0,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-29",
+      "provenance": {
+        "midpointUtc": "2021-12-29T01:58:57.59Z",
+        "startUtc": "2021-12-28T13:38:55.243Z",
+        "stopUtc": "2021-12-29T14:17:59.943Z",
+        "ls": 148.96,
+        "marsYear": 36
+      }
+    },
+    {
+      "sol": 306,
+      "sourceFiles": {
+        "wind": "WE__0306___________DER_WS__________________P01.CSV",
+        "pressure": "WE__0306___________DER_PS__________________P01.CSV",
+        "airTemperature": "WE__0306___________CAL_ATS_________________P01.CSV"
+      },
+      "rowCounts": {
+        "wind": 51443,
+        "pressure": 52707,
+        "temperature": 53095
+      },
+      "daily": {
+        "windSpeedMeanMs": 3.37,
+        "windSpeedMedianMs": 2.67,
+        "windSpeedP90Ms": 8.13,
+        "windSpeedMaxMs": 18.74,
+        "windSamples": 50331,
+        "windDirectionMeanDeg": 85.1,
+        "windDirectionSpread": 0.822,
+        "windDirectionSamples": 50331,
+        "pressureMeanPa": 625.2,
+        "pressureMinPa": 612.7,
+        "pressureMaxPa": 636.3,
+        "airTempMeanC": -48.9,
+        "airTempMinC": -79.0,
+        "airTempMaxC": -7.4
+      },
+      "phases": [
+        {
+          "key": "night",
+          "lmstWindow": "00:00-06:00",
+          "windSpeedMs": 1.04,
+          "windDirectionDeg": 270.7,
+          "windDirectionSpread": 0.85,
+          "windSamples": 14897,
+          "pressurePa": 628.8,
+          "airTempC": -73.6,
+          "fallback": false
+        },
+        {
+          "key": "morning",
+          "lmstWindow": "06:00-12:00",
+          "windSpeedMs": 2.47,
+          "windDirectionDeg": 131.3,
+          "windDirectionSpread": 0.323,
+          "windSamples": 7038,
+          "pressurePa": 628.8,
+          "airTempC": -48.2,
+          "fallback": false
+        },
+        {
+          "key": "afternoon",
+          "lmstWindow": "12:00-18:00",
+          "windSpeedMs": 6.35,
+          "windDirectionDeg": 109.3,
+          "windDirectionSpread": 0.12,
+          "windSamples": 15044,
+          "pressurePa": 619.5,
+          "airTempC": -17.8,
+          "fallback": false
+        },
+        {
+          "key": "evening",
+          "lmstWindow": "18:00-24:00",
+          "windSpeedMs": 3.09,
+          "windDirectionDeg": 329.3,
+          "windDirectionSpread": 0.281,
+          "windSamples": 13352,
+          "pressurePa": 625.5,
+          "airTempC": -56.2,
+          "fallback": false
+        }
+      ],
+      "earthDate": "2021-12-30",
+      "provenance": {
+        "midpointUtc": "2021-12-30T02:09:10.27Z",
+        "startUtc": "2021-12-29T14:18:00.943Z",
+        "stopUtc": "2021-12-30T14:01:19.616Z",
+        "ls": 149.47,
+        "marsYear": 36
+      }
+    }
+  ]
+}
