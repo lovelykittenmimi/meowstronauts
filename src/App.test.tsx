@@ -108,6 +108,16 @@ describe('normal game', () => {
     expect(screen.queryByTestId('sol-review')).toBeNull();
   });
 
+  it('opens the landing practice from the sol row', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-skip'));
+
+    expect(screen.queryByTestId('lander-overlay')).toBeNull();
+    fireEvent.click(screen.getByTestId('lander-open'));
+    expect(screen.getByTestId('lander-overlay')).toBeTruthy();
+  });
+
   it('walks the opening reply and tap scenes', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));

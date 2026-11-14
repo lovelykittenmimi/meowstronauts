@@ -9,6 +9,8 @@ interface SolNavProps {
   selectedSol: number;
   lang: Lang;
   onSelect: (sol: number) => void;
+  /** Opens the landing mini-game; optional so a bare nav still works. */
+  onLander?: () => void;
 }
 
 const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
@@ -16,9 +18,10 @@ const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
 /**
  * A row of Sol 1–7 buttons so the crew can look back at a finished day.
  * Sols the crew has not reached yet are disabled; switching back is a review
- * only, so it never changes the mission.
+ * only, so it never changes the mission. The landing game lives at the end of
+ * the same row, so practice is one tap away between sols.
  */
-export function SolNav({ currentSol, selectedSol, lang, onSelect }: SolNavProps) {
+export function SolNav({ currentSol, selectedSol, lang, onSelect, onLander }: SolNavProps) {
   return (
     <nav className="sol-nav" aria-label={t(lang, 'solnav.aria')} data-testid="sol-nav">
       {SOLS.map((sol) => {
@@ -38,6 +41,16 @@ export function SolNav({ currentSol, selectedSol, lang, onSelect }: SolNavProps)
           </button>
         );
       })}
+      {onLander && (
+        <button
+          type="button"
+          className="sol-nav-button sol-nav-lander"
+          data-testid="lander-open"
+          onClick={onLander}
+        >
+          <span aria-hidden="true">🚀</span> {t(lang, 'solnav.lander')}
+        </button>
+      )}
     </nav>
   );
 }

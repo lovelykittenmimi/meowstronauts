@@ -4,6 +4,7 @@ import { KNOWLEDGE_IDS } from './game/knowledge';
 import { createInitialState, gameReducer } from './game/reducer';
 import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
+import LanderOverlay from './minigames/LanderOverlay';
 import { Backpack } from './ui/Backpack';
 import { BriefingScreen } from './ui/BriefingScreen';
 import { DataPanel } from './ui/DataPanel';
@@ -62,6 +63,7 @@ export default function App() {
   const [dataOpen, setDataOpen] = useState(false);
   /** A finished sol the crew is looking back at; null keeps the live screens. */
   const [viewSol, setViewSol] = useState<number | null>(null);
+  const [landerOpen, setLanderOpen] = useState(false);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -220,6 +222,7 @@ export default function App() {
           currentSol={state.sol}
           selectedSol={reviewSol ?? state.sol}
           onSelect={(sol) => setViewSol(sol < state.sol ? sol : null)}
+          onLander={() => setLanderOpen(true)}
         />
       )}
 
@@ -276,6 +279,10 @@ export default function App() {
       )}
 
       {dataOpen && <DataPanel lang={state.lang} onClose={() => setDataOpen(false)} />}
+
+      {landerOpen && (
+        <LanderOverlay initialLang={state.lang} onClose={() => setLanderOpen(false)} />
+      )}
     </div>
   );
 }

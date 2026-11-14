@@ -642,6 +642,12 @@ h1 {
   cursor: not-allowed;
 }
 
+/* The landing game sits at the end of the row as an action, not a sol. */
+.sol-nav-lander {
+  margin-left: 10px;
+  background: var(--teal);
+}
+
 /* Short landscape: keep the row slim so the card keeps its height. */
 @media (max-height: 520px) {
   .sol-nav {
@@ -654,6 +660,10 @@ h1 {
     min-height: 30px;
     padding: 3px 9px;
     font-size: 12px;
+  }
+
+  .sol-nav-lander {
+    margin-left: 6px;
   }
 }
 

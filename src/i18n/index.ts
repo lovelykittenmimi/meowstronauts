@@ -47,6 +47,7 @@ export const STRINGS = {
   'solnav.aria': { en: 'Jump to a sol', 'zh-TW': '切換火星日' },
   'solnav.sol': { en: 'Sol {sol}', 'zh-TW': '第 {sol} 日' },
   'solnav.locked': { en: 'Not reached yet', 'zh-TW': '還沒進行到這一天' },
+  'solnav.lander': { en: 'Landing practice', 'zh-TW': '著陸練習' },
   'review.eyebrow': { en: 'Sol review', 'zh-TW': '火星日回顧' },
   'review.chose': { en: 'Your crew chose', 'zh-TW': '你們選了' },
   'review.back': { en: 'Back to Sol {sol}', 'zh-TW': '回到第 {sol} 日' },
