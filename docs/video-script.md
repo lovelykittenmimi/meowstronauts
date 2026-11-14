@@ -1,8 +1,8 @@
 # 30 秒 Demo 影片腳本（11/12）
 
-> 最後更新：2026-11-13（新增 §0 官方 30 秒規格修訂；§1 保留為原量測版）
+> 最後更新：2026-11-15 01:10（第二版定稿，**尚未重拍**：全片一律英文語系、片頭影片只取最後幾秒、著陸小遊戲縮短、旁白不再說「10 minutes」。重做清單見 §0.7）
 > 對應 PLAN 12.3。英文旁白＋英文字幕（全球評審）；可另附繁中字幕檔。
-> 總長 **30.0 秒**，旁白 **55 字**（§0 修訂版；第 1 鏡文字卡不配音）。**已選童聲 `en-US-AnaNeural` +45%：57 字實測 26.5 秒（約 2.15 字／秒），55 字約 25.6 秒**；2.5 秒開場字卡＋25.6 秒旁白，結尾留 1.9 秒。**11/14 深夜錄遊戲畫面＋TTS 對時；11/15 09:30 可換人聲，或直接用 TTS 定稿。**
+> **定版：總長 30.0 秒。** 0–2.5 秒文字卡不配音；旁白 v3 **9 句 59 字**，燒字幕唯一來源是 `narration-ana-45-v3.srt`（重拍後重跑 `make-narration.mjs`）；結尾卡只佔 **最後 1.0 秒**（29.0–30.0，播完停在這一頁）。鏡表見 §0.4、旁白見 §0.6。
 >
 > 11/12 以 Windows SAPI（Zira，rate 3）實測 57 字＝23.8 秒；edge-tts 7.3.1 的 Ana +45%＝**26.5 秒（已選）**、Aria +45%＝24.0 秒（成人聲備案）、Guy +45%＝23.4 秒；+0% 約 34 秒，不能直接用。
 
@@ -16,10 +16,10 @@
 | 官方節拍 | 要求 | 我們的畫面 |
 |---|---|---|
 | 0:00 | 你的名字＋團隊名 | 第 1 鏡**文字卡（無旁白）**：`FLY MY MIND`＋成人名字＋`our junior astronaut`＋專案名 |
-| 0:02 | 解決什麼挑戰、為什麼選它 | 第 2 鏡口播＋lower-third「JUNIOR ASTRONAUT MISSION TRAINER · KIDS 7–12」 |
+| 0:02 | 解決什麼挑戰、為什麼選它 | 第 2 鏡口播「A Mars mission trainer for kids seven to twelve.」（lower-third 於 11/15 取消，與字幕重複；改由旁白＋標題卡 eyebrow 承擔） |
 | 0:05 | 專案名稱＋口號 | 第 3 鏡標題卡 |
-| 0:10 | 怎麼運作、UX、NASA 開放資料 | 第 4–7 鏡（S1 卡→取捨→知識卡＋背包→資料面板） |
-| 0:20–0:30 | 展望未來 | 第 8 鏡（任務報告→結尾卡＋展望句） |
+| 0:10 | 怎麼運作、UX、NASA 開放資料 | 第 6–11 鏡（S1 卡→取捨→兩款小遊戲→知識卡＋背包→資料面板） |
+| 0:20–0:30 | 展望未來 | 第 12 鏡（任務報告→結尾卡）。本版末句是 `One choice they'll remember.`，沒有明講「未來」；要補展望句見 §0.6 最後一條 |
 
 ### 0.1 與 §1 的差異
 
@@ -62,6 +62,88 @@
 | Relevance | 對應 Junior Astronaut Mission Trainer、7–12 歲 |
 | Presentation | 英文字幕、清楚可讀、≤30 秒、無 debug 畫面 |
 
+### 0.4 定版鏡表（2026-11-15 01:10 第二版）
+
+> 錄影、剪輯與 QA 的唯一依據；§0.2 的 8 鏡表保留作修訂過程。旁白 `tools/video/narration-ana-45-v3.mp3`、字幕 `narration-ana-45-v3.srt`（9 句，時間軸由 `make-narration.mjs` 產生；第 9 句改字後**必須重跑**）。音樂候選見 `tools/video/assets/music/CREDITS.md`。
+>
+> **第二版四項改動（11/15 重拍時一起做）**
+>
+> 1. **全片英文語系**：所有錄影網址都帶 `lang=en`，畫面不得出現任何中文（見 §0.5）。
+> 2. **片頭遊戲影片只取最後幾秒**：`scene2-crash.mp4` 是 10.00 秒，從 **7.90 秒剪到片尾**（=最後 2.1 秒），不要截中間，否則會停在動作一半。
+> 3. **第一個小遊戲縮短**：Mars Weather Lander 2.8 秒 → **2.2 秒**，省下的 0.6 秒給低重力跳躍（1.5 → 2.1 秒，整段弧線含落地）。
+> 4. **旁白不說「10 minutes」**：第 9 句改成 `One choice they'll remember.`。
+>
+> **結尾卡只吃最後 1 秒。** 播放器播完會停在最後一格，所以識別卡不需要自己站 3 秒；把省下的 2 秒給第二個小遊戲（低重力跳躍）並讓任務報告多停一點。
+
+| # | 秒數 | 英文旁白 | 字數 | 畫面／螢幕文字 |
+|---:|---:|---|---:|---|
+| 1 | 0.0–2.5 | （無旁白） | 0 | 全螢幕文字卡：`FLY MY MIND` ＋ **WU, CHIA-LING · LIN, YU-YU · our junior astronaut** ＋ `MEOWSTRONAUTS: MARS OUTPOST`；背景 `brand/og-1200x630.jpg` 等比 1920×1008、上下 36px 同色底 |
+| 2 | 2.5–4.8 | A Mars mission trainer for kids seven to twelve. | 9 | Mars Trek Gale wide→mid 推近（2.5–3.6 wide、3.6–4.8 mid，crossfade 0.25 秒）；右下 `NASA/JPL-Caltech · Mars Trek`。**不加 lower-third**：觀眾資訊在旁白與第 5 鏡標題卡，再加字卡會與字幕重複 |
+| 3 | 4.8–5.5 | （同一句，不停） | 0 | SDO 閃焰白閃 0.7 秒；右下 `NASA/SDO`。**不提這張圖的日期** |
+| 4 | 5.5–7.6 | Three cats. One crash. | 4 | 遊戲內迫降段：`src/assets/video/scene2-crash.mp4`（全長 **10.00 秒**）只取**最後 2.1 秒**：`-ss 7.90` 到片尾（靜音，1280×720 放大到 1080）。**永遠取片尾**，不要從中間任意秒數起剪——中間起剪會停在動作一半，看起來不上不下 |
+| 5 | 7.6–9.7 | Meowstronauts: Mars Outpost. | 3 | 標題卡疊在遊戲畫面上：`SEVEN SOLS · THREE CATS · ONE CHOICE A DAY` |
+| 6 | 9.7–13.3 | Seven sols. Every choice costs something. | 6 | `?video=s1`：S1 閃焰警報卡 → 點「加厚遮蔽」→ HUD ⚡62→42、🛡️55→80 |
+| 7 | 13.3–15.4 | Save the shield, or save the crew. | 7 | HUD 特寫：`⚡ −20`、`🛡️ +25`（以 build 為準） |
+| 8 | 15.4–17.6 | Then practice the hard parts: land the ship, hop the ridge. | 10 | **小遊戲 1：Mars Weather Lander**（**2.2 秒**，比第一版短 0.6 秒）：Gale 地圖＋MEDA 樣本 HUD，假游標按 LAND，`Perfect landing!`（final distance 6 km）。收尾改成 `landed − 1.30` 起剪，落地後至少留 **0.9 秒**看 `Perfect landing!`。畫面已標 `MEDA sample · Jezero Crater`；旁白不說「即時天氣」 |
+| 9 | 17.6–19.7 | （同一句，不停） | 0 | **小遊戲 2：Low-gravity hop**（**2.1 秒**）：夜空火星山脊，貓咪起跳→最高點→落地，畫面自帶 `Samples 0/3`、`Mars gravity 0.38 g` 與提示 `0.38 g: the same push lifts you about 2.6× higher.`。從 `jump1 − 0.30` 起剪，這 2.1 秒要含**整段跳躍弧線**（約 1.5 秒）並收在落地之後，不要剪半個跳 |
+| 10 | 19.7–22.1 | Tap a word. Learn the science. | 6 | 點 `solar flare` 開知識卡 → 收入背包 8/20→9/20（不口播） |
+| 11 | 22.1–26.0 | Real NASA data: the May 2025 X2.7 flare. | 8 | 資料面板：DONKI 折線（X2.7）＋REMS 曲線，`snapshot, not live` |
+| 12 | 26.0–30.0 | One choice they'll remember. | 5 | 任務報告 ★★★（health 78、science 8、背包 9/20）停到 **29.0**，0.2 秒淡入結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`FREE · BILINGUAL · 10 MINUTES`、`mars.flymymind.com`、`A FLY MY MIND PROJECT`；**結尾卡 29.0–30.0，最後一格就是這張卡**。旁白不再說「10 minutes」；結尾卡仍印這個字樣（要不要一併拿掉見 §0.7 第 5 點） |
+
+- 旁白 **59 字、9 句**；剪輯點照上表，字幕時間軸照 SRT（兩者都由 §0.6 的同一組 `start` 產生），不要再套 §1 的 26.5 秒舊時間。
+- **全片英文語系**：`?video=s1`、`?video=report` 之外，正常流程那段（低重力跳躍）也要在 English 模式錄完再錄。驗收時逐鏡看過，畫面任何角落都不能出現中文（含遊戲 UI、提示、測試殘留、console 疊字）。英文是預設語言，不帶 `lang=zh` 就不會出現中文，但**不能只靠預設值**，錄完要目視確認。
+- 第 1 鏡名字只用成人團隊成員：**WU, CHIA-LING**、**LIN, YU-YU**；小孩一律 `our junior astronaut`，不放姓名、正臉、學校。
+- 第 4 鏡是**遊戲內同一支影片**（Gemini 生成的迫降動畫，已在 `docs/ai-disclosure.md` 揭露），不是 NASA 畫面；不加 NASA credit，也不說是 NASA 動畫。
+- 第 8 鏡的 MEDA 數值是 Jezero 的訓練樣本、地圖是 Gale；畫面上兩者已分開標示，旁白只說「land the ship」，不說是 Gale 的即時風。
+- 第 9 鏡走**正常流程**錄，不能用 `?video=s1`：`video` 模式為了讓路徑固定，把 `hop-open` 與 `food-open` 兩個練習按鈕藏起來（`src/ui/SolNav.tsx`，`onHop={videoMode ? undefined : …}`）。錄法：首頁 → `Officer` → 跳過開場 → SolNav 的 🦘 → `Start hopping` → 按住 JUMP。
+- 第 12 鏡的結尾卡是**整支影片的最後一格**，不再往後留黑。YouTube 播完會停在這個畫面，所以看得到網址；若改放不 freeze 的平台（例如 Google Drive 預覽），把結尾卡加回 2 秒。
+- 第 6–12 鏡全部是部署版實錄：`?video=s1`（S1 卡→加厚遮蔽→知識卡→背包→資料面板）與 `?video=report`；契約見 `docs/video-path.md`。
+- 音樂：兩首 Pixabay 曲目皆為 Content ID Registered。預設 `paulyudin-space-space-music-607605.mp3` 鋪 30 秒床（淡入 1 秒、28.0 秒起 2 秒淡出收在結尾卡、旁白 −18dB 以下）；被 YouTube claim 就用曲目頁與授權申訴，不用下架。
+
+### 0.5 錄法：Playwright＋假游標（2026-11-14，11/15 補英文語系規則）
+
+- **一律 English 模式錄。** 每一段都用 `lang=en`（English 是預設語言，但不能依賴預設）：`?reset=1&video=s1&lang=en`、`?reset=1&video=report&lang=en`、`?reset=1&lang=en`（低重力跳躍那段的正常流程）。錄前先手動確認頁面是英文；錄完在剪輯前逐格檢查畫面有沒有中文，有就重錄該段，**不要在剪輯裡遮字**。
+- 對**部署版** `https://mars.flymymind.com` 錄，1920×1080、`deviceScaleFactor` 1，輸出 30fps。
+- Playwright 的 `recordVideo` **不會錄到真實游標**，所以在頁面注入假游標（圓點＋光暈，隨 `mousemove` 移動、點擊時縮一下），只影響錄影、不改遊戲程式。
+- `?scene=opening2` 的 Skip 按鈕用注入 CSS 隱藏；注入只在錄影腳本裡，不進 repo 的遊戲程式。
+- 分段錄：A＝Gale／SDO／標題（靜圖與字卡在剪輯做）、B＝`?video=s1` 全程、C＝小遊戲（SolNav `landing game`）、D＝`?video=report`、E＝低重力跳躍（走正常流程，見 §0.4 第 9 鏡）；每段重載並帶 `?reset=1`，避免 localStorage 殘留。
+- 錄影腳本放 `tools/video/`（與遊戲無關、不加遊戲依賴）；輸出到 `tools/video/output/`（git-ignored）。
+- 只重錄某一段：`node capture-demo.mjs hop`（參數是 clip 名），標記會併回 `capture.json`，不會動到其他段。
+
+### 0.6 旁白 v3（2026-11-15 01:10）
+
+> 由 `tools/video/make-narration.mjs` 產生：每句一個 edge-tts 音檔（Ana +45%），先去掉首尾靜音，再依下表的 `start` 排到 30 秒時間軸上，同一組數字同時寫出 MP3 與 SRT——字幕不會跟畫面飄開。改字就改 `CUES` 再跑一次。
+
+| # | 起 | 迄 | 英文旁白 | 字 | 對應鏡頭 |
+|---:|---:|---:|---|---:|---|
+| 1 | 2.50 | 4.71 | A Mars mission trainer for kids seven to twelve. | 9 | 2 Gale＋3 SDO |
+| 2 | 5.60 | 7.49 | Three cats. One crash. | 4 | 4 迫降 |
+| 3 | 7.80 | 9.46 | Meowstronauts: Mars Outpost. | 3 | 5 標題卡 |
+| 4 | 9.90 | 12.57 | Seven sols. Every choice costs something. | 6 | 6 S1 卡 |
+| 5 | 13.50 | 15.16 | Save the shield, or save the crew. | 7 | 7 HUD |
+| 6 | 15.60 | 18.52 | Then practice the hard parts: land the ship, hop the ridge. | 10 | 8 著陸＋9 跳躍 |
+| 7 | 19.80 | 21.83 | Tap a word. Learn the science. | 6 | 10 知識卡＋背包 |
+| 8 | 22.20 | 25.59 | Real NASA data: the May 2025 X2.7 flare. | 8 | 11 資料面板 |
+| 9 | 26.10 | ≈28.0 | One choice they'll remember. | 5 | 12 任務報告 |
+
+- 總計 **9 句 59 字**（第 9 句拿掉 `Ten minutes.`，6 字→5 字）；末句約 28.0 秒結束，留約 1.0 秒給結尾卡淡入。**這版還沒重跑 TTS**，`narration-ana-45-v3.mp3/.srt` 仍是舊的第 9 句；重拍時改 `make-narration.mjs` 的 `CUES` 再跑一次，實測值填回上表。
+- 和第 2 版（61 字）比：砍掉 `Three cats, seven sols.` 與 `Every sol, one choice` 的重複、把「兩款小遊戲」收進同一句、結尾從功能清單（`classroom mode` 等）改成北極星句。**「classroom mode」在 `PLAN.md` 與任何產品文件都沒有定義過**，寫在影片裡等於承諾一個不存在的功能，所以拿掉。
+- 想保留展望句（官方 0:20–0:30 建議「未來」）就換第 9 句為：`Next: more sols, and live space weather.`（7 字，約 2.5–2.7 秒，26.10 起仍可在結尾卡 29.0 前收完）。
+- 句間停頓至少 0.18 秒；`make-narration.mjs` 遇到排不進去會直接失敗並列出重疊的句子，不會默默擠在一起。
+
+### 0.7 11/15 重做清單（照這張做，不要憑記憶）
+
+> 11/15 早上重拍。**只重拍，不改遊戲程式**；下面是唯一要動的地方。
+
+1. **英文語系**（不用改程式）：`tools/video/capture-demo.mjs` 的四個 `page.goto`（`s1`／`lander`／`report`／`hop`）都已帶 `lang=en`。動手前先確認 `.mjs` 沒被人改掉；錄完逐鏡目視，**畫面出現任何中文就重錄該段**（不是遮掉）。
+2. **片頭迫降只取片尾**：`assemble-demo.mjs` 第 4 段改成 `start: 7.90`、`seconds: 2.1`（來源 `scene2-crash.mp4` 全長 10.00 秒）。**不要再用中間的 3.0 秒。**
+3. **著陸小遊戲縮短**：第 8 段 `seconds: 2.8 → 2.2`、`start: landed − 1.75 → landed − 1.30`（落地後留 0.9 秒的 `Perfect landing!`）。
+4. **跳躍補滿**：第 9 段 `seconds: 1.5 → 2.1`、`start: jump1 − 0.45 → jump1 − 0.30`（要含整段約 1.5 秒弧線，收在落地之後；`jump1` 是放開 JUMP 的標記，比起跳晚約 0.36 秒，所以實際會多出約半秒地面畫面，可接受）。
+5. **旁白去掉「10 minutes」**：`make-narration.mjs` 的 `CUES` 最後一句改成 `One choice they'll remember.`，重跑後把新的結束秒數填回 §0.6、確認 26.10 起、29.0 前收完；SRT 會一起重寫。
+   - 結尾卡仍印 `FREE · BILINGUAL · 10 MINUTES`（`tools/video/output/demo/cards/end.png`）。旁白不提這個數字，畫面要不要一起拿掉由團隊決定；要拿掉就重生 `end.png`，改成 `FREE · BILINGUAL`，兩行字距重排。
+6. **重跑順序**：`node make-narration.mjs` → `node capture-demo.mjs`（四段都重錄；只想補一段就帶 clip 名）→ `node assemble-demo.mjs`。最後用 `ffprobe` 確認長度 ≤30.000 秒、有音軌、有燒字幕。
+7. **驗收**：逐鏡對 §0.4 的本版表（2.2／2.1 秒那兩列），確認第 4 鏡收在撞擊、第 9 鏡收在落地、第 12 鏡最後一格是結尾卡、全片無中文。
+
 ---
 
 ## 1. 分鏡表
@@ -84,6 +166,8 @@
 > **不在這支影片裡：** PIA25077「火星花」只放遊戲內 F1（見 `docs/event-cards.md` §3.2）；影片沒有秒數，不要加。它是石頭，不是植物。
 
 ## 2. 繁中字幕（對照用，不燒進英文版）
+
+> 這張表對應的是 §1 的舊 8 鏡版（含「十分鐘」）。成片以 §0.4／§0.6 為準；**不要把這張燒進任何版本**，英文版字幕唯一來源是 `narration-ana-45-v3.srt`。
 
 | # | 字幕 |
 |---:|---|
@@ -119,8 +203,8 @@
 | 項目 | 規格 |
 |---|---|
 | 解析度 | 1920×1080，30fps |
-| 錄製 | OBS 或系統錄影；瀏覽器縮放 100%，隱藏書籤列 |
-| 游標 | 顯示，但不要抖動；點擊前停 0.3 秒 |
+| 錄製 | Playwright 對部署版錄製（§0.5）；瀏覽器縮放 100%，無書籤列 |
+| 游標 | 注入假游標（§0.5）；點擊前停 0.3 秒，移動用緩動 |
 | 字幕 | 英文字幕燒進影片（YouTube 自動字幕不可靠），另上傳 `.srt` |
 | 音樂 | 輕柔、無版權疑慮；音量壓在旁白 −18dB 以下 |
 | 旁白 | 清楚、從容、每句之間留 0.5–0.7 秒；不用誇張廣告腔 |
@@ -131,7 +215,7 @@
 - [ ] build 在 21:00 凍結；21:00 後沒有再改遊戲程式。
 - [ ] 影片路徑可用 `?video=s1`／`?video=report` 重現（契約見 `docs/video-path.md`）：Sol 4 S1 卡 → 加厚遮蔽 → `solar flare` 知識卡 → 背包 → 資料面板 → 任務報告。
 - [ ] 英文介面已切好；沒有 debug 面板、測試資料、console error。
-- [ ] 第 1 鏡是 0–2.5 秒文字卡（`brand/og-1200x630.jpg` 重排，無旁白）；第 2 鏡 2.5–4.6 Gale 由遠而近（Mars Trek）、4.6–5.5 SDO 閃焰、5.5–8.5 接遊戲內幕 2 動畫（靜音），不穩才用 01／06／07 靜圖＋位移；音樂已決定；旁白走 TTS scratch（見 §7.2）。
+- [ ] 鏡表照 **§0.4 定版**（12 鏡：文字卡→Gale→SDO→遊戲內迫降→標題→S1 卡→HUD→Mars Weather Lander→Low-gravity hop→知識卡＋背包→資料面板→任務報告／結尾卡）；旁白 `narration-ana-45-v3.mp3`、字幕 `narration-ana-45-v3.srt`；音樂兩首候選見 §7.2。
 - [ ] 實照已加 credit（`NASA/JPL-Caltech · Mars Trek`、`NASA/SDO`）；沒有把 SDO 閃焰說成 2025-05-14 的 X2.7。
 - [ ] 遊戲為最終版，沒有測試資料、沒有 `localhost`、沒有開發者工具。
 - [ ] 畫面中的數字與腳本一致（⚡ −20、🛡️ +25、9/20）；不一致就改腳本，不改畫面。
@@ -165,7 +249,7 @@ Meowstronauts: Mars Outpost. A Fly My Mind project.
 
 - [ ] build 在 21:00 凍結；21:00 後沒有再改遊戲程式。
 - [ ] `npm run dev` 或 `npm run preview` 可起；port：＿＿。
-- [ ] 英文介面已切好；`localStorage` 重置方式：＿＿。
+- [ ] 英文介面已切好（**全片錄影網址都帶 `lang=en`**，畫面不得出現中文）；`localStorage` 重置方式：＿＿。
 - [ ] 影片路徑可重現（seed／localStorage／照步驟點都可以）：
   - [ ] Sol 4 出現 S1「太陽閃焰警報」。
   - [ ] 「加厚遮蔽」顯示 `⚡−20`、`🛡️+25`。
@@ -181,14 +265,15 @@ Meowstronauts: Mars Outpost. A Fly My Mind project.
 - [ ] 第 1 鏡：0–2.5 秒文字卡完成（背景 `brand/og-1200x630.jpg`）；2.5 秒後遊戲內幕 2 動畫可重現（`?scene=opening2`），不穩才用 01、06、07（05 備用）；路徑：＿＿。
 - [ ] 或：同意用現有角色圖＋字卡簡化開場。
 - [ ] 三隻貓頭像／全身圖路徑：＿＿。
-- [ ] 音樂：＿＿（檔案）或「先不要音樂」。
-- [ ] 旁白：已選 edge-tts 童聲 Ana +45%（26.5 秒）。**`tools/video/narration-ana-45.mp3` 已放進 repo（158,832 B），C 可直接使用，不必夜間連 TTS**；需要 WAV 時用 ffmpeg 轉 48 kHz mono。11/15 09:30 可換人聲；若換，目標 26–27 秒，對齊現有剪輯點；不換就直接用 TTS 定稿。
+- [x] 音樂：Pixabay 兩首（`tools/video/assets/music/`）——`paulyudin-space-space-music-607605.mp3`（1:58，預設）、`monume-space-ambient-498030.mp3`（1:53，備選）；皆 Pixabay Content License、**皆標示 Content ID Registered**（claim ≠ strike，用曲目頁申訴）；credit 與授權見同目錄 `CREDITS.md`。
+- [x] 旁白：edge-tts 童聲 Ana +45%，v3 **9 句 60 字** → **`narration-ana-45-v3.mp3`／`.srt`**，由 `make-narration.mjs` 排程產生（§0.6），最後一句 28.41 秒結束。v2（61 字）已被取代，`narration-ana-45.mp3`（§1 的 57 字版）不要再用。
+- [ ] **11/15 重拍版**：第 9 句改成 `One choice they'll remember.`（總計 59 字），重跑 `make-narration.mjs` 覆蓋 v3 檔案，新的結束秒數填回 §0.6。11/15 想換人聲也可以，同樣改跑 `make-narration.mjs` 重對時間軸。
 - [ ] 發音確認：Meowstronauts（meow-STRON-awts）、sols（souls）、X2.7（ex-two-point-seven）。
 
 ### 7.3 腳本與數字
 
-- [ ] 採用 §0 修訂版：第 1 鏡是**無旁白文字卡**（`Fly My Mind`＋成人名字＋`our junior astronaut`＋專案名）；第 2 鏡（2.5 秒起）有挑戰 lower-third；最後一鏡有展望句。
-- [ ] 名字只用成人團隊成員；小孩寫 `our junior astronaut`，不放姓名、正臉、學校；不編名字。
+- [ ] 採用 §0.4 十二鏡版：第 1 鏡是**無旁白文字卡**（`Fly My Mind`＋成人名字＋`our junior astronaut`＋專案名）；Gale 鏡**不加 lower-third**（與字幕重複）；第 8、9 鏡各給一款小遊戲；結尾卡只吃最後 1 秒。
+- [x] 第 1 鏡名字：**WU, CHIA-LING · LIN, YU-YU · our junior astronaut**（成人兩位用大寫姓氏格式）；小孩只有 `our junior astronaut`，不放姓名、正臉、學校。
 - [ ] S1：`⚡−20`、`🛡️+25`（build 不同時以 build 為準：＿＿）。
 - [ ] 背包總數 20、目前 9（build 不同時：＿＿／＿＿）。
 - [ ] 標題卡：`MEOWSTRONAUTS: MARS OUTPOST`、`A FLY MY MIND PROJECT`、`FREE · BILINGUAL · 10 MINUTES`。
@@ -211,6 +296,6 @@ Meowstronauts: Mars Outpost. A Fly My Mind project.
 |---|---|---|
 | 09:00–09:30 | 看 v1；確認旁白、第 1 鏡、音樂 | 三個決定 |
 | 09:30–10:00 | 錄正式英文旁白（若換人聲；目標 26–27 秒），3 次；不換則沿用 Ana +45% | WAV／MP3 給 Claude，或確認沿用 TTS |
-| 10:00–10:30 | Claude 換音軌、重出 v2 | v2 可看 |
+| 10:00–10:30 | Claude 換音軌、重出成片 | 新檔可看 |
 | 10:30–11:00 | 字幕／長度／畫面 QA | ≤30.0 秒 |
 | 16:00–18:00 | 最終 QA／上傳 YouTube（必要時補拍） | 影片上傳 |
