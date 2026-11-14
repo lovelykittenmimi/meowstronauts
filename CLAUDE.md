@@ -13,7 +13,7 @@
 ## 硬規則
 
 1. **不讀、不印、不複製 `.dev.vars`。** 不把任何 API key、token、secret 貼進聊天、issue、截圖或 commit。
-2. **只有 A 主機可以 `wrangler deploy`、改 Cloudflare。** 三台都可以直接推 `main`，但必須照下面的推送協定。
+2. **手動 `wrangler deploy` 與 Cloudflare 設定只有 A 主機可以動。** `main` 每次 push 由 Cloudflare Workers Builds 自動建置部署（`npm ci && npm test && npm run build` 紅就不部署），所以**推上 `main` 等於上線**；三台都可以直接推 `main`，但必須照下面的推送協定。
 3. **B／C 不碰 `.dev.vars`；** 本機跑遊戲用快照，不打 NASA API。
 4. **不 force push、不用 `git reset --hard origin/main`、不改 repo visibility。** repo 11/15 才轉 public。
 5. **一個檔案，同一時間只有一台機器在改。** 動共用檔前先 LOCK；跨區修改先開 issue。

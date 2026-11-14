@@ -636,7 +636,7 @@ export default {
 | 圖示 | Lucide React 或自製 SVG | 一致性、可授權 |
 | 測試 | Vitest + Testing Library | 資源計算、事件卡、知識卡、i18n key parity |
 | 部署 | Cloudflare Workers 靜態資產 | 全球 CDN、自訂網域、免費額度足夠 |
-| CI/CD | GitHub Actions + wrangler-action | push main 自動部署 |
+| CI/CD | Cloudflare Workers Builds | push main 自動部署（測試紅不部署） |
 | 分析 | Cloudflare Web Analytics（可選） | 無 cookie、隱私友善 |
 
 ### 6.2 架構圖
@@ -649,7 +649,7 @@ Browser
                                               → Worker → NASA DONKI（快取 1h）
                                                    └─ 失敗 → 回傳快照 JSON
 
-GitHub repo ──push main──▶ GitHub Actions ──wrangler deploy──▶ Cloudflare Worker
+GitHub repo ──push main──▶ Workers Builds（npm test → build）──wrangler deploy──▶ Cloudflare Worker
 ```
 
 ### 6.3 Repo 結構
@@ -668,11 +668,10 @@ Mars/
 │  ├─ ai-disclosure.md
 │  ├─ playtest.md
 │  └─ submission.md
-├─ .github/workflows/deploy.yml
+├─ .github/workflows/ci.yml    # lint / test / build；部署交給 Workers Builds
 ├─ package.json                # 11/14 才建立
 ├─ vite.config.ts
-├─ wrangler.jsonc
-├─ worker/index.ts
+├─ wrangler.jsonc              # 靜態資產 Worker；部署設定
 ├─ src/
 │  ├─ main.tsx
 │  ├─ App.tsx
@@ -762,39 +761,24 @@ interface GameState {
 }
 ```
 
-**GitHub Actions：**
+**自動部署（2026-11-14 改為 Cloudflare Workers Builds）：**
 
-```yaml
-name: deploy
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+Worker → Settings → Builds → Connect Git，接 `lovelykittenmimi/meowstronauts`、production branch `main`：
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm test -- --run
-      - run: npm run build
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-```
+| 欄位 | 值 |
+|---|---|
+| Build command | `npm ci && npm test && npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Preview builds | 關閉（不開分支，`wrangler preview` 在 v4 已淘汰） |
+
+push `main` → Cloudflare 建置 → 測試紅就停在 build、不部署 → 綠燈才 `wrangler deploy`。
+Worker 名稱、`./dist` 與 `mars.flymymind.com` 都來自 repo 的 `wrangler.jsonc`。
 
 **注意：**
 
-- `CLOUDFLARE_API_TOKEN` 只用最小權限：Workers Scripts:Edit、Account Settings:Read。
+- 自動部署開啟後，**推上 `main` 就等於上線**；`NASA_API_KEY` 與 custom domain 綁在同一個 Worker，重新部署不會掉。
 - `NASA_API_KEY` 用 `wrangler secret put NASA_API_KEY`，不要進 repo。
-- 11/13 前只保留 Hello World 驗證頁；遊戲 11/14 後才上。
-- 若用 Workers Builds：Worker → Settings → Builds → Connect Git，build command `npm ci && npm run build`、deploy command `npx wrangler deploy`；custom domain 與 secret 會保留。
+- 手動 `wrangler deploy` 只有 A 機可以跑，且非必要不要跑（會和 Workers Builds 搶版本）。
 
 ### 6.6 效能與品質預算
 
