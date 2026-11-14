@@ -36,16 +36,23 @@ export function drawEventFor(state: GameState): EventCard {
   );
 
   // Fewer than six candidates: allow a repeat rather than break the conditions.
+  // Never repeat the event played on the previous sol.
+  const lastEventId = state.history[state.history.length - 1]?.eventId;
   if (pool.length < 6) {
     pool = [
       ...pool,
-      ...inRange.filter((card) => seen.has(card.id) && (!card.when || card.when(context))),
+      ...inRange.filter(
+        (card) =>
+          seen.has(card.id) &&
+          card.id !== lastEventId &&
+          (!card.when || card.when(context)),
+      ),
     ];
   }
 
-  // Last resort: keep the deck alive with in-range cards.
+  // Last resort: draw an unseen card rather than repeat yesterday's event.
   if (pool.length === 0) {
-    pool = inRange.filter((card) => !seen.has(card.id));
+    pool = EVENT_CARDS.filter((card) => card.id !== 'S1' && !seen.has(card.id));
   }
   if (pool.length === 0) pool = inRange;
   if (pool.length === 0) pool = EVENT_CARDS.filter((card) => card.id !== 'S1');

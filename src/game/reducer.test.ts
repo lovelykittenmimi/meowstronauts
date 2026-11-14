@@ -141,6 +141,9 @@ describe('full mission', () => {
     expect(events[0]).toBe('T1');
     expect(events.filter((id) => id === 'S1')).toHaveLength(1);
     expect(events[3]).toBe('S1');
+    events.forEach((id, index) => {
+      if (index > 0) expect(id).not.toBe(events[index - 1]);
+    });
     expect(['report', 'gameover']).toContain(state.phase);
     expect(state.sol).toBe(7);
   });
