@@ -1,0 +1,559 @@
+{
+  "generated": "2026-11-14",
+  "pipeline": {
+    "scenes": "resize longest edge to 1280 px (Lanczos), WebP q=82, metadata stripped",
+    "cutouts": "resize longest edge to 1600 px (Lanczos), rembg bria-rmbg, WebP q=85 (lossless alpha)",
+    "tooling": "Pillow, rembg 2.0.87 (onnxruntime CPU)"
+  },
+  "originals": "C:/Projects/Meow/pic (outside this repository; never modified)",
+  "assets": [
+    {
+      "file": "scenes/01-keyart.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "01-keyart.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 106118,
+      "quality": 82,
+      "alt": {
+        "en": "Three cat astronauts on a rocky Mars ridge at dawn, looking toward the Hope-1 outpost.",
+        "zh-TW": "三隻貓太空人黎明時站在火星岩脊上，望向希望一號基地。"
+      },
+      "credit": null,
+      "note": "key art / title"
+    },
+    {
+      "file": "scenes/05-team-lineup.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "05-team-lineup.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 80732,
+      "quality": 82,
+      "alt": {
+        "en": "The three cat astronauts in a lineup on a metallic hangar floor.",
+        "zh-TW": "三隻貓太空人在金屬機棚中並排站立。"
+      },
+      "credit": null,
+      "note": "character-select lineup"
+    },
+    {
+      "file": "scenes/06-crash.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "06-crash.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 111226,
+      "quality": 82,
+      "alt": {
+        "en": "The crew's spacecraft crashed nose-down across solar panels while the three cats climb out.",
+        "zh-TW": "太空船機鼻朝下撞上太陽能板，三隻貓正從艙口爬出。"
+      },
+      "credit": null,
+      "note": "opening / crash site"
+    },
+    {
+      "file": "scenes/07-base-exterior.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "07-base-exterior.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 77988,
+      "quality": 82,
+      "alt": {
+        "en": "Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.",
+        "zh-TW": "希望一號火星基地外觀，含圓頂、太陽能陣列與探測車。"
+      },
+      "credit": null,
+      "note": "base exterior"
+    },
+    {
+      "file": "scenes/08-control-room.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "08-control-room.png",
+      "originalPixels": "1376x768",
+      "width": 1280,
+      "height": 714,
+      "bytes": 79660,
+      "quality": 82,
+      "alt": {
+        "en": "The three cats inside a cozy Mars habitat control room with a holographic display.",
+        "zh-TW": "三隻貓在溫暖的火星基地控制室裡，前方有全像顯示器。"
+      },
+      "credit": null,
+      "note": "control room"
+    },
+    {
+      "file": "scenes/09-greenhouse.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "09-greenhouse.png",
+      "originalPixels": "2400x1792",
+      "width": 1280,
+      "height": 956,
+      "bytes": 112442,
+      "quality": 82,
+      "alt": {
+        "en": "Ginger the orange cat among tomato seedlings in the greenhouse under pink grow lights.",
+        "zh-TW": "橘貓金桔坐在溫室番茄幼苗間，頭頂是粉紫色植物燈。"
+      },
+      "credit": null,
+      "note": "greenhouse 4:3 event card"
+    },
+    {
+      "file": "scenes/10-night-repair.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "10-night-repair.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 135220,
+      "quality": 82,
+      "alt": {
+        "en": "Shadow repairs a solar panel at night while Silver watches and Ginger waits in the rover.",
+        "zh-TW": "暗影在夜間維修太陽能板，銀白在下方守候，金桔在探測車內等待。"
+      },
+      "credit": null,
+      "note": "night repair"
+    },
+    {
+      "file": "scenes/11-cold-patrol.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "11-cold-patrol.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 146074,
+      "quality": 82,
+      "alt": {
+        "en": "A rover crosses a frost-dusted Martian plain with Shadow and Ginger inside.",
+        "zh-TW": "探測車駛過結霜的火星平原，暗影與金桔坐在車內。"
+      },
+      "credit": null,
+      "note": "cold patrol"
+    },
+    {
+      "file": "scenes/12-debrief.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "12-debrief.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 72926,
+      "quality": 82,
+      "alt": {
+        "en": "The three cats gather around a holographic report in a warm debrief room.",
+        "zh-TW": "三隻貓在溫暖的任務覆盤室裡圍著全像報告。"
+      },
+      "credit": null,
+      "note": "debrief / failure screen"
+    },
+    {
+      "file": "scenes/13-ending.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "13-ending.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 90202,
+      "quality": 82,
+      "alt": {
+        "en": "A supply ship descends toward the landing pad as the three cats watch at sunrise.",
+        "zh-TW": "補給船在日出時降落在停機坪，三隻貓在一旁觀看。"
+      },
+      "credit": null,
+      "note": "ending"
+    },
+    {
+      "file": "scenes/20-silver-hero.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "20-silver-hero.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 96294,
+      "quality": 82,
+      "alt": {
+        "en": "Low-angle hero shot of Silver standing on a rocky ledge at dawn.",
+        "zh-TW": "銀白在黎明岩脊上的低角度英雄鏡。"
+      },
+      "credit": null,
+      "note": "hero shot / Silver"
+    },
+    {
+      "file": "scenes/21-shadow-hero.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "21-shadow-hero.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 79708,
+      "quality": 82,
+      "alt": {
+        "en": "Low-angle hero shot of Shadow on a solar panel array at dusk.",
+        "zh-TW": "暗影在黃昏太陽能陣列上的低角度英雄鏡。"
+      },
+      "credit": null,
+      "note": "hero shot / Shadow"
+    },
+    {
+      "file": "scenes/22-ginger-hero.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "22-ginger-hero.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 73080,
+      "quality": 82,
+      "alt": {
+        "en": "Low-angle hero shot of Ginger on a rock at dawn beside a crate of tomatoes.",
+        "zh-TW": "金桔在黎明岩石上與一箱番茄的低角度英雄鏡。"
+      },
+      "credit": null,
+      "note": "hero shot / Ginger"
+    },
+    {
+      "file": "scenes/23-silver-portrait.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "23-silver-portrait.png",
+      "originalPixels": "1792x2400",
+      "width": 956,
+      "height": 1280,
+      "bytes": 113552,
+      "quality": 82,
+      "alt": {
+        "en": "Head-and-shoulders dialogue portrait of Silver in a habitat interior.",
+        "zh-TW": "銀白在基地室內的半身對話特寫。"
+      },
+      "credit": null,
+      "note": "dialogue portrait 3:4 / Silver"
+    },
+    {
+      "file": "scenes/24-shadow-portrait.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "24-shadow-portrait.png",
+      "originalPixels": "1792x2400",
+      "width": 956,
+      "height": 1280,
+      "bytes": 77836,
+      "quality": 82,
+      "alt": {
+        "en": "Head-and-shoulders dialogue portrait of Shadow in a dark habitat interior.",
+        "zh-TW": "暗影在昏暗基地室內的半身對話特寫。"
+      },
+      "credit": null,
+      "note": "dialogue portrait 3:4 / Shadow"
+    },
+    {
+      "file": "scenes/25-ginger-portrait.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "25-ginger-portrait.png",
+      "originalPixels": "1792x2400",
+      "width": 956,
+      "height": 1280,
+      "bytes": 150636,
+      "quality": 82,
+      "alt": {
+        "en": "Head-and-shoulders dialogue portrait of Ginger in warm greenhouse light.",
+        "zh-TW": "金桔在溫暖溫室光線下的半身對話特寫。"
+      },
+      "credit": null,
+      "note": "dialogue portrait 3:4 / Ginger"
+    },
+    {
+      "file": "scenes/26-silver-wide.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "26-silver-wide.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 126896,
+      "quality": 82,
+      "alt": {
+        "en": "High-angle wide shot of Silver alone on a frost-dusted Martian plain.",
+        "zh-TW": "高角度遠景：銀白獨自站在結霜的火星平原。"
+      },
+      "credit": null,
+      "note": "wide / Silver"
+    },
+    {
+      "file": "scenes/27-shadow-wide.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "27-shadow-wide.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 42880,
+      "quality": 82,
+      "alt": {
+        "en": "High-angle night shot of Shadow crossing a dark Martian plain.",
+        "zh-TW": "高角度夜景：暗影穿越黑暗的火星平原。"
+      },
+      "credit": null,
+      "note": "wide / Shadow"
+    },
+    {
+      "file": "scenes/28-ginger-wide.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "28-ginger-wide.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 112850,
+      "quality": 82,
+      "alt": {
+        "en": "High-angle shot of Ginger among seedling trays in the greenhouse.",
+        "zh-TW": "高角度俯視：金桔坐在溫室的幼苗盤之間。"
+      },
+      "credit": null,
+      "note": "wide / Ginger"
+    },
+    {
+      "file": "scenes/29-opening-storyboard.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "29-opening-storyboard.png",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 71290,
+      "quality": 82,
+      "alt": {
+        "en": "Six-panel storyboard of the opening sequence.",
+        "zh-TW": "開場六格故事板。"
+      },
+      "credit": null,
+      "note": "opening storyboard"
+    },
+    {
+      "file": "cutouts/14-silver-turnaround.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "14-silver-turnaround.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 205306,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.615
+      },
+      "alt": {
+        "en": "Six-view character sheet of Silver on a light gray studio background.",
+        "zh-TW": "銀白角色的六視圖設定表，淺灰色攝影棚背景。"
+      },
+      "credit": null,
+      "note": "turnaround 3x2 grid / Silver"
+    },
+    {
+      "file": "cutouts/15-shadow-turnaround.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "15-shadow-turnaround.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 164440,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.7345
+      },
+      "alt": {
+        "en": "Six-view character sheet of Shadow on a light gray studio background.",
+        "zh-TW": "暗影角色的六視圖設定表，淺灰色攝影棚背景。"
+      },
+      "credit": null,
+      "note": "turnaround 3x2 grid / Shadow"
+    },
+    {
+      "file": "cutouts/16-ginger-turnaround.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "16-ginger-turnaround.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 190188,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.6225
+      },
+      "alt": {
+        "en": "Six-view character sheet of Ginger on a light gray studio background.",
+        "zh-TW": "金桔角色的六視圖設定表，淺灰色攝影棚背景。"
+      },
+      "credit": null,
+      "note": "turnaround 3x2 grid / Ginger"
+    },
+    {
+      "file": "cutouts/17-silver-expressions.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "17-silver-expressions.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 276490,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.3723
+      },
+      "alt": {
+        "en": "Six-expression portrait sheet of Silver.",
+        "zh-TW": "銀白的六種表情表。"
+      },
+      "credit": null,
+      "note": "expressions 3x2 grid / Silver"
+    },
+    {
+      "file": "cutouts/17-silver-expressions_hat.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "17-silver-expressions_hat.png",
+      "originalPixels": "2400x1792",
+      "width": 1600,
+      "height": 1195,
+      "bytes": 328968,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.3088
+      },
+      "alt": {
+        "en": "Six-expression portrait sheet of Silver wearing a transparent space helmet.",
+        "zh-TW": "戴透明太空頭盔的銀白六種表情表。"
+      },
+      "credit": null,
+      "note": "expressions 3x2 grid / Silver / helmet"
+    },
+    {
+      "file": "cutouts/18-shadow-expressions.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "18-shadow-expressions.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 194670,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.4941
+      },
+      "alt": {
+        "en": "Six-expression portrait sheet of Shadow.",
+        "zh-TW": "暗影的六種表情表。"
+      },
+      "credit": null,
+      "note": "expressions 3x2 grid / Shadow"
+    },
+    {
+      "file": "cutouts/18-shadow-expressions_hat.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "18-shadow-expressions_hat.png",
+      "originalPixels": "2400x1792",
+      "width": 1600,
+      "height": 1195,
+      "bytes": 275580,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.3226
+      },
+      "alt": {
+        "en": "Six-expression portrait sheet of Shadow wearing a transparent space helmet.",
+        "zh-TW": "戴透明太空頭盔的暗影六種表情表。"
+      },
+      "credit": null,
+      "note": "expressions 3x2 grid / Shadow / helmet"
+    },
+    {
+      "file": "cutouts/19-ginger-expressions.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "19-ginger-expressions.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 250754,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.4019
+      },
+      "alt": {
+        "en": "Six-expression portrait sheet of Ginger.",
+        "zh-TW": "金桔的六種表情表。"
+      },
+      "credit": null,
+      "note": "expressions 3x2 grid / Ginger"
+    },
+    {
+      "file": "cutouts/19-ginger-expressions_hat.webp",
+      "type": "cutout",
+      "background": "transparent",
+      "source": "19-ginger-expressions_hat.png",
+      "originalPixels": "2528x1696",
+      "width": 1600,
+      "height": 1073,
+      "bytes": 282602,
+      "quality": 85,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "transparentFraction": 0.3134
+      },
+      "alt": {
+        "en": "Six-expression portrait sheet of Ginger wearing a transparent space helmet.",
+        "zh-TW": "戴透明太空頭盔的金桔六種表情表。"
+      },
+      "credit": null,
+      "note": "expressions 3x2 grid / Ginger / helmet"
+    }
+  ],
+  "avatars": {
+    "manifest": "avatars/manifest.json",
+    "count": 36,
+    "sizes": [
+      200,
+      400,
+      800
+    ],
+    "note": "3 cats x 6 expressions x normal/helmet; sliced from sheets 17-19"
+  }
+}

@@ -1,0 +1,894 @@
+{
+  "generated": "2026-11-14",
+  "sourceSheets": [
+    "17-silver-expressions.png",
+    "17-silver-expressions_hat.png",
+    "18-shadow-expressions.png",
+    "18-shadow-expressions_hat.png",
+    "19-ginger-expressions.png",
+    "19-ginger-expressions_hat.png"
+  ],
+  "grid": "3 columns x 2 rows per sheet, read row-major",
+  "expressionOrder": [
+    "neutral",
+    "happy",
+    "worried",
+    "determined",
+    "sleepy",
+    "surprised"
+  ],
+  "sizes": [
+    200,
+    400,
+    800
+  ],
+  "format": "WebP q=85 with alpha (alpha channel is lossless)",
+  "pipeline": "rembg 2.0.87 bria-rmbg on the full sheet, then 800x800 square crop per cell",
+  "count": 36,
+  "avatars": [
+    {
+      "id": "silver-neutral",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "neutral",
+      "helmet": false,
+      "source": "17-silver-expressions.png (row 1, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-neutral.webp",
+      "srcset": "silver/avatar-silver-neutral-200.webp 200w, silver/avatar-silver-neutral-400.webp 400w, silver/avatar-silver-neutral.webp 800w",
+      "bytes": {
+        "800": 88294,
+        "400": 27026,
+        "200": 9948
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a calm, neutral expression.",
+        "zh-TW": "銀白，銀白長毛貓，平靜的表情。"
+      }
+    },
+    {
+      "id": "silver-happy",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "happy",
+      "helmet": false,
+      "source": "17-silver-expressions.png (row 1, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-happy.webp",
+      "srcset": "silver/avatar-silver-happy-200.webp 200w, silver/avatar-silver-happy-400.webp 400w, silver/avatar-silver-happy.webp 800w",
+      "bytes": {
+        "800": 88904,
+        "400": 27978,
+        "200": 10404
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a gently happy expression.",
+        "zh-TW": "銀白，銀白長毛貓，開心的表情。"
+      }
+    },
+    {
+      "id": "silver-worried",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "worried",
+      "helmet": false,
+      "source": "17-silver-expressions.png (row 1, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-worried.webp",
+      "srcset": "silver/avatar-silver-worried-200.webp 200w, silver/avatar-silver-worried-400.webp 400w, silver/avatar-silver-worried.webp 800w",
+      "bytes": {
+        "800": 88674,
+        "400": 26998,
+        "200": 10074
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a worried expression.",
+        "zh-TW": "銀白，銀白長毛貓，擔心的表情。"
+      }
+    },
+    {
+      "id": "silver-determined",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "determined",
+      "helmet": false,
+      "source": "17-silver-expressions.png (row 2, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-determined.webp",
+      "srcset": "silver/avatar-silver-determined-200.webp 200w, silver/avatar-silver-determined-400.webp 400w, silver/avatar-silver-determined.webp 800w",
+      "bytes": {
+        "800": 95380,
+        "400": 27806,
+        "200": 10418
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a determined expression.",
+        "zh-TW": "銀白，銀白長毛貓，堅定的表情。"
+      }
+    },
+    {
+      "id": "silver-sleepy",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "sleepy",
+      "helmet": false,
+      "source": "17-silver-expressions.png (row 2, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-sleepy.webp",
+      "srcset": "silver/avatar-silver-sleepy-200.webp 200w, silver/avatar-silver-sleepy-400.webp 400w, silver/avatar-silver-sleepy.webp 800w",
+      "bytes": {
+        "800": 90096,
+        "400": 26410,
+        "200": 9684
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a sleepy expression.",
+        "zh-TW": "銀白，銀白長毛貓，想睡的表情。"
+      }
+    },
+    {
+      "id": "silver-surprised",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "surprised",
+      "helmet": false,
+      "source": "17-silver-expressions.png (row 2, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-surprised.webp",
+      "srcset": "silver/avatar-silver-surprised-200.webp 200w, silver/avatar-silver-surprised-400.webp 400w, silver/avatar-silver-surprised.webp 800w",
+      "bytes": {
+        "800": 96036,
+        "400": 28906,
+        "200": 10410
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a surprised expression.",
+        "zh-TW": "銀白，銀白長毛貓，驚訝的表情。"
+      }
+    },
+    {
+      "id": "silver-neutral-helmet",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "neutral",
+      "helmet": true,
+      "source": "17-silver-expressions_hat.png (row 1, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-neutral-helmet.webp",
+      "srcset": "silver/avatar-silver-neutral-helmet-200.webp 200w, silver/avatar-silver-neutral-helmet-400.webp 400w, silver/avatar-silver-neutral-helmet.webp 800w",
+      "bytes": {
+        "800": 90740,
+        "400": 28006,
+        "200": 10110
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a calm, neutral expression, wearing a transparent space helmet.",
+        "zh-TW": "銀白，銀白長毛貓，平靜的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "silver-happy-helmet",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "happy",
+      "helmet": true,
+      "source": "17-silver-expressions_hat.png (row 1, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-happy-helmet.webp",
+      "srcset": "silver/avatar-silver-happy-helmet-200.webp 200w, silver/avatar-silver-happy-helmet-400.webp 400w, silver/avatar-silver-happy-helmet.webp 800w",
+      "bytes": {
+        "800": 90656,
+        "400": 28678,
+        "200": 10154
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a gently happy expression, wearing a transparent space helmet.",
+        "zh-TW": "銀白，銀白長毛貓，開心的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "silver-worried-helmet",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "worried",
+      "helmet": true,
+      "source": "17-silver-expressions_hat.png (row 1, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-worried-helmet.webp",
+      "srcset": "silver/avatar-silver-worried-helmet-200.webp 200w, silver/avatar-silver-worried-helmet-400.webp 400w, silver/avatar-silver-worried-helmet.webp 800w",
+      "bytes": {
+        "800": 93148,
+        "400": 28562,
+        "200": 9988
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a worried expression, wearing a transparent space helmet.",
+        "zh-TW": "銀白，銀白長毛貓，擔心的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "silver-determined-helmet",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "determined",
+      "helmet": true,
+      "source": "17-silver-expressions_hat.png (row 2, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-determined-helmet.webp",
+      "srcset": "silver/avatar-silver-determined-helmet-200.webp 200w, silver/avatar-silver-determined-helmet-400.webp 400w, silver/avatar-silver-determined-helmet.webp 800w",
+      "bytes": {
+        "800": 99828,
+        "400": 29212,
+        "200": 10056
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a determined expression, wearing a transparent space helmet.",
+        "zh-TW": "銀白，銀白長毛貓，堅定的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "silver-sleepy-helmet",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "sleepy",
+      "helmet": true,
+      "source": "17-silver-expressions_hat.png (row 2, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-sleepy-helmet.webp",
+      "srcset": "silver/avatar-silver-sleepy-helmet-200.webp 200w, silver/avatar-silver-sleepy-helmet-400.webp 400w, silver/avatar-silver-sleepy-helmet.webp 800w",
+      "bytes": {
+        "800": 98122,
+        "400": 29176,
+        "200": 10112
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a sleepy expression, wearing a transparent space helmet.",
+        "zh-TW": "銀白，銀白長毛貓，想睡的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "silver-surprised-helmet",
+      "cat": "silver",
+      "catName": {
+        "en": "Silver",
+        "zh-TW": "銀白"
+      },
+      "expression": "surprised",
+      "helmet": true,
+      "source": "17-silver-expressions_hat.png (row 2, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "silver/avatar-silver-surprised-helmet.webp",
+      "srcset": "silver/avatar-silver-surprised-helmet-200.webp 200w, silver/avatar-silver-surprised-helmet-400.webp 400w, silver/avatar-silver-surprised-helmet.webp 800w",
+      "bytes": {
+        "800": 100176,
+        "400": 29196,
+        "200": 10198
+      },
+      "alt": {
+        "en": "Silver, the white long-haired cat, with a surprised expression, wearing a transparent space helmet.",
+        "zh-TW": "銀白，銀白長毛貓，驚訝的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "shadow-neutral",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "neutral",
+      "helmet": false,
+      "source": "18-shadow-expressions.png (row 1, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-neutral.webp",
+      "srcset": "shadow/avatar-shadow-neutral-200.webp 200w, shadow/avatar-shadow-neutral-400.webp 400w, shadow/avatar-shadow-neutral.webp 800w",
+      "bytes": {
+        "800": 62696,
+        "400": 21012,
+        "200": 8238
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a calm, neutral expression.",
+        "zh-TW": "暗影，黑貓，平靜的表情。"
+      }
+    },
+    {
+      "id": "shadow-happy",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "happy",
+      "helmet": false,
+      "source": "18-shadow-expressions.png (row 1, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-happy.webp",
+      "srcset": "shadow/avatar-shadow-happy-200.webp 200w, shadow/avatar-shadow-happy-400.webp 400w, shadow/avatar-shadow-happy.webp 800w",
+      "bytes": {
+        "800": 65096,
+        "400": 21748,
+        "200": 8300
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a quietly pleased expression.",
+        "zh-TW": "暗影，黑貓，淡淡滿意的表情。"
+      }
+    },
+    {
+      "id": "shadow-worried",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "worried",
+      "helmet": false,
+      "source": "18-shadow-expressions.png (row 1, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-worried.webp",
+      "srcset": "shadow/avatar-shadow-worried-200.webp 200w, shadow/avatar-shadow-worried-400.webp 400w, shadow/avatar-shadow-worried.webp 800w",
+      "bytes": {
+        "800": 63458,
+        "400": 21080,
+        "200": 8132
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a worried expression.",
+        "zh-TW": "暗影，黑貓，擔心的表情。"
+      }
+    },
+    {
+      "id": "shadow-determined",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "determined",
+      "helmet": false,
+      "source": "18-shadow-expressions.png (row 2, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-determined.webp",
+      "srcset": "shadow/avatar-shadow-determined-200.webp 200w, shadow/avatar-shadow-determined-400.webp 400w, shadow/avatar-shadow-determined.webp 800w",
+      "bytes": {
+        "800": 62886,
+        "400": 21424,
+        "200": 8232
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a determined expression.",
+        "zh-TW": "暗影，黑貓，堅定的表情。"
+      }
+    },
+    {
+      "id": "shadow-sleepy",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "sleepy",
+      "helmet": false,
+      "source": "18-shadow-expressions.png (row 2, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-sleepy.webp",
+      "srcset": "shadow/avatar-shadow-sleepy-200.webp 200w, shadow/avatar-shadow-sleepy-400.webp 400w, shadow/avatar-shadow-sleepy.webp 800w",
+      "bytes": {
+        "800": 61344,
+        "400": 21684,
+        "200": 8198
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a sleepy expression.",
+        "zh-TW": "暗影，黑貓，想睡的表情。"
+      }
+    },
+    {
+      "id": "shadow-surprised",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "surprised",
+      "helmet": false,
+      "source": "18-shadow-expressions.png (row 2, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-surprised.webp",
+      "srcset": "shadow/avatar-shadow-surprised-200.webp 200w, shadow/avatar-shadow-surprised-400.webp 400w, shadow/avatar-shadow-surprised.webp 800w",
+      "bytes": {
+        "800": 67410,
+        "400": 22784,
+        "200": 8956
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a surprised expression.",
+        "zh-TW": "暗影，黑貓，驚訝的表情。"
+      }
+    },
+    {
+      "id": "shadow-neutral-helmet",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "neutral",
+      "helmet": true,
+      "source": "18-shadow-expressions_hat.png (row 1, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-neutral-helmet.webp",
+      "srcset": "shadow/avatar-shadow-neutral-helmet-200.webp 200w, shadow/avatar-shadow-neutral-helmet-400.webp 400w, shadow/avatar-shadow-neutral-helmet.webp 800w",
+      "bytes": {
+        "800": 78510,
+        "400": 25680,
+        "200": 10144
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a calm, neutral expression, wearing a transparent space helmet.",
+        "zh-TW": "暗影，黑貓，平靜的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "shadow-happy-helmet",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "happy",
+      "helmet": true,
+      "source": "18-shadow-expressions_hat.png (row 1, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-happy-helmet.webp",
+      "srcset": "shadow/avatar-shadow-happy-helmet-200.webp 200w, shadow/avatar-shadow-happy-helmet-400.webp 400w, shadow/avatar-shadow-happy-helmet.webp 800w",
+      "bytes": {
+        "800": 79456,
+        "400": 26242,
+        "200": 10164
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a quietly pleased expression, wearing a transparent space helmet.",
+        "zh-TW": "暗影，黑貓，淡淡滿意的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "shadow-worried-helmet",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "worried",
+      "helmet": true,
+      "source": "18-shadow-expressions_hat.png (row 1, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-worried-helmet.webp",
+      "srcset": "shadow/avatar-shadow-worried-helmet-200.webp 200w, shadow/avatar-shadow-worried-helmet-400.webp 400w, shadow/avatar-shadow-worried-helmet.webp 800w",
+      "bytes": {
+        "800": 76698,
+        "400": 25178,
+        "200": 9860
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a worried expression, wearing a transparent space helmet.",
+        "zh-TW": "暗影，黑貓，擔心的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "shadow-determined-helmet",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "determined",
+      "helmet": true,
+      "source": "18-shadow-expressions_hat.png (row 2, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-determined-helmet.webp",
+      "srcset": "shadow/avatar-shadow-determined-helmet-200.webp 200w, shadow/avatar-shadow-determined-helmet-400.webp 400w, shadow/avatar-shadow-determined-helmet.webp 800w",
+      "bytes": {
+        "800": 79230,
+        "400": 27004,
+        "200": 10084
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a determined expression, wearing a transparent space helmet.",
+        "zh-TW": "暗影，黑貓，堅定的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "shadow-sleepy-helmet",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "sleepy",
+      "helmet": true,
+      "source": "18-shadow-expressions_hat.png (row 2, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-sleepy-helmet.webp",
+      "srcset": "shadow/avatar-shadow-sleepy-helmet-200.webp 200w, shadow/avatar-shadow-sleepy-helmet-400.webp 400w, shadow/avatar-shadow-sleepy-helmet.webp 800w",
+      "bytes": {
+        "800": 79944,
+        "400": 27158,
+        "200": 10212
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a sleepy expression, wearing a transparent space helmet.",
+        "zh-TW": "暗影，黑貓，想睡的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "shadow-surprised-helmet",
+      "cat": "shadow",
+      "catName": {
+        "en": "Shadow",
+        "zh-TW": "暗影"
+      },
+      "expression": "surprised",
+      "helmet": true,
+      "source": "18-shadow-expressions_hat.png (row 2, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "shadow/avatar-shadow-surprised-helmet.webp",
+      "srcset": "shadow/avatar-shadow-surprised-helmet-200.webp 200w, shadow/avatar-shadow-surprised-helmet-400.webp 400w, shadow/avatar-shadow-surprised-helmet.webp 800w",
+      "bytes": {
+        "800": 79324,
+        "400": 27022,
+        "200": 10192
+      },
+      "alt": {
+        "en": "Shadow, the black cat, with a surprised expression, wearing a transparent space helmet.",
+        "zh-TW": "暗影，黑貓，驚訝的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "ginger-neutral",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "neutral",
+      "helmet": false,
+      "source": "19-ginger-expressions.png (row 1, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-neutral.webp",
+      "srcset": "ginger/avatar-ginger-neutral-200.webp 200w, ginger/avatar-ginger-neutral-400.webp 400w, ginger/avatar-ginger-neutral.webp 800w",
+      "bytes": {
+        "800": 79120,
+        "400": 26728,
+        "200": 10132
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a calm, neutral expression.",
+        "zh-TW": "金桔，橘虎斑貓，平靜的表情。"
+      }
+    },
+    {
+      "id": "ginger-happy",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "happy",
+      "helmet": false,
+      "source": "19-ginger-expressions.png (row 1, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-happy.webp",
+      "srcset": "ginger/avatar-ginger-happy-200.webp 200w, ginger/avatar-ginger-happy-400.webp 400w, ginger/avatar-ginger-happy.webp 800w",
+      "bytes": {
+        "800": 79094,
+        "400": 27396,
+        "200": 10516
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a gently happy expression.",
+        "zh-TW": "金桔，橘虎斑貓，開心的表情。"
+      }
+    },
+    {
+      "id": "ginger-worried",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "worried",
+      "helmet": false,
+      "source": "19-ginger-expressions.png (row 1, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-worried.webp",
+      "srcset": "ginger/avatar-ginger-worried-200.webp 200w, ginger/avatar-ginger-worried-400.webp 400w, ginger/avatar-ginger-worried.webp 800w",
+      "bytes": {
+        "800": 78936,
+        "400": 27704,
+        "200": 10436
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a worried expression.",
+        "zh-TW": "金桔，橘虎斑貓，擔心的表情。"
+      }
+    },
+    {
+      "id": "ginger-determined",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "determined",
+      "helmet": false,
+      "source": "19-ginger-expressions.png (row 2, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-determined.webp",
+      "srcset": "ginger/avatar-ginger-determined-200.webp 200w, ginger/avatar-ginger-determined-400.webp 400w, ginger/avatar-ginger-determined.webp 800w",
+      "bytes": {
+        "800": 79502,
+        "400": 26838,
+        "200": 10544
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a determined expression.",
+        "zh-TW": "金桔，橘虎斑貓，堅定的表情。"
+      }
+    },
+    {
+      "id": "ginger-sleepy",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "sleepy",
+      "helmet": false,
+      "source": "19-ginger-expressions.png (row 2, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-sleepy.webp",
+      "srcset": "ginger/avatar-ginger-sleepy-200.webp 200w, ginger/avatar-ginger-sleepy-400.webp 400w, ginger/avatar-ginger-sleepy.webp 800w",
+      "bytes": {
+        "800": 79010,
+        "400": 27472,
+        "200": 10604
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a sleepy expression.",
+        "zh-TW": "金桔，橘虎斑貓，想睡的表情。"
+      }
+    },
+    {
+      "id": "ginger-surprised",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "surprised",
+      "helmet": false,
+      "source": "19-ginger-expressions.png (row 2, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-surprised.webp",
+      "srcset": "ginger/avatar-ginger-surprised-200.webp 200w, ginger/avatar-ginger-surprised-400.webp 400w, ginger/avatar-ginger-surprised.webp 800w",
+      "bytes": {
+        "800": 78466,
+        "400": 27222,
+        "200": 10580
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a surprised expression.",
+        "zh-TW": "金桔，橘虎斑貓，驚訝的表情。"
+      }
+    },
+    {
+      "id": "ginger-neutral-helmet",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "neutral",
+      "helmet": true,
+      "source": "19-ginger-expressions_hat.png (row 1, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-neutral-helmet.webp",
+      "srcset": "ginger/avatar-ginger-neutral-helmet-200.webp 200w, ginger/avatar-ginger-neutral-helmet-400.webp 400w, ginger/avatar-ginger-neutral-helmet.webp 800w",
+      "bytes": {
+        "800": 88576,
+        "400": 28750,
+        "200": 10596
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a calm, neutral expression, wearing a transparent space helmet.",
+        "zh-TW": "金桔，橘虎斑貓，平靜的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "ginger-happy-helmet",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "happy",
+      "helmet": true,
+      "source": "19-ginger-expressions_hat.png (row 1, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-happy-helmet.webp",
+      "srcset": "ginger/avatar-ginger-happy-helmet-200.webp 200w, ginger/avatar-ginger-happy-helmet-400.webp 400w, ginger/avatar-ginger-happy-helmet.webp 800w",
+      "bytes": {
+        "800": 88750,
+        "400": 28720,
+        "200": 10884
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a gently happy expression, wearing a transparent space helmet.",
+        "zh-TW": "金桔，橘虎斑貓，開心的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "ginger-worried-helmet",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "worried",
+      "helmet": true,
+      "source": "19-ginger-expressions_hat.png (row 1, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-worried-helmet.webp",
+      "srcset": "ginger/avatar-ginger-worried-helmet-200.webp 200w, ginger/avatar-ginger-worried-helmet-400.webp 400w, ginger/avatar-ginger-worried-helmet.webp 800w",
+      "bytes": {
+        "800": 87084,
+        "400": 28636,
+        "200": 10666
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a worried expression, wearing a transparent space helmet.",
+        "zh-TW": "金桔，橘虎斑貓，擔心的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "ginger-determined-helmet",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "determined",
+      "helmet": true,
+      "source": "19-ginger-expressions_hat.png (row 2, column 1)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-determined-helmet.webp",
+      "srcset": "ginger/avatar-ginger-determined-helmet-200.webp 200w, ginger/avatar-ginger-determined-helmet-400.webp 400w, ginger/avatar-ginger-determined-helmet.webp 800w",
+      "bytes": {
+        "800": 85788,
+        "400": 28090,
+        "200": 10768
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a determined expression, wearing a transparent space helmet.",
+        "zh-TW": "金桔，橘虎斑貓，堅定的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "ginger-sleepy-helmet",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "sleepy",
+      "helmet": true,
+      "source": "19-ginger-expressions_hat.png (row 2, column 2)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-sleepy-helmet.webp",
+      "srcset": "ginger/avatar-ginger-sleepy-helmet-200.webp 200w, ginger/avatar-ginger-sleepy-helmet-400.webp 400w, ginger/avatar-ginger-sleepy-helmet.webp 800w",
+      "bytes": {
+        "800": 85564,
+        "400": 27892,
+        "200": 10824
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a sleepy expression, wearing a transparent space helmet.",
+        "zh-TW": "金桔，橘虎斑貓，想睡的表情，戴著透明太空頭盔。"
+      }
+    },
+    {
+      "id": "ginger-surprised-helmet",
+      "cat": "ginger",
+      "catName": {
+        "en": "Ginger",
+        "zh-TW": "金桔"
+      },
+      "expression": "surprised",
+      "helmet": true,
+      "source": "19-ginger-expressions_hat.png (row 2, column 3)",
+      "width": 800,
+      "height": 800,
+      "src": "ginger/avatar-ginger-surprised-helmet.webp",
+      "srcset": "ginger/avatar-ginger-surprised-helmet-200.webp 200w, ginger/avatar-ginger-surprised-helmet-400.webp 400w, ginger/avatar-ginger-surprised-helmet.webp 800w",
+      "bytes": {
+        "800": 86110,
+        "400": 28424,
+        "200": 10846
+      },
+      "alt": {
+        "en": "Ginger, the orange tabby cat, with a surprised expression, wearing a transparent space helmet.",
+        "zh-TW": "金桔，橘虎斑貓，驚訝的表情，戴著透明太空頭盔。"
+      }
+    }
+  ]
+}
