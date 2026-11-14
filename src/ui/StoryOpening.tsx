@@ -239,8 +239,10 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
   const tapLines = lastTap ? TAPS.find((item) => item.id === lastTap)!.lines : [];
   const introDone = reply !== null;
   const allTapped = tapped.length === TAPS.length;
+  // Compact landscape: two entries max, so the panel stays within three
+  // rendered lines at 15px (the last line wraps to two).
   const radioLines = compact
-    ? CRASH_LINES.slice(Math.max(0, radioStep - 3), radioStep)
+    ? CRASH_LINES.slice(Math.max(0, radioStep - 2), radioStep)
     : CRASH_LINES.slice(0, radioStep);
 
   useEffect(() => {
