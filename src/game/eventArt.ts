@@ -4,6 +4,8 @@ import controlRoom from '../assets/generated/scenes/08-control-room.webp';
 import controlRoomEmpty from '../assets/generated/scenes/08-control-room-nocat.webp';
 import greenhouse from '../assets/generated/scenes/09-greenhouse.webp';
 import greenhouseEmpty from '../assets/generated/scenes/09-greenhouse-nocat.webp';
+import nightRepair from '../assets/generated/scenes/10-night-repair.webp';
+import nightRepairEmpty from '../assets/generated/scenes/10-night-repair-nocat.webp';
 import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import coldPatrolEmpty from '../assets/generated/scenes/11-cold-patrol-nocar.webp';
 import debrief from '../assets/generated/scenes/12-debrief.webp';
@@ -71,10 +73,12 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
     },
   },
-  // P1 — dust on the panels again; same array, same cat as T1.
+  // P1 — the dust settles again later in the week. The card uses the night
+  // repair scene so it cannot be mistaken for the Sol 1 tutorial, but the
+  // sweeping beat still reuses the Sol 1 array plates: same array, same job.
   P1: {
-    src: shadowHero,
-    briefingSrc: shadowHeroEmpty,
+    src: nightRepair,
+    briefingSrc: nightRepairEmpty,
     sweep: {
       src: shadowHeroEmpty,
       alt: {
@@ -88,8 +92,8 @@ export const EVENT_ART: Record<string, EventArt> = {
       },
     },
     alt: {
-      en: 'Shadow in a dark suit standing on dusty solar panels at dusk, the outpost dome behind him.',
-      'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
+      en: 'Shadow repairs a solar panel at night while Silver watches and Ginger waits in the rover.',
+      'zh-TW': '暗影在夜間維修太陽能板，銀白在下方守候，金桔在探測車內等待。',
     },
   },
   // P4 — the cold week; a rover out on the frost with a dust devil spinning.
