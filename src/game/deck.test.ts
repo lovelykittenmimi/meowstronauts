@@ -119,12 +119,14 @@ describe('condition filters', () => {
   });
 
   it('skips S2 while shielding holds and allows it when thin', () => {
+    // A plausible hand so the category quotas do not force a survival card.
+    const played = ['T1', 'P1', 'L1', 'F3', 'C1'];
     const healthy = drawAcrossSeeds(
-      stateAt(6, { resources: { ...HEALTHY, shield: 90 } }),
+      stateAt(6, { resources: { ...HEALTHY, shield: 90 } }, played),
     );
     expect(healthy).not.toContain('S2');
     const thin = drawAcrossSeeds(
-      stateAt(6, { resources: { ...HEALTHY, shield: 40 } }),
+      stateAt(6, { resources: { ...HEALTHY, shield: 40 } }, played),
     );
     expect(thin).toContain('S2');
   });

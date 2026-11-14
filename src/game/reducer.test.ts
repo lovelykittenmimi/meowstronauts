@@ -144,6 +144,21 @@ describe('full mission', () => {
     events.forEach((id, index) => {
       if (index > 0) expect(id).not.toBe(events[index - 1]);
     });
+
+    // docs/event-cards.md §3.1: one of each survival category, at most two
+    // per category (S1 is the fixed flare card and does not count).
+    const counts = new Map<string, number>();
+    for (const id of events.filter((eventId) => eventId !== 'S1')) {
+      const category = EVENT_BY_ID.get(id)!.category;
+      counts.set(category, (counts.get(category) ?? 0) + 1);
+    }
+    for (const category of ['power', 'lifeSupport', 'food']) {
+      expect(counts.get(category) ?? 0, `missing ${category}`).toBeGreaterThan(0);
+    }
+    for (const [category, count] of counts) {
+      expect(count, `${category} appeared ${count} times`).toBeLessThanOrEqual(2);
+    }
+
     expect(['report', 'gameover']).toContain(state.phase);
     expect(state.sol).toBe(7);
   });
