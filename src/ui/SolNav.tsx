@@ -15,6 +15,8 @@ interface SolNavProps {
   onHop?: () => void;
   /** Opens the Sol 7 space-food practice; omitted in video mode. */
   onFood?: () => void;
+  /** Opens the radiation shelter drill; optional for the same reason. */
+  onShelter?: () => void;
 }
 
 const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
@@ -22,7 +24,7 @@ const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
 /**
  * A row of Sol 1–7 buttons so the crew can look back at a finished day.
  * Sols the crew has not reached yet are disabled; switching back is a review
- * only, so it never changes the mission. The landing game lives at the end of
+ * only, so it never changes the mission. The training games live at the end of
  * the same row, so practice is one tap away between sols.
  */
 export function SolNav({
@@ -33,6 +35,7 @@ export function SolNav({
   onLander,
   onHop,
   onFood,
+  onShelter,
 }: SolNavProps) {
   return (
     <nav className="sol-nav" aria-label={t(lang, 'solnav.aria')} data-testid="sol-nav">
@@ -90,6 +93,19 @@ export function SolNav({
         >
           <span aria-hidden="true">🍽️</span>
           <span className="sol-nav-label">{t(lang, 'solnav.food')}</span>
+        </button>
+      )}
+      {onShelter && (
+        <button
+          type="button"
+          className="sol-nav-button sol-nav-shelter"
+          data-testid="shelter-open"
+          aria-label={t(lang, 'solnav.shelter')}
+          title={t(lang, 'solnav.shelter')}
+          onClick={onShelter}
+        >
+          <span aria-hidden="true">☢️</span>
+          <span className="sol-nav-label">{t(lang, 'solnav.shelter')}</span>
         </button>
       )}
     </nav>

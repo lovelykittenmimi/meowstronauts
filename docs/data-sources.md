@@ -16,6 +16,7 @@
 |---|---|---|---|---|
 | `src/data/spaceweather.snapshot.json` | DONKI 2025-05-13～05-17：20 筆 CME、4 筆 FLR（X1.2／M5.3／X2.7／M7.7）、1 筆 GST（Kp 6.33）＋ `meta.assessment` 風暴判定 | 20 CME / 4 FLR / 1 GST | [NASA DONKI](https://api.nasa.gov/DONKI/) | NASA Open Data |
 | `src/data/mars-weather.snapshot.json` | Curiosity REMS 2025-05-08～05-22 的 14 sol（氣溫、地面溫度、氣壓、season、`gameplayTags`）；核心 7 sol（05-15～05-22，05-18 缺資料）平均白天高溫 -29.7°C，是 2012–2026 年檔案中前 1.1% 的冷週（2019 窗口更冷，保留為歷史對照） | 14 | [MSL weather feed](https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json) | NASA/JPL-Caltech |
+| `src/minigames/radiation/data/solar-event.json` | DONKI SEP `2025-05-13T18:14Z`（SOHO COSTEP 15.8–39.8 MeV）；同日 `15:25Z` 閃焰、`16:15Z` CME、`18:33Z` 警報；避難艙演練事件卡 | 1 | [NASA DONKI /SEP](https://api.nasa.gov/DONKI/) | NASA Open Data |
 | `src/data/mars-photos/metadata.json` | 7 張火星照片的 NASA ID、標題、拍攝日、credit、檔案路徑 | 7 | [NASA Image Library](https://images-api.nasa.gov/) | 各圖標註 NASA/JPL-Caltech 等 |
 | `src/data/mars-photos/*.jpg` | 真實火星地表／探測車照片 | 7 | 同上 | 見 metadata |
 | `src/data/snapshots.manifest.json` | 快照總表、筆數、錯誤紀錄、選擇的窗口與風暴判定 | — | 由腳本產生 | — |
@@ -52,12 +53,15 @@
 | DONKI `/GST` | ✅ HTTP 200（真實 key，2025-05-13～17） | 使用；1 筆，Kp 6.33 |
 | DONKI `/FLR` | ⚠️ HTTP 404（endpoint 目前回 Not Found） | 不直接用；改抓 `/notifications?type=FLR` |
 | DONKI `/notifications`（type=FLR） | ✅ HTTP 200 | 使用；8 則通知解析出 4 筆閃焰 |
+| DONKI `/SEP` | ✅ HTTP 200（DEMO_KEY，2025-05-13～17） | 使用；1 筆，避難艙演練的事件卡 |
 | `api.nasa.gov/mars-photos` | ❌ HTTP 404「No such app」 | **不依賴**；改用 NASA Image Library |
 | `api.nasa.gov/insight_weather` | ⚠️ HTTP 200，但資料停在 2020（sol 675） | **不使用**；InSight 任務已結束 |
 | `mars.nasa.gov` MSL weather feed | ✅ HTTP 200，資料到 2026-08-25 | 使用；快照固定為 2025 冷週（見 §3.1） |
 | NASA Image Library | ✅ HTTP 200 | 使用；已存 7 張照片 |
 
 > MSL weather feed **沒有風速欄位**（`wind_speed` 全為 `--`）。天氣機制改用氣溫、地面溫度、氣壓，不要捏造風速。
+
+> 避難艙演練只使用 DONKI 的事件時間與儀器；劑量條、材料數值與貓咪移動時間是相對的訓練數值，不是火星表面實測，不寫 mSv。NASA 文章只支持質性概念（質量、含氫材料、BNNT 實驗中、GCR 難以完全阻擋）。
 
 ### 3.1 資料強度驗證：這些資料撐得起故事嗎？
 

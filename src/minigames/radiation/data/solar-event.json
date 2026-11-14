@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "source": "NASA DONKI /SEP",
+    "sourceUrl": "https://api.nasa.gov/DONKI/SEP?startDate=2025-05-13&endDate=2025-05-17",
+    "fetchedAt": "2026-11-14",
+    "license": "NASA Open Data",
+    "note": "Event time, instrument, linked activity and alert time are from NASA DONKI. Dose values, cat travel times and the compressed countdown are a training simulation, not a Mars surface measurement. No NASA endorsement."
+  },
+  "event": {
+    "id": "2025-05-13T18:14:00-SEP-001",
+    "eventTime": "2025-05-13T18:14Z",
+    "instruments": ["SOHO COSTEP 15.8-39.8 MeV"],
+    "linkedFlareTime": "2025-05-13T15:25Z",
+    "linkedCmeTime": "2025-05-13T16:15Z",
+    "alertTime": "2025-05-13T18:33Z",
+    "sourceRegion": null
+  },
+  "scenario": {
+    "particleFrontSeconds": 20,
+    "sepConfirmedAtSeconds": 10,
+    "timeCompressed": true
+  }
+}

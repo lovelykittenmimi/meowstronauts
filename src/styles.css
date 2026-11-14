@@ -665,7 +665,8 @@ h1 {
 /* The practice games sit at the end of the row as actions, not sols. */
 .sol-nav-lander,
 .sol-nav-hop,
-.sol-nav-food {
+.sol-nav-food,
+.sol-nav-shelter {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -684,6 +685,12 @@ h1 {
 .sol-nav-food {
   margin-left: 2px;
   background: #e9e2f6;
+}
+
+.sol-nav-shelter {
+  margin-left: 2px;
+  background: var(--rust);
+  color: #fff;
 }
 
 /* Short landscape: keep the row slim so the card keeps its height. */
@@ -2986,8 +2993,9 @@ h1 {
   }
 }
 
-/* Embedded Mars Weather Lander ------------------------------------------ */
-.lander-overlay-host {
+/* Embedded mini-games --------------------------------------------------- */
+.lander-overlay-host,
+.shelter-overlay-host {
   position: fixed;
   inset: 0;
   z-index: 80;
@@ -2999,7 +3007,8 @@ h1 {
   overscroll-behavior: contain;
 }
 
-.story-lander-prompt {
+.story-lander-prompt,
+.story-shelter-prompt {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -3043,6 +3052,25 @@ h1 {
   margin-top: 8px;
   padding: 5px 11px;
   font-size: 11px;
+}
+
+.story-shelter-open {
+  position: fixed;
+  top: 14px;
+  left: max(14px, env(safe-area-inset-left));
+  z-index: 40;
+  min-height: 44px;
+  padding: 8px 14px;
+  font-size: 12px;
+  box-shadow: var(--shadow);
+}
+
+@media (max-height: 520px) {
+  .story-shelter-open {
+    min-height: 36px;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
 }
 
 @media (max-height: 520px) and (orientation: landscape) {

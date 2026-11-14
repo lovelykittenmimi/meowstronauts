@@ -12,6 +12,7 @@ import marsLandscape from '../data/mars-photos/PIA26632.jpg';
 import { SolarAssembly } from '../puzzle/SolarAssembly';
 import type { Lang, Localized } from '../game/types';
 import LanderOverlay from '../minigames/LanderOverlay';
+import RadiationOverlay from '../minigames/RadiationOverlay';
 import { moodFace, type FaceMood } from './catFaces';
 import { Modal } from './Modal';
 import { RichText } from './RichText';
@@ -253,6 +254,7 @@ const TAPS: Tap[] = [
       { cat: 'ginger', mood: 'happy', text: l('And my sunbathing spot.', '也是我的曬太陽區。') },
       { cat: 'silver', mood: 'neutral', text: l('You cannot sunbathe on Mars. You would become roast orange cat.', '你不能在火星曬太陽。你會變成烤橘貓。') },
       { cat: 'ginger', mood: 'determined', text: l('...Then I will wear sunscreen.', '……那我塗防曬。') },
+      { cat: 'shadow', mood: 'determined', text: l('The storm shelter is underground. We should drill it before Sol 1.', '避難艙在地下。第一天開始前，我們該演練一次。') },
     ],
   },
 ];
@@ -271,6 +273,21 @@ const LANDER_PROMPT = {
   start: l('Start practice', '開始練習'),
   later: l('Not now', '先不用'),
   practice: l('Practice landing', '練習著陸'),
+};
+
+const SHELTER_PROMPT = {
+  eyebrow: l('Optional training · Radiation', '選修訓練 · 輻射'),
+  title: l('Practice the shelter drill?', '要練習避難艙演練嗎？'),
+  body: l(
+    'A solar particle event is a race between the warning and the particles. Prepare the shelter, then call everyone in.',
+    '太陽粒子事件是警報與粒子之間的賽跑。先準備避難艙，再把大家叫進來。',
+  ),
+  note: l(
+    'Real NASA DONKI SEP event · 20-second training simulation',
+    '真實 NASA DONKI SEP 事件 · 20 秒訓練模擬',
+  ),
+  start: l('Start the drill', '開始演練'),
+  later: l('Not now', '先不用'),
 };
 
 const READY_LINES: Line[] = [
@@ -527,6 +544,8 @@ interface StoryOpeningProps {
   paused?: boolean;
   onDone: () => void;
   onTerm: (cardId: string) => void;
+  /** Adds a mini-game reward to the backpack without opening the sheet. */
+  onCollectCard?: (cardId: string) => void;
 }
 
 /**
@@ -542,6 +561,7 @@ export function StoryOpening({
   paused = false,
   onDone,
   onTerm,
+  onCollectCard,
 }: StoryOpeningProps) {
   const [scene, setScene] = useState(initialScene);
   const [openingPart, setOpeningPart] = useState(0);
@@ -561,6 +581,8 @@ export function StoryOpening({
   const crashStarted = useRef(false);
   const [landerPromptOpen, setLanderPromptOpen] = useState(false);
   const [landerOpen, setLanderOpen] = useState(false);
+  const [shelterPromptOpen, setShelterPromptOpen] = useState(false);
+  const [radiationOpen, setRadiationOpen] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
   // "Start practice" and "Not now" both count as answering the invitation;
   // only then does the radio's Continue unlock.
@@ -698,6 +720,18 @@ export function StoryOpening({
       >
         {lang === 'en' ? 'Skip story' : '跳過故事'}
       </button>
+
+      {scene === 5 && tapped.includes('shield') && (
+        <button
+          type="button"
+          className="primary-button story-shelter-open"
+          data-testid="shelter-drill-open"
+          onClick={() => setShelterPromptOpen(true)}
+        >
+          <span aria-hidden="true">☢️</span>{' '}
+          {lang === 'en' ? 'Shelter drill' : '避難演練'}
+        </button>
+      )}
 
       <div className="story-progress" aria-hidden="true">
         {SCENE_TITLES.map((_, index) => (
@@ -1030,7 +1064,56 @@ export function StoryOpening({
         </Modal>
       )}
 
+      {shelterPromptOpen && !radiationOpen && (
+        <Modal
+          title={SHELTER_PROMPT.title[lang]}
+          onClose={() => setShelterPromptOpen(false)}
+          testId="shelter-drill-prompt"
+        >
+          <div className="story-shelter-prompt">
+            <div className="story-lander-hero">
+              <img src="/brand/avatar-silver-512.webp" alt="" />
+              <div>
+                <p className="story-lander-note">{SHELTER_PROMPT.eyebrow[lang]}</p>
+                <p>{SHELTER_PROMPT.body[lang]}</p>
+                <p className="story-lander-note">{SHELTER_PROMPT.note[lang]}</p>
+              </div>
+            </div>
+            <div className="story-lander-actions">
+              <button
+                type="button"
+                className="primary-button"
+                data-testid="shelter-drill-start"
+                onClick={() => {
+                  setShelterPromptOpen(false);
+                  setRadiationOpen(true);
+                }}
+                autoFocus
+              >
+                {SHELTER_PROMPT.start[lang]}
+              </button>
+              <button
+                type="button"
+                className="ghost-button"
+                data-testid="shelter-drill-later"
+                onClick={() => setShelterPromptOpen(false)}
+              >
+                {SHELTER_PROMPT.later[lang]}
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       {landerOpen && <LanderOverlay initialLang={lang} onClose={closeLander} />}
+
+      {radiationOpen && (
+        <RadiationOverlay
+          initialLang={lang}
+          onClose={() => setRadiationOpen(false)}
+          onComplete={(cardId) => onCollectCard?.(cardId)}
+        />
+      )}
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 
 function open(path: string) {
@@ -116,6 +116,35 @@ describe('normal game', () => {
     expect(screen.queryByTestId('lander-overlay')).toBeNull();
     fireEvent.click(screen.getByTestId('lander-open'));
     expect(screen.getByTestId('lander-overlay')).toBeTruthy();
+  });
+
+  it('opens the shelter drill from the sol row', async () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-skip'));
+
+    expect(screen.queryByTestId('shelter-overlay')).toBeNull();
+    fireEvent.click(screen.getByTestId('shelter-open'));
+    const host = await screen.findByTestId('shelter-overlay');
+    await waitFor(() => {
+      expect(host.shadowRoot?.textContent).toContain('Shelter Drill');
+    });
+  });
+
+  it('opens the shelter drill from the shield tap in scene 5', async () => {
+    open('/?scene=opening5&reset=1');
+    fireEvent.click(screen.getByTestId('story-puzzle-piece-shield'));
+    fireEvent.click(screen.getByTestId('story-puzzle-slot-shield'));
+
+    const trigger = await screen.findByTestId('shelter-drill-open');
+    fireEvent.click(trigger);
+    expect(await screen.findByTestId('shelter-drill-prompt')).toBeTruthy();
+    fireEvent.click(screen.getByTestId('shelter-drill-start'));
+
+    const host = await screen.findByTestId('shelter-overlay');
+    await waitFor(() => {
+      expect(host.shadowRoot?.textContent).toContain('Shelter Drill');
+    });
   });
 
   it('walks the opening reply and tap scenes', () => {

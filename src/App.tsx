@@ -6,6 +6,7 @@ import { createInitialState, gameReducer } from './game/reducer';
 import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
 import LanderOverlay from './minigames/LanderOverlay';
+import RadiationOverlay from './minigames/RadiationOverlay';
 import SpaceFoodFlip from './minigames/food/SpaceFoodFlip';
 import LowGravityHop from './minigames/hop/LowGravityHop';
 import { Backpack } from './ui/Backpack';
@@ -71,6 +72,7 @@ export default function App() {
   const [landerOpen, setLanderOpen] = useState(false);
   const [hopOpen, setHopOpen] = useState(false);
   const [foodOpen, setFoodOpen] = useState(false);
+  const [radiationOpen, setRadiationOpen] = useState(false);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -120,6 +122,24 @@ export default function App() {
   const openCard = (cardId: string) => {
     setBackpackOpen(false);
     setKnowledgeId(cardId);
+  };
+
+  const collectCard = (cardId: string) => {
+    dispatch({ type: 'COLLECT_CARD', cardId });
+  };
+
+  const openLander = () => {
+    setLanderOpen(true);
+    setRadiationOpen(false);
+    setHopOpen(false);
+    setFoodOpen(false);
+  };
+
+  const openShelter = () => {
+    setRadiationOpen(true);
+    setLanderOpen(false);
+    setHopOpen(false);
+    setFoodOpen(false);
   };
 
   if (opening) {
@@ -199,6 +219,7 @@ export default function App() {
           paused={Boolean(knowledgeId)}
           onDone={() => setStoryOpen(false)}
           onTerm={openCard}
+          onCollectCard={collectCard}
         />
         {knowledgeId && (
           <KnowledgeSheet
@@ -234,9 +255,10 @@ export default function App() {
           currentSol={state.sol}
           selectedSol={reviewSol ?? state.sol}
           onSelect={(sol) => setViewSol(sol < state.sol ? sol : null)}
-          onLander={() => setLanderOpen(true)}
+          onLander={openLander}
           onHop={videoMode ? undefined : () => setHopOpen(true)}
           onFood={videoMode ? undefined : () => setFoodOpen(true)}
+          onShelter={videoMode ? undefined : openShelter}
         />
       )}
 
@@ -316,6 +338,14 @@ export default function App() {
           foodFull={state.resources.food >= FOOD_CAP}
           onComplete={(pairs) => dispatch({ type: 'COMPLETE_FOOD_GAME', pairs })}
           onExit={() => setFoodOpen(false)}
+        />
+      )}
+
+      {radiationOpen && (
+        <RadiationOverlay
+          initialLang={state.lang}
+          onClose={() => setRadiationOpen(false)}
+          onComplete={collectCard}
         />
       )}
     </div>

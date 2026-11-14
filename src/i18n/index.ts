@@ -58,6 +58,7 @@ export const STRINGS = {
   'solnav.lander': { en: 'Landing practice', 'zh-TW': '著陸練習' },
   'solnav.hop': { en: 'Low-gravity hop', 'zh-TW': '低重力跳躍' },
   'solnav.food': { en: 'Space food flip', 'zh-TW': '太空食物翻卡' },
+  'solnav.shelter': { en: 'Shelter drill', 'zh-TW': '避難演練' },
   'review.eyebrow': { en: 'Sol review', 'zh-TW': '火星日回顧' },
   'review.chose': { en: 'Your crew chose', 'zh-TW': '你們選了' },
   'review.back': { en: 'Back to Sol {sol}', 'zh-TW': '回到第 {sol} 日' },
