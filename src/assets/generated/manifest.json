@@ -348,6 +348,125 @@
       "note": "opening storyboard"
     },
     {
+      "file": "scenes/06-crash-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "6.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 85574,
+      "quality": 82,
+      "alt": {
+        "en": "The crashed spacecraft with its hatch open beside broken solar panels, no crew in frame.",
+        "zh-TW": "迫降的太空船艙門敞開，旁邊是破裂的太陽能板，畫面中沒有貓。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14; ship still shows the US flag decal and small flames"
+    },
+    {
+      "file": "scenes/08-control-room-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "8.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 42604,
+      "quality": 82,
+      "alt": {
+        "en": "An empty habitat control room with a curved holographic display and a tomato crate.",
+        "zh-TW": "空無一貓的基地控制室，有弧形全像顯示器與一箱番茄。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14"
+    },
+    {
+      "file": "scenes/09-greenhouse-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "9.jpeg (no-cat plate)",
+      "originalPixels": "2400x1792",
+      "width": 1280,
+      "height": 956,
+      "bytes": 97210,
+      "quality": 82,
+      "alt": {
+        "en": "An empty greenhouse with tomato seedlings, a robotic watering arm and a ripe tomato on the counter.",
+        "zh-TW": "空無一貓的溫室，番茄幼苗、自動澆水臂與檯面上的一顆熟番茄。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14"
+    },
+    {
+      "file": "scenes/10-night-repair-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "10.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 123572,
+      "quality": 82,
+      "alt": {
+        "en": "A solar panel array under the night sky with a repair drone and a portable light pod, no crew.",
+        "zh-TW": "夜空下的太陽能陣列，有維修無人機與行動燈具，畫面中沒有貓。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14"
+    },
+    {
+      "file": "scenes/11-cold-patrol-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "11.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 154104,
+      "quality": 82,
+      "alt": {
+        "en": "A frost-dusted Martian plain with fresh rover tracks and a thin dust devil at dawn.",
+        "zh-TW": "覆霜的火星平原，有新的探測車車轍與遠方細長塵捲風。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14; the rover is omitted in this plate — only the tracks remain"
+    },
+    {
+      "file": "scenes/12-debrief-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "12.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 39834,
+      "quality": 82,
+      "alt": {
+        "en": "An empty debrief room with a floating holographic report above a low table.",
+        "zh-TW": "空無一貓的任務覆盤室，低桌上空浮著全像報告。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14"
+    },
+    {
+      "file": "scenes/13-ending-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "13.jpeg (no-cat plate)",
+      "originalPixels": "2912x1472",
+      "width": 1280,
+      "height": 647,
+      "bytes": 56912,
+      "quality": 82,
+      "alt": {
+        "en": "A supply ship descending toward the landing pad at sunrise, no crew in frame.",
+        "zh-TW": "日出時補給船降向停機坪，畫面中沒有貓。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14; 1.98:1 crop; capsule still shows the US flag decal and tiny lettering"
+    },
+    {
       "file": "cutouts/14-silver-turnaround.webp",
       "type": "cutout",
       "background": "transparent",

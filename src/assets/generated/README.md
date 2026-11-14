@@ -7,15 +7,15 @@
 
 | 路徑 | 內容 |
 |---|---|
-| `scenes/` | 20 張有背景的場景、劇照、對話頭像、英雄鏡、遠景與故事板，WebP（不透明） |
+| `scenes/` | 27 張有背景的場景、劇照、對話頭像、英雄鏡、遠景與故事板（含 7 張無貓底板候選），WebP（不透明） |
 | `cutouts/` | 9 張去背角色設定表（14–19 與 `_hat` 頭盔版），WebP（透明 alpha） |
-| `manifest.json` | 本資料夾 29 張圖的尺寸、bytes、處理參數、英文與繁中 `alt`、`credit` |
+| `manifest.json` | 本資料夾 36 張圖的尺寸、bytes、處理參數、英文與繁中 `alt`、`credit` |
 
 單格頭像不在本資料夾，已獨立放在 [`../avatars/`](../avatars/)（36 張，108 個 WebP）。
 
 ## 規格
 
-- **場景**：最長邊 1280 px（Lanczos）、WebP q=82、單張 ≤ 250 KB；實測 42–147 KB。
+- **場景**：最長邊 1280 px（Lanczos）、WebP q=82、單張 ≤ 250 KB；實測 39–155 KB。
 - **去背**：最長邊 1600 px、rembg 2.0.87（`bria-rmbg`、CPU）、WebP q=85；
   alpha 0–255、透明像素占比已記在 manifest，深色與米色底皆無白邊。
 - 原圖 207 MB → 本資料夾 3.94 MB（場景 1.87 MB、去背 2.07 MB）。
@@ -37,6 +37,8 @@
 - 寬螢幕（≥1024px 橫放）場景在左、內容卡在右；窄螢幕與手機橫放改成場景在上、卡片在下。
   舞台會依圖片載入後的長寬比調整高度（`--art-ratio`），避免上下留黑邊。
 - 事件卡的貓咪表情頭像來自 [`../avatars/`](../avatars/)（`src/ui/catFaces.ts`，3 貓 × determined／happy／worried）。
+- `scenes/*-nocat.webp` 是 2026-11-14 加入的 7 張無貓背景底板（06、08–13），**候選素材，尚未接入遊戲**。
+  11 的底板把探測車也一起移除（只剩車轍）；06 與 13 的艙身仍有美國國旗貼布；13 為 1.98:1，比其他張寬。
 - `manifest.json` 的 `alt.en`／`alt.zh-TW` 可直接給 `<img alt>`；
   `credit` 皆為 `null`（本批為 AI 生成圖，不是 NASA 照片）。
 - 去背圖的 alpha 已保留，可直接疊在 `--paper`、`--navy` 或場景圖上。
