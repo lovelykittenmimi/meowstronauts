@@ -1,0 +1,62 @@
+{
+  "s1": {
+    "difficulty": "officer",
+    "startResources": {
+      "power": 72,
+      "lifeSupport": 85,
+      "shield": 85,
+      "food": 9,
+      "health": 89,
+      "science": 3
+    },
+    "steps": [
+      { "sol": 1, "eventId": "P4", "choiceId": "lower-heat" },
+      { "sol": 2, "eventId": "P1", "choiceId": "clean" },
+      { "sol": 3, "eventId": "S3", "choiceId": "skip" }
+    ],
+    "collectedCards": [
+      "solarStorm",
+      "solarPower",
+      "greenhouse",
+      "atmosphere",
+      "radiationShielding",
+      "sol",
+      "gravity",
+      "solarWind"
+    ],
+    "expected": {
+      "resources": {
+        "power": 62,
+        "lifeSupport": 58,
+        "shield": 55,
+        "food": 5,
+        "health": 82,
+        "science": 3
+      },
+      "collectedCards": 8
+    }
+  },
+  "report": {
+    "difficulty": "officer",
+    "steps": [
+      { "sol": 1, "eventId": "P4", "choiceId": "lower-heat" },
+      { "sol": 2, "eventId": "P1", "choiceId": "clean" },
+      { "sol": 3, "eventId": "C1", "choiceId": "relay" },
+      { "sol": 4, "eventId": "S1", "choiceId": "keep-generating" },
+      { "sol": 5, "eventId": "SC2", "choiceId": "drill" },
+      { "sol": 6, "eventId": "F3", "choiceId": "stores" },
+      { "sol": 7, "eventId": "F1", "choiceId": "save-seeds" }
+    ],
+    "collectedCards": [
+      "solarStorm",
+      "sol",
+      "gravity",
+      "solarWind",
+      "radiationShielding",
+      "solarFlare",
+      "solarPower",
+      "commsDelay",
+      "subsurfaceIce"
+    ]
+  }
+}

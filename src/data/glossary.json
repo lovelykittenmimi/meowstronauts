@@ -1,0 +1,487 @@
+{
+  "solarStorm": {
+    "id": "solarStorm",
+    "term": { "en": "solar storm", "zh-TW": "太陽風暴" },
+    "short": {
+      "en": "A chain of disturbances from the Sun, not a single event.",
+      "zh-TW": "太陽活動造成的一連串擾動，不是單一現象。"
+    },
+    "example": {
+      "en": "It can include flares, CMEs, and solar energetic particles.",
+      "zh-TW": "可能包含閃焰、CME 與太陽高能粒子。"
+    },
+    "why": {
+      "en": "It can disrupt communications, navigation, and power grids.",
+      "zh-TW": "可能干擾通訊、導航與電網。"
+    },
+    "sources": [
+      {
+        "id": "S1",
+        "label": "NASA Science — Space Weather",
+        "url": "https://science.nasa.gov/heliophysics/focus-areas/space-weather/"
+      }
+    ]
+  },
+  "solarFlare": {
+    "id": "solarFlare",
+    "term": { "en": "solar flare", "zh-TW": "太陽閃焰" },
+    "short": {
+      "en": "A burst of electromagnetic radiation from the Sun's magnetic field.",
+      "zh-TW": "太陽磁場重聯時釋放的電磁輻射。"
+    },
+    "example": {
+      "en": "Light reaches Earth in about 8 minutes; classes run A to X.",
+      "zh-TW": "光約 8 分鐘抵達地球；強度分 A 到 X 級。"
+    },
+    "why": {
+      "en": "It arrives first, before any particle cloud.",
+      "zh-TW": "它最先到達，粒子雲還在後面。"
+    },
+    "sources": [
+      {
+        "id": "S2",
+        "label": "NASA Science — Solar Storms and Flares",
+        "url": "https://science.nasa.gov/sun/solar-storms-and-flares/"
+      }
+    ]
+  },
+  "cme": {
+    "id": "cme",
+    "term": { "en": "coronal mass ejection (CME)", "zh-TW": "日冕物質拋射（CME）" },
+    "short": {
+      "en": "A cloud of magnetized plasma thrown out by the Sun.",
+      "zh-TW": "太陽向外拋出的大量磁化電漿。"
+    },
+    "example": {
+      "en": "It can travel hundreds to thousands of km per second and take 1–3 days to reach Earth.",
+      "zh-TW": "速度可達每秒數百至數千公里，約一到三天抵達地球。"
+    },
+    "why": {
+      "en": "It is not the same as a flare, even when both happen together.",
+      "zh-TW": "它和閃焰不是同一個東西，即使常一起發生。"
+    },
+    "sources": [
+      {
+        "id": "S2",
+        "label": "NASA Science — Solar Storms and Flares",
+        "url": "https://science.nasa.gov/sun/solar-storms-and-flares/"
+      }
+    ]
+  },
+  "radiation": {
+    "id": "radiation",
+    "term": { "en": "radiation", "zh-TW": "輻射" },
+    "short": {
+      "en": "High-energy particles and rays that can damage DNA.",
+      "zh-TW": "會傷害 DNA 的高能粒子與射線。"
+    },
+    "example": {
+      "en": "Space radiation includes galactic cosmic rays and solar energetic particles.",
+      "zh-TW": "太空輻射包括銀河宇宙射線與太陽高能粒子。"
+    },
+    "why": {
+      "en": "Shielding and dose monitoring protect the crew.",
+      "zh-TW": "遮蔽與劑量監測保護船員。"
+    },
+    "sources": [
+      {
+        "id": "S3",
+        "label": "NASA — Real Martians: Protecting Astronauts from Space Radiation",
+        "url": "https://science.nasa.gov/resource/real-martians-how-to-protect-astronauts-from-space-radiation-on-mars/"
+      }
+    ]
+  },
+  "radiationShielding": {
+    "id": "radiationShielding",
+    "term": { "en": "radiation shielding", "zh-TW": "輻射遮蔽" },
+    "short": {
+      "en": "Mass placed between the crew and incoming particles.",
+      "zh-TW": "用質量擋在船員與帶電粒子之間。"
+    },
+    "example": {
+      "en": "Water, food, hull structure, and soil can all absorb radiation.",
+      "zh-TW": "水、食物、艙壁與土壤都能吸收輻射。"
+    },
+    "why": {
+      "en": "More shielding means less exposure during a flare.",
+      "zh-TW": "遮蔽越厚，閃焰時暴露越少。"
+    },
+    "sources": [
+      {
+        "id": "S3",
+        "label": "NASA — Real Martians: Protecting Astronauts from Space Radiation",
+        "url": "https://science.nasa.gov/resource/real-martians-how-to-protect-astronauts-from-space-radiation-on-mars/"
+      }
+    ]
+  },
+  "atmosphere": {
+    "id": "atmosphere",
+    "term": { "en": "atmosphere", "zh-TW": "大氣層" },
+    "short": {
+      "en": "The layer of gas held around a planet by gravity.",
+      "zh-TW": "行星外層、靠重力留住的氣體。"
+    },
+    "example": {
+      "en": "Earth is mostly nitrogen and oxygen; Mars is over 95% CO₂ and very thin.",
+      "zh-TW": "地球以氮、氧為主；火星二氧化碳超過 95%，非常稀薄。"
+    },
+    "why": {
+      "en": "You cannot breathe it, and dust storms can block solar panels.",
+      "zh-TW": "不能直接呼吸，沙塵暴也會遮住太陽能板。"
+    },
+    "sources": [
+      {
+        "id": "S4",
+        "label": "NASA Science — Mars Facts",
+        "url": "https://science.nasa.gov/mars/facts/"
+      },
+      {
+        "id": "S16",
+        "label": "NASA Space Place — Earth's Atmosphere",
+        "url": "https://spaceplace.nasa.gov/atmosphere/en/"
+      }
+    ]
+  },
+  "subsurfaceIce": {
+    "id": "subsurfaceIce",
+    "term": { "en": "subsurface ice", "zh-TW": "地下冰" },
+    "short": {
+      "en": "Water ice found below a planet's surface.",
+      "zh-TW": "行星地表下的水冰。"
+    },
+    "example": {
+      "en": "Mars has ice near the poles and at mid-to-high latitudes.",
+      "zh-TW": "火星兩極與中高緯度地表下有冰。"
+    },
+    "why": {
+      "en": "Ice can become water, air, and fuel for a base.",
+      "zh-TW": "冰可以變成水、空氣與燃料。"
+    },
+    "sources": [
+      {
+        "id": "S7",
+        "label": "NASA — Mars Odyssey Science Highlights",
+        "url": "https://science.nasa.gov/mission/odyssey/science-highlights/"
+      }
+    ]
+  },
+  "waterRecycling": {
+    "id": "waterRecycling",
+    "term": { "en": "water recycling", "zh-TW": "水循環" },
+    "short": {
+      "en": "Cleaning and reusing water again and again.",
+      "zh-TW": "把水一再淨化、重複使用。"
+    },
+    "example": {
+      "en": "The ISS recycles urine, condensation, and wastewater; BPA can reach about 98%.",
+      "zh-TW": "ISS 回收尿液、冷凝水與廢水；BPA 回收率可達約 98%。"
+    },
+    "why": {
+      "en": "A closed base cannot afford to throw water away.",
+      "zh-TW": "密閉基地不能把水丟掉。"
+    },
+    "sources": [
+      {
+        "id": "S10",
+        "label": "NASA TechPort — Brine Processor Assembly",
+        "url": "https://techport.nasa.gov/projects/184899"
+      }
+    ]
+  },
+  "oxygenRecovery": {
+    "id": "oxygenRecovery",
+    "term": { "en": "oxygen recovery", "zh-TW": "氧氣回收" },
+    "short": {
+      "en": "Making or recovering oxygen from available materials.",
+      "zh-TW": "從現有物質製造或回收氧氣。"
+    },
+    "example": {
+      "en": "NASA's MOXIE split CO₂ on Mars and made 122 g of oxygen in total.",
+      "zh-TW": "NASA 的 MOXIE 分解火星 CO₂，全任務共產生 122 公克氧氣。"
+    },
+    "why": {
+      "en": "Every breath depends on a working recovery system.",
+      "zh-TW": "每一次呼吸都靠回收系統。"
+    },
+    "sources": [
+      {
+        "id": "S9",
+        "label": "NASA — MOXIE Completes Mars Mission",
+        "url": "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/"
+      }
+    ]
+  },
+  "greenhouse": {
+    "id": "greenhouse",
+    "term": { "en": "greenhouse", "zh-TW": "溫室" },
+    "short": {
+      "en": "A controlled place to grow plants.",
+      "zh-TW": "受控環境下的植物栽培空間。"
+    },
+    "example": {
+      "en": "Space greenhouses use LED light and water or air culture.",
+      "zh-TW": "太空溫室用 LED 光照與水耕或氣耕。"
+    },
+    "why": {
+      "en": "It provides food and a morale boost, but uses power.",
+      "zh-TW": "提供食物與士氣，但很耗電。"
+    },
+    "sources": [
+      {
+        "id": "S11",
+        "label": "NASA Science — Growing Plants in Space",
+        "url": "https://science.nasa.gov/biological-physical/the-challenges-of-growing-plants-in-space/"
+      }
+    ]
+  },
+  "solarPower": {
+    "id": "solarPower",
+    "term": { "en": "solar power", "zh-TW": "太陽能" },
+    "short": {
+      "en": "Turning sunlight into electricity with panels.",
+      "zh-TW": "用太陽能板把陽光變成電。"
+    },
+    "example": {
+      "en": "Mars rovers use solar panels; night, season, and dust reduce output.",
+      "zh-TW": "火星探測車用太陽能板；夜晚、季節與灰塵會降低輸出。"
+    },
+    "why": {
+      "en": "Dust on the panels means less power for the base.",
+      "zh-TW": "板子積塵，基地的電就變少。"
+    },
+    "sources": [
+      {
+        "id": "S12",
+        "label": "NASA Science — Mars Exploration Rovers",
+        "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/"
+      }
+    ]
+  },
+  "dustStorm": {
+    "id": "dustStorm",
+    "term": { "en": "dust storm", "zh-TW": "沙塵暴" },
+    "short": {
+      "en": "Wind lifting dust over a large area.",
+      "zh-TW": "風把塵土捲起、吹過大範圍。"
+    },
+    "example": {
+      "en": "Mars dust storms can be regional or global; dust can stay airborne for months.",
+      "zh-TW": "火星沙塵暴可能是區域性或全球性；塵埃可在大氣中懸浮數月。"
+    },
+    "why": {
+      "en": "Dust blocks sunlight and coats solar panels.",
+      "zh-TW": "沙塵遮住陽光，也蓋住太陽能板。"
+    },
+    "sources": [
+      {
+        "id": "S4",
+        "label": "NASA Science — Mars Facts",
+        "url": "https://science.nasa.gov/mars/facts/"
+      }
+    ]
+  },
+  "commsDelay": {
+    "id": "commsDelay",
+    "term": { "en": "communication delay", "zh-TW": "通訊延遲" },
+    "short": {
+      "en": "The time a radio signal takes to cross space.",
+      "zh-TW": "無線電訊號穿越太空所需的時間。"
+    },
+    "example": {
+      "en": "Earth–Mars one-way delay is about 3 to 22.4 minutes.",
+      "zh-TW": "地球到火星的單向延遲約 3 到 22.4 分鐘。"
+    },
+    "why": {
+      "en": "Earth cannot steer the base in real time.",
+      "zh-TW": "地球無法即時操控基地。"
+    },
+    "sources": [
+      {
+        "id": "S13",
+        "label": "NASA Science — Mars Relay Network",
+        "url": "https://science.nasa.gov/mars/mars-relay-network/"
+      }
+    ]
+  },
+  "sol": {
+    "id": "sol",
+    "term": { "en": "sol", "zh-TW": "火星日" },
+    "short": {
+      "en": "One Martian day.",
+      "zh-TW": "一個火星日。"
+    },
+    "example": {
+      "en": "A sol is about 24.6 hours; a Martian year is about 669.6 sols.",
+      "zh-TW": "一個 sol 約 24.6 小時；火星年約 669.6 sol。"
+    },
+    "why": {
+      "en": "The mission lasts seven sols.",
+      "zh-TW": "任務只有七個 sol。"
+    },
+    "sources": [
+      {
+        "id": "S4",
+        "label": "NASA Science — Mars Facts",
+        "url": "https://science.nasa.gov/mars/facts/"
+      },
+      {
+        "id": "S5",
+        "label": "NASA — What Is Mars? (Grades 5–8)",
+        "url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-mars-grades-5-8/"
+      }
+    ]
+  },
+  "micrometeorite": {
+    "id": "micrometeorite",
+    "term": { "en": "micrometeoroid", "zh-TW": "微隕石" },
+    "short": {
+      "en": "A tiny, very fast piece of rock or debris.",
+      "zh-TW": "極小但速度極高的岩石或碎片。"
+    },
+    "example": {
+      "en": "It can pierce thin hulls; NASA uses layered shielding and impact models.",
+      "zh-TW": "能穿透薄殼；NASA 用多層遮蔽與撞擊模型。"
+    },
+    "why": {
+      "en": "A small hole can thin the radiation shield.",
+      "zh-TW": "一個小洞就能讓輻射遮蔽變薄。"
+    },
+    "sources": [
+      {
+        "id": "S14",
+        "label": "NASA — Impact Protection",
+        "url": "https://www.nasa.gov/impact-protection-2/"
+      }
+    ]
+  },
+  "gravity": {
+    "id": "gravity",
+    "term": { "en": "gravity", "zh-TW": "重力" },
+    "short": {
+      "en": "The pull between objects; more mass means more gravity.",
+      "zh-TW": "物體之間的吸引力；質量越大，重力越強。"
+    },
+    "example": {
+      "en": "Earth is 1 g; Mars is 0.38 g. Months in weightlessness shift fluids upward, and bones lose about 1–1.5% density a month.",
+      "zh-TW": "地球 1g；火星 0.38g。長期無重力會讓體液上移，骨密度每月約流失 1–1.5%。"
+    },
+    "why": {
+      "en": "Things feel lighter on Mars, but your body is still adapting — move slowly.",
+      "zh-TW": "在火星搬東西變輕，但身體還在適應，動作要慢。"
+    },
+    "sources": [
+      {
+        "id": "S18",
+        "label": "NASA Space Place — What Is Gravity?",
+        "url": "https://spaceplace.nasa.gov/what-is-gravity/en/"
+      },
+      {
+        "id": "S20",
+        "label": "NASA — Risk of Spaceflight-Induced Bone Changes",
+        "url": "https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/"
+      },
+      {
+        "id": "S21",
+        "label": "NASA GRC K-12 — Reduced Gravity Q&A",
+        "url": "https://www.grc.nasa.gov/WWW/K-12/RG_html/documents/AnswerPreCA.htm"
+      }
+    ]
+  },
+  "geomagneticStorm": {
+    "id": "geomagneticStorm",
+    "term": { "en": "geomagnetic storm", "zh-TW": "地磁風暴" },
+    "short": {
+      "en": "A disturbance of Earth's magnetosphere by the solar wind or a CME.",
+      "zh-TW": "太陽風或 CME 擾動地球磁層造成的現象。"
+    },
+    "example": {
+      "en": "Kp 7 or higher is a strong storm on Earth's index, not a Mars measurement.",
+      "zh-TW": "Kp 7 以上是地球指數中的強烈風暴，不是火星的量測。"
+    },
+    "why": {
+      "en": "The game uses Kp only as a simplified proxy for solar activity.",
+      "zh-TW": "遊戲只把 Kp 當成太陽活動的簡化代理。"
+    },
+    "sources": [
+      {
+        "id": "S1",
+        "label": "NASA Science — Space Weather",
+        "url": "https://science.nasa.gov/heliophysics/focus-areas/space-weather/"
+      }
+    ]
+  },
+  "solarWind": {
+    "id": "solarWind",
+    "term": { "en": "solar wind", "zh-TW": "太陽風" },
+    "short": {
+      "en": "A steady stream of charged particles from the Sun.",
+      "zh-TW": "太陽持續向外吹出的帶電粒子流。"
+    },
+    "example": {
+      "en": "Earth's magnetic field deflects it; Mars has no global field.",
+      "zh-TW": "地球磁場會偏轉它；火星沒有全球磁場。"
+    },
+    "why": {
+      "en": "It can slowly strip a planet's atmosphere.",
+      "zh-TW": "它會慢慢帶走行星大氣。"
+    },
+    "sources": [
+      {
+        "id": "S1",
+        "label": "NASA Science — Space Weather",
+        "url": "https://science.nasa.gov/heliophysics/focus-areas/space-weather/"
+      }
+    ]
+  },
+  "pressure": {
+    "id": "pressure",
+    "term": { "en": "pressure", "zh-TW": "氣壓" },
+    "short": {
+      "en": "The weight of air pressing on a surface.",
+      "zh-TW": "空氣的重量壓在物體上的力量。"
+    },
+    "example": {
+      "en": "Earth sea level is about 1013 hPa; Mars is under 1% of that.",
+      "zh-TW": "地球海平面約 1013 hPa；火星不到地球的 1%。"
+    },
+    "why": {
+      "en": "Liquid water is unstable on the surface, so suits must be pressurized.",
+      "zh-TW": "液態水在表面不穩定，太空衣必須加壓。"
+    },
+    "sources": [
+      {
+        "id": "S6",
+        "label": "NASA Science — Terraforming the Martian Atmosphere",
+        "url": "https://science.nasa.gov/resource/terraforming-the-martian-atmosphere/"
+      },
+      {
+        "id": "S4",
+        "label": "NASA Science — Mars Facts",
+        "url": "https://science.nasa.gov/mars/facts/"
+      }
+    ]
+  },
+  "dustDevil": {
+    "id": "dustDevil",
+    "term": { "en": "dust devil", "zh-TW": "塵捲風" },
+    "short": {
+      "en": "A small, short-lived whirlwind that lifts dust.",
+      "zh-TW": "小型、短時間、會捲起塵土的旋風。"
+    },
+    "example": {
+      "en": "Mars rovers have photographed dust devils and their dark tracks.",
+      "zh-TW": "火星探測車拍過塵捲風與留下的深色軌跡。"
+    },
+    "why": {
+      "en": "They are not the same as a large dust storm.",
+      "zh-TW": "它和大範圍沙塵暴不是同一種。"
+    },
+    "sources": [
+      {
+        "id": "S15",
+        "label": "NASA Science — Dust Devils on Mars",
+        "url": "https://science.nasa.gov/resource/dust-devils-on-mars/"
+      }
+    ]
+  }
+}
