@@ -104,7 +104,7 @@ export const STRINGS = {
   'report.again': { en: 'Play again', 'zh-TW': '再玩一次' },
   'report.comment3': {
     en: 'The crew is healthy, curious, and talking about tomorrow.',
-    'zh-TW': '船員健康、好奇，而且正在聊明天。',
+    'zh-TW': '隊員們健康又有活力，正滿懷好奇地聊著明天的計畫。',
   },
   'report.comment2': {
     en: 'The outpost held. There is still work to do.',
@@ -112,7 +112,7 @@ export const STRINGS = {
   },
   'report.comment1': {
     en: 'Everyone made it home. Next time, check the supplies sooner.',
-    'zh-TW': '大家都回來了。下次早一點檢查補給。',
+    'zh-TW': '大家都平安到家了。下次記得早點檢查補給。',
   },
   'report.emergency': { en: 'Emergency supply', 'zh-TW': '緊急補給' },
   'report.emergency.used': { en: 'Used', 'zh-TW': '已使用' },

@@ -45,7 +45,7 @@ const CRASH_LINES: Line[] = [
   { cat: 'shadow', text: l('That is the tail.', '那是船尾。') },
   { cat: 'ginger', text: l('Oh.', '哦。') },
   { cat: 'narrator', text: l('Then they hit us.', '然後，他們就撞上來了。') },
-  { cat: 'narrator', text: l('The storm knocked out the antenna. Radio delay to Earth is about twelve minutes.', '風暴震歪了天線。地球的無線電單向延遲大約十二分鐘。') },
+  { cat: 'narrator', text: l('The storm knocked out the antenna. Radio delay to Earth is about twelve minutes.', '風暴撞壞了天線。與地球的無線電通訊單向延遲約十二分鐘。') },
 ];
 
 const INTRO_QUESTION: Line = {
@@ -68,7 +68,7 @@ const REPLY_LINES: Record<'command' | 'cadet', Line[]> = {
 const INTRO_REST: Line[] = [
   { cat: 'silver', text: l('From now on, you are the commander. Congratulations. Your salary is one tomato a day.', '從現在起，你就是指揮官。恭喜升遷，薪水是每天一顆番茄。') },
   { cat: 'ginger', text: l('What about me?', '那我呢？') },
-  { cat: 'silver', text: l('You are the cook. The tomatoes are yours to grow.', '你是廚師。番茄是你種的。') },
+  { cat: 'silver', text: l('You are the cook. The tomatoes are yours to grow.', '你是廚師，番茄歸你種。') },
   { cat: 'ginger', text: l('...Fair.', '……合理。') },
   { cat: 'shadow', text: l('Shadow, navigator. Sorry about your solar panels. I will fix them. ...Probably.', '我是暗影，導航員。抱歉撞壞了你們的太陽能板。我會修。……大概。') },
   { cat: 'silver', text: l('Probably?', '大概？') },
@@ -87,7 +87,7 @@ const MAP_LINES: Line[] = [
   { cat: 'shadow', text: l('For the record.', '要做紀錄。') },
   { cat: 'shadow', text: l('The supply ship arrives in seven days with engine parts. Until then, we cannot go home.', '補給船七天後到，會帶來星塵號的引擎零件。在那之前，我們回不了家。') },
   { cat: 'ginger', text: l('So we survive seven days together?', '所以我們要一起活過七天？') },
-  { cat: 'silver', text: l('Correct. The adult crew comes back too.', '正確。成人隊員也會一起回來。') },
+  { cat: 'silver', text: l('Correct. The regular crew will be coming back too.', '正式隊員也會一起回來。') },
   { cat: 'ginger', text: l('Will they bring snacks?', '他們會帶零食嗎？') },
   { cat: 'silver', text: l('...I will add that to the mission list.', '……我會把這個問題列入任務清單。') },
 ];
@@ -125,7 +125,7 @@ const TAPS: Tap[] = [
     icon: '🛡️',
     place: l('Outer wall', '外牆'),
     lines: [
-      { cat: 'silver', text: l('The {{atmosphere}} is too thin to protect us. Shielding is our shield.', '火星的{{atmosphere}}太稀薄，保護不了我們。遮蔽，是我們的盾。') },
+      { cat: 'silver', text: l('The {{atmosphere}} is too thin to protect us. The outer wall is our shield.', '火星的{{atmosphere}}太稀薄，保護不了我們。防護外牆就是我們的護盾。') },
       { cat: 'ginger', text: l('And my sunbathing spot.', '也是我的曬太陽區。') },
       { cat: 'silver', text: l('You cannot sunbathe on Mars. You would become roast orange cat.', '你不能在火星曬太陽。你會變成烤橘貓。') },
       { cat: 'ginger', text: l('...Then I will wear sunscreen.', '……那我塗防曬。') },

@@ -27,7 +27,7 @@ export const TUTORIAL_CARD: EventCard = {
   cat: 'shadow',
   minSol: 1,
   maxSol: 1,
-  title: l('First Order at Hope-1', 'Hope-1 的第一道命令'),
+  title: l('First Order at Hope-1', '希望一號的第一道命令'),
   brief: l(
     'Sunrise. Crash dust covers part of the {{solarPower}} array. Shadow is outside with a brush, waiting for your call.',
     '太陽升起，迫降揚起的沙塵蓋住一部分{{solarPower}}陣列。暗影拿著刷子在外面等你的決定。',
@@ -50,7 +50,7 @@ export const TUTORIAL_CARD: EventCard = {
       effects: { health: 6, power: -7 },
       outcome: l(
         'The crew warms up and sleeps another hour. The batteries pay for it.',
-        '船員暖和起來，又多睡了一小時。電池付帳。',
+        '大家暖和起來，又多睡了一小時。代價是消耗電池電力。',
       ),
     },
   ],
@@ -94,7 +94,7 @@ export const EVENT_CARDS: EventCard[] = [
         risk: { chance: 0.2, effects: { power: -5, health: -3 } },
         outcome: l(
           'The panels shake. Most dust falls off — if the mechanism holds.',
-          '板子震動，大部分沙塵掉了下來——前提是機構撐得住。',
+          '太陽能板開始震動，震落了大部分沙塵——前提是機械結構撐得住。',
         ),
       },
       {
@@ -104,7 +104,7 @@ export const EVENT_CARDS: EventCard[] = [
         duration: 2,
         outcome: l(
           'The dust stays. Power keeps dropping for two sols, but the crew rests.',
-          '沙塵留著。接下來兩個 sol 電力持續下降，但船員得到休息。',
+          '沙塵沒清。接下來兩個火星日電力會持續下降，但大家能好好休息。',
         ),
       },
     ],
@@ -115,7 +115,7 @@ export const EVENT_CARDS: EventCard[] = [
     cat: 'ginger',
     minSol: 2,
     maxSol: 6,
-    title: l('The Cold Week Drains Power', '冷週暖氣吃電'),
+    title: l('The Cold Week Drains Power', '寒流來襲，暖氣耗電'),
     brief: l(
       'The thin {{atmosphere}} cannot hold much heat. Keeping the outpost warm is eating power.',
       '稀薄的 {{atmosphere}} 留不住熱，保持基地溫暖正在吃掉電力。',
@@ -131,7 +131,7 @@ export const EVENT_CARDS: EventCard[] = [
         knowledgeCard: 'atmosphere',
         outcome: l(
           'The crew seals the warm rooms. Power drops, but everyone stays comfortable.',
-          '船員把溫暖的艙房封好。電力下降，但大家都舒服。',
+          '大家把有暖氣的艙房封嚴實。雖然耗了一點電，但大家都待得很舒服。',
         ),
       },
       {
@@ -163,7 +163,7 @@ export const EVENT_CARDS: EventCard[] = [
     title: l('Oxygen Recovery Failure', '氧氣回收機故障'),
     brief: l(
       'The {{oxygenRecovery}} unit is failing. Oxygen levels are slipping.',
-      '{{oxygenRecovery}} 機故障，氧氣不夠了。',
+      '{{oxygenRecovery}}機故障，氧氣濃度正在下滑。',
     ),
     terms: ['oxygenRecovery'],
     source: {
@@ -228,7 +228,7 @@ export const EVENT_CARDS: EventCard[] = [
         knowledgeCard: 'waterRecycling',
         outcome: l(
           'Ginger clears the clog. The water tastes metallic, but it flows.',
-          '金桔清掉堵塞。水有金屬味，但流得動了。',
+          '金桔清通了管線。水喝起來有股金屬味，但至少流得出來了。',
         ),
       },
       {
@@ -237,7 +237,7 @@ export const EVENT_CARDS: EventCard[] = [
         effects: { lifeSupport: 8, food: -1 },
         outcome: l(
           'The flush works. One food pack is used to clean the line.',
-          '沖洗有效，但用掉一包食物來清理管線。',
+          '沖洗見效了，但消耗了一包口糧來清潔管線。',
         ),
       },
       {
@@ -285,7 +285,7 @@ export const EVENT_CARDS: EventCard[] = [
         effects: { lifeSupport: 6, health: -2 },
         outcome: l(
           'The crew rests. Less activity means less CO₂, but everyone feels slow.',
-          '船員休息。活動少、二氧化碳就少，但大家都覺得遲鈍。',
+          '大家減少活動。動得少、二氧化碳就少，但每個人都變得昏沉遲鈍。',
         ),
       },
       {
@@ -316,12 +316,12 @@ export const EVENT_CARDS: EventCard[] = [
     choices: [
       {
         id: 'shield-up',
-        label: l('Thicken the shield', '加厚遮蔽'),
+        label: l('Thicken the shield', '替防護外牆加厚'),
         effects: { power: -20, shield: 25 },
         knowledgeCard: 'solarFlare',
         outcome: l(
           'The crew adds mass to the shelter wall. Power drops; shielding rises.',
-          '船員替避難艙外牆加厚。電力下降，遮蔽上升。',
+          '大家替避難艙外牆加厚。電力下降，但防護力提升了。',
         ),
       },
       {
@@ -339,7 +339,7 @@ export const EVENT_CARDS: EventCard[] = [
         effects: { power: 18, shield: -14, health: -6 },
         outcome: l(
           'The panels keep charging. The crew stays out longer than it should.',
-          '太陽能板繼續充電。船員在外面待得比應該的久。',
+          '太陽能板繼續充電，但大家在外暴露的時間超過了安全時限。',
         ),
       },
     ],
@@ -350,7 +350,7 @@ export const EVENT_CARDS: EventCard[] = [
     cat: 'shadow',
     minSol: 2,
     maxSol: 6,
-    title: l('Micrometeorite Breach', '微隕石破損'),
+    title: l('Micrometeorite Breach', '微隕石擊穿外牆'),
     brief: l(
       'A {{micrometeorite}} punched through the outer shielding. The {{radiationShielding}} layer is thinner now.',
       '{{micrometeorite}} 打穿外層遮蔽，{{radiationShielding}} 變薄了。',
@@ -365,7 +365,7 @@ export const EVENT_CARDS: EventCard[] = [
     choices: [
       {
         id: 'patch',
-        label: l('Patch the hull', '補片'),
+        label: l('Patch the hull', '修補外殼'),
         effects: { power: -6, shield: 10 },
         knowledgeCard: 'micrometeorite',
         outcome: l(
@@ -403,7 +403,7 @@ export const EVENT_CARDS: EventCard[] = [
     title: l('Shelter Inspection', '避難艙檢查'),
     brief: l(
       '{{radiation}} levels are up. Check the shelter before the next flare.',
-      '{{radiation}} 升高，先進避難艙檢查。',
+      '{{radiation}}升高了，在下次閃焰來襲前先檢查避難艙。',
     ),
     terms: ['radiation', 'radiationShielding'],
     source: {
@@ -518,7 +518,7 @@ export const EVENT_CARDS: EventCard[] = [
         knowledgeCard: 'commsDelay',
         outcome: l(
           'Everyone gets a smaller portion. The crate may arrive tomorrow.',
-          '每個人分到小一點的一份。補給箱也許明天就到。',
+          '定量配給 — 大家的份量都縮水了。補給箱也許明天就會到。',
         ),
       },
       {
@@ -550,7 +550,7 @@ export const EVENT_CARDS: EventCard[] = [
     title: l('Call from Earth', '地球來電'),
     brief: l(
       '{{commsDelay}} is 14 minutes today. Earth’s reply will take a while.',
-      '今天的 {{commsDelay}} 是 14 分鐘。地球的回覆要等。',
+      '今天的 {{commsDelay}} 是 14 分鐘，地球的回覆還得等上一陣子。',
     ),
     terms: ['commsDelay'],
     source: {
@@ -585,7 +585,7 @@ export const EVENT_CARDS: EventCard[] = [
         risk: { chance: 0.3, effects: { health: -6, science: 1 } },
         outcome: l(
           'The crew acts without waiting. Sometimes that is the right call.',
-          '船員不等了，直接行動。有時候這是對的。',
+          '大家不等了，直接行動。有時候當機立斷才是對的。',
         ),
       },
     ],
@@ -624,7 +624,7 @@ export const EVENT_CARDS: EventCard[] = [
         effects: { power: -6, science: 2 },
         outcome: l(
           'The radar maps a bright layer below the surface. No drilling needed.',
-          '雷達畫出地表下的亮層，不需要鑽探。',
+          '雷達探測到地表下有明顯的反射層，不需要鑽探了。',
         ),
       },
       {

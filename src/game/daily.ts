@@ -19,7 +19,7 @@ export const DAILY_BRIEFS: DailyBrief[] = [
     sol: 2,
     line: {
       en: 'Dust devils are small whirlwinds. They are not the same as a large dust storm.',
-      'zh-TW': '{{dustDevil}}是小型的旋風，和大範圍{{dustStorm}}不是同一種。',
+      'zh-TW': '{{dustDevil}}是小型的旋風，和大範圍的{{dustStorm}}不一樣。',
     },
     terms: ['dustDevil', 'dustStorm'],
   },
@@ -27,7 +27,7 @@ export const DAILY_BRIEFS: DailyBrief[] = [
     sol: 3,
     line: {
       en: 'A flare forecast is open, and the comms window is open. Earth is about 14 light-minutes away.',
-      'zh-TW': '閃焰預報開啟，通訊窗口也開了。地球大約在 14 光分之外。',
+      'zh-TW': '目前發布了閃焰預報，同時通訊窗口也開啟了。地球大約在 14 光分之外。',
     },
     terms: ['solarStorm', 'solarWind', 'commsDelay'],
   },
