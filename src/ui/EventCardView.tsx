@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { EVENT_BY_ID } from '../game/events';
 import type { CatId, Choice, EffectMap, GameState, ResourceKey } from '../game/types';
 import { RESOURCE_LABEL_KEY, CAT_NAMES, t } from '../i18n';
@@ -54,6 +55,15 @@ export function EventCardView({
   onContinue,
   onOpenCard,
 }: EventCardViewProps) {
+  const shellRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    if (state.phase === 'result' && shell && shell.scrollHeight > shell.clientHeight) {
+      shell.scrollTop = shell.scrollHeight;
+    }
+  }, [state.phase]);
+
   const event = state.currentEventId ? EVENT_BY_ID.get(state.currentEventId) : undefined;
   if (!event) return null;
 
@@ -66,7 +76,7 @@ export function EventCardView({
   const category = CATEGORY_LABEL[event.category] ?? CATEGORY_LABEL.power;
 
   return (
-    <main className={`event-shell ${isResult ? 'is-result' : ''}`}>
+    <main ref={shellRef} className={`event-shell ${isResult ? 'is-result' : ''}`}>
       <article className="event-card" data-testid={`event-card-${event.id}`}>
         <header className="event-head">
           <img
