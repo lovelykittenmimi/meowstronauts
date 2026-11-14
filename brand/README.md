@@ -14,7 +14,7 @@ in-game artwork produced during the hackathon.
 | `logo-three-cats-256.png` | Smaller team mark for loading screens and footers |
 | `paw-ink-256.png` / `paw-pink-256.png` | Paw marks for favicon, stamps, decoration |
 | `favicon-paw-32.png` / `favicon-paw-180.png` | Paw favicon (cream rounded tile, ink paw) |
-| `og-1200x630.jpg` | Interim social sharing card built from the 2026-11-11 three-cat group image (no NASA insignia); title and the `Fly My Mind` team credit are overlaid in code. Regenerate with prompt 30 during the event for the final version. |
+| `og-1200x630.jpg` | Final social sharing card (2026-11-14), generated with prompt 30 from the GEM references. The render was scaled into the 1200×630 safe area and its dark background extended from the base pixels; the title block and the `Fly My Mind` team credit are overlaid in code. `public/brand/og-1200x630.jpg` is a byte-identical copy. |
 
 The three source reference images live in `docs/assets/characters/` and were
 generated with Gemini's image model. The derivatives here were produced with
