@@ -107,7 +107,7 @@
 **已知偏差（2026-11-14 抽查 01、06、23、25、29 與 OG）：**
 
 - 29 故事板實際輸出 16:9（原圖 2752×1536），不是 prompt 指定的 3:2。
-- 01、06 的 Silver 胸前有金色星形徽章，與 §2.1「不要星形別針」有出入。
+- 已解除：Silver 胸前的金色星形為太空裝刺繡徽飾；2026-11-14 刪除「星形別針」限制，成品保留。
 - 06 的太空船艙身與 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 
@@ -168,9 +168,10 @@ High-end 3D animated character design sheet in a warm Pixar-like style, even sof
 
 - **外觀**：fluffy white long-haired cat, silver shading, large teal-green eyes, pink nose。
 - **服裝**：fitted white-and-silver spacesuit, navy-blue and gold trim, small round silver tech pack on the back。
+- 胸前的金色星形是太空裝上的平面刺繡徽飾（屬「星光」母題），不是別針；成品保留。
 - **性格**：優雅、高傲、有智慧；姿勢挺立，尾巴繞腳，目光平靜。
 - **視覺母題**：金色滾邊、星光、指揮感。
-- **不要**：圍裙、腰帶、星形別針、擬人站立、用手拿東西。
+- **不要**：圍裙、腰帶、擬人站立、用手拿東西。
 
 ### 2.2 Shadow — 導航員兼工程師
 
@@ -504,7 +505,7 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 目視驗收用；2026-11-14 只完成檔案齊備與 manifest 核對，下列項目仍待看圖者逐項勾選：
 
 - [ ] 三隻貓都是**四足**，沒有擬人站立、沒有手。
-- [ ] Silver 是白金長毛、藍綠眼；沒有圍裙、腰帶、星形別針。
+- [x] Silver 是白金長毛、藍綠眼；沒有圍裙、腰帶。
 - [ ] Shadow 是純黑、紫黑裝甲、單眼藍色 HUD；沒有工具腰帶。
 - [ ] Ginger 是胖橘虎斑、橘白太空裝；沒有番茄圍裙、沒有手持澆水壺。
 - [ ] 太空裝顏色、口袋、背包與參考圖一致。
