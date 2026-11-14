@@ -39,7 +39,7 @@
   舞台會依圖片載入後的長寬比調整高度（`--art-ratio`），避免上下留黑邊。
 - 事件卡的貓咪表情頭像來自 [`../avatars/`](../avatars/)（`src/ui/catFaces.ts`，3 貓 × determined／happy／worried）。
 - `scenes/*-nocat.webp` 是 2026-11-14 加入的無貓背景底板（06、08–10、12–13、21）。
-  以 `briefingSrc` 接進每日簡報的有 08–10、12、21（S1、L1、P4、L3、F1、T1／P1）；
+  每日簡報目前固定用 `01-keyart.webp`；各事件的底板仍以 `briefingSrc` 留在 `eventArt.ts`，之後要改回「簡報＝事件場景」時直接接上即可。
   T1／P1 的掃沙小遊戲用 21 的積塵底板開場，六個沙塵點清完後換成
   `21-shadow-hero-nocat-clean.webp`（同一場景、沙子已清乾淨）。06 的底板仍是候選素材。
   11 只有兩個版本：原圖（探測車＋兩隻貓）與 `11-cold-patrol-nocar.webp`（沒車也沒貓，只剩車轍與塵捲風）；

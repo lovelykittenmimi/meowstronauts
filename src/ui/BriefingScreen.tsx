@@ -1,9 +1,8 @@
 import { briefForSol } from '../game/daily';
-import { artForEvent } from '../game/eventArt';
 import { getKnowledgeCard } from '../game/knowledge';
 import type { EventCard, GameState } from '../game/types';
 import { t } from '../i18n';
-import baseExterior from '../assets/generated/scenes/07-base-exterior.webp';
+import keyArt from '../assets/generated/scenes/01-keyart.webp';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
 
@@ -19,21 +18,16 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
   const brief = briefForSol(state.sol);
   const isCold = state.weather.tags.includes('cold_snap') || state.weather.tags.includes('severe_cold');
 
-  // The same place as the sol's event card — the cat-free plate when one
-  // exists, so the briefing and the card are the same scene, not the same
-  // picture twice. The briefing footer already names that event.
-  const art = artForEvent(event.id);
-
+  // The briefing is the recurring daily cover: the key art keeps the same
+  // crew-and-base shot every sol. Event cards still show their own scene.
   return (
     <main className="briefing-shell">
       <SceneStage
-        src={art?.briefingSrc ?? art?.src ?? baseExterior}
+        src={keyArt}
         alt={
-          art
-            ? art.alt[lang]
-            : lang === 'en'
-              ? 'Exterior view of the Hope-1 Mars outpost with its dome, dish, solar farm and rover.'
-              : '希望一號火星基地外觀，含圓頂、碟型天線、太陽能陣列與探測車。'
+          lang === 'en'
+            ? 'Three cat astronauts on a rocky Mars ridge at dawn, looking toward the Hope-1 outpost.'
+            : '三隻貓太空人黎明時站在火星岩脊上，望向希望一號基地。'
         }
       />
       <section className="briefing-card">

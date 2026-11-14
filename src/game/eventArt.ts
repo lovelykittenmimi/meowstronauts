@@ -21,7 +21,10 @@ import gingerWide from '../assets/generated/scenes/28-ginger-wide.webp';
 
 export interface EventArt {
   src: string;
-  /** Cat-free plate of the same place, shown on the daily briefing. */
+  /**
+   * Cat-free plate of the same place. Kept for per-event briefing art; the
+   * daily briefing currently shows the key art instead.
+   */
   briefingSrc?: string;
   /**
    * Dust-sweeping beat. Starts on the cat-free dusty plate; once every patch
