@@ -159,13 +159,18 @@ describe('normal game', () => {
 
     // Six lines in total: one advance is already done. The last two are
     // narration: "Then they hit us." lands over the clip, then the antenna
-    // line stacks under it instead of replacing it.
+    // line stacks under it instead of replacing it. The empty radio panel
+    // fills with the three listening faces.
+    expect(screen.queryByTestId('story-crew-reaction')).toBeNull();
     for (let index = 0; index < 3; index += 1) {
       fireEvent.click(screen.getByTestId('dialogue-next'));
     }
     const narration = () => screen.getByTestId('story-narration').textContent ?? '';
     expect(narration()).toContain('Then they hit us.');
     expect(narration()).not.toContain('twelve minutes');
+    expect(
+      screen.getByTestId('story-crew-reaction').querySelectorAll('img'),
+    ).toHaveLength(3);
 
     fireEvent.click(screen.getByTestId('dialogue-next'));
     expect(narration()).toContain('Then they hit us.');
@@ -235,6 +240,9 @@ describe('normal game', () => {
     expect(screen.getByTestId('dialogue-current').textContent).not.toContain(
       'Mars has no fridge.',
     );
+    expect(
+      screen.getByTestId('story-crew-reaction').querySelectorAll('img'),
+    ).toHaveLength(3);
   });
 
   it('opens the data panel with both snapshot charts', () => {

@@ -19,6 +19,7 @@ import { RichText } from './RichText';
 const l = (en: string, zh: string): Localized => ({ en, 'zh-TW': zh });
 
 type Speaker = 'silver' | 'shadow' | 'ginger' | 'narrator';
+type CatSpeaker = Exclude<Speaker, 'narrator'>;
 
 interface Line {
   cat: Speaker;
@@ -31,7 +32,7 @@ interface Line {
   text: Localized;
 }
 
-const SPEAKER_NAMES: Record<Exclude<Speaker, 'narrator'>, string> = {
+const SPEAKER_NAMES: Record<CatSpeaker, string> = {
   silver: 'Silver',
   shadow: 'Shadow',
   ginger: 'Ginger',
@@ -65,6 +66,19 @@ const CRASH_LINES: Line[] = [
 
 // Index of "Then they hit us." — the clip starts when this line appears.
 const CRASH_VIDEO_LINE = 4;
+
+/** Left-to-right order that matches the three-cat lineup art. */
+const CREW_ORDER: CatSpeaker[] = ['shadow', 'silver', 'ginger'];
+type CrewMoods = Record<CatSpeaker, FaceMood>;
+
+// No cat has a line while narration holds the panel, so the crew faces the
+// moment instead: the navigator who lost the antenna, the captain holding it
+// together, and the cat whose tail is on fire.
+const CRASH_MOODS: CrewMoods = {
+  shadow: 'worried',
+  silver: 'determined',
+  ginger: 'surprised',
+};
 
 interface NasaShot {
   key: string;
@@ -173,6 +187,14 @@ const INTRO_REST: Line[] = [
   { cat: 'ginger', mood: 'determined', text: l('All the more reason to eat first.', '所以更要先吃飽。') },
   { cat: 'silver', mood: 'determined', text: l('Before you eat, walk slowly. Months in space made us weaker.', '吃飽之前，先慢慢走。在太空待了好幾個月，我們的身體變弱了。') },
 ];
+
+// "Mars has no fridge.": the captain keeps a straight face, the engineer
+// shrugs, and the cook hears the end of the world.
+const FRIDGE_MOODS: CrewMoods = {
+  shadow: 'neutral',
+  silver: 'neutral',
+  ginger: 'surprised',
+};
 
 const MAP_LINES: Line[] = [
   { cat: 'shadow', mood: 'neutral', text: l('This is the map. Here is Meowstar. Here is Mars. And here is the solar panel we broke.', '這是星圖。這裡是喵星。這裡是火星。這裡是我們撞壞的太陽能板。') },
@@ -351,6 +373,21 @@ function NarrationOverlay({
   );
 }
 
+/**
+ * The three faces that fill the panel while a narrator line is running: no
+ * one is speaking, so the crew just reacts. Decorative — the narration overlay
+ * carries the words — so screen readers skip it.
+ */
+function CrewReaction({ moods }: { moods: CrewMoods }) {
+  return (
+    <div className="story-crew-reaction" data-testid="story-crew-reaction" aria-hidden="true">
+      {CREW_ORDER.map((cat) => (
+        <img key={cat} src={moodFace(cat, moods[cat])} alt="" />
+      ))}
+    </div>
+  );
+}
+
 interface DialogueSequenceProps {
   lines: Line[];
   lang: Lang;
@@ -364,6 +401,8 @@ interface DialogueSequenceProps {
   onStep?: (step: number) => void;
   /** Start on this line; "Back" still reaches the lines before it. */
   initialStep?: number;
+  /** Expressions shown when the current line is narration and the panel is empty. */
+  reaction?: CrewMoods;
 }
 
 /**
@@ -383,6 +422,7 @@ function DialogueSequence({
   between,
   onStep,
   initialStep = 0,
+  reaction,
 }: DialogueSequenceProps) {
   const [step, setStep] = useState(initialStep);
   const current = lines[step];
@@ -399,11 +439,17 @@ function DialogueSequence({
     return <DialogueLine line={line} lang={lang} onTerm={onTerm} />;
   };
 
+  const reactionMoods = current.cat === 'narrator' ? reaction : undefined;
+
   return (
     <>
+      {/* In the radio panel the faces sit beside the eyebrow, so the panel
+          keeps its height and the crash clip stays visible. */}
+      {reactionMoods && variant === 'radio' && <CrewReaction moods={reactionMoods} />}
       <div className="story-chat" aria-live="polite">
         <div className="story-chat-current" data-testid="dialogue-current" key={step}>
           {renderLine(current)}
+          {reactionMoods && variant === 'chat' && <CrewReaction moods={reactionMoods} />}
         </div>
       </div>
       {between}
@@ -754,6 +800,7 @@ export function StoryOpening({
               onTerm={onTerm}
               variant="radio"
               onStep={setCrashStep}
+              reaction={CRASH_MOODS}
               cta={lang === 'en' ? 'Continue' : '繼續'}
               onCta={() => setScene(3)}
             />
@@ -812,6 +859,7 @@ export function StoryOpening({
                 lang={lang}
                 onTerm={onTerm}
                 onStep={setIntroStep}
+                reaction={FRIDGE_MOODS}
                 cta={lang === 'en' ? 'Continue' : '繼續'}
                 onCta={() => setScene(4)}
               />

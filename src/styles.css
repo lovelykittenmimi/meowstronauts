@@ -2268,6 +2268,30 @@ h1 {
   animation: caption-in 0.32s ease-out;
 }
 
+/* Narration leaves the panel without a spoken line; the crew fills it. Faces
+   only, no names: they are listening, not talking. Sizes match the spoken-line
+   avatars so the panel does not jump between a line and a narration step. */
+.story-crew-reaction {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.story-crew-reaction img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--navy);
+  object-fit: cover;
+  background: var(--paper-2);
+}
+
+.story-dialogue .story-crew-reaction img {
+  width: 88px;
+  height: 88px;
+}
+
+
 .story-chat-current .story-radio-line {
   opacity: 1;
   animation: none;
@@ -2817,6 +2841,33 @@ h1 {
   .story-avatar.story-avatar-radio {
     width: 44px;
     height: 44px;
+  }
+
+  .story-radio .story-crew-reaction img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .story-dialogue .story-crew-reaction img {
+    width: 56px;
+    height: 56px;
+  }
+
+  /* On the shortest phones the radio faces ride beside "Radio · Stardust"
+     instead of taking a line, so the panel never grows into the narration. */
+  @media (max-height: 360px) {
+    .story-radio .story-crew-reaction {
+      position: absolute;
+      top: 6px;
+      right: 14px;
+      gap: 6px;
+    }
+
+    .story-radio .story-crew-reaction img {
+      width: 32px;
+      height: 32px;
+      border-width: 2px;
+    }
   }
 
   .story-line {
