@@ -168,14 +168,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 88042,
+      "bytes": 87014,
       "quality": 82,
       "alt": {
         "en": "A supply ship descends toward the landing pad as the three cats watch at sunrise.",
         "zh-TW": "補給船在日出時降落在停機坪，三隻貓在一旁觀看。"
       },
       "credit": null,
-      "note": "ending; re-rolled 2026-11-14 without the tomato crate (tomatoes would freeze on the surface)"
+      "note": "ending; re-rolled 2026-11-14 without the tomato crate (tomatoes would freeze on the surface) and without the US flag decal"
     },
     {
       "file": "scenes/20-silver-hero.webp",
