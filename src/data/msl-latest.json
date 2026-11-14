@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "source": "NASA/JPL-Caltech — Curiosity REMS",
+    "sourceUrl": "https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json",
+    "archivedAt": "2026-11-11",
+    "latestObservation": "2026-08-25",
+    "note": "Fallback copy for the optional latest-7 view. The game tries the public feed first; this file is not used for mission state."
+  },
+  "soles": [
+    {
+      "sol": "4995",
+      "terrestrial_date": "2026-08-25",
+      "max_temp": "-5",
+      "min_temp": "-71",
+      "pressure": "777"
+    },
+    {
+      "sol": "4994",
+      "terrestrial_date": "2026-08-24",
+      "max_temp": "-7",
+      "min_temp": "-70",
+      "pressure": "777"
+    },
+    {
+      "sol": "4993",
+      "terrestrial_date": "2026-08-23",
+      "max_temp": "-6",
+      "min_temp": "-70",
+      "pressure": "780"
+    },
+    {
+      "sol": "4992",
+      "terrestrial_date": "2026-08-22",
+      "max_temp": "-6",
+      "min_temp": "-69",
+      "pressure": "780"
+    },
+    {
+      "sol": "4991",
+      "terrestrial_date": "2026-08-21",
+      "max_temp": "-11",
+      "min_temp": "-69",
+      "pressure": "779"
+    },
+    {
+      "sol": "4990",
+      "terrestrial_date": "2026-08-20",
+      "max_temp": "-8",
+      "min_temp": "-72",
+      "pressure": "779"
+    },
+    {
+      "sol": "4989",
+      "terrestrial_date": "2026-08-19",
+      "max_temp": "-6",
+      "min_temp": "-72",
+      "pressure": "778"
+    }
+  ]
+}

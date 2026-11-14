@@ -316,7 +316,13 @@ export default function App() {
         />
       )}
 
-      {dataOpen && <DataPanel lang={state.lang} onClose={() => setDataOpen(false)} />}
+      {dataOpen && (
+        <DataPanel
+          lang={state.lang}
+          onClose={() => setDataOpen(false)}
+          showLive={!videoMode}
+        />
+      )}
 
       {landerOpen && (
         <LanderOverlay initialLang={state.lang} onClose={() => setLanderOpen(false)} />

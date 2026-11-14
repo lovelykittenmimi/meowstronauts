@@ -2,6 +2,7 @@ import spaceWeather from '../data/spaceweather.snapshot.json';
 import marsWeather from '../data/mars-weather.snapshot.json';
 import type { Lang } from '../game/types';
 import { t } from '../i18n';
+import { LiveWeather } from './LiveWeather';
 import { Modal } from './Modal';
 
 interface Flare {
@@ -137,7 +138,15 @@ function pathFor(values: number[]): string {
     .join(' ');
 }
 
-export function DataPanel({ lang, onClose }: { lang: Lang; onClose: () => void }) {
+export function DataPanel({
+  lang,
+  onClose,
+  showLive = true,
+}: {
+  lang: Lang;
+  onClose: () => void;
+  showLive?: boolean;
+}) {
   const coldStartX = tempX(sols.length - coldWeek.length);
 
   return (
@@ -259,6 +268,8 @@ export function DataPanel({ lang, onClose }: { lang: Lang; onClose: () => void }
           <span className="swatch swatch-teal" aria-hidden="true" /> Low · °C
         </p>
       </section>
+
+      {showLive && <LiveWeather lang={lang} />}
 
       <div className="source-links">
         <a href="https://api.nasa.gov/DONKI/" target="_blank" rel="noreferrer">

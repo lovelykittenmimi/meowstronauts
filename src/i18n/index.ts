@@ -117,6 +117,43 @@ export const STRINGS = {
   },
   'data.flare': { en: 'X2.7 flare, 14 May', 'zh-TW': '5 月 14 日 X2.7 閃焰' },
   'data.cold': { en: 'Cold week', 'zh-TW': '冷週' },
+  'data.liveTitle': { en: 'Latest 7 sols from NASA', 'zh-TW': 'NASA 最新 7 個 sol' },
+  'data.liveShow': { en: 'Load latest 7 sols', 'zh-TW': '載入最新 7 個 sol' },
+  'data.liveHide': { en: 'Hide latest sols', 'zh-TW': '收起最新 sol' },
+  'data.liveLoading': { en: 'Contacting NASA…', 'zh-TW': '正在連線 NASA…' },
+  'data.liveError': {
+    en: 'Could not reach NASA. The 2025 snapshot above still works.',
+    'zh-TW': '連不到 NASA；上方 2025 年快照仍可使用。',
+  },
+  'data.liveRetry': { en: 'Try again', 'zh-TW': '再試一次' },
+  'data.liveNote': {
+    en: "Latest observations in NASA's Curiosity feed, not real-time. These are NASA sol numbers, not the mission's Sol 1–7; the mission still uses the 2025 snapshot.",
+    'zh-TW':
+      '這是 NASA 好奇號 feed 的最新觀測，不是即時天氣。這裡是 NASA 的 sol 編號，不是任務的 Sol 1–7；任務仍使用 2025 年快照。',
+  },
+  'data.liveCaption': {
+    en: 'Latest {count} sols with temperature data, newest first',
+    'zh-TW': '最新 {count} 個有氣溫資料的 sol（新到舊）',
+  },
+  'data.liveSol': { en: 'NASA sol', 'zh-TW': 'NASA sol' },
+  'data.liveDate': { en: 'Earth date', 'zh-TW': '地球日期' },
+  'data.liveHigh': { en: 'High °C', 'zh-TW': '高溫 °C' },
+  'data.liveLow': { en: 'Low °C', 'zh-TW': '低溫 °C' },
+  'data.livePressure': { en: 'Pressure (Pa)', 'zh-TW': '氣壓（Pa）' },
+  'data.liveRetrieved': { en: 'Retrieved', 'zh-TW': '擷取於' },
+  'data.liveLatest': { en: 'Feed latest', 'zh-TW': 'feed 最新' },
+  'data.liveLoaded': { en: 'Loaded {count} sols.', 'zh-TW': '已載入 {count} 個 sol。' },
+  'data.liveFallbackStatus': {
+    en: 'NASA feed blocked; showing the archived copy.',
+    'zh-TW': '連不到 NASA feed；顯示封存副本。',
+  },
+  'data.liveFallbackNote': {
+    en: "NASA's feed could not be reached from this browser. Showing the latest 7 sols archived on {date}; these are NASA sol numbers, not the mission's Sol 1–7, and the mission still uses the 2025 snapshot.",
+    'zh-TW':
+      '這個瀏覽器連不到 NASA feed；顯示 {date} 封存的最近 7 個 sol。這裡是 NASA 的 sol 編號，不是任務的 Sol 1–7；任務仍使用 2025 年快照。',
+  },
+  'data.liveArchived': { en: 'Archived', 'zh-TW': '封存於' },
+  'data.liveRetryLive': { en: 'Try live again', 'zh-TW': '再試連線' },
   'data.close': { en: 'Close', 'zh-TW': '關閉' },
   'report.title': { en: 'Mission report', 'zh-TW': '任務報告' },
   'report.survived': { en: 'Seven sols at Hope-1', 'zh-TW': '在希望一號撐過七個火星日' },

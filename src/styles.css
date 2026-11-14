@@ -1299,6 +1299,97 @@ h1 {
   font-size: 13px;
 }
 
+.live-weather-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.live-toggle {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.live-toggle:hover,
+.live-toggle:focus-visible {
+  background: var(--navy);
+  color: #fff;
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+.live-weather-body {
+  margin-top: 10px;
+}
+
+.live-status {
+  margin: 0 0 8px;
+  color: #5b6170;
+  font-size: 14px;
+}
+
+.live-status p {
+  margin: 0 0 8px;
+}
+
+.live-note {
+  margin: 0 0 10px;
+  color: #5b6170;
+  font-size: 13px;
+}
+
+.live-table-wrap {
+  overflow-x: auto;
+  border: 2px solid var(--silver);
+  border-radius: 12px;
+}
+
+.live-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.live-table caption {
+  padding: 8px 10px;
+  color: #5b6170;
+  font-size: 13px;
+  text-align: left;
+}
+
+.live-table th,
+.live-table td {
+  padding: 6px 10px;
+  border-top: 1px solid #e3ddd0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.live-table thead th {
+  background: #f7f3ea;
+  color: var(--navy);
+}
+
+.live-table tbody th {
+  color: var(--navy);
+}
+
+.live-meta {
+  margin: 8px 0 0;
+  color: #5b6170;
+  font-size: 12px;
+}
+
 /* Report --------------------------------------------------------------- */
 .report-shell {
   display: flex;

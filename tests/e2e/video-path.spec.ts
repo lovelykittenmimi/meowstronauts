@@ -49,6 +49,8 @@ test.describe('P0 §3.4 / §5.2 — video path (?video=s1)', () => {
     await expect(page.getByTestId('rems-chart')).toBeVisible();
     await expect(page.getByTestId('data-panel')).toContainText('Snapshot, not live.');
     await expect(page.getByTestId('data-panel')).not.toContainText('strong geomagnetic storm');
+    // The optional on-demand feed must never appear in the recorded path.
+    await expect(page.getByTestId('live-weather-toggle')).toHaveCount(0);
     await page.keyboard.press('Escape');
 
     expect(errors).toEqual([]);

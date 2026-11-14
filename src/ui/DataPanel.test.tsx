@@ -48,4 +48,9 @@ describe('DataPanel', () => {
     expect(text).toContain('X2.7');
     expect(text).toContain('M7.7');
   });
+
+  it('hides the optional live section in video mode', () => {
+    render(<DataPanel lang="en" onClose={() => {}} showLive={false} />);
+    expect(screen.queryByTestId('live-weather-toggle')).toBeNull();
+  });
 });

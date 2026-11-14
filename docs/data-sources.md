@@ -199,6 +199,26 @@ Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 �
   - 8 種食物裡超過一半（Omega-3、辣醬、tortilla 等）沒有足夠來源撐起一張事實卡，因此縮成 6 組。
 - **不使用照片、不新增知識卡**：食物與卡片全是 emoji＋文字；太空食物只出現在小遊戲回饋與本文件。
 
+### 3.6 資料面板的「NASA 最新 7 個 sol」（可選、預設關閉）
+
+`src/game/liveWeather.ts`、`src/ui/LiveWeather.tsx`。這是資料面板最下方的**可選檢視**，預設收起；使用者按〔載入最新 7 個 sol〕才向 NASA 公開 feed 取資料。它不是即時天氣，也不進任務狀態：不影響資源、平衡、事件標籤、分數或影片 fixture；上方 2025 年快照仍是任務唯一使用的資料。
+
+| 項目 | 內容 |
+|---|---|
+| Feed | NASA/JPL-Caltech — Curiosity REMS，`https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json` |
+| 驗證 | 2026-11-11 實測：HTTP 200、約 1.7 MB、4,745 筆、最新一筆 sol 4995（地球日期 2026-08-25）；不需 API key |
+| 欄位 | `sol`、`terrestrial_date`、`max_temp`、`min_temp`、`pressure`（字串；`--` 視為缺值） |
+| 顯示 | 取有氣溫資料的最新 7 個 sol，依 sol 由新到舊；NASA sol 編號不是任務的 Sol 1–7，畫面與文案都要區分 |
+| 失敗處理 | 瀏覽器連不到 feed（CORS／離線）時，顯示 `src/data/msl-latest.json` 的封存副本（2026-11-11 擷取，同樣是 sol 4995–4989），並標明「不是即時、任務仍用 2025 快照」；可按〔再試連線〕重試 |
+| 錄影 | `?video=` 模式不顯示這個區塊，避免 30 秒影片出現可選網路資料 |
+
+使用注意：
+
+- **feed 是觀測 archive，不是即時天氣**：最新觀測停在 2026-08-25；文案寫「NASA 最新 7 個 sol」與「not real-time」，不寫「現在的火星天氣」。
+- **不是任務資料**：NASA sol 4995 與遊戲的 Sol 1–7 是不同編號系統；不要拿 feed 數值改 `GameState` 或平衡表。
+- **封存副本只當備援**：`src/data/msl-latest.json` 是公開 feed 的小份複本，只用於顯示；不作為任務狀態，也不取代 `src/data/*.json` 的 2025 快照。
+- **沒有 Worker proxy**：`wrangler.jsonc` 是純靜態資產；這個功能直接從瀏覽器打 NASA 公開 feed，沒有新增 Worker route 或 secret。
+
 ## 4. 重新產生
 
 ```bash
