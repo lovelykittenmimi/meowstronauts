@@ -12,6 +12,7 @@ import debrief from '../assets/generated/scenes/12-debrief.webp';
 import debriefEmpty from '../assets/generated/scenes/12-debrief-nocat.webp';
 import silverHero from '../assets/generated/scenes/20-silver-hero.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
+import shadowHeroEmpty from '../assets/generated/scenes/21-shadow-hero-nocat.webp';
 import gingerHero from '../assets/generated/scenes/22-ginger-hero.webp';
 import silverWide from '../assets/generated/scenes/26-silver-wide.webp';
 import shadowWide from '../assets/generated/scenes/27-shadow-wide.webp';
@@ -39,6 +40,7 @@ export const EVENT_ART: Record<string, EventArt> = {
   // The dust minigame draws its patches on this same picture.
   T1: {
     src: shadowHero,
+    briefingSrc: shadowHeroEmpty,
     alt: {
       en: 'Shadow in a dark suit standing on dusty solar panels at dusk, the outpost dome behind him.',
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
@@ -47,6 +49,7 @@ export const EVENT_ART: Record<string, EventArt> = {
   // P1 — dust on the panels again; same array, same cat as T1.
   P1: {
     src: shadowHero,
+    briefingSrc: shadowHeroEmpty,
     alt: {
       en: 'Shadow in a dark suit standing on dusty solar panels at dusk, the outpost dome behind him.',
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
