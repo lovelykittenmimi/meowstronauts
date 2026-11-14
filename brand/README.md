@@ -10,11 +10,25 @@ in-game artwork produced during the hackathon.
 | `avatar-{cat}-512.webp` | Circular HUD/dialogue avatars |
 | `full-{cat}-800.webp` | Full-body cutouts for cards and reports |
 | `favicon-*.png` | Site icons derived from the Silver avatar |
-| `og-1200x630.jpg` | Social sharing card (interim; may be rebuilt from the event key art) |
+| `logo-three-cats-512.png` / `.webp` | Team mark: watercolour three-cat logo, true-alpha master (WebP 37 KB for web) |
+| `logo-three-cats-256.png` | Smaller team mark for loading screens and footers |
+| `paw-ink-256.png` / `paw-pink-256.png` | Paw marks for favicon, stamps, decoration |
+| `favicon-paw-32.png` / `favicon-paw-180.png` | Paw favicon (cream rounded tile, ink paw) |
+| `og-1200x630.jpg` | Interim social sharing card built from the 2026-11-11 three-cat group image (no NASA insignia); title and the `Fly My Mind` team credit are overlaid in code. Regenerate with prompt 30 during the event for the final version. |
 
 The three source reference images live in `docs/assets/characters/` and were
 generated with Gemini's image model. The derivatives here were produced with
 `rembg` and Pillow.
+
+The watercolour three-cat logo and the two paw marks were supplied by the team
+on 2026-11-12 as the project's existing identity marks.
+
+The first logo file was a JPEG with a checkerboard pattern baked into the
+pixels, not real transparency; `source/logo-three-cats-rembg.png` is that
+version after a `rembg` cutout, kept only for comparison. The team then supplied
+a true alpha PNG (`source/logo-three-cats-original.png`, copied to
+`source/logo-three-cats-transparent.png`), which is now the master. It has clean
+edges on both paper and navy backgrounds.
 
 ## Competition use
 

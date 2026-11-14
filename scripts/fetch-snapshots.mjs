@@ -7,14 +7,14 @@
  *   - Curiosity REMS weather (default: the recent 2025-05-08..05-22 cold
  *     window, core 7 sols rank 52/4,547; --weather-mode=latest for the newest
  *     sols; 2019-08-15..08-29 is kept as a historical comparison)
- *   - 6 real Mars surface photos from NASA Image Library
+ *   - 7 real Mars surface photos from NASA Image Library
  *
  * It does NOT contain any game logic and is not part of the game bundle.
  *
  * Usage:
  *   node scripts/fetch-snapshots.mjs
  *   NASA_API_KEY=xxxx node scripts/fetch-snapshots.mjs
- *   node scripts/fetch-snapshots.mjs --out=src/data --photos=6 --days=30
+ *   node scripts/fetch-snapshots.mjs --out=src/data --photos=7 --days=30
  *   node scripts/fetch-snapshots.mjs --cme-file=raw/donki-cme.json --days=10 --end-date=2026-11-11
  *   node scripts/fetch-snapshots.mjs --start-date=2024-05-08 --end-date=2024-05-14
  *   node scripts/fetch-snapshots.mjs --weather-file=scripts/raw/msl-weather-2026-11-11.json
@@ -59,7 +59,7 @@ for (let i = 2; i < process.argv.length; i++) {
 
 const OUT_DIR = resolve(args.get('out') ?? 'src/data');
 const API_KEY = args.get('api-key') ?? process.env.NASA_API_KEY ?? 'DEMO_KEY';
-const PHOTO_LIMIT = Math.max(1, Number(args.get('photos') ?? 6));
+const PHOTO_LIMIT = Math.max(1, Number(args.get('photos') ?? 7));
 const FETCHED_AT = new Date().toISOString();
 const DAY_MS = 86_400_000;
 const DONKI_DAYS = Math.max(1, Number(args.get('days') ?? 30));
@@ -518,6 +518,7 @@ const CURATED_PHOTOS = [
   { id: 'PIA24173', rover: 'Curiosity', location: 'Gale Crater' },
   { id: 'PIA26632', rover: 'Curiosity', location: 'Gale Crater' },
   { id: 'PIA24264', rover: 'Perseverance', location: 'Jezero Crater' },
+  { id: 'PIA25077', rover: 'Curiosity', location: 'Gale Crater' },
   { id: 'PIA24921', rover: 'Perseverance', location: 'Jezero Crater' },
 ];
 const CURATED_PHOTO_BY_ID = new Map(CURATED_PHOTOS.map((photo) => [photo.id, photo]));
@@ -800,7 +801,12 @@ async function main() {
     manifest.spaceweather_updated_at = FETCHED_AT;
     manifest.last_run = { mode: 'spaceweather-only', at: FETCHED_AT, errors: [...errors] };
     if (!errors.length) manifest.errors = [];
-    manifest.api_key = API_KEY === 'DEMO_KEY' ? 'DEMO_KEY' : 'NASA_API_KEY';
+    manifest.api_key_included = false;
+    manifest.api_key_source =
+      API_KEY === 'DEMO_KEY'
+        ? 'DEMO_KEY (development only)'
+        : 'Cloudflare Worker secret (production) / .dev.vars (local)';
+    delete manifest.api_key;
     manifest.counts = {
       ...(manifest.counts ?? {}),
       cme: spaceweather.cme.length,
@@ -890,7 +896,11 @@ async function main() {
   const manifest = {
     fetched_at: FETCHED_AT,
     generator: 'scripts/fetch-snapshots.mjs',
-    api_key: API_KEY === 'DEMO_KEY' ? 'DEMO_KEY' : 'NASA_API_KEY',
+    api_key_included: false,
+    api_key_source:
+      API_KEY === 'DEMO_KEY'
+        ? 'DEMO_KEY (development only)'
+        : 'Cloudflare Worker secret (production) / .dev.vars (local)',
     files: {
       spaceweather: 'spaceweather.snapshot.json',
       marsWeather: 'mars-weather.snapshot.json',

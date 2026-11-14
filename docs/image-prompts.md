@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-11
+> 最後更新：2026-11-12（新增 §0.4 生成批次清單）
 
 ---
 
@@ -33,6 +33,57 @@
 - 比例以介面設定為優先，prompt 裡的 `Aspect ratio` 是輔助。
 - 一般輸出約 1K；Pro 可到 2K／4K。表中「遊戲內尺寸」是目標，不是模型必須輸出的像素。
 - 同一角色請沿用同一張參考圖與同一個 seed（若介面支援），可大幅降低走鐘。
+
+### 0.4 11/12 生成批次清單（給 GEM 用）
+
+> 02–04 是既有參考圖，不重新生成。實際要生成 27 張，加上 3 張參考圖＝30。
+> **今天生成的圖是參考與測試素材；遊戲內正式美術在 11/14 09:00 後用同一批 prompt 重出並挑選**（見 `brand/style-guide.md` 5.5）。
+
+| 批次 | 張數 | 編號 | 目的 | 完成 |
+|---|---:|---|---|---|
+| A1 角色穩定 | 6 | 14、15、16、17、18、19 | 六視圖＋表情表；先確認三隻貓不走鐘 | [ ] |
+| A2 對話特寫 | 3 | 23、24、25 | 3:4 頭像，測裁切與眼神 | [ ] |
+| B1 主視覺 | 4 | 01、05、06、07 | 標題、團隊、迫降、基地外觀 | [ ] |
+| B2 場景 | 6 | 08、09、10、11、12、13 | 控制室、溫室、夜修、低溫、覆盤、結局 | [ ] |
+| B3 英雄／遠景 | 6 | 20、21、22、26、27、28 | 低角度與高角度各三張 | [ ] |
+| B4 故事板 | 1 | 29 | 開場六格 | [ ] |
+| C OG 卡 | 1 | 30 | 最後做，等主視覺定稿 | [ ] |
+
+**執行順序**
+
+1. A1 → 檢查第 8 節一致性清單；有任何一隻走鐘，先修 prompt 重出，不要往下做。
+2. A2 → B1 → B2 → B3 → B4；每批做完立刻挑圖、改名、放進 `docs/assets/generated/`（暫存），不要等到最後一次挑。
+3. C 最後做；OG 標題仍由程式疊，不讓模型寫字。
+4. 每張保留：prompt 版本、seed（若有）、生成日期、淘汰原因。這份紀錄 11/15 要寫進 AI disclosure。
+
+**每批驗收**
+
+- [ ] 三隻貓四足、無手、無工具。
+- [ ] 天空是奶油糖色，不是地球藍。
+- [ ] 沒有文字、Logo、NASA 標誌。
+- [ ] 主體在中央安全區，16:9 邊緣 10% 沒有關鍵內容。
+- [ ] 兒童友善：無火焰、受傷、恐怖表情。
+
+---
+
+### 0.5 11/14 MVP 最小圖集（8 張）
+
+> 11/12 的圖是參考／測試素材，**不要直接當遊戲內正式美術**。11/14 09:00 後用同一批 prompt 生成、挑選、去背，放 `src/assets/`。
+> 27 張完整批次不列入 MVP；11/15 有時間再補。事件卡插圖用 Lucide 圖示或 NASA 照片，知識卡純文字。
+> **幕 2 動畫不需新增圖**：背景用 07＋橘紅 overlay，飛船用 SVG 剪影；06 留給幕 3（三貓爬出船艙）。若 07 的太陽能陣列位置真的不合，才補一張 16:9 風暴天空。
+
+| 用途 | 編號 | 張數 | 備註 |
+|---|---|---:|---|
+| 三隻貓頭像（3:4） | 23、24、25 | 3 | 對話、角色卡、影片第 2 鏡 |
+| 主視覺（16:9） | 01 | 1 | 標題卡、開場 |
+| 團隊合照（16:9） | 05 | 1 | 標題卡備用、影片第 1 鏡備用 |
+| 迫降（16:9） | 06 | 1 | 開場、影片第 1 鏡 |
+| 基地外觀（16:9） | 07 | 1 | 開場、影片第 1 鏡 |
+| 控制室（16:9） | 08 | 1 | 遊戲背景、資料面板背景 |
+
+**總計 8 張。** 若時間不足，先做 3 頭像＋01＋06＋07（6 張）；05、08 可先用現有圖或 CSS 背景。
+
+**不要生成：** 14–19 六視圖、20–22 低角度、26–28 高角度、29 故事板、30 OG（除非 11/15 有時間）。
 
 ---
 
@@ -366,7 +417,25 @@ Aspect ratio 3:2, target size 1800x1200. Six-panel cinematic storyboard in a cle
 
 ---
 
-## 6. 輸出規格與檔名
+## 6. OG 社群分享卡
+
+用途：專案頁、社群分享、提交表單的預覽圖。**標題由程式疊上去，不讓模型寫字**；上方 30% 刻意留空。
+
+**比例：1.9:1｜遊戲內尺寸：1200×630｜檔名：`og-1200x630.jpg`**
+
+```text
+Aspect ratio 1.9:1, target size 1200x630. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. A warm, front-facing team portrait for a social sharing card: three suited cat astronauts arranged in a shallow triangle on a clean dark surface, all looking directly at the camera. Keep the upper 30% of the frame empty for a title overlay, and keep all three cats inside the lower 70% and the central 80% width. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back, sits on her haunches in the center-back, all four paws on the floor, tail wrapped around her paws. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, with a rounded orange backpack, lies in a relaxed loaf in the front-left, front paws tucked, head raised. Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and carbon-fiber panels, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings, crouches low in the front-right, one front paw forward, tail curled. All three are quadrupedal and on the floor; no cat stands on its hind legs. Patches are abstract geometric shapes only — no NASA insignia, no letters, no readable text. Background: deep navy-to-rust gradient with a soft warm glow behind the group and subtle dust motes, no window frames, no machinery. Even soft key light on the faces, gentle rim light, shallow depth of field. High-end 3D animated feature film still in a warm Pixar-like style, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, no text, no lettering, no logos, no watermark.
+```
+
+**注意：**
+
+- 若介面只能選 16:9，先生成 16:9，再從中央裁成 1200×630；上方留白不會被裁掉。
+- 三張臉要在同一視覺帶，Silver 的耳朵不能碰到上緣；標題區寧可不放貓，也不要壓到臉。
+- 這張只做分享卡，不是遊戲內場景；不要把標題、按鈕、NASA 標誌畫進去。
+
+---
+
+## 7. 輸出規格與檔名
 
 | # | 檔名 | 比例 | 遊戲內尺寸 | 用途 |
 |---|---|---|---|---|
@@ -397,10 +466,11 @@ Aspect ratio 3:2, target size 1800x1200. Six-panel cinematic storyboard in a cle
 | 27 | `27-shadow-wide.png` | 16:9 | 1920×1080 | 高角度遠景 |
 | 28 | `28-ginger-wide.png` | 16:9 | 1920×1080 | 高角度遠景 |
 | 29 | `29-opening-storyboard.png` | 3:2 | 1800×1200 | 開場故事板 |
+| 30 | `og-1200x630.jpg` | 1.9:1 | 1200×630 | OG 社群卡（標題由程式疊） |
 
 ---
 
-## 7. 一致性檢查清單
+## 8. 一致性檢查清單
 
 生成後逐張檢查：
 
@@ -409,15 +479,17 @@ Aspect ratio 3:2, target size 1800x1200. Six-panel cinematic storyboard in a cle
 - [ ] Shadow 是純黑、紫黑裝甲、單眼藍色 HUD；沒有工具腰帶。
 - [ ] Ginger 是胖橘虎斑、橘白太空裝；沒有番茄圍裙、沒有手持澆水壺。
 - [ ] 太空裝顏色、口袋、背包與參考圖一致。
+- [ ] 布章只有抽象幾何；沒有 NASA meatball、沒有 `NASA` 字母。
 - [ ] 需要操作的動作由無人機、機械臂、掌壓面板完成。
 - [ ] 畫面沒有文字、標籤、Logo、浮水印。
+- [ ] OG 卡上方 30% 沒有臉或耳朵，標題由程式疊，不是模型畫的。
 - [ ] 火星天空是奶油糖色，地平線附近淡藍；沒有藍天白雲、綠地。
 - [ ] 16:9 主體在中央 80%；3:4 臉在上三分之一。
 - [ ] 兒童友善：沒有受傷、火焰、尖牙、恐怖表情。
 
 ---
 
-## 8. 備註
+## 9. 備註
 
 - 這份文件只放圖像 prompt，不放 NASA 資料出處；資料來源與誠實性說明見 `docs/data-sources.md`。
 - 圖像屬遊戲虛構；太陽閃焰是真實事件，迫降與火星受災是訓練模擬，相關文案見 `PLAN.md`。

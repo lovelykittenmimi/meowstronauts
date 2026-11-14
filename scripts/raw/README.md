@@ -12,6 +12,23 @@ Do not import them from the app; the trimmed snapshots live in `src/data/`.
 | `donki-cme-2026-11-11.json` | 2026-11-11 | `https://api.nasa.gov/DONKI/CME?startDate=2026-11-01&endDate=2026-11-11` | 26 raw CME events; kept as a contrast dataset, no longer used by the snapshot |
 | `msl-weather-2026-11-11.json` | 2026-11-11 | `https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json` | 4,745 raw sols (4,717 valid); archive covers 2012-08-07 → 2026-08-25 |
 
+## Official challenge resources (2026-11-13)
+
+Collected after the Space Apps 2026 resource list went live. **Not game assets** and not imported by the app.
+
+| File | Fetched | Source | Contents |
+|---|---|---|---|
+| `official-resources-2026-11-13/osdr-experiments-index.json` | 2026-11-13 | `https://osdr.nasa.gov/geode-py/ws/api/experiments` + `/experiment/{id}` | 923 of 928 experiment metadata records (5 returned 403); offline title index |
+| `official-resources-2026-11-13/osdr-shortlist.json` | 2026-11-13 | Derived from the index | 6 studies relevant to food, partial gravity, bone, fungal biofilm, radiation |
+| `official-resources-2026-11-13/mars-trek/gale-hirise-mosaic.jpg` | 2026-11-13 | Mars Trek `curiosity_hirise_mosaic` ImageServer | 1200×1150 grayscale HiRISE mosaic around Curiosity |
+| `official-resources-2026-11-13/mars-trek/gale-mola-elevation.png` | 2026-11-13 | Mars Trek MOLA ImageServer | 800×800 grayscale elevation of Gale crater |
+
+Notes:
+
+- OSDR records are ISS microgravity / simulated-gravity / lunar-regolith-simulant studies. Do **not** present them as Mars surface measurements.
+- The 1 m Gale DEM export came out black at 8-bit; it needs a stretch and was not kept.
+- RadLab (`/radlab/gui/data-api/`) returned HTTP 500, and APOD returned a generic placeholder for 2025-05 dates, so neither is used. See `docs/data-sources.md` §3.2.
+
 ## Why the weather snapshot uses 2025
 
 The latest 14 sols (2026-08-12 → 08-25) are relatively warm: daytime highs sit

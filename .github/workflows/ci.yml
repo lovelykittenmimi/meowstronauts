@@ -1,0 +1,53 @@
+name: CI
+
+# Skeleton only. Before 2026-11-14 09:00 there is no app to build, so the
+# workflow exits cleanly. Once package.json lands, the same job runs lint,
+# tests, and a production build without further edits.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for app
+        id: app
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "No package.json yet — pre-event skeleton, nothing to build."
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.app.outputs.ready == 'true'
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        if: steps.app.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Lint
+        if: steps.app.outputs.ready == 'true'
+        run: npm run lint --if-present
+
+      - name: Test
+        if: steps.app.outputs.ready == 'true'
+        run: npm run test --if-present
+
+      - name: Build
+        if: steps.app.outputs.ready == 'true'
+        run: npm run build --if-present

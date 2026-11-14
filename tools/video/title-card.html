@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Meowstronauts pipeline test</title>
+<style>
+  :root {
+    --navy: #0b1b33;
+    --ink: #f4f1ea;
+    --pink: #f2a7b5;
+    --gold: #e8c37a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--navy);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(#fff 1px, transparent 1px),
+      radial-gradient(#fff 1px, transparent 1px);
+    background-size: 90px 90px, 140px 140px;
+    background-position: 0 0, 45px 70px;
+    opacity: 0.18;
+  }
+  .glow {
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+  }
+  .glow.a { background: #e86a5a; top: -300px; right: -200px; }
+  .glow.b { background: #4a7dbf; bottom: -350px; left: -250px; }
+  .frame {
+    position: absolute;
+    inset: 64px;
+    border: 2px solid rgba(244, 241, 234, 0.18);
+    border-radius: 28px;
+    padding: 72px 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .kicker {
+    letter-spacing: 0.28em;
+    font-size: 24px;
+    color: var(--gold);
+  }
+  h1 {
+    font-size: 96px;
+    line-height: 1.02;
+    margin: 20px 0 12px;
+    letter-spacing: 0.02em;
+  }
+  h2 {
+    font-size: 34px;
+    font-weight: 400;
+    color: rgba(244, 241, 234, 0.78);
+    margin: 0;
+  }
+  .bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 72px;
+  }
+  .avatars { display: flex; gap: 36px; align-items: flex-end; }
+  .avatar {
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid rgba(244, 241, 234, 0.85);
+    background: #15294a;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar.silver { animation: pop 0.7s 0.3s both; }
+  .avatar.shadow { animation: pop 0.7s 0.7s both; }
+  .avatar.ginger { animation: pop 0.7s 1.1s both; }
+  @keyframes pop {
+    from { transform: translateY(40px) scale(0.86); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  .right { text-align: right; }
+  .tc {
+    font-variant-numeric: tabular-nums;
+    font-size: 32px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  .bar {
+    width: 1100px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(244, 241, 234, 0.16);
+    overflow: hidden;
+  }
+  .bar > i {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--pink), var(--gold));
+    animation: grow 10s linear forwards;
+  }
+  @keyframes grow { to { width: 100%; } }
+</style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+  <div class="frame">
+    <div>
+      <div class="kicker">PIPELINE TEST · 1920×1080 · 30 FPS</div>
+      <h1>MEOWSTRONAUTS<br>MARS OUTPOST</h1>
+      <h2>Three cats. Seven sols. One choice at a time.</h2>
+    </div>
+    <div class="bottom">
+      <div class="avatars">
+        <div class="avatar silver"><img src="../../brand/avatar-silver-512.webp" alt=""></div>
+        <div class="avatar shadow"><img src="../../brand/avatar-shadow-512.webp" alt=""></div>
+        <div class="avatar ginger"><img src="../../brand/avatar-ginger-512.webp" alt=""></div>
+      </div>
+      <div class="right">
+        <div class="tc" id="tc">0.0 s</div>
+        <div class="bar"><i></i></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const start = performance.now();
+    const tc = document.getElementById('tc');
+    function tick(now) {
+      const t = Math.min(10, (now - start) / 1000);
+      tc.textContent = t.toFixed(1) + ' s';
+      if (t < 10) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

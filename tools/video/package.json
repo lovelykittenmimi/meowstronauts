@@ -1,0 +1,13 @@
+{
+  "name": "meowstronauts-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture": "node capture-test.mjs",
+    "assemble": "node assemble-test.mjs",
+    "test": "node capture-test.mjs && node assemble-test.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.65.0"
+  }
+}

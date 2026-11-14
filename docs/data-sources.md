@@ -16,8 +16,8 @@
 |---|---|---|---|---|
 | `src/data/spaceweather.snapshot.json` | DONKI 2025-05-13～05-17：20 筆 CME、4 筆 FLR（X1.2／M5.3／X2.7／M7.7）、1 筆 GST（Kp 6.33）＋ `meta.assessment` 風暴判定 | 20 CME / 4 FLR / 1 GST | [NASA DONKI](https://api.nasa.gov/DONKI/) | NASA Open Data |
 | `src/data/mars-weather.snapshot.json` | Curiosity REMS 2025-05-08～05-22 的 14 sol（氣溫、地面溫度、氣壓、season、`gameplayTags`）；核心 7 sol（05-15～05-22，05-18 缺資料）平均白天高溫 -29.7°C，是 2012–2026 年檔案中前 1.1% 的冷週（2019 窗口更冷，保留為歷史對照） | 14 | [MSL weather feed](https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json) | NASA/JPL-Caltech |
-| `src/data/mars-photos/metadata.json` | 6 張火星照片的 NASA ID、標題、拍攝日、credit、檔案路徑 | 6 | [NASA Image Library](https://images-api.nasa.gov/) | 各圖標註 NASA/JPL-Caltech 等 |
-| `src/data/mars-photos/*.jpg` | 真實火星地表／探測車照片 | 6 | 同上 | 見 metadata |
+| `src/data/mars-photos/metadata.json` | 7 張火星照片的 NASA ID、標題、拍攝日、credit、檔案路徑 | 7 | [NASA Image Library](https://images-api.nasa.gov/) | 各圖標註 NASA/JPL-Caltech 等 |
+| `src/data/mars-photos/*.jpg` | 真實火星地表／探測車照片 | 7 | 同上 | 見 metadata |
 | `src/data/snapshots.manifest.json` | 快照總表、筆數、錯誤紀錄、選擇的窗口與風暴判定 | — | 由腳本產生 | — |
 
 > `scripts/raw/` 另有兩個**只供重新產生快照**的原始快取：`donki-cme-2026-11-11.json`（26 筆 CME）與 `msl-weather-2026-11-11.json`（1.7MB 完整 archive）。它們不進遊戲 bundle，也不會被前端 import。
@@ -32,6 +32,17 @@
 | PIA24173 | Curiosity's Selfie at the "Mary Anning" location on Mars | 2020-11-12 | NASA/JPL-Caltech/MSSS |
 | PIA26632 | Curiosity Captures Mars Landscape While Talking to an Orbiter | 2025-08-04 | NASA/JPL-Caltech |
 | PIA24264 | Mastcam-Z's First 360-Degree Panorama | 2021-02-24 | NASA/JPL-Caltech/MSSS/ASU |
+| PIA25077 | Curiosity Finds a Martian Flower | 2022-03-01（拍攝 2022-02-24） | NASA/JPL-Caltech/MSSS |
+
+使用注意（尺寸與色彩模式已於 2026-11-12 實測，詳見 `docs/pre-event/data-audit.md`）：
+
+- **PIA24173 是直式**（1075×1280），4:3 卡片需 `object-fit: cover`，不要硬拉變形。
+- **PIA26632 是灰階**（1280×720，mode `L`）。加邊框或註記「原始影像為黑白」，不可上色；不建議當唯一主視覺。
+- **PIA24264 是全景條**（1280×339，3.78:1）。只當橫幅或小圖，裁成 16:9 會只剩一條。
+- **PIA25077 是 4:3 近景**（1280×956，RGB；350,608 B）。花狀岩石在中央偏左，右側有圓石；適合 4:3 卡片，裁 16:9 仍可保留主體，但不要裁成正方形特寫而失去「這是岩石」的脈絡。
+
+> 2026-11-12 另檢視 6 張候選照片（5 張 Perseverance raw＋PIA25077）；**PIA25077 已加入為第 7 張**，作 F1「溫室番茄豐收」的故事客串與資料面板小圖；其餘 5 張 raw 不採用。逐張判斷見 `docs/pre-event/photo-review-2026-11-12.md`。
+> 沙塵暴照片目前不採用；若 P1 知識卡需要，PIA22519／PIA22487／PIA22960 是有 caption 的候選，但要標明事件與日期，不能暗示是遊戲中的 2025 冷週。
 
 ## 3. API 實測狀態（2026-11-11）
 
@@ -44,7 +55,7 @@
 | `api.nasa.gov/mars-photos` | ❌ HTTP 404「No such app」 | **不依賴**；改用 NASA Image Library |
 | `api.nasa.gov/insight_weather` | ⚠️ HTTP 200，但資料停在 2020（sol 675） | **不使用**；InSight 任務已結束 |
 | `mars.nasa.gov` MSL weather feed | ✅ HTTP 200，資料到 2026-08-25 | 使用；快照固定為 2025 冷週（見 §3.1） |
-| NASA Image Library | ✅ HTTP 200 | 使用；已存 6 張照片 |
+| NASA Image Library | ✅ HTTP 200 | 使用；已存 7 張照片 |
 
 > MSL weather feed **沒有風速欄位**（`wind_speed` 全為 `--`）。天氣機制改用氣溫、地面溫度、氣壓，不要捏造風速。
 
@@ -91,6 +102,56 @@
 
 > **科學簡化：** DONKI 的 GST／Kp 是**地球**的地磁指數；火星沒有全球磁場。遊戲只把 Kp 當作「太陽風暴強度」的簡化代理，火星受災情節是虛構的訓練情境。資料面板要寫明這個簡化，不要說「NASA 偵測到火星風暴」。
 
+### 3.2 官方 challenge resources（2026-11-13 釋出，當晚實測）
+
+Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 實測結果：
+
+| 資源 | 實測 | 決策 |
+|---|---|---|
+| [api.nasa.gov](https://api.nasa.gov/)（APOD／Mars Rover Photos／DONKI） | APOD 對 2025-05 日期回傳通用樣板（`Discover the cosmos!...`），不是當日內容；DONKI 用 `DEMO_KEY` 回 **429 OVER_RATE_LIMIT**；Mars Rover Photos 先前 404 | 只沿用既有 DONKI 快照；APOD 不採用 |
+| [DONKI](https://ccmc.gsfc.nasa.gov/tools/DONKI/) | 既有 2025-05-13～17 快照不變；要抓新窗口需真實 key | 使用（既有快照） |
+| [OSDR](https://osdr.nasa.gov/bio/repo/) | `geode-py/ws/api/experiments` 正常；已抓 923／928 筆 metadata（5 筆 403） | **新增使用**；離線索引見下 |
+| [RadLab](https://visualization.osdr.nasa.gov/radlab/gui/data-api/) | `/radlab/gui/data-api/` **500**、POST **405**、GUI `/gui/overview` **500** | **不使用**（服務異常）；不捏造劑量數字 |
+| [Mars Trek](https://trek.nasa.gov/mars/) | ArcGIS ImageServer 的 `exportImage` 可用 | 選用（研究候選，非最終美術） |
+| [CSA STEM resources](https://www.asc-csa.gc.ca/eng/youth-educators/resources-stem-and-youth-organizations.asp) | 連線重置（`curl 35`） | 只保留連結，不抓資料 |
+| [CSA food production toolkit](https://www.asc-csa.gc.ca/eng/youth-educators/toolkits/food-production/) | HTTP 200 | 只保留連結，不抓資料 |
+
+新增的離線快取（**不是遊戲 bundle**，前端不要 import）：
+
+| 檔案 | 內容 | 授權／credit |
+|---|---|---|
+| `scripts/raw/official-resources-2026-11-13/osdr-experiments-index.json` | OSDR 923 筆 experiment metadata（`osId`、title、releaseDate、missions、researchAreas、factors） | NASA Open Data |
+| `scripts/raw/official-resources-2026-11-13/osdr-shortlist.json` | 6 筆與遊戲機制相關的研究（番茄／馬鈴薯、部分重力、骨、黴菌、輻射） | NASA Open Data |
+| `scripts/raw/official-resources-2026-11-13/mars-trek/gale-hirise-mosaic.jpg` | Curiosity 著陸區 HiRISE 鑲嵌（1200×1150，灰階） | NASA/JPL-Caltech |
+| `scripts/raw/official-resources-2026-11-13/mars-trek/gale-mola-elevation.png` | Gale 坑 MOLA 高程（800×800，灰階） | NASA/JPL-Caltech |
+
+使用紅線：
+
+- OSDR 是**太空生物／健康**資料，多為 ISS 微重力、模擬重力或月壤模擬基質研究；不可寫成「火星表面實測」。`OS-926`～`OS-929` 是 **lunar regolith simulant**，不是火星土壤。
+- Mars Trek 影像要標 `NASA/JPL-Caltech`；不得暗示 NASA 背書。
+- RadLab 若在比賽期間恢復，再評估；目前沒有可引用的劑量數字。
+- APOD 的 archive 對舊日期回樣板頁，不能當事件影像。
+
+### 3.3 OSDR 知識卡候選（只列可驗證事實）
+
+2026-11-13 逐筆檢視 API 的 `objectives`／`approach`／`results` 欄位。**6 筆裡有 5 筆的結果是空白、進行中或只有研究意義**，所以知識卡只能寫「NASA 在研究什麼」，不能寫「研究發現了什麼」。安全句式是「科學家也在找答案」，不是「研究證明」。
+
+| OS ID | 研究問題（來自 objectives／approach） | 可寫的事實 | 不可寫 | `results` 狀態 |
+|---|---|---|---|---|
+| OS-928 | 把 Red Robin 番茄種到結果期，比較兩種月壤模擬基質與無月壤對照組的代謝變化 | NASA 有一項研究，用月壤**模擬**基質種番茄、分析代謝變化 | 番茄在月壤長得好不好、產量、營養結論 | 空白 |
+| OS-927 | 用 Lunar Highlands／Lunar Mare 月壤模擬基質（混堆肥）種 Modoc 馬鈴薯，比較生長、生理、轉錄體、代謝物與產量 | NASA 也在研究月壤模擬基質種馬鈴薯 | 馬鈴薯產量、可食性、營養結論 | 空白 |
+| OS-919 | 不同重力（微重力、月球重力、火星重力）下生物如何調節生理；方法含肌力測定、組織學、蛋白質體 | NASA 研究不同重力下的生理適應，**包含火星重力** | 火星重力對人體心血管的具體影響 | `Experiment in progress, results pending` |
+| OS-915 | 太空飛行對中軸骨與附肢骨的骨骼反應 | NASA 研究太空飛行對骨骼的影響 | 骨密度下降幾 %、太空人骨質流失數字 | `Results pending` |
+| OS-917 | ISS 上不同材料表面的生物膜（含黴菌）質量、厚度、形態與基因表現 | NASA 研究太空站材料表面為什麼會長生物膜 | 哪種材料最容易長黴、清潔方法成效 | 欄位是研究意義，不是數據 |
+| OS-126 | 用 150 MeV 質子束模擬太陽粒子事件，研究血液、心臟、血管的急性輻射影響（小鼠／大鼠／兔子） | NASA 用實驗動物模擬太陽粒子事件的輻射影響 | 把動物結果寫成人類或火星表面的確定結論 | 有內容，但為動物實驗 |
+
+使用注意：
+
+- **月壤不是火星土壤**：OS-926～929 是 lunar regolith simulant；遊戲是火星基地，只能當「科學家也在研究用當地材料種菜」的類比，不能寫「火星土可以種番茄」。
+- **也不能寫「月球土壤可以種番茄」**：OS-928 的 `results` 是空的（只有研究設計），而且用的是**模擬**月壤，不是阿波羅帶回來的真月壤。要寫只能寫「NASA 正在測試用模擬月壤種番茄，結果還沒公布」，不能寫成肯定句。
+- **不要引用 OSDR 當兒童文案的數字來源**：這些紀錄多為研究計畫與資料集，不是給 7–12 歲的科普結論。既有的 Mars Facts／NASA Science 條目仍是知識卡的主要來源。
+- 若真要寫「研究發現」，必須先讀該筆的 `results` 與連結論文；在 11/14–15 的時間內不建議。
+
 ## 4. 重新產生
 
 ```bash
@@ -108,7 +169,7 @@ node scripts/fetch-snapshots.mjs --weather-only \
 # 完整重建（太空天氣＋天氣＋照片；需要網路與 key）
 NASA_API_KEY=your_key node scripts/fetch-snapshots.mjs \
   --start-date=2025-05-13 --end-date=2025-05-17 \
-  --weather-file=scripts/raw/msl-weather-2026-11-11.json --photos=6
+  --weather-file=scripts/raw/msl-weather-2026-11-11.json --photos=7
 
 # 改用最新天氣（不建議用於開局；最新資料偏暖）
 node scripts/fetch-snapshots.mjs --weather-mode=latest
@@ -122,14 +183,14 @@ node scripts/fetch-snapshots.mjs \
   --weather-start=2019-08-15 --weather-end=2019-08-29
 
 # 自訂輸出與照片數量
-node scripts/fetch-snapshots.mjs --out=src/data --photos=6
+node scripts/fetch-snapshots.mjs --out=src/data --photos=7
 ```
 
 > `/DONKI/FLR` 在 2026-11-11 實測回 404；4 筆閃焰是從 `/DONKI/notifications?type=FLR` 的通知內文解析（start / peak / class / source region），存成 `donki-flr-2025-05.json`。通知沒有 `endTime`，所以快照的 `endTime` 是 `null`。
 
 腳本輸出：`spaceweather.snapshot.json`、`mars-weather.snapshot.json`、`mars-photos/metadata.json`、`snapshots.manifest.json`。
 
-> **Key 安全：** 不要把 NASA API key 寫進 repo、`.env` 或快照檔；本機用 `NASA_API_KEY` 環境變數，正式站用 Cloudflare Worker secret。`snapshots.manifest.json` 只記錄 `DEMO_KEY` 或 `NASA_API_KEY`，不記錄值。**2026-11-11 曾在對話中貼出真實 key，請到 api.nasa.gov 重新產生一組，舊 key 作廢。**
+> **Key 安全：** 不要把 NASA API key 寫進 repo、`.env` 或快照檔；本機用 `NASA_API_KEY` 環境變數，正式站用 Cloudflare Worker secret。`snapshots.manifest.json` 只記錄 `DEMO_KEY` 或 `NASA_API_KEY`，不記錄值。
 
 ## 5. 欄位與遊戲對應
 
@@ -214,9 +275,12 @@ node scripts/fetch-snapshots.mjs --out=src/data --photos=6
 
 ## 6. 待補
 
-- [x] 取得 NASA API key（2026-11-11；**已在對話中曝光，請重新產生**），補抓 2025-05-13～17 的 CME／FLR／GST。
+- [x] 取得 NASA API key（2026-11-11），補抓 2025-05-13～17 的 CME／FLR／GST。
 - [x] 太空天氣快照改為 2025-05-13～17：X2.7 閃焰確認 `strongFlare = true`；Kp 6.33，`strongGeomagneticStorm = false`。
 - [x] 天氣快照改為 2025-05-08～05-22 冷週（核心 7 sol 前 1.1%；2019 冷週保留為歷史對照）。
 - [ ] 把 `meta`（觀測日、`assessment`、`selection.core`、`maxTempPercentile`）接入遊戲內 Data Sources 面板。
 - [ ] 事件卡與天氣卡依 `strongFlare`／`strongGeomagneticStorm` 決定用字：可寫「強烈太陽閃焰」，不得寫「強烈地磁風暴」；也不要說 CME 擊中火星。
+- [x] 2026-11-13 官方 challenge resources 釋出並實測（見 §3.2）；OSDR 索引與 Mars Trek 影像存於 `scripts/raw/official-resources-2026-11-13/`。
+- [ ] 若要做「強烈地磁風暴」特殊事件，需用**真實 key** 抓其他窗口的 DONKI（`DEMO_KEY` 已 429）；在取得資料前，不得先寫任何 Kp 或閃焰等級。
+- [ ] RadLab（`/radlab/gui/data-api/`）目前 500；恢復後再評估是否引用 ISS 劑量，否則維持現有「不做劑量數字」的寫法。
 - [ ] submission 的資料來源段落直接引用本文件。

@@ -4,14 +4,15 @@ A child-friendly Mars base survival game for the **NASA Space Apps Challenge 202
 
 Three cat astronauts crash near the fictional Hope-1 outpost and must keep the
 base — and themselves — alive for seven sols, until the supply ship arrives.
-Players manage power, life support, food, health, morale, and science while
-learning how real Mars data is read.
+Players manage power, life support, radiation shielding, food, health, and
+science while learning how real Mars data is read.
 
 ## Status
 
-**Pre-event research only.** No game code or game content is written before
-**2026-11-14 09:00** (event start). This repository currently contains the plan,
-data-source research, offline API snapshots, and image-generation prompts.
+**Event started 2026-11-14 09:00.** This first commit is the pre-event snapshot:
+the plan, data-source research, offline API snapshots, image-generation prompts,
+layout wireframes, submission templates, brand kit, and the standalone video
+pipeline. Game code and final in-game copy are written during the event.
 
 ## What is real and what is fiction
 
@@ -33,11 +34,36 @@ are never presented as live data.
 |---|---|
 | `PLAN.md` | Full project plan: scope, game design, responsive rules, runbook |
 | `docs/data-sources.md` | NASA APIs, verified values, honesty rules |
-| `docs/image-prompts.md` | 29 image-generation prompts and output specs |
+| `docs/pre-event/` | Internal pre-event records: work log, final-check runbook, snapshot audit, B/C setup prompts, 11/13 review |
+| `docs/image-prompts.md` | 30 image-generation prompts and output specs |
 | `docs/gem-instructions.md` | Instructions for the Gemini GEM image workflow |
+| `docs/playtest.md` | Child playtest protocol, observation sheet, fix log |
+| `docs/glossary.md` | 20 candidate terms with verified NASA sources |
+| `docs/event-cards.md` | Event-card schema, deck rules, resolution order |
+| `docs/balance-sheet.csv` | 24-card design library × 3 choices; MVP ships 12 |
+| `docs/wireframes.md` | Layout specs from 568×320 to 1440×900, panels and backpack |
+| `docs/iconography.md` | Icon strategy: Lucide for UI, paw/logo as team marks |
+| `docs/character-voices.md` | Voice rules for the three cats, calibration lines |
+| `docs/submission.md` | Project-page copy template for the Space Apps submission |
+| `docs/ai-disclosure.md` | AI tools, scope, fact-checking, runtime statement |
+| `docs/video-script.md` | 30-second demo video shot list and narration |
+| `docs/video-path.md` | Deterministic demo URLs, test IDs, recording route and handoff checks |
+| `docs/pitch.md` | 30-second judge pitch, demo route, Q&A |
+| `docs/qa-checklist.md` | 11/14–15 manual QA: responsive, a11y, i18n, data honesty |
+| `docs/test-plan.md` | Test specification (spec only before 11/14): P0 unit/integration/E2E, video-path fixtures |
+| `docs/licenses.md` | Fonts, icons, NASA media, dependencies, credits |
 | `docs/assets/characters/` | Three character reference images |
+| `brand/` | Pre-event brand kit: avatars, full-body cutouts, favicons, OG card |
+| `.github/workflows/ci.yml` | CI skeleton; runs lint/test/build once `package.json` exists |
 | `src/data/` | Trimmed offline snapshots and Mars photos |
 | `scripts/` | Snapshot fetch script and raw download inputs |
+| `tools/video/` | Standalone 30-second video pipeline: title card, SRT, Playwright capture, ffmpeg assembly |
+| `output/` | Local video output (git-ignored) |
+
+`docs/pre-event/` holds operational records from before the event: the 11/12
+work log, the 11/13 final-check runbook and review, the snapshot audit, and the
+B/C setup prompts. They document how the project was prepared and are kept for
+transparency; they are not game content or part of the submission.
 
 ## Language
 

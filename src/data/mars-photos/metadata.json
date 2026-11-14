@@ -78,6 +78,20 @@
       "bytes": 74636,
       "assetUrl": "https://images-assets.nasa.gov/image/PIA24264/PIA24264~medium.jpg",
       "sourceUrl": "https://images.nasa.gov/details/PIA24264"
+    },
+    {
+      "nasaId": "PIA25077",
+      "title": "Curiosity Finds a Martian Flower",
+      "rover": "Curiosity",
+      "location": "Gale Crater",
+      "dateCreated": "2022-03-01",
+      "center": "JPL",
+      "credit": "NASA/JPL-Caltech/MSSS",
+      "description": "Smaller than a penny, the flower-like rock artifact on the left was imaged by NASA's Curiosity Mars rover using its Mars Hand Lens Imager (MAHLI) camera on the end of its robotic arm. The image was taken on Feb. 24, 2022, the 3,396th Martian day, or sol, of the mission. The flower-like feature, along with the spherical rock artifacts seen to the right, was made in the ancient past when minerals carried by water cemented the rock.",
+      "file": "mars-photos/PIA25077.jpg",
+      "bytes": 350608,
+      "assetUrl": "https://images-assets.nasa.gov/image/PIA25077/PIA25077~medium.jpg",
+      "sourceUrl": "https://images.nasa.gov/details/PIA25077"
     }
   ]
 }

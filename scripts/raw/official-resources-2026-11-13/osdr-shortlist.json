@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "source": "NASA OSDR",
+  "sourceUrl": "https://osdr.nasa.gov/bio/repo/",
+  "index": "osdr-experiments-index.json",
+  "fetchedAt": "2026-11-13T11:58:10Z",
+  "license": "NASA Open Data（見 OSDR 條款）",
+  "note": "Curated shortlist from the offline index; titles are verbatim from the API. 標記「月球」的研究不可寫成火星。",
+  "evidenceNote": "2026-11-13 檢視 API 的 objectives／approach／results 欄位：4 筆結果空白或 pending。知識卡只能寫研究問題或設計，不能寫研究發現。"
+ },
+ "experiments": [
+  {
+   "osId": "OS-928",
+   "title": "The metabolomic impact of lunar regolith-based substrate on tomatoes",
+   "releaseDate": "July 16, 2024",
+   "topic": "food",
+   "gameUse": "月壤模擬基質種番茄的代謝體變化",
+   "caution": "F1 溫室番茄故事的科學背景；月球不是火星，文案要寫 lunar regolith simulant",
+   "apiUrl": "https://osdr.nasa.gov/geode-py/ws/api/experiment/OS-928",
+   "resultsStatus": "results 欄空白（只有 objectives／approach）",
+   "safeClaimZh": "研究設計：把 Red Robin 番茄種到結果期，比較兩種月壤模擬基質與無月壤對照組的代謝變化。",
+   "doNotClaimZh": "番茄在月壤長得好／不好、產量或營養結論。"
+  },
+  {
+   "osId": "OS-927",
+   "title": "Growth, physiology and nutrition dynamics of potato plants grown on lunar regolith simulant medium",
+   "releaseDate": "July 08, 2024",
+   "topic": "food",
+   "gameUse": "月壤模擬基質種馬鈴薯的生長與營養",
+   "caution": "食物生產卡；同樣必須標明是 lunar regolith simulant",
+   "apiUrl": "https://osdr.nasa.gov/geode-py/ws/api/experiment/OS-927",
+   "resultsStatus": "results 欄空白",
+   "safeClaimZh": "研究設計：用 Lunar Highlands／Lunar Mare 月壤模擬基質（混堆肥）種 Modoc 馬鈴薯，比較生長、生理、轉錄體、代謝物與產量。",
+   "doNotClaimZh": "馬鈴薯產量、營養或可食性結論。"
+  },
+  {
+   "osId": "OS-919",
+   "title": "Partial Gravity and Sex-Difference Effects on the Venous Circulation",
+   "releaseDate": "July 18, 2023",
+   "topic": "health",
+   "gameUse": "部分重力對靜脈循環的影響",
+   "caution": "火星 0.38 g 的健康風險；研究含性別差異，兒童文案不展開",
+   "apiUrl": "https://osdr.nasa.gov/geode-py/ws/api/experiment/OS-919",
+   "resultsStatus": "results：Experiment in progress, results pending",
+   "safeClaimZh": "研究問題：不同重力狀態（微重力、月球重力、火星重力）下生物如何調節生理；方法含肌力測定、組織學、蛋白質體。",
+   "doNotClaimZh": "火星重力對人體心血管的具體影響數字。"
+  },
+  {
+   "osId": "OS-915",
+   "title": "RR-20: Static Bone Properties and Estrogen Receptor Expression",
+   "releaseDate": "April 21, 2023",
+   "topic": "health",
+   "gameUse": "太空飛行下的骨骼性質（RR-20）",
+   "caution": "骨質流失知識卡；是齧齒類研究，不要說成「太空人骨頭」的唯一證據",
+   "apiUrl": "https://osdr.nasa.gov/geode-py/ws/api/experiment/OS-915",
+   "resultsStatus": "results：Results pending",
+   "safeClaimZh": "研究問題：太空飛行對中軸骨與附肢骨的骨骼反應。",
+   "doNotClaimZh": "骨密度下降幾 %、太空人骨質流失數字。"
+  },
+  {
+   "osId": "OS-917",
+   "title": "Characterization of Fungal Biofilm (Molds) Formation, Growth, and Gene Expression on Different Materials in Microgravity",
+   "releaseDate": "August 24, 2023",
+   "topic": "lifeSupport",
+   "gameUse": "微重力下材料表面的真菌生物膜",
+   "caution": "艙內黴菌／清潔事件卡；有 OSD 編號可引用",
+   "apiUrl": "https://osdr.nasa.gov/geode-py/ws/api/experiment/OS-917",
+   "resultsStatus": "results 欄是研究意義，不是數據",
+   "safeClaimZh": "研究問題：ISS 上不同材料表面的生物膜（含黴菌）質量、厚度、形態與基因表現。",
+   "doNotClaimZh": "哪種材料最容易長黴、清潔方法的成效。"
+  },
+  {
+   "osId": "OS-126",
+   "title": "Center for Space Radiation Research - Long Evans rats exposed to protons or oxygen ions",
+   "releaseDate": "November 17, 2022",
+   "topic": "radiation",
+   "gameUse": "太空輻射研究中心的質子／氧離子暴露實驗",
+   "caution": "輻射風險背景；動物實驗，只當研究背景，不做兒童主文案",
+   "apiUrl": "https://osdr.nasa.gov/geode-py/ws/api/experiment/OS-126",
+   "resultsStatus": "results 有內容，但為小鼠／大鼠／兔子實驗",
+   "safeClaimZh": "研究背景：用 150 MeV 質子束模擬太陽粒子事件，研究血液、心臟、血管的急性輻射影響（OS-126）。",
+   "doNotClaimZh": "把動物結果寫成人類或火星表面的確定結論。"
+  }
+ ]
+}

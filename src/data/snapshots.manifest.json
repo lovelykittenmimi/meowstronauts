@@ -1,7 +1,8 @@
 {
   "fetched_at": "2026-11-11T06:07:33.816Z",
   "generator": "scripts/fetch-snapshots.mjs",
-  "api_key": "NASA_API_KEY",
+  "api_key_included": false,
+  "api_key_source": "Cloudflare Worker secret (production) / .dev.vars (local)",
   "files": {
     "spaceweather": "spaceweather.snapshot.json",
     "marsWeather": "mars-weather.snapshot.json",
@@ -12,7 +13,7 @@
     "flr": 4,
     "gst": 1,
     "weatherSols": 14,
-    "photos": 6
+    "photos": 7
   },
   "selection": {
     "donkiWindow": {
