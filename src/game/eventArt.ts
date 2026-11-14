@@ -4,12 +4,8 @@ import controlRoom from '../assets/generated/scenes/08-control-room.webp';
 import controlRoomEmpty from '../assets/generated/scenes/08-control-room-nocat.webp';
 import greenhouse from '../assets/generated/scenes/09-greenhouse.webp';
 import greenhouseEmpty from '../assets/generated/scenes/09-greenhouse-nocat.webp';
-import nightRepair from '../assets/generated/scenes/10-night-repair.webp';
-import nightRepairEmpty from '../assets/generated/scenes/10-night-repair-nocat.webp';
 import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import coldPatrolEmpty from '../assets/generated/scenes/11-cold-patrol-nocar.webp';
-import debrief from '../assets/generated/scenes/12-debrief.webp';
-import debriefEmpty from '../assets/generated/scenes/12-debrief-nocat.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
 import shadowHeroEmpty from '../assets/generated/scenes/21-shadow-hero-nocat.webp';
 import shadowHeroSwept from '../assets/generated/scenes/21-shadow-hero-nocat-clean.webp';
@@ -19,6 +15,10 @@ import oxygenUnit from '../assets/generated/scenes/32-oxygen-unit.webp';
 import shelterDoor from '../assets/generated/scenes/33-shelter-door.webp';
 import waterLine from '../assets/generated/scenes/34-water-line.webp';
 import supplyCrate from '../assets/generated/scenes/35-supply-crate.webp';
+import co2Scrubber from '../assets/generated/scenes/36-co2-scrubber.webp';
+import co2ScrubberEmpty from '../assets/generated/scenes/36-co2-scrubber-nocat.webp';
+import nightDust from '../assets/generated/scenes/37-night-dust.webp';
+import nightDustEmpty from '../assets/generated/scenes/37-night-dust-nocat.webp';
 
 export interface EventArt {
   src: string;
@@ -80,15 +80,15 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '暗影穿著深色太空衣站在積塵的太陽能板上，背後是基地圓頂。',
     },
   },
-  // P1 — the dust settles again later in the week. The card uses the night
-  // repair scene so it cannot be mistaken for the Sol 1 tutorial, but the
-  // sweeping beat still reuses the Sol 1 array plates: same array, same job.
+  // P1 — the dust settles again later in the week. This night shot of the
+  // same array keeps it distinct from the Sol 1 tutorial; the sweeping beat
+  // still reuses the Sol 1 array plates: same array, same job.
   P1: {
-    src: nightRepair,
-    briefingSrc: nightRepairEmpty,
+    src: nightDust,
+    briefingSrc: nightDustEmpty,
     briefingAlt: {
-      en: 'A solar panel array under the night sky with a repair drone and a portable light pod, no crew.',
-      'zh-TW': '夜空下的太陽能陣列，有維修無人機與行動燈具，畫面中沒有貓。',
+      en: 'A dust-covered solar panel array under the night sky, lit by a portable lamp, the outpost dome glowing in the distance and an empty rover parked nearby; no crew.',
+      'zh-TW': '星空下積滿沙塵的太陽能陣列，行動燈具照亮板面，遠處基地圓頂亮著，旁邊停著一輛空著的探測車；畫面中沒有貓。',
     },
     sweep: {
       src: shadowHeroEmpty,
@@ -103,8 +103,8 @@ export const EVENT_ART: Record<string, EventArt> = {
       },
     },
     alt: {
-      en: 'Shadow repairs a solar panel at night while Silver watches and Ginger waits in the rover.',
-      'zh-TW': '暗影在夜間維修太陽能板，銀白在下方守候，金桔在探測車內等待。',
+      en: 'Shadow stands on a dust-covered solar panel at night, visor scanning the glass, while Silver watches from the ground and Ginger waits inside the rover.',
+      'zh-TW': '夜裡，暗影站在積滿沙塵的太陽能板上，護目鏡掃描著板面；銀白在下方地面守候，金桔坐在探測車裡等待。',
     },
   },
   // P4 — the cold week; a rover out on the frost with a dust devil spinning.
@@ -136,17 +136,17 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '金桔蹲在溫室走道漏水、生鏽的水管接頭旁，機械臂正轉緊接頭，水滴落進下方的金屬盆，背後是粉紫植物燈與幼苗。',
     },
   },
-  // L3 — CO₂ climbing; the crew reads the levels off the display.
+  // L3 — CO₂ climbing; Silver at the open scrubber housing.
   L3: {
-    src: debrief,
-    briefingSrc: debriefEmpty,
+    src: co2Scrubber,
+    briefingSrc: co2ScrubberEmpty,
     briefingAlt: {
-      en: 'An empty debrief room with a floating holographic report above a low table.',
-      'zh-TW': '空無一貓的任務覆盤室，低桌上空浮著全像報告。',
+      en: 'An empty life-support bay with a carbon-dioxide scrubber, its round filter housing open and a spare cartridge on the floor, bars and molecule symbols on the screen; no crew.',
+      'zh-TW': '空無一貓的生命維持艙，二氧化碳洗滌器的圓形濾芯艙門敞開，地上放著備用濾芯，螢幕顯示濃度條與分子符號。',
     },
     alt: {
-      en: 'The three cats gathered around a glowing holographic display in the habitat.',
-      'zh-TW': '三隻貓圍在基地裡發光的全像顯示器前。',
+      en: 'Silver sits before an open carbon-dioxide scrubber with one front paw on a low control panel, a spare filter cartridge on the floor, its screen showing bars and molecule symbols.',
+      'zh-TW': '銀白坐在敞開濾芯艙門的二氧化碳洗滌器前，前掌按著低矮的控制面板，地上放著備用濾芯，螢幕顯示濃度條與分子符號。',
     },
   },
   // S1 — flare warning; the wall display is the story here.

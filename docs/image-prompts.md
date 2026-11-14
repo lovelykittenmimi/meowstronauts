@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-14（01–35 已出圖，見 §0.6、§7；§3.1 的 31–35 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 同日重出移除國旗貼布）
+> 最後更新：2026-11-14（01–37 已出圖，見 §0.6、§7；§3.1 的 31–35 與 §3.2 的 36–37 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 同日重出移除國旗貼布）
 
 ---
 
@@ -115,7 +115,7 @@
 - 01 已於 11/14 重出：移除 Ginger 旁岩石上的番茄，理由同 06／13／22。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
-- 2026-11-14 晚間新增 §3.1 的 31–35（事件卡補圖），尚未生成；這 5 張不在上面的批次與 §0.6 成品清單內。
+- 2026-11-14 晚間新增 §3.1 的 31–35 與 §3.2 的 36–37（事件卡補圖），皆已出圖並接入 `eventArt.ts`；成品不在上面的批次清單內。
 
 ---
 
@@ -350,6 +350,51 @@ Aspect ratio 16:9, target size 1920x1080. Match the Ginger reference image in th
 
 ---
 
+### 3.2 事件卡補圖 36–37（2026-11-14，已出圖並接入）
+
+> 補最後兩張「圖沒拍到事件本身」的卡：L3（CO₂ 超標）與 P1（太陽能板積塵）。
+> 原圖為 2752×1536 JPEG，處理成 1280×714 WebP q=82 放進 `src/assets/generated/scenes/`，
+> 由 `src/game/eventArt.ts` 接上；卡片圖與每日簡報底板成對生成，接法同 §3.1。
+> P1 的除塵小遊戲仍沿用 21 的黃昏積塵／乾淨兩張板（同一個陣列、同一件工作），
+> 卡片與簡報改用 37 的夜間版本。
+> **與原始 prompt 的差異**：36 的琥珀色狀態燈做成洗滌器右側的直條燈，不是細小指示燈；
+> 37 的探測車是圓筒玻璃罩六輪車，Ginger 坐在罩內；其餘構圖與 prompt 一致。
+> **36 取代 12-debrief 之後，12-debrief 只剩 Game Over 使用**，不再與 L3 共用同一張圖。
+
+#### 36. 二氧化碳超標（L3）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`36-co2-scrubber.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the Silver reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Night inside a small Mars habitat life-support bay: a wall-mounted carbon dioxide scrubber unit in cream-and-teal casing, with a round filter housing, visible ribbed ducting and a status strip glowing soft amber. Its small screen shows only simple abstract icons — three rising bars and a loose cluster of round molecule symbols — no readable text or numbers. The round filter hatch is open, and a spare filter cartridge lies on the floor beside it. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back, sits before the open housing with one front paw pressed on the low wall control panel, tail wrapped around her paws, ears slightly back, calm but concerned, looking up at the rising-level screen. Cool cyan light spills out of the unit onto the metal floor; warm amber lamps light the rest of the bay. Keep Silver, the scrubber and the warning strip inside the central 80% of the frame, and keep key detail away from the top and bottom edges because the image is shown as a wide banner. Tense but composed, family-friendly, no fire, no red klaxon lights. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+**36-nocat（L3 每日簡報底板）**
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`36-co2-scrubber-nocat.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. No cats, no crew anywhere in frame. Night inside a small Mars habitat life-support bay: a wall-mounted carbon dioxide scrubber unit in cream-and-teal casing, with a round filter housing, visible ribbed ducting and a status strip glowing soft amber. Its small screen shows only simple abstract icons — three rising bars and a loose cluster of round molecule symbols — no readable text or numbers. The round filter hatch is open, and a spare filter cartridge lies on the floor beside the open panel. Cool cyan light spills from the unit onto the metal floor; warm amber lamps light the rest of the bay. Keep the scrubber and the warning strip inside the central 80% of the frame, and keep key detail away from the top and bottom edges. Quiet, slightly tense mood, family-friendly. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, realistic materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+#### 37. 太陽能板積塵（P1）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`37-night-dust.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Night on Mars outside the Hope-1 habitat: a solar panel array on the plain under a deep blue star-filled sky with the faint Milky Way, every glass face coated in a thick matte rust-red film of dust, fine dust ridges piled along the metal frames and small drifts at the panel feet; dust hangs in the air and catches the light. Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and carbon-fiber panels, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings, stands on the array with one front paw lifted toward a dust-covered panel, its visor scanning the glass. A portable light pod clipped to the panel frame shines a warm pool of light across the dust. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim, sits on the ground below with her tail wrapped around her paws, watching. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, wearing a puffy orange-and-cream astronaut suit covered in utility pockets and straps, waits inside the nearby rounded six-wheeled rover, a thermos beside it. The habitat dome glows warm in the distance. No frost and no ice on the panels — the story here is dust, not cold. Keep the three cats and the dust-covered panels inside the central 80% of the frame, and keep key detail away from the top and bottom edges because the image is shown as a wide banner. Quiet, determined mood, not scary. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+**37-nocat（P1 每日簡報底板）**
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`37-night-dust-nocat.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. No cats, no crew anywhere in frame. Night on Mars outside the Hope-1 habitat: a solar panel array on the plain under a deep blue star-filled sky with the faint Milky Way, every glass face coated in a thick matte rust-red film of dust, fine dust ridges piled along the metal frames and small drifts at the panel feet; dust hangs in the air and catches the light. A portable light pod clipped to the panel frame shines a warm pool of light across the dust. A repair drone hovers over the array, its small work light on the panels. No frost and no ice on the panels. The habitat dome glows warm in the distance. Keep the dust-covered panels inside the central 80% of the frame, and keep key detail away from the top and bottom edges. Quiet, slightly tense mood, family-friendly. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, realistic materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+---
+
 ## 4. 角色多角度分鏡
 
 ### 4.1 六視圖 turnaround
@@ -570,6 +615,8 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 | 33 | `33-shelter-door.png` | 16:9 | 1920×1080 | S3 事件卡：避難艙檢查（§3.1） | `scenes/33-shelter-door.webp`（1280×714；原檔為 `.jpeg`） |
 | 34 | `34-water-line.png` | 16:9 | 1920×1080 | L2 事件卡：水循環堵塞（§3.1） | `scenes/34-water-line.webp`（1280×714；原檔為 `.jpeg`） |
 | 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | `scenes/35-supply-crate.webp`（1280×714；原檔為 `.jpeg`；同日重出移除國旗貼布） |
+| 36 | `36-co2-scrubber.png` | 16:9 | 1920×1080 | L3 事件卡：二氧化碳超標（§3.2） | `scenes/36-co2-scrubber.webp`（1280×714；簡報板 `36-co2-scrubber-nocat.webp`；原檔為 `.jpeg`） |
+| 37 | `37-night-dust.png` | 16:9 | 1920×1080 | P1 事件卡：太陽能板積塵（§3.2） | `scenes/37-night-dust.webp`（1280×714；簡報板 `37-night-dust-nocat.webp`；原檔為 `.jpeg`） |
 
 ---
 

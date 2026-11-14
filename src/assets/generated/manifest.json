@@ -782,6 +782,74 @@
       },
       "credit": null,
       "note": "event card F3 / delayed supply crate / added and re-rolled without the US flag patch 2026-11-14"
+    },
+    {
+      "file": "scenes/36-co2-scrubber.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "36-co2-scrubber.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 63554,
+      "quality": 82,
+      "alt": {
+        "en": "Silver sits before an open carbon-dioxide scrubber with one front paw on a low control panel, a spare filter cartridge on the floor, its screen showing bars and molecule symbols.",
+        "zh-TW": "銀白坐在敞開濾芯艙門的二氧化碳洗滌器前，前掌按著低矮的控制面板，地上放著備用濾芯，螢幕顯示濃度條與分子符號。"
+      },
+      "credit": null,
+      "note": "event card L3 / CO2 scrubber / added 2026-11-14"
+    },
+    {
+      "file": "scenes/36-co2-scrubber-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "36-co2-scrubber-nocat.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 46476,
+      "quality": 82,
+      "alt": {
+        "en": "An empty life-support bay with a carbon-dioxide scrubber, its round filter housing open and a spare cartridge on the floor, bars and molecule symbols on the screen; no crew.",
+        "zh-TW": "空無一貓的生命維持艙，二氧化碳洗滌器的圓形濾芯艙門敞開，地上放著備用濾芯，螢幕顯示濃度條與分子符號。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14"
+    },
+    {
+      "file": "scenes/37-night-dust.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "37-night-dust.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 77808,
+      "quality": 82,
+      "alt": {
+        "en": "Shadow stands on a dust-covered solar panel at night, visor scanning the glass, while Silver watches from the ground and Ginger waits inside the rover.",
+        "zh-TW": "夜裡，暗影站在積滿沙塵的太陽能板上，護目鏡掃描著板面；銀白在下方地面守候，金桔坐在探測車裡等待。"
+      },
+      "credit": null,
+      "note": "event card P1 / night dust on the solar array / added 2026-11-14"
+    },
+    {
+      "file": "scenes/37-night-dust-nocat.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "37-night-dust-nocat.jpeg (no-cat plate)",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 52724,
+      "quality": 82,
+      "alt": {
+        "en": "A dust-covered solar panel array under the night sky, lit by a portable lamp, the outpost dome glowing in the distance and an empty rover parked nearby; no crew.",
+        "zh-TW": "星空下積滿沙塵的太陽能陣列，行動燈具照亮板面，遠處基地圓頂亮著，旁邊停著一輛空著的探測車；畫面中沒有貓。"
+      },
+      "credit": null,
+      "note": "background plate candidate (no cats), 2026-11-14"
     }
   ],
   "avatars": {
