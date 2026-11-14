@@ -1,0 +1,16 @@
+{
+  // Static-assets Worker for the game build. The game reads NASA data from the
+  // packaged snapshot, so no runtime API is needed; the NASA_API_KEY secret on
+  // this Worker is left for a later /api/spaceweather endpoint.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "meowstronauts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "mars.flymymind.com", "custom_domain": true }
+  ],
+  "observability": { "enabled": true }
+}
