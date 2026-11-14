@@ -98,6 +98,11 @@ describe('normal game', () => {
     expect(video.muted).toBe(true);
     expect(video.getAttribute('poster')).toBeTruthy();
 
+    // The NASA montage plays before the crash clip and starts with the flare.
+    expect(screen.getByTestId('opening-scene2-intro')).toBeTruthy();
+    expect(screen.getByTestId('nasa-shot-flare').className).toContain('is-current');
+    expect(screen.getByText('NASA / SDO')).toBeTruthy();
+
     const current = () => screen.getByTestId('dialogue-current').textContent ?? '';
     expect(current()).toContain('Stardust calling Mars Base');
     expect(current()).not.toContain('My tail is on fire too');

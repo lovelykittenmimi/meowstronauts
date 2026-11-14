@@ -1,6 +1,6 @@
 # 授權與致謝（Licenses & Credits）
 
-> 最後更新：2026-11-12
+> 最後更新：2026-11-14（新增幕 2 的 NASA／ESA 太陽與火星影像）
 > 用途：submission 的 license／credits 欄位、README 致謝段、評審詢問時的依據。
 > 原則：**每一項資產都能說出來源與授權**；不確定的就不要用。
 
@@ -42,13 +42,17 @@
 | NASA DONKI（CME／FLR／GST） | 公開資料 | 賽前快照，標註來源與日期 |
 | Curiosity REMS 氣象資料（MSL） | 公開資料 | 賽前快照，標註來源與日期 |
 | NASA Image Library 照片 | 多為公共領域 | 保留 NASA ID 與 `NASA/JPL-Caltech` credit |
+| NASA SDO 太陽閃焰（APOD 2017-09-14） | 公共領域（NASA） | 幕 2 開場；畫面標 `NASA / SDO` |
+| NASA/ESA SOHO 日冕物質拋射（APOD 2016-01-10） | NASA/ESA；教育用途保留 credit | 幕 2 開場；畫面標 `NASA / ESA / SOHO` |
+| NASA/USGS Viking 火星全景（APOD 2024-11-10） | 公共領域 | 幕 2 開場；畫面標 `NASA / USGS / Viking` |
+| Mars Trek Gale 三張（wide／mid／close） | 公共領域（NASA/JPL-Caltech） | 幕 2 迫近鏡頭；畫面標 `NASA/JPL-Caltech · Mars Trek` |
 | NASA Science／NASA 學習頁面 | 引用 | 知識卡來源連結；不整段複製 |
 
 **NASA 使用紅線**
 
 - 不使用 NASA meatball 標誌、任務徽章、官方識別色當作本專案品牌。
 - 不暗示 NASA 背書或合作。
-- 照片若含可辨識人物或第三方版權，先換一張；目前選的 7 張為地表／探測車影像；PIA25077 為 Curiosity MAHLI 近景，credit NASA/JPL-Caltech/MSSS。
+- 照片若含可辨識人物或第三方版權，先換一張；目前選用的 NASA 影像包含 7 張地表／探測車影像（PIA25077 為 Curiosity MAHLI 近景，credit NASA/JPL-Caltech/MSSS），以及幕 2 開場的 SDO 太陽閃焰、SOHO 日冕物質拋射、Viking 火星全景與 Mars Trek 蓋爾撞擊坑三張；每張都在畫面上標 credit。
 - NASA 媒體指南：<https://www.nasa.gov/nasa-brand-center/images-and-media/>
 
 ## 5. 開源依賴（預計）

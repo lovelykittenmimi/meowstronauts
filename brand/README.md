@@ -10,7 +10,7 @@ in-game artwork produced during the hackathon.
 | `avatar-{cat}-512.webp` | Circular HUD/dialogue avatars |
 | `full-{cat}-800.webp` | Full-body cutouts for cards and reports |
 | `favicon-*.png` | Site icons derived from the Silver avatar |
-| `avatar-front-{cat}-512.webp` | Front-facing circular avatars (2026-11-14), built from the `neutral` headshots in `src/assets/avatars/`; same tinted disc and 10 px navy ring as the three-quarter set |
+| `avatar-front-{cat}-{expression}-512.webp` | Front-facing circular avatars (2026-11-14): 3 cats × 6 expressions = 18 files, built from the matching headshots in `src/assets/avatars/`; the crop window is fixed per cat so the face stays anchored when the expression changes. Same tinted disc and 10 px navy ring as the three-quarter set. |
 | `favicon-front-{cat}-180.png` / `-32.png` | Front-facing cat favicons derived from the same front-facing discs |
 | `logo-three-cats-512.png` / `.webp` | Team mark: watercolour three-cat logo, true-alpha master (WebP 37 KB for web) |
 | `logo-three-cats-256.png` | Smaller team mark for loading screens and footers |
