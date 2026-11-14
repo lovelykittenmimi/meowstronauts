@@ -65,9 +65,13 @@ export function LiveWeather({ lang }: { lang: Lang }) {
   }
 
   return (
-    <section className="chart-block live-weather" aria-labelledby="live-weather-title">
+    <section
+      className="chart-block live-weather"
+      aria-labelledby={open ? 'live-weather-title' : undefined}
+      aria-label={open ? undefined : t(lang, 'data.liveTitle')}
+    >
       <div className="live-weather-head">
-        <h3 id="live-weather-title">{t(lang, 'data.liveTitle')}</h3>
+        {open && <h3 id="live-weather-title">{t(lang, 'data.liveTitle')}</h3>}
         <button
           type="button"
           className="live-toggle"

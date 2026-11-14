@@ -1308,6 +1308,7 @@ h1 {
 }
 
 .live-toggle {
+  margin-left: auto;
   min-height: 44px;
   padding: 8px 16px;
   border: 2px solid var(--navy);

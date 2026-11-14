@@ -88,6 +88,17 @@ describe('LiveWeather', () => {
     expect(screen.queryByTestId('live-weather-table')).toBeNull();
   });
 
+  it('shows the heading only while the section is open', () => {
+    mockFetch();
+    render(<LiveWeather lang="en" />);
+
+    expect(screen.queryByRole('heading', { name: 'Latest 7 sols from NASA' })).toBeNull();
+    fireEvent.click(screen.getByTestId('live-weather-toggle'));
+    expect(screen.getByRole('heading', { name: 'Latest 7 sols from NASA' })).toBeTruthy();
+    fireEvent.click(screen.getByTestId('live-weather-toggle'));
+    expect(screen.queryByRole('heading', { name: 'Latest 7 sols from NASA' })).toBeNull();
+  });
+
   it('loads the newest seven sols after the button is pressed', async () => {
     const fetchMock = mockFetch();
     render(<LiveWeather lang="en" />);
