@@ -54,7 +54,7 @@ Live game: https://mars.flymymind.com
 Source code: https://github.com/lovelykittenmimi/meowstronauts
 ```
 
-- Live demo 由 A 於 11/14 21:00 deploy；11/15 再確認 HTTPS、無 console error。
+- Live demo 自 11/14 上線；`main` 每次 push 由 Cloudflare Workers Builds 自動建置部署（測試紅不部署）。11/15 再確認 HTTPS、無 console error。
 - GitHub repo **11/15 才轉 public**；轉完用無痕視窗開得到，再貼。
 
 ## 5. Project Details
@@ -72,7 +72,7 @@ How it works
 
 Real NASA data drives the situation, not just the decoration: the opening solar event is the 14 May 2025 X2.7 flare from NASA's DONKI archive, and the cold week is measured by Curiosity's REMS weather station. Terms in the text are tappable: a short definition opens in a side panel and can be saved to a backpack, so curious kids can go deeper without slowing the game down. Nothing is forced — the game is fully playable without opening a single knowledge card.
 
-The game is a static React build. A small Cloudflare Worker route proxies NASA's API so the key never reaches the browser, and all mission data is committed as offline snapshots, so the demo still works if the venue Wi-Fi does not. There are no accounts, no uploads, and no runtime AI.
+The game is a static React build served by Cloudflare Workers. The NASA API key stays in a Cloudflare secret — it never reaches the browser or the repository — and snapshots are refreshed by a local script before the event. All mission data is committed as offline JSON, so the demo still works if the venue Wi-Fi does not. There are no accounts, no uploads, and no runtime AI.
 
 Why it matters
 
@@ -81,10 +81,10 @@ Mission teams divide scarce electricity among crew systems, communications and r
 Tools, languages and hardware
 
 - React + TypeScript + Vite, static build; CSS (no UI framework)
-- Cloudflare Workers static assets + a small `/api` proxy (Wrangler)
+- Cloudflare Workers static assets (Wrangler), deployed from GitHub by Workers Builds
 - Case: NASA DONKI and Curiosity REMS snapshots committed as JSON; NASA Image Library photographs with IDs and credits
 - Icons: Lucide (ISC). Fonts: Noto Sans TC, Nunito (SIL OFL 1.1)
-- Tests: Vitest and Playwright, run in GitHub Actions 【confirm final stack on 11/15】
+- Tests: 59 Vitest unit tests run in GitHub Actions on every push; Playwright end-to-end runs locally at the event 【confirm final counts on 11/15】
 - Landscape-first layout, 48px touch targets, verified at 568×320, 844×390, 1024×768 and 1440×900
 - No special hardware: any modern browser on a phone, tablet or laptop
 
