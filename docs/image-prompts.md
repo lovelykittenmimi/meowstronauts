@@ -110,7 +110,7 @@
 
 - 29 故事板實際輸出 16:9（原圖 2752×1536），不是 prompt 指定的 3:2。
 - 已解除：Silver 胸前的金色星形為太空裝刺繡徽飾；2026-11-14 刪除「星形別針」限制，成品保留。
-- 06 的太空船艙身與 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。
+- 25 的 Ginger 袖子有美國國旗貼布；不是 NASA 標誌，但不是 §8 要求的抽象幾何。06 的太空船艙身已於 11/14 重出，移除國旗貼布（重出後岩石旁多了一顆番茄，見 §3 的 06 註記）。
 - 13 已於 11/14 重出兩次：移除番茄籃、美國國旗貼布與艙身小字樣；艙身只剩幾個抽象小標記，縮到 1280 px 寬後無法辨識。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
@@ -231,6 +231,8 @@ Aspect ratio 16:9, target size 1920x1080. Match the three character reference im
 ```text
 Aspect ratio 16:9, target size 1920x1080. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. A small cream-and-teal rounded explorer spacecraft has crash-landed nose-down across a row of solar panels on Mars, hatch open, thin smoke drifting, panels slightly bent but no fire. Three suited cats pick their way out of the open hatch onto the dusty ground: Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back; Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings; Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, a small seed packet clipped to its suit. A small domed outpost with a communications dish stands nearby. Butterscotch sky, low sun, long shadows, dust motes in the air. Keep the ship and cats inside the central 80% of the frame for UI overlays. Dramatic but child-friendly, no injuries, no fire. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
+
+> 2026-11-14 重出：成品已移除太空船艙身的美國國旗貼布，服裝上的國旗也一併移除。構圖不變，但 Ginger 旁的岩石上多了一顆番茄——與 13／22 因「火星地表會立刻凍壞」而移除番茄的處理不一致，待確認是否要再重出。prompt 保留原樣作生成紀錄。
 
 ### 07. 基地外觀
 
@@ -379,6 +381,8 @@ Aspect ratio 16:9, target size 1920x1080. Match the Shadow reference image in th
 ```text
 Aspect ratio 16:9, target size 1920x1080. Match the Ginger reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Low-angle hero shot of Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, with a rounded orange backpack, standing on a low rock at dawn, sturdy and calm, a small crate of tomatoes beside it. Camera close to the ground looking up, warm golden light, butterscotch sky, long shadows, dust drifting. The cat fills the central 70% of the frame. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
+
+> 2026-11-14 重出：成品已移除旁邊的番茄籃——火星地表溫度會讓番茄立刻凍壞，與世界觀不符。其他構圖不變。prompt 保留原樣作生成紀錄。
 
 #### 4.3.2 3:4 對話特寫
 

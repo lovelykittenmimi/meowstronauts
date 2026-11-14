@@ -49,14 +49,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 111226,
+      "bytes": 102758,
       "quality": 82,
       "alt": {
         "en": "The crew's spacecraft crashed nose-down across solar panels while the three cats climb out.",
         "zh-TW": "太空船機鼻朝下撞上太陽能板，三隻貓正從艙口爬出。"
       },
       "credit": null,
-      "note": "opening / crash site"
+      "note": "opening / crash site; re-rolled 2026-11-14 without the US flag decal (a tomato sits on the rock beside Ginger)"
     },
     {
       "file": "scenes/07-base-exterior.webp",
@@ -219,14 +219,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 73080,
+      "bytes": 76728,
       "quality": 82,
       "alt": {
-        "en": "Low-angle hero shot of Ginger on a rock at dawn beside a crate of tomatoes.",
-        "zh-TW": "金桔在黎明岩石上與一箱番茄的低角度英雄鏡。"
+        "en": "Low-angle hero shot of Ginger on a rock at dawn.",
+        "zh-TW": "金桔在黎明岩石上的低角度英雄鏡。"
       },
       "credit": null,
-      "note": "hero shot / Ginger"
+      "note": "hero shot / Ginger; re-rolled 2026-11-14 without the tomato crate"
     },
     {
       "file": "scenes/23-silver-portrait.webp",
