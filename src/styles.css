@@ -56,8 +56,10 @@ button:disabled {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 3px solid var(--amber);
+  /* Two-tone ring: navy reads on paper, amber reads on the navy story screens. */
+  outline: 3px solid var(--navy);
   outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--amber);
 }
 
 h1,
