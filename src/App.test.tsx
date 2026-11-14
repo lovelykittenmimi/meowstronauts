@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 function open(path: string) {
@@ -122,6 +122,9 @@ describe('normal game', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
 
+    // Scene 1's narration comes in two parts; the second Next leaves it.
+    fireEvent.click(screen.getByTestId('opening-next'));
+    expect(screen.getByTestId('opening-story')).toBeTruthy();
     fireEvent.click(screen.getByTestId('opening-next'));
     expect(screen.getByTestId('opening-scene2-story')).toBeTruthy();
 
@@ -133,6 +136,7 @@ describe('normal game', () => {
   it('steps through the crash radio one line at a time', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-next'));
     fireEvent.click(screen.getByTestId('opening-next'));
 
     const video = screen.getByTestId('opening-scene2-video') as HTMLVideoElement;
@@ -177,6 +181,16 @@ describe('normal game', () => {
     expect(narration()).toContain('twelve minutes');
     expect(screen.queryByTestId('dialogue-next')).toBeNull();
 
+    // The clip has not ended, so Continue is inert. When it ends, the landing
+    // invitation opens by itself; answering it unlocks Continue.
+    expect((screen.getByTestId('opening-next') as HTMLButtonElement).disabled).toBe(true);
+    fireEvent.ended(video);
+    expect(screen.getByTestId('landing-practice-prompt')).toBeTruthy();
+    expect((screen.getByTestId('opening-next') as HTMLButtonElement).disabled).toBe(true);
+    fireEvent.click(screen.getByTestId('landing-practice-later'));
+    expect(screen.queryByTestId('landing-practice-prompt')).toBeNull();
+    expect((screen.getByTestId('opening-next') as HTMLButtonElement).disabled).toBe(false);
+
     fireEvent.click(screen.getByTestId('opening-next'));
     expect(screen.queryByTestId('opening-scene2-story')).toBeNull();
     expect(screen.getByTestId('opening-reply-command')).toBeTruthy();
@@ -185,6 +199,7 @@ describe('normal game', () => {
   it('steps back to the previous line instead of stacking old lines', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-next'));
     fireEvent.click(screen.getByTestId('opening-next'));
 
     const current = () => screen.getByTestId('dialogue-current').textContent ?? '';
@@ -206,25 +221,53 @@ describe('normal game', () => {
     expect(current()).toContain('That is the tail');
   });
 
-  it('puts the opening narration over the picture, not in the caption card', () => {
+  it('puts the opening narration over the picture in two parts, not in the caption card', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
 
-    const narration = screen.getByTestId('story-narration');
-    expect(narration.textContent).toContain('This is Mars');
-    expect(narration.closest('.story-caption')).toBeNull();
-    expect(screen.getByTestId('opening-next')).toBeTruthy();
+    const narration = () => screen.getByTestId('story-narration');
+    expect(narration().textContent).toContain('This is Mars');
+    expect(narration().textContent).not.toContain('Hope-1');
+    expect(narration().closest('.story-caption')).toBeNull();
+
+    // The first Next turns the card to the second half; it stays on scene 1.
+    fireEvent.click(screen.getByTestId('opening-next'));
+    expect(narration().textContent).toContain('Hope-1');
+    expect(narration().textContent).not.toContain('220 million');
+    expect(screen.getByTestId('opening-story')).toBeTruthy();
+    expect(screen.queryByTestId('opening-scene2-story')).toBeNull();
+  });
+
+  it('waits on scene 1 until someone presses Next', () => {
+    vi.useFakeTimers();
+    try {
+      open('/?reset=1');
+      fireEvent.click(screen.getByTestId('start-game'));
+
+      act(() => {
+        vi.advanceTimersByTime(20000);
+      });
+
+      expect(screen.getByTestId('opening-story')).toBeTruthy();
+      expect(screen.queryByTestId('opening-scene2-story')).toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('shows the scene 3 narration over the cats', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
     fireEvent.click(screen.getByTestId('opening-next'));
+    fireEvent.click(screen.getByTestId('opening-next'));
 
-    // Read the crash radio to its last line, then continue to scene 3.
+    // Read the crash radio to its last line, answer the landing invitation,
+    // then continue to scene 3.
     for (let index = 0; index < 5; index += 1) {
       fireEvent.click(screen.getByTestId('dialogue-next'));
     }
+    fireEvent.ended(screen.getByTestId('opening-scene2-video'));
+    fireEvent.click(screen.getByTestId('landing-practice-later'));
     fireEvent.click(screen.getByTestId('opening-next'));
     fireEvent.click(screen.getByTestId('opening-reply-cadet'));
 

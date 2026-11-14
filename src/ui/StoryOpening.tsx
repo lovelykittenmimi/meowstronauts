@@ -47,13 +47,22 @@ const SCENE_TITLES: Localized[] = [
   l('Ready?', '準備好了嗎？'),
 ];
 
-const SCENE_ONE: Line = {
-  cat: 'narrator',
-  text: l(
-    'This is Mars, 220 million kilometers from Earth. Here stands a human outpost: Hope-1. Today, only one junior commander is home.',
-    '這裡是火星，距離地球 2 億 2 千萬公里。這裡有一座人類基地：希望一號。今天，基地裡只有一位見習指揮官。',
-  ),
-};
+// Scene 1 is the longest narration in the story. It is shown in two parts,
+// each advanced by the same Next button, so the card never covers the photo:
+// the first sentence sets the distance, the second sets the empty outpost.
+const SCENE_ONE_PARTS: Line[] = [
+  {
+    cat: 'narrator',
+    text: l('This is Mars, 220 million kilometers from Earth.', '這裡是火星，距離地球 2 億 2 千萬公里。'),
+  },
+  {
+    cat: 'narrator',
+    text: l(
+      'Here stands a human outpost: Hope-1. Today, only one junior commander is home.',
+      '這裡有一座人類基地：希望一號。今天，基地裡只有一位見習指揮官。',
+    ),
+  },
+];
 
 const CRASH_LINES: Line[] = [
   { cat: 'shadow', mood: 'worried', text: l('Stardust calling Mars Base! We were hit by the {{solarStorm}}! The tail is on fire and the dashboard keeps—', '星塵號呼叫火星基地！我們被{{solarStorm}}打中了！船尾著火，儀表板一直嗶嗶叫，還有——') },
@@ -397,6 +406,8 @@ interface DialogueSequenceProps {
   onCta?: () => void;
   ctaTestId?: string;
   ctaClassName?: string;
+  /** Keeps the CTA visible but inert until an earlier requirement is met. */
+  ctaDisabled?: boolean;
   between?: ReactNode;
   onStep?: (step: number) => void;
   /** Start on this line; "Back" still reaches the lines before it. */
@@ -419,6 +430,7 @@ function DialogueSequence({
   onCta,
   ctaTestId = 'opening-next',
   ctaClassName = 'primary-button',
+  ctaDisabled = false,
   between,
   onStep,
   initialStep = 0,
@@ -470,6 +482,7 @@ function DialogueSequence({
               className={ctaClassName}
               data-testid={ctaTestId}
               onClick={onCta}
+              disabled={ctaDisabled}
             >
               {cta}
             </button>
@@ -531,6 +544,7 @@ export function StoryOpening({
   onTerm,
 }: StoryOpeningProps) {
   const [scene, setScene] = useState(initialScene);
+  const [openingPart, setOpeningPart] = useState(0);
   const [reply, setReply] = useState<'command' | 'cadet' | null>(null);
   const [tapped, setTapped] = useState<Tap['id'][]>([]);
   const [lastTap, setLastTap] = useState<Tap['id'] | null>(null);
@@ -548,6 +562,9 @@ export function StoryOpening({
   const [landerPromptOpen, setLanderPromptOpen] = useState(false);
   const [landerOpen, setLanderOpen] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
+  // "Start practice" and "Not now" both count as answering the invitation;
+  // only then does the radio's Continue unlock.
+  const [landerAnswered, setLanderAnswered] = useState(false);
   const landerPromptShown = useRef(false);
 
   const askLander = useCallback(() => {
@@ -555,8 +572,12 @@ export function StoryOpening({
     landerPromptShown.current = true;
     setLanderPromptOpen(true);
   }, []);
-  const closeLanderPrompt = useCallback(() => setLanderPromptOpen(false), []);
+  const closeLanderPrompt = useCallback(() => {
+    setLanderAnswered(true);
+    setLanderPromptOpen(false);
+  }, []);
   const openLander = useCallback(() => {
+    setLanderAnswered(true);
     setLanderPromptOpen(false);
     setLanderOpen(true);
   }, []);
@@ -564,12 +585,6 @@ export function StoryOpening({
 
   useEffect(() => {
     if (window.scrollY > 0) window.scrollTo(0, 0);
-  }, [scene]);
-
-  useEffect(() => {
-    if (scene !== 1) return;
-    const timer = window.setTimeout(() => setScene(2), 5000);
-    return () => window.clearTimeout(timer);
   }, [scene]);
 
   const tap = (id: Tap['id']) => {
@@ -697,7 +712,11 @@ export function StoryOpening({
         <section className="story-stage story-stage-photo">
           <img className="story-photo" src={marsLandscape} alt="" />
           <div className="story-photo-shade" aria-hidden="true" />
-          <NarrationOverlay lines={[SCENE_ONE]} lang={lang} onTerm={onTerm} />
+          <NarrationOverlay
+            lines={[SCENE_ONE_PARTS[openingPart]]}
+            lang={lang}
+            onTerm={onTerm}
+          />
           <div className="story-panel story-caption">
             <p className="eyebrow">Sol 0 · Hope-1</p>
             <h1>{SCENE_TITLES[0][lang]}</h1>
@@ -705,9 +724,19 @@ export function StoryOpening({
               type="button"
               className="primary-button"
               data-testid="opening-next"
-              onClick={() => setScene(2)}
+              onClick={() => {
+                if (openingPart + 1 < SCENE_ONE_PARTS.length) {
+                  setOpeningPart(openingPart + 1);
+                } else {
+                  setScene(2);
+                }
+              }}
             >
-              {lang === 'en' ? 'Next' : '下一幕'}
+              {lang === 'en'
+                ? 'Next'
+                : openingPart + 1 < SCENE_ONE_PARTS.length
+                  ? '繼續看'
+                  : '下一幕'}
             </button>
             <p className="story-credit">
               {lang === 'en'
@@ -803,6 +832,7 @@ export function StoryOpening({
               reaction={CRASH_MOODS}
               cta={lang === 'en' ? 'Continue' : '繼續'}
               onCta={() => setScene(3)}
+              ctaDisabled={!landerAnswered}
             />
             {videoEnded && (
               <button

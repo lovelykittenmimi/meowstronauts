@@ -2868,6 +2868,12 @@ h1 {
       height: 32px;
       border-width: 2px;
     }
+
+    /* The extra row would push the radio panel up into the narration card.
+       The sol row's 🚀 landing-practice button still offers it after Sol 1. */
+    .story-lander-reopen {
+      display: none;
+    }
   }
 
   .story-line {
