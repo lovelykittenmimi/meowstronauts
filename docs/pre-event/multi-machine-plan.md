@@ -309,6 +309,7 @@ C 的煙霧測試（11/13，不碰遊戲）：
 | 22:30–23:00 | **啟動夜間測試／修復迴圈（§7.1）**；團隊睡覺 | 睡覺、關機 | **開始錄影片、TTS、剪輯**；人睡覺、機器留守 | 兩台都只跑自己的事 |
 | 23:00–隔日 | Claude 夜間測試＋定點修復；07:30 寫報告 | 關機 | Claude 夜間產出 v1 影片；早上 09:00 審閱 | 早上看報告與 v1 |
 
+> **17:40 調整：E2E 從 C 改派給 B。** C 專心做 submission 截圖、文案與 22:00 的影片前置；B 在 19:00 playtest 結束後寫 `tests/e2e/video-path.spec.ts` 與 `full-run.spec.ts`（連同 `playwright.config.ts`，LOCK 給 B）。B 若 `npm run build` 超過 10 分鐘，改用 `E2E_BASE_URL=https://mars.flymymind.com` 對部署版跑，不本機 build。
 > B 的測試從 **10:30 第一個 build** 開始，不必等 16:30。16:30 是 submission 草稿檢查，不是第一次部署，也不是 final submit；final submit 在 11/15。
 > B／C 在 09:05 clone 後先跑 `npm ci`；若 `package.json` 還沒進 repo，等 A 說「scaffold ready」再跑。
 > 21:00 若仍有 P0，freeze 順延，先修完再啟動夜間迴圈；不要讓夜間迴圈去修 freeze 前的已知問題。

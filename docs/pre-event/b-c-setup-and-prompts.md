@@ -227,10 +227,11 @@ npx -y playwright@latest --version
 ```text
 請先讀 CLAUDE.md、docs/pre-event/multi-machine-plan.md §5、docs/qa-checklist.md、docs/playtest.md §6。
 
-你是 B 機（小孩測試機，機器較舊）。今天只做三件事：
+你是 B 機（小孩測試機，機器較舊）。今天做四件事：
 1. 用瀏覽器測 A 部署的 URL（不是 localhost），把小孩口述的問題先重現，再整理成 issue。
 2. 只有 issue 有 fix-ok 標籤才能改；只改 issue 指名的檔；30 分鐘內完成；超過就交回 A。
-3. 修正後照這個順序：
+3. **19:00 之後負責 E2E**：`tests/e2e/**` 與 `playwright.config.ts` 歸你（LOCK），指令見 §5.3。
+4. 修正後照這個順序：
    git pull --rebase origin main
    npm run build
    git commit -m "fix: ..."
@@ -257,6 +258,68 @@ Screenshot:
 結束後把最重要的 5 個觀察整理成 issue 草稿，先給家長確認再開 issue。
 ```
 
+### 5.3 19:00 之後：E2E（直接貼）
+
+```text
+任務：建立 repo 裡第一套 E2E。`tests/e2e/**` 與 `playwright.config.ts` 由你擁有（LOCK）；不要改 src/、不要改 package.json。
+
+先裝瀏覽器：npx playwright install chromium
+
+1. 建 playwright.config.ts：
+
+import { defineConfig, devices } from '@playwright/test';
+
+const baseURL = process.env.E2E_BASE_URL ?? 'http://127.0.0.1:4174';
+
+export default defineConfig({
+  testDir: './tests/e2e',
+  timeout: 60_000,
+  expect: { timeout: 10_000 },
+  fullyParallel: false,
+  workers: 1,
+  use: {
+    baseURL,
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+  },
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  webServer: process.env.E2E_BASE_URL
+    ? undefined
+    : {
+        command: 'npm run build && npm run preview -- --port 4174 --strictPort',
+        url: 'http://127.0.0.1:4174',
+        reuseExistingServer: true,
+        timeout: 180_000,
+      },
+});
+
+2. 建 tests/e2e/video-path.spec.ts，照 docs/video-path.md 的契約逐條斷言：
+   - goto('/?video=s1&lang=en') → HUD resource-power 62、resource-life-support 58、
+     resource-shield 55、resource-food 5、resource-health 82、resource-science 3、backpack-count '8 / 20'
+   - event-card-S1 可見；choice-shield-up 可點
+   - 點 choice-shield-up → resource-power 42、resource-shield 80、result-panel 可見
+   - 同一個 session 內：點 term-solar-flare → knowledge-card 開 → knowledge-collect → backpack-count '9 / 20'
+   - 開 data-panel-button → data-panel、donki-chart、rems-chart 都在
+   - 另開一個 test：goto('/?video=report&lang=en') → mission-report-stars 三顆、
+     report-backpack-count '9 / 20'、report-curve 7 個點、最後一點等於 report-resource-health
+
+3. 建 tests/e2e/full-run.spec.ts：從標題畫面玩完 7 個 sol（開場可跳過），
+   每個 sol 點第一個 enabled 的 choice，最後看到 mission-report。
+
+4. 跑：npm run test:e2e。全綠就 commit：
+   git pull --rebase origin main
+   git add playwright.config.ts tests/e2e
+   git commit -m "test: add the video-path and full-run E2E specs"
+   git pull --rebase origin main
+   git push origin main
+
+規則：
+- 只用 data-testid 與固定 seed；不碰 NASA API、不改 src/ 讓測試過。
+- npm run build 超過 10 分鐘：改用 E2E_BASE_URL=https://mars.flymymind.com npm run test:e2e 對部署版跑，然後把這點寫進 commit 訊息。
+- 21:00 freeze 前只做這兩個檔；做不完就把已綠的 spec 先推，剩下的記在 report。
+- 有測試紅但確定是遊戲的 bug：不要改測試配合，開 issue 給 A，標 P1。
+```
+
 ---
 
 ## 6. 11/14：C 機的指令
@@ -268,7 +331,7 @@ Screenshot:
 
 你是 C 機（協作機）。今天的優先序：
 1. 10:30–12:00 圖片去背／壓縮。
-2. 13:00–21:00 E2E 測試。
+2. 13:00–21:00 submission 截圖與文案（**E2E 已於 17:40 改派給 B**，不要碰 `tests/e2e/**`）。
 3. 22:00 後 30 秒影片。
 
 每次 commit 前：git pull --rebase → npm run build → npm test → git commit → git pull --rebase → git push。
@@ -293,7 +356,7 @@ Screenshot:
 - 若 rembg 去背有瑕疵，先回報，不要硬修到看起來像 AI 生成。
 ```
 
-### 6.3 下午：E2E 測試（直接貼）
+### 6.3 下午：E2E 測試（**17:40 起改派 B，本節作廢**）
 
 ```text
 任務：照 docs/test-plan.md §2、§3.4、§5 與 docs/video-path.md 建立 E2E。

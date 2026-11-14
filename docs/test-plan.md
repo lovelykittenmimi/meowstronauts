@@ -191,7 +191,8 @@
 ### 14.1 下午：誰寫哪一層
 
 - **A**：harness＋單元／整合（`src/**/*.test.ts`）；09:00–10:30 建 config 與 npm scripts。
-- **C**：上午先做圖片去背／壓縮（10:30–12:00）；**13:00** preview 與 `data-testid` 就緒後開始 E2E，先寫完整一局與影片路徑。
+- **B**：**17:40 調整——E2E 改由 B 負責。** 19:00 playtest 結束後開始，先寫 `tests/e2e/video-path.spec.ts` 與 `tests/e2e/full-run.spec.ts`，其餘 spec 有時間再補。`tests/e2e/**` 與 `playwright.config.ts` 歸 B 擁有（LOCK），其他人不碰。
+- **C**：上午先做圖片去背／壓縮（10:30–12:00）；下午改做 submission 截圖與文案，不寫 E2E。
 - **B**：手動 playtest 為主；17:30 後可為自己開的 issue 補 `tests/regression/**`，15 分鐘寫不出就跳過。
 - 推測試前先 `pull --rebase`、跑 `npm test`＋`npm run build`；一般 suite 必須綠。已知 bug 放 `tests/e2e/known/**` 並標 `@known-bug`，由 `test:e2e` 排除，不要讓 `main` 長時間紅燈。
 - 下午找到、當天來不及修的 **P1／P2**，由 C 寫成 `tests/e2e/known/issue-<n>.spec.ts` 並標 `@known-bug`，這就是夜間佇列；**P0 不進佇列**，當天由 A 修完。
