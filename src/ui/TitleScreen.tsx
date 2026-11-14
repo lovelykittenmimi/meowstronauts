@@ -1,3 +1,4 @@
+import keyart from '../assets/generated/scenes/01-keyart.webp';
 import type { Difficulty, Lang } from '../game/types';
 import { t, type StringKey } from '../i18n';
 
@@ -22,10 +23,7 @@ export function TitleScreen({
     <main className="title-shell" data-testid="title-screen">
       <section className="title-card">
         <div className="title-art" aria-hidden="true">
-          <span className="title-ground" />
-          <img className="title-cat title-cat-silver" src="/brand/full-silver-800.webp" alt="" />
-          <img className="title-cat title-cat-ginger" src="/brand/full-ginger-800.webp" alt="" />
-          <img className="title-cat title-cat-shadow" src="/brand/full-shadow-800.webp" alt="" />
+          <img className="title-keyart" src={keyart} alt="" />
         </div>
         <div className="title-copy">
           <div className="title-topline">

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import crashScene from '../assets/generated/scenes/06-crash.webp';
+import lineupScene from '../assets/generated/scenes/05-team-lineup.webp';
 import marsLandscape from '../data/mars-photos/PIA26632.jpg';
 import type { Lang, Localized } from '../game/types';
 import { RichText } from './RichText';
@@ -292,13 +294,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
 
       {scene === 2 && (
         <section className="story-stage story-stage-crash" data-testid="opening-scene2-story">
-          <div className="opening-stars" aria-hidden="true" />
-          <div className="opening-sun" aria-hidden="true" />
-          <div className="opening-flare" aria-hidden="true" />
-          <img className="opening-mars" src={marsLandscape} alt="" />
-          <div className="opening-ship" aria-hidden="true">
-            <span />
-          </div>
+          <img className="opening-mars" src={crashScene} alt="" />
           <div className="story-radio">
             <p className="eyebrow">
               {lang === 'en' ? 'Radio · Stardust' : '無線電 · 星塵號'}
@@ -332,11 +328,7 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
 
       {scene === 3 && (
         <section className="story-stage story-stage-cats">
-          <div className="story-cats" aria-hidden="true">
-            <img className="story-cat story-cat-silver" src="/brand/full-silver-800.webp" alt="" />
-            <img className="story-cat story-cat-ginger" src="/brand/full-ginger-800.webp" alt="" />
-            <img className="story-cat story-cat-shadow" src="/brand/full-shadow-800.webp" alt="" />
-          </div>
+          <img className="story-lineup" src={lineupScene} alt="" />
           <div className="story-panel story-dialogue">
             <p className="eyebrow">{lang === 'en' ? 'Scene 3 · Three cats' : '第 3 幕 · 三隻貓'}</p>
             <DialogueLine line={INTRO_QUESTION} lang={lang} onTerm={onTerm} />
