@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { watchConsoleErrors } from './_helpers';
 
 /**
@@ -21,6 +21,26 @@ const SAFE_CHOICE: Record<string, string> = {
   C1: 'relay',
   SC2: 'radar',
 };
+
+/**
+ * T1's sweep (and P1's clean) open the dust minigame first: the card stays in
+ * the choice phase until every patch is tapped. Other choices resolve at once,
+ * so wait for whichever comes first.
+ */
+async function resolveChoice(page: Page): Promise<void> {
+  const result = page.getByTestId('result-panel');
+  const dust = page.getByTestId('dust-game');
+  await expect(result.or(dust)).toBeVisible();
+
+  if (await dust.isVisible()) {
+    const spots = page.getByTestId('dust-spot');
+    while ((await spots.count()) > 0) {
+      await spots.first().click();
+    }
+  }
+
+  await expect(result).toBeVisible();
+}
 
 test.describe('P0 §5.1 — full run', () => {
   test('plays from the title screen to the mission report', async ({ page }) => {
@@ -49,7 +69,7 @@ test.describe('P0 §5.1 — full run', () => {
 
       await expect(choice).toBeEnabled();
       await choice.click();
-      await expect(page.getByTestId('result-panel')).toBeVisible();
+      await resolveChoice(page);
 
       const continueButton = page.getByTestId('continue-button');
       await expect(continueButton).toBeVisible();
