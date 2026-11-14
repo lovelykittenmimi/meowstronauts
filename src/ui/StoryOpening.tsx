@@ -241,6 +241,12 @@ export function StoryOpening({ lang, paused = false, onDone, onTerm }: StoryOpen
     ? CRASH_LINES.slice(Math.max(0, radioStep - 3), radioStep)
     : CRASH_LINES.slice(0, radioStep);
 
+  useEffect(() => {
+    if (!allTapped) return;
+    if (document.documentElement.scrollHeight <= window.innerHeight) return;
+    window.scrollTo(0, document.documentElement.scrollHeight);
+  }, [allTapped]);
+
   return (
     <main
       className={`story-screen story-scene-${scene} ${paused ? 'is-paused' : ''}`}
