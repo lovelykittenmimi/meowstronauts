@@ -3,14 +3,18 @@ import type { Lang } from '../game/types';
 import { t } from '../i18n';
 import { SceneStage } from './SceneStage';
 
-/** Dust patches over the solar array, in percent of the stage box. */
+/**
+ * Dust patches over the solar array, in percent of the stage box. The panels
+ * fill the lower half of the plate, so every patch sits between 55% and 80%
+ * vertically — never in the sky.
+ */
 const SPOTS = [
-  { x: 22, y: 34 },
-  { x: 38, y: 58 },
-  { x: 50, y: 30 },
-  { x: 62, y: 60 },
-  { x: 30, y: 70 },
-  { x: 70, y: 38 },
+  { x: 26, y: 72 },
+  { x: 36, y: 60 },
+  { x: 47, y: 70 },
+  { x: 57, y: 57 },
+  { x: 66, y: 66 },
+  { x: 74, y: 78 },
 ];
 
 interface DustMinigameProps {
