@@ -53,4 +53,13 @@ describe('DataPanel', () => {
     render(<DataPanel lang="en" onClose={() => {}} showLive={false} />);
     expect(screen.queryByTestId('live-weather-toggle')).toBeNull();
   });
+
+  it('puts the optional live section above the snapshot charts', () => {
+    render(<DataPanel lang="en" onClose={() => {}} />);
+    const toggle = screen.getByTestId('live-weather-toggle');
+    const chart = screen.getByTestId('donki-chart');
+    expect(
+      toggle.compareDocumentPosition(chart) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
 });

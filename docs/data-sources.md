@@ -201,7 +201,7 @@ Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 �
 
 ### 3.6 資料面板的「NASA 最新 7 個 sol」（可選、預設關閉）
 
-`src/game/liveWeather.ts`、`src/ui/LiveWeather.tsx`。這是資料面板最下方的**可選檢視**，預設收起；使用者按〔載入最新 7 個 sol〕才向 NASA 公開 feed 取資料。它不是即時天氣，也不進任務狀態：不影響資源、平衡、事件標籤、分數或影片 fixture；上方 2025 年快照仍是任務唯一使用的資料。
+`src/game/liveWeather.ts`、`src/ui/LiveWeather.tsx`。這是資料面板上方、快照圖表之前的**可選檢視**，預設收起；使用者按〔載入最新 7 個 sol〕才向 NASA 公開 feed 取資料。它不是即時天氣，也不進任務狀態：不影響資源、平衡、事件標籤、分數或影片 fixture；上方 2025 年快照仍是任務唯一使用的資料。
 
 | 項目 | 內容 |
 |---|---|

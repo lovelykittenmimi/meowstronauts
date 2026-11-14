@@ -155,6 +155,8 @@ export function DataPanel({
         <strong>{t(lang, 'data.note')}</strong> NASA/JPL-Caltech · DONKI · Curiosity REMS.
       </p>
 
+      {showLive && <LiveWeather lang={lang} />}
+
       <section className="chart-block">
         <h3>{t(lang, 'data.donki')}</h3>
         <svg
@@ -268,8 +270,6 @@ export function DataPanel({
           <span className="swatch swatch-teal" aria-hidden="true" /> Low · °C
         </p>
       </section>
-
-      {showLive && <LiveWeather lang={lang} />}
 
       <div className="source-links">
         <a href="https://api.nasa.gov/DONKI/" target="_blank" rel="noreferrer">
