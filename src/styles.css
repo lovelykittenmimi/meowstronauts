@@ -557,6 +557,7 @@ h1 {
 
 /* Event ---------------------------------------------------------------- */
 .event-shell {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -779,6 +780,145 @@ h1 {
 .result-bad {
   background: #f6dfd8;
   color: var(--coral-ink);
+}
+
+/* Risk dice: shows the gamble that used to be invisible. */
+.risk-roll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.risk-die {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  animation: risk-tumble 520ms ease-out;
+}
+
+.risk-die::before,
+.risk-die::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.risk-die::before { top: 5px; left: 5px; box-shadow: 6px 0 0 currentColor; }
+.risk-die::after { bottom: 5px; right: 5px; box-shadow: -6px 0 0 currentColor; }
+
+.risk-held { color: var(--teal-ink); }
+.risk-hit { color: var(--coral-ink); }
+.risk-hit .risk-die { animation: risk-tumble 520ms ease-out, risk-shake 360ms 520ms ease-in-out; }
+
+.risk-roll-odds {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(23, 32, 51, 0.08);
+  font-size: 12px;
+}
+
+.risk-roll-outcome { text-transform: lowercase; }
+
+@keyframes risk-tumble {
+  from { transform: rotate(-140deg) scale(0.6); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes risk-shake {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-3px) rotate(-8deg); }
+  75% { transform: translateX(3px) rotate(8deg); }
+}
+
+/* Dust mini-game ------------------------------------------------------- */
+.dust-game {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: clamp(8px, 2vh, 20px);
+  background: rgba(11, 16, 38, 0.62);
+  backdrop-filter: blur(3px);
+  animation: result-in 220ms ease-out;
+}
+
+.dust-stage {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+}
+
+.dust-stage .scene-stage { flex: 1 1 auto; }
+
+/* Tints the photo itself; the panel background only reaches the letterbox. */
+.dust-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(11, 16, 38, 0.42);
+  pointer-events: none;
+}
+
+.dust-spot {
+  position: absolute;
+  z-index: 2;
+  width: clamp(38px, 6vmin, 62px);
+  height: clamp(38px, 6vmin, 62px);
+  translate: -50% -50%;
+  border: 2px dashed rgba(232, 163, 61, 0.9);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 163, 61, 0.55), rgba(184, 92, 56, 0.28));
+  cursor: pointer;
+  animation: dust-pulse 1.6s ease-in-out infinite;
+}
+
+.dust-spot:hover { border-style: solid; }
+
+/* Opacity only: a scaling target never settles, which stalls every
+   automated click that waits for the element to be stable. */
+@keyframes dust-pulse {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+.dust-hint {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+  justify-content: center;
+  max-width: 640px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  text-align: center;
+}
+
+.dust-hint strong { color: var(--navy); }
+.dust-left { font-weight: 800; color: var(--rust); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dust-spot,
+  .risk-die,
+  .risk-hit .risk-die { animation: none; }
 }
 
 .result-panel h2 {
@@ -1802,72 +1942,6 @@ h1 {
 
 .story-stage-crash .opening-mars {
   border-radius: var(--radius);
-}
-
-/* Real NASA stills before the crash clip. */
-.nasa-intro {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  overflow: hidden;
-  border-radius: var(--radius);
-  background: #05070f;
-}
-
-.nasa-shot {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  transition: opacity 0.45s ease;
-}
-
-.nasa-shot.is-current {
-  opacity: 1;
-}
-
-.nasa-shot img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  animation: nasa-push 1.4s ease-out both;
-}
-
-.nasa-shot.is-contain img {
-  object-fit: contain;
-}
-
-.is-paused .nasa-shot img {
-  animation-play-state: paused;
-}
-
-@keyframes nasa-push {
-  from { transform: scale(1); }
-  to { transform: scale(1.07); }
-}
-
-.nasa-credit {
-  position: absolute;
-  top: clamp(10px, 2vw, 16px);
-  left: clamp(10px, 2vw, 16px);
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: rgba(5, 7, 15, 0.55);
-  color: rgba(247, 243, 234, 0.92);
-  font-size: 12px;
-  line-height: 1.3;
-  letter-spacing: 0.04em;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nasa-shot {
-    transition: none;
-  }
-
-  .nasa-shot img {
-    animation: none;
-  }
 }
 
 .story-radio {

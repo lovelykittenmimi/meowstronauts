@@ -1,12 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { EVENT_BY_ID } from '../game/events';
 import { artForEvent } from '../game/eventArt';
 import type { CatId, Choice, EffectMap, GameState, ResourceKey } from '../game/types';
 import { RESOURCE_LABEL_KEY, CAT_NAMES, t } from '../i18n';
 import { faceFor } from './catFaces';
+import { DustMinigame } from './DustMinigame';
 import { ICONS } from './ResourceHud';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
+
+/**
+ * Choices that get a short hands-on beat before they resolve. Only the ones
+ * where the crew actually goes out to the panels — "leave it for now" must
+ * not open a sweeping game.
+ */
+const DUST_CHOICES: Record<string, string[]> = {
+  P1: ['clean', 'shake'],
+};
 
 const CATEGORY_LABEL: Record<string, { en: string; 'zh-TW': string }> = {
   power: { en: 'Power', 'zh-TW': '電力' },
@@ -61,6 +71,7 @@ export function EventCardView({
   onOpenCard,
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
+  const [pendingChoice, setPendingChoice] = useState<string | null>(null);
 
   useEffect(() => {
     const body = bodyRef.current;
@@ -81,6 +92,16 @@ export function EventCardView({
   const category = CATEGORY_LABEL[event.category] ?? CATEGORY_LABEL.power;
   const art = artForEvent(event.id);
   const facePhase = isResult ? (state.lastSuccess ? 'success' : 'fail') : 'choice';
+  const dustChoices = DUST_CHOICES[event.id];
+  const showDustGame = isChoice && pendingChoice !== null && Boolean(art);
+
+  const handleChoose = (choiceId: string) => {
+    if (dustChoices?.includes(choiceId)) {
+      setPendingChoice(choiceId);
+      return;
+    }
+    onChoose(choiceId);
+  };
 
   return (
     <main className={`event-shell ${isResult ? 'is-result' : ''}`}>
@@ -107,7 +128,7 @@ export function EventCardView({
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
 
-        {isChoice && (
+        {isChoice && !showDustGame && (
           <>
             <h2 className="section-label">{t(lang, 'event.choose')}</h2>
             <div className="choices">
@@ -121,7 +142,7 @@ export function EventCardView({
                     key={choice.id}
                     data-testid={`choice-${choice.id}`}
                     disabled={disabled}
-                    onClick={() => onChoose(choice.id)}
+                    onClick={() => handleChoose(choice.id)}
                   >
                     <span className="choice-label">{choice.label[lang]}</span>
                     <EffectChips effects={choice.effects} lang={lang} />
@@ -196,6 +217,21 @@ export function EventCardView({
             <p className={`result-status ${state.lastSuccess ? 'result-ok' : 'result-bad'}`}>
               {state.lastSuccess ? t(lang, 'event.success') : t(lang, 'event.failed')}
             </p>
+            {chosen?.risk && (
+              <p
+                className={`risk-roll ${state.lastSuccess ? 'risk-held' : 'risk-hit'}`}
+                data-testid="risk-roll"
+              >
+                <span className="risk-die" aria-hidden="true" />
+                <span className="risk-roll-label">{t(lang, 'event.riskRoll')}</span>
+                <span className="risk-roll-odds">
+                  {Math.round(chosen.risk.chance * 100)}%
+                </span>
+                <span className="risk-roll-outcome">
+                  {state.lastSuccess ? t(lang, 'event.riskMiss') : t(lang, 'event.riskHit')}
+                </span>
+              </p>
+            )}
             <h2>{t(lang, 'event.result')}</h2>
             <p className="result-outcome">
               <RichText text={state.lastOutcome?.[lang] ?? ''} lang={lang} onTerm={onTerm} />
@@ -224,6 +260,15 @@ export function EventCardView({
         )}
         </div>
       </article>
+
+      {showDustGame && art && pendingChoice && (
+        <DustMinigame
+          src={art.src}
+          alt={art.alt[lang]}
+          lang={lang}
+          onDone={() => onChoose(pendingChoice)}
+        />
+      )}
     </main>
   );
 }
