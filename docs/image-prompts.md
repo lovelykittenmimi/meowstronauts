@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-14（全部 prompt 已出圖；新增 §0.6 產出結果、§7 成品路徑）
+> 最後更新：2026-11-14（01–30 已出圖，見 §0.6、§7；新增 §3.1 事件卡補圖 31–35，待生成）
 
 ---
 
@@ -114,6 +114,7 @@
 - 13 已於 11/14 重出兩次：移除番茄籃、美國國旗貼布與艙身小字樣；艙身只剩幾個抽象小標記，縮到 1280 px 寬後無法辨識。
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
+- 2026-11-14 晚間新增 §3.1 的 31–35（事件卡補圖），尚未生成；這 5 張不在上面的批次與 §0.6 成品清單內。
 
 ---
 
@@ -291,6 +292,54 @@ Aspect ratio 16:9, target size 1920x1080. Match the three character reference im
 ```
 
 > 2026-11-14 重出：成品已移除停機坪旁的番茄籃——火星地表溫度會讓番茄立刻凍壞，與世界觀不符；同日第二次重出再移除補給艙的美國國旗貼布與極小字樣。其他構圖不變。prompt 保留原樣作生成紀錄。
+
+---
+
+### 3.1 事件卡補圖 31–35（2026-11-14，待生成）
+
+> 補 `eventArt.ts` 裡「有圖、但圖沒拍到事件本身」的 5 張事件卡。S2、L1、S3 是主辦重點（破洞、氧氣機、避難艙門目前都沒入鏡）；L2、F3 是加分項。
+> 生成後放 `src/assets/generated/scenes/`，處理到最長邊 1280 px、WebP q=82，由 `src/game/eventArt.ts` 一行一張接上；`alt` 依實際畫面在該檔重寫。
+> 事件卡以寬橫幅顯示（`object-fit: cover`），主體壓在畫面中央，重要細節不要貼上下緣。
+
+#### 31. 微隕石擊穿外牆（S2）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`31-meteorite-breach.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the Shadow reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Night on Mars, close exterior view of the Hope-1 habitat wall: rounded cream hull panels with teal accent stripes, and a small fresh puncture where a micrometeorite punched through, fine dust streaks radiating from it, a few tiny curled metal petals, a thin wisp of vapor drifting out and a warm sliver of interior light leaking through the hole. Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and carbon-fiber panels, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings, stands on the reddish dust before the breach, tail low and alert, a thin blue scan beam projecting from its visor onto the puncture. A small repair drone hovers beside it, scanning the wall. Deep blue star-filled sky, faint Milky Way, warm window light along the habitat in the background, long shadows. Keep the breach and Shadow inside the central 80% of the frame, and keep key detail away from the top and bottom edges because the image is shown as a wide banner. No fire, no injury, calm and investigative, not scary. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+#### 32. 氧氣回收機故障（L1）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`32-oxygen-unit.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the Shadow reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Night inside a small Mars habitat life-support bay: a compact rounded oxygen recovery unit mounted on the wall, cream and teal casing, visible pipes, small canisters and a clear sight glass, its access panel open, a soft amber warning light on its status strip, and a small screen showing only simple abstract icons of oxygen molecules, no readable text. Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and carbon-fiber panels, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings, sits before the open panel, tail low and focused, a thin blue scan beam from its visor sweeping the unit. A small repair drone hovers at the panel holding a slim tool. Warm interior lamps, cool cyan glow from the unit, clean metallic floor with a coiled hose. Keep the unit and Shadow inside the central 80% of the frame. Calm, competent repair mood, no fire, no alarm drama. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+#### 33. 避難艙檢查（S3）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`33-shelter-door.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the Silver reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Interior of a small emergency radiation shelter inside a Mars habitat: thick rounded walls with layered padding, a heavy circular shielding door with a soft rubber seal ring and simple abstract geometric markings, a paw-height control panel beside it with a small icon screen, a status light glowing calm green, folded blankets and stowed supply boxes on a low shelf. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back, sits before the door with one front paw pressed on the low control panel, tail wrapped around her paws, calm and focused. Soft silver-blue interior lighting with one warm accent lamp, clean and safe, no red alert lights. Keep the shielding door and Silver inside the central 80% of the frame. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+#### 34. 水循環堵塞（L2）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`34-water-line.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the Ginger reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Interior of the Mars habitat greenhouse, close on the water recycling line: white and translucent pipes running along the wall, one joint with visible mineral buildup and condensation, a clear sight-glass dripping into a small basin, and a soft amber indicator light on the joint. A small robotic maintenance arm with a wrench-like tool gently works the joint. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, with a rounded orange backpack, sits beside the pipe with its nose close to the sight-glass, tail curled. Seedling trays under soft pink-purple grow lights and a warm kitchen lamp in the background. Keep the pipe joint and Ginger inside the central 80% of the frame. Patient, curious, cozy mood. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
+
+#### 35. 補給箱延誤（F3）
+
+**比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`35-supply-crate.png`**
+
+```text
+Aspect ratio 16:9, target size 1920x1080. Match the Ginger reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Exterior of the Hope-1 habitat at golden hour: the cargo hatch and a small supply cradle beside the base wall, painted with simple geometric markings only, no letters. A neat stack of plain cargo crates waits beside the empty cradle — the missing crate has not arrived. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, with a rounded orange backpack, sits before a paw-height cargo console beside the hatch, one front paw on the panel, checking a delivery schedule shown as simple abstract icons on its small screen, no readable text. A small six-wheeled pressurized rover parked in the background. Butterscotch sky fading to pale blue near the horizon, long shadows, light dust haze. Keep the crates, the console and Ginger inside the central 80% of the frame. Calm, patient, slightly wistful mood — waiting, not disaster. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
+```
 
 ---
 
@@ -509,6 +558,11 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 | 28 | `28-ginger-wide.png` | 16:9 | 1920×1080 | 高角度遠景 | `scenes/28-ginger-wide.webp`（1280×714） |
 | 29 | `29-opening-storyboard.png` | 3:2 | 1800×1200 | 開場故事板 | `scenes/29-opening-storyboard.webp`（1280×714；原圖 16:9） |
 | 30 | `og-1200x630.jpg` | 1.9:1 | 1200×630 | OG 社群卡（標題由程式疊） | `brand/og-1200x630.jpg`＋`public/brand/og-1200x630.jpg`（1200×630；112,505 B；11/14 定稿，兩份位元相同） |
+| 31 | `31-meteorite-breach.png` | 16:9 | 1920×1080 | S2 事件卡：微隕石擊穿外牆（§3.1） | 待生成 |
+| 32 | `32-oxygen-unit.png` | 16:9 | 1920×1080 | L1 事件卡：氧氣回收機故障（§3.1） | 待生成 |
+| 33 | `33-shelter-door.png` | 16:9 | 1920×1080 | S3 事件卡：避難艙檢查（§3.1） | 待生成 |
+| 34 | `34-water-line.png` | 16:9 | 1920×1080 | L2 事件卡：水循環堵塞（§3.1） | 待生成 |
+| 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | 待生成 |
 
 ---
 
