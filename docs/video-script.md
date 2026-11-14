@@ -88,7 +88,7 @@
 | 9 | 17.6–19.7 | （同一句，不停） | 0 | **小遊戲 2：Low-gravity hop**（**2.1 秒**）：夜空火星山脊，貓咪起跳→最高點→落地，畫面自帶 `Samples 0/3`、`Mars gravity 0.38 g` 與提示 `0.38 g: the same push lifts you about 2.6× higher.`。從 `jump1 − 0.30` 起剪，這 2.1 秒要含**整段跳躍弧線**（約 1.5 秒）並收在落地之後，不要剪半個跳 |
 | 10 | 19.7–22.1 | Tap a word. Learn the science. | 6 | 點 `solar flare` 開知識卡 → 收入背包 8/20→9/20（不口播） |
 | 11 | 22.1–26.0 | Real NASA data: the May 2025 X2.7 flare. | 8 | 資料面板：DONKI 折線（X2.7）＋REMS 曲線，`snapshot, not live` |
-| 12 | 26.0–30.0 | One choice they'll remember. | 5 | 任務報告 ★★★（health 78、science 8、背包 9/20）停到 **29.0**，0.2 秒淡入結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`FREE · BILINGUAL · 10 MINUTES`、`mars.flymymind.com`、`A FLY MY MIND PROJECT`；**結尾卡 29.0–30.0，最後一格就是這張卡**。旁白不再說「10 minutes」；結尾卡仍印這個字樣（要不要一併拿掉見 §0.7 第 5 點） |
+| 12 | 26.0–30.0 | One choice they'll remember. | 5 | 任務報告 ★★★（health 78、science 8、背包 9/20）停到 **29.0**，0.2 秒淡入結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`FREE · BILINGUAL`、`mars.flymymind.com`、`A FLY MY MIND PROJECT`；**結尾卡 29.0–30.0，最後一格就是這張卡**。旁白與字卡都不再出現「10 minutes」（字卡已於 11/15 重生） |
 
 - 旁白 **59 字、9 句**；剪輯點照上表，字幕時間軸照 SRT（兩者都由 §0.6 的同一組 `start` 產生），不要再套 §1 的 26.5 秒舊時間。
 - **全片英文語系**：`?video=s1`、`?video=report` 之外，正常流程那段（低重力跳躍）也要在 English 模式錄完再錄。驗收時逐鏡看過，畫面任何角落都不能出現中文（含遊戲 UI、提示、測試殘留、console 疊字）。英文是預設語言，不帶 `lang=zh` 就不會出現中文，但**不能只靠預設值**，錄完要目視確認。
@@ -140,7 +140,7 @@
 3. **著陸小遊戲縮短**：第 8 段 `seconds: 2.8 → 2.2`、`start: landed − 1.75 → landed − 1.30`（落地後留 0.9 秒的 `Perfect landing!`）。
 4. **跳躍補滿**：第 9 段 `seconds: 1.5 → 2.1`、`start: jump1 − 0.45 → jump1 − 0.30`（要含整段約 1.5 秒弧線，收在落地之後；`jump1` 是放開 JUMP 的標記，比起跳晚約 0.36 秒，所以實際會多出約半秒地面畫面，可接受）。
 5. **旁白去掉「10 minutes」**：`make-narration.mjs` 的 `CUES` 最後一句改成 `One choice they'll remember.`，重跑後把新的結束秒數填回 §0.6、確認 26.10 起、29.0 前收完；SRT 會一起重寫。
-   - 結尾卡仍印 `FREE · BILINGUAL · 10 MINUTES`（`tools/video/output/demo/cards/end.png`）。旁白不提這個數字，畫面要不要一起拿掉由團隊決定；要拿掉就重生 `end.png`，改成 `FREE · BILINGUAL`，兩行字距重排。
+   - **結尾卡已同步改掉**：`demo-cards.html` 的 chips 改成 `FREE · BILINGUAL`，`end.png` 已重生（11/15），旁白與畫面都不再出現「10 minutes」。重拍時直接用新卡，不要用舊的 `end.png` 備份。
 6. **重跑順序**：`node make-narration.mjs` → `node capture-demo.mjs`（四段都重錄；只想補一段就帶 clip 名）→ `node assemble-demo.mjs`。最後用 `ffprobe` 確認長度 ≤30.000 秒、有音軌、有燒字幕。
 7. **驗收**：逐鏡對 §0.4 的本版表（2.2／2.1 秒那兩列），確認第 4 鏡收在撞擊、第 9 鏡收在落地、第 12 鏡最後一格是結尾卡、全片無中文。
 
@@ -167,7 +167,7 @@
 
 ## 2. 繁中字幕（對照用，不燒進英文版）
 
-> 這張表對應的是 §1 的舊 8 鏡版（含「十分鐘」）。成片以 §0.4／§0.6 為準；**不要把這張燒進任何版本**，英文版字幕唯一來源是 `narration-ana-45-v3.srt`。
+> 這張表對應的是 §1 的舊 8 鏡版（第 8 句的「十分鐘」已於 11/15 拿掉）。成片以 §0.4／§0.6 為準；**不要把這張燒進任何版本**，英文版字幕唯一來源是 `narration-ana-45-v3.srt`。
 
 | # | 字幕 |
 |---:|---|
@@ -178,7 +178,7 @@
 | 5 | 點開一個詞，看懂背後的科學。 |
 | 6 | 收進背包，隨時再看。 |
 | 7 | 真實 NASA 資料：2025 年 5 月的 X2.7 閃焰。 |
-| 8 | 免費、雙語、十分鐘。《喵航員：火星基地》，Fly My Mind 出品。 |
+| 8 | 免費、雙語。《喵航員：火星基地》，Fly My Mind 出品。 |
 
 ## 3. 素材需求
 
@@ -276,7 +276,7 @@ Meowstronauts: Mars Outpost. A Fly My Mind project.
 - [x] 第 1 鏡名字：**WU, CHIA-LING · LIN, YU-YU · our junior astronaut**（成人兩位用大寫姓氏格式）；小孩只有 `our junior astronaut`，不放姓名、正臉、學校。
 - [ ] S1：`⚡−20`、`🛡️+25`（build 不同時以 build 為準：＿＿）。
 - [ ] 背包總數 20、目前 9（build 不同時：＿＿／＿＿）。
-- [ ] 標題卡：`MEOWSTRONAUTS: MARS OUTPOST`、`A FLY MY MIND PROJECT`、`FREE · BILINGUAL · 10 MINUTES`。
+- [ ] 標題卡：`MEOWSTRONAUTS: MARS OUTPOST`、`A FLY MY MIND PROJECT`、`FREE · BILINGUAL`（11/15 起不再有 `10 MINUTES`）。
 - [ ] 第 2 鏡實照：`tools/video/assets/mars-trek/` 的 Gale wide→mid、`tools/video/assets/apod/` 的 SDO flare；credit `NASA/JPL-Caltech · Mars Trek`、`NASA/SDO`；旁白不提那張圖的日期。
 - [ ] 英文字幕燒進影片＋另附 `.srt`；繁中字幕檔可選。
 - [ ] 若需縮短，同意用第 6 節 20 秒版。
