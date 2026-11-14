@@ -58,12 +58,15 @@ describe('video paths', () => {
 });
 
 describe('normal game', () => {
-  it('starts from the title and reaches the first event', () => {
+  it('starts from the title, plays the opening, and reaches the first event', () => {
     open('/?reset=1');
 
     expect(screen.getByTestId('title-screen')).toBeTruthy();
     fireEvent.click(screen.getByTestId('difficulty-cadet'));
     fireEvent.click(screen.getByTestId('start-game'));
+
+    expect(screen.getByTestId('opening-story')).toBeTruthy();
+    fireEvent.click(screen.getByTestId('opening-skip'));
 
     expect(screen.getByTestId('resource-power').textContent).toBe('72');
     expect(screen.getByTestId('begin-sol')).toBeTruthy();
@@ -73,9 +76,22 @@ describe('normal game', () => {
     expect(screen.queryByTestId('continue-button')).toBeNull();
   });
 
+  it('walks the opening reply and tap scenes', () => {
+    open('/?reset=1');
+    fireEvent.click(screen.getByTestId('start-game'));
+
+    fireEvent.click(screen.getByTestId('opening-next'));
+    expect(screen.getByTestId('opening-scene2-story')).toBeTruthy();
+
+    // The story can be skipped from any scene and lands on Sol 1.
+    fireEvent.click(screen.getByTestId('opening-skip'));
+    expect(screen.getByTestId('begin-sol')).toBeTruthy();
+  });
+
   it('opens the data panel with both snapshot charts', () => {
     open('/?reset=1');
     fireEvent.click(screen.getByTestId('start-game'));
+    fireEvent.click(screen.getByTestId('opening-skip'));
     fireEvent.click(screen.getByTestId('data-panel-button'));
 
     expect(screen.getByTestId('data-panel')).toBeTruthy();

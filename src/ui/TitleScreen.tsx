@@ -36,7 +36,7 @@ export function TitleScreen({
           </div>
           <h1>{t(lang, 'app.title')}</h1>
           <p className="tagline">{t(lang, 'app.subtitle')}</p>
-          <p>{t(lang, 'title.tagline')}</p>
+          <p className="title-pitch">{t(lang, 'title.tagline')}</p>
 
           <fieldset className="difficulty-picker">
             <legend>{t(lang, 'title.difficulty')}</legend>

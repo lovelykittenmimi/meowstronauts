@@ -113,6 +113,49 @@ describe('deck', () => {
   });
 });
 
+describe('full mission', () => {
+  it('plays all seven sols through to the mission report', () => {
+    let state = started();
+    const events: string[] = [];
+
+    for (let sol = 1; sol <= 7; sol += 1) {
+      expect(state.phase).toBe('briefing');
+      expect(state.sol).toBe(sol);
+
+      const event = drawEventFor(state);
+      events.push(event.id);
+      state = gameReducer(state, { type: 'OPEN_EVENT', eventId: event.id });
+      expect(state.phase).toBe('choice');
+
+      const choice = event.choices.find(
+        (item) => !item.requires || state.catCharges[item.requires] > 0,
+      );
+      expect(choice).toBeTruthy();
+      state = gameReducer(state, { type: 'CHOOSE', choiceId: choice!.id, roll: 1 });
+      expect(state.phase).toBe('result');
+      expect(state.resourceHistory).toHaveLength(sol);
+
+      state = gameReducer(state, { type: 'CONTINUE' });
+    }
+
+    expect(events[0]).toBe('T1');
+    expect(events.filter((id) => id === 'S1')).toHaveLength(1);
+    expect(events[3]).toBe('S1');
+    expect(['report', 'gameover']).toContain(state.phase);
+    expect(state.sol).toBe(7);
+  });
+
+  it('keeps the chosen difficulty on restart', () => {
+    let state = gameReducer(createInitialState('ace', 'en'), {
+      type: 'START_GAME',
+      difficulty: 'ace',
+    });
+    state = gameReducer(state, { type: 'RESTART' });
+    expect(state.difficulty).toBe('ace');
+    expect(state.resources.power).toBe(60);
+  });
+});
+
 describe('backpack, assists, and scoring', () => {
   it('adds a card once and turns eight into nine', () => {
     let state = started();

@@ -1,4 +1,4 @@
-import { EVENT_CARDS, EVENT_BY_ID } from './events';
+import { EVENT_CARDS, EVENT_BY_ID, TUTORIAL_CARD } from './events';
 import { makeContext } from './conditions';
 import { createRng } from './rng';
 import type { EventCard, GameState } from './types';
@@ -7,6 +7,10 @@ export const FIXED_S1_SOL = 4;
 
 /** S1 is fixed at Sol 4; other sols draw from the cards whose conditions hold. */
 export function drawEventFor(state: GameState): EventCard {
+  if (state.sol === 1 && !state.history.some((entry) => entry.eventId === 'T1')) {
+    return TUTORIAL_CARD;
+  }
+
   const s1Pending =
     state.sol === FIXED_S1_SOL &&
     !state.flags.s1Resolved &&

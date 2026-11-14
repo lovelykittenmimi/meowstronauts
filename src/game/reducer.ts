@@ -289,7 +289,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'RESTART':
       return {
-        ...createInitialState('officer', state.lang, undefined, state.collectedCards),
+        ...createInitialState(state.difficulty, state.lang, undefined, state.collectedCards),
         seed: state.seed,
       };
 

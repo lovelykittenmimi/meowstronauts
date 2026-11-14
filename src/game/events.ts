@@ -18,6 +18,45 @@ const DONKI_SOURCE = {
 };
 
 /**
+ * The scripted Sol 1 tutorial card (docs/event-cards.md §1). It is not part
+ * of the 12-card MVP deck and never appears in a normal draw.
+ */
+export const TUTORIAL_CARD: EventCard = {
+  id: 'T1',
+  category: 'power',
+  cat: 'shadow',
+  minSol: 1,
+  maxSol: 1,
+  title: l('First Order at Hope-1', 'Hope-1 的第一道命令'),
+  brief: l(
+    'Sunrise. Crash dust covers part of the {{solarPower}} array. Shadow is outside with a brush, waiting for your call.',
+    '太陽升起，迫降揚起的沙塵蓋住一部分{{solarPower}}陣列。暗影拿著刷子在外面等你的決定。',
+  ),
+  terms: ['solarPower'],
+  choices: [
+    {
+      id: 'sweep',
+      label: l('Sweep the panels', '清掃太陽能板'),
+      effects: { power: 6, lifeSupport: -3, health: -5 },
+      knowledgeCard: 'solarPower',
+      outcome: l(
+        'The panels clear and power ticks up. Dust gets into the airlock, and the crew is worn out.',
+        '太陽能板清乾淨了，電力回升。沙塵跑進氣閘艙，大家也累了。',
+      ),
+    },
+    {
+      id: 'rest',
+      label: l('Let the crew rest', '讓大家先休息'),
+      effects: { health: 6, power: -7 },
+      outcome: l(
+        'The crew warms up and sleeps another hour. The batteries pay for it.',
+        '船員暖和起來，又多睡了一小時。電池付帳。',
+      ),
+    },
+  ],
+};
+
+/**
  * The 12 MVP cards from docs/event-cards.md §3.2.
  * Values match docs/balance-sheet.csv; copy is written during the event.
  */
@@ -601,6 +640,8 @@ export const EVENT_CARDS: EventCard[] = [
   },
 ];
 
-export const EVENT_BY_ID = new Map(EVENT_CARDS.map((card) => [card.id, card]));
+export const EVENT_BY_ID = new Map(
+  [TUTORIAL_CARD, ...EVENT_CARDS].map((card) => [card.id, card]),
+);
 
 export const MVP_EVENT_COUNT = EVENT_CARDS.length;

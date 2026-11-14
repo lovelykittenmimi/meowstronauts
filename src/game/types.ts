@@ -88,7 +88,7 @@ export interface EventCard {
   brief: Localized;
   terms?: string[];
   source?: DataSource;
-  choices: [Choice, Choice, Choice];
+  choices: Choice[];
   minSol: number;
   maxSol: number;
   when?: (ctx: ConditionContext) => boolean;

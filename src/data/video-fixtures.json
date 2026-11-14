@@ -10,7 +10,7 @@
       "science": 3
     },
     "steps": [
-      { "sol": 1, "eventId": "P4", "choiceId": "lower-heat" },
+      { "sol": 1, "eventId": "T1", "choiceId": "sweep" },
       { "sol": 2, "eventId": "P1", "choiceId": "clean" },
       { "sol": 3, "eventId": "S3", "choiceId": "skip" }
     ],
@@ -39,7 +39,7 @@
   "report": {
     "difficulty": "officer",
     "steps": [
-      { "sol": 1, "eventId": "P4", "choiceId": "lower-heat" },
+      { "sol": 1, "eventId": "T1", "choiceId": "sweep" },
       { "sol": 2, "eventId": "P1", "choiceId": "clean" },
       { "sol": 3, "eventId": "C1", "choiceId": "relay" },
       { "sol": 4, "eventId": "S1", "choiceId": "keep-generating" },

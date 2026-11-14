@@ -13,6 +13,8 @@ import { KnowledgeSheet } from './ui/KnowledgeSheet';
 import { MissionReport } from './ui/MissionReport';
 import { OpeningScene } from './ui/OpeningScene';
 import { ResourceHud } from './ui/ResourceHud';
+import { RotateHint } from './ui/RotateHint';
+import { StoryOpening } from './ui/StoryOpening';
 import { TitleScreen } from './ui/TitleScreen';
 
 const LANG_KEY = 'meowstronauts.lang';
@@ -51,6 +53,7 @@ export default function App() {
   const reset = params.get('reset') === '1';
 
   const [opening, setOpening] = useState(scene === 'opening2');
+  const [storyOpen, setStoryOpen] = useState(false);
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>('officer');
   const [knowledgeId, setKnowledgeId] = useState<string | null>(null);
   const [backpackOpen, setBackpackOpen] = useState(false);
@@ -83,6 +86,11 @@ export default function App() {
     }
   }, [state.lang, state.collectedCards, videoMode]);
 
+  useEffect(() => {
+    if (videoMode) return;
+    if (window.scrollY > 0) window.scrollTo(0, 0);
+  }, [state.phase, videoMode]);
+
   const toggleLang = () => {
     dispatch({ type: 'SET_LANG', lang: state.lang === 'en' ? 'zh-TW' : 'en' });
   };
@@ -93,12 +101,18 @@ export default function App() {
   };
 
   if (opening) {
-    return <OpeningScene lang={state.lang} onDone={() => setOpening(false)} />;
+    return (
+      <>
+        <OpeningScene lang={state.lang} onDone={() => setOpening(false)} />
+        <RotateHint lang={state.lang} />
+      </>
+    );
   }
 
   if (state.phase === 'report') {
     return (
       <>
+        <RotateHint lang={state.lang} />
         <MissionReport state={state} onRestart={() => dispatch({ type: 'RESTART' })} />
         {knowledgeId && (
           <KnowledgeSheet
@@ -114,18 +128,50 @@ export default function App() {
   }
 
   if (state.phase === 'gameover') {
-    return <GameOver lang={state.lang} onRestart={() => dispatch({ type: 'RESTART' })} />;
+    return (
+      <>
+        <GameOver lang={state.lang} onRestart={() => dispatch({ type: 'RESTART' })} />
+        <RotateHint lang={state.lang} />
+      </>
+    );
   }
 
   if (state.phase === 'title') {
     return (
       <>
+        <RotateHint lang={state.lang} />
         <TitleScreen
           lang={state.lang}
           difficulty={selectedDifficulty}
           onDifficulty={setSelectedDifficulty}
-          onStart={() => dispatch({ type: 'START_GAME', difficulty: selectedDifficulty })}
+          onStart={() => {
+            dispatch({ type: 'START_GAME', difficulty: selectedDifficulty });
+            setStoryOpen(true);
+          }}
           onToggleLang={toggleLang}
+        />
+        {knowledgeId && (
+          <KnowledgeSheet
+            cardId={knowledgeId}
+            lang={state.lang}
+            collected={state.collectedCards.includes(knowledgeId)}
+            onClose={() => setKnowledgeId(null)}
+            onCollect={(id) => dispatch({ type: 'COLLECT_CARD', cardId: id })}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (storyOpen && state.phase === 'briefing') {
+    return (
+      <>
+        <RotateHint lang={state.lang} />
+        <StoryOpening
+          lang={state.lang}
+          paused={Boolean(knowledgeId)}
+          onDone={() => setStoryOpen(false)}
+          onTerm={openCard}
         />
         {knowledgeId && (
           <KnowledgeSheet
@@ -144,6 +190,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <RotateHint lang={state.lang} />
       <ResourceHud
         state={state}
         onBackpack={() => setBackpackOpen(true)}
