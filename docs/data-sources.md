@@ -170,6 +170,31 @@ Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 �
 - **不要把 Perseverance 的新發現混進來**：`Spheres in the Sand` 也寫了 Perseverance 在 Witch Hazel Hill 找到的球形顆粒，那是玄武岩質、可能來自撞擊熔融或火山，不是赤鐵礦「藍莓」；遊戲只講機會號那一批。
 - **赤鐵礦樣本是手繪 SVG**：小遊戲不引用照片，也不新增第 21 張知識卡；背包維持 20 張，赤鐵礦只出現在小遊戲回饋與本文件。
 
+### 3.5 太空食物翻卡小遊戲的教學引用
+
+`src/minigames/food/` 的六組「食物 ↔ NASA 事實」只使用下表可回指的頁面；小遊戲不進 7 sol 主線、不改平衡表、不新增第 21 張知識卡（背包維持 20 張）。2026-11-14 逐一以 HTTP 200 與頁面原文核對。
+
+| # | 主題 | 可寫的事實 | 來源 | 遊戲用法 |
+|---|---|---|---|---|
+| S23 | 太空食品系統 | 太空食品實驗室生產**冷凍乾燥食品**；也生產**熱殺菌軟袋**食品，類似軍用 MRE，並調整以符合太空人的營養需求；飲料粉稱重裝袋後，袋口以**單向塑膠閥**密封，入軌後直接注水 | NASA — [Space Food Systems](https://www.nasa.gov/directorates/esdmd/hhp/space-food-systems/) | 事實卡 #1–#3（冷凍乾燥草莓、熱殺菌軟袋、飲料軟袋） |
+| S24 | 食物與營養 | 長期任務（6–8 個月）除了整體攝取量，NASA 也關注特定營養素，頁面明列 **vitamin D、folate、calcium、iron** | NASA JSC — [Food & Nutrition](https://www.nasa.gov/reference/jsc-food-nutrition/) | 事實卡 #6（維生素 D 與鈣） |
+| S25 | Veggie 生菜 | 2015-08-10，Expedition 44 的 Scott Kelly、Kjell Lindgren、Kimiya Yui 在太空站品嚐 Veggie 種的 **Outredgeous 紅蘿蔓**；Lindgren 先採收一半 | NASA — [Space Station blog, 2015-08-10](https://www.nasa.gov/blogs/spacestation/2015/08/10/cosmonauts-complete-russian-spacewalk/) | 事實卡 #4（太空生菜） |
+| S11 | 太空種植植物（既有來源） | 太空人回報喜歡太空站種的**辣椒**；在太空中的**味覺會改變** | NASA Science — [Growing Plants in Space](https://science.nasa.gov/biological-physical/the-challenges-of-growing-plants-in-space/) | 事實卡 #5（太空辣椒） |
+| S20 | 骨骼變化（既有來源） | 太空飛行造成的骨骼變化是 NASA 追蹤的風險之一 | NASA — [Risk of Spaceflight-Induced Bone Changes](https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/) | 事實卡 #6 的「骨骼需要鈣」背景；不寫骨密度百分比 |
+
+使用注意：
+
+- **卡片上的括號說明是定義級簡化**：NASA 頁面直接支持的是「NASA 生產冷凍乾燥食品」「熱殺菌軟袋類似 MRE」「飲料袋用單向閥、入軌後注水」。卡片寫的「變輕、不用冰箱」「常溫保存」是 shelf-stable（可常溫存放）的同義簡化，方便 7–12 歲理解，**不寫成 NASA 的引述**。
+- **維生素 D 只寫功能關係**：NASA 把 vitamin D、calcium 列為關注營養素，骨骼需要鈣；**不寫 IU 劑量、不寫補充建議**。
+- **Veggie 的時間與作物要對**：2014 年是 VEG-01A，作物採收後帶回分析、**沒有在軌食用**；2015-08-10 才是 Expedition 44 在軌品嚐（VEG-01B）。引用一律用 2015-08-10 的太空站部落格，不把 2014 寫成「首次吃掉」。OSDR 的 VEG-01B payload 頁未列入來源，避免與 VEG-01A 混淆。
+- **辣椒只寫「太空人回報喜歡」與「味覺改變」**：不寫辣度、產量、營養成分或「吃辣能對抗什麼」。
+- **不採用的 Gemini 說法**（在 NASA 頁面找不到可回指的明確句子，寫進遊戲就是自行新增事實）：
+  - 「維生素 D 800–1000 IU」：NASA 頁面沒有劑量數字。
+  - 「Omega-3 抗發炎／抗輻射」：NASA 頁面沒有此敘述。
+  - 「低鈉辣醬取代高鹽」：沒有可回指頁面；辣醬也沒有放進六組。
+  - 8 種食物裡超過一半（Omega-3、辣醬、tortilla 等）沒有足夠來源撐起一張事實卡，因此縮成 6 組。
+- **不使用照片、不新增知識卡**：食物與卡片全是 emoji＋文字；太空食物只出現在小遊戲回饋與本文件。
+
 ## 4. 重新產生
 
 ```bash
