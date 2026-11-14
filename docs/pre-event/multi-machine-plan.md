@@ -299,7 +299,7 @@ C 的煙霧測試（11/13，不碰遊戲）：
 | 10:30–12:00 | 核心狀態機、12 張事件卡；**部署 internal preview**；開始 unit tests；**11:00 確認 B／C 已 clone 同一版、CI 綠燈** | 玩得到什麼就測什麼，開 issue | **圖片去背、resize、WebP 壓縮**，輸出 `src/assets/generated/**`＋manifest；README／licenses 草稿 | **12:00 同步點：main 綠燈；8 張圖可用** |
 | 12:00–13:00 | 午餐＋自己玩一次 | 午餐 | 午餐 | — |
 | 13:00–15:00 | UI、對話、知識卡、雙語；unit／integration tests | 測開場與第一局 | **建 E2E：完整一局、影片路徑、語言**；截圖、無障礙清單 | **15:00 同步點：main 綠燈** |
-| 15:00–16:00 | 開場 6 幕＋3 個 tap；修 E2E 抓到的 P0 | 試看開場一次（90 秒內） | **跑 E2E、開 issue**；submission 文字定稿 | 16:00 開場節奏確認 |
+| 15:00–16:00 | 開場 6 幕＋3 個 tap；修 E2E 抓到的 P0 | 試看開場一次（記錄實際秒數；長度不是硬性門檻） | **跑 E2E、開 issue**；submission 文字定稿 | 16:00 開場試看完成 |
 | 16:00–16:30 | 修開場、**部署 v0.1** | 重測部署版 | **E2E 綠燈**；檢查連結、圖片、欄位 | **16:30 檢查 submission 草稿（不按 final submit）** |
 | 16:30–17:30 | 部署後 smoke test、修 P0 | 部署版 smoke test | 整理 submission 截圖與文案草稿 | URL 可開 |
 | 17:30–19:00 | 修 playtest P0 | **正式 playtest（家長在場）**；之後補 regression（可選） | 整理 playtest 紀錄與截圖；更新 submission | **18:30 同步點：main 綠燈** |
