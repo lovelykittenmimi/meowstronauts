@@ -9,10 +9,12 @@ science while learning how real Mars data is read.
 
 ## Status
 
-**Event started 2026-11-14 09:00.** This first commit is the pre-event snapshot:
-the plan, data-source research, offline API snapshots, image-generation prompts,
-layout wireframes, submission templates, brand kit, and the standalone video
-pipeline. Game code and final in-game copy are written during the event.
+**Event build, 2026-11-14.** The playable loop is in place: title screen →
+skippable six-scene opening → seven sols of event cards → mission report, in
+English and Traditional Chinese. The build ships 12 event cards (including a
+scripted Sol 1 tutorial) and 20 knowledge cards, all backed by the committed
+offline NASA snapshots. The 30-second demo video and final submission copy are
+produced during the event.
 
 ## What is real and what is fiction
 

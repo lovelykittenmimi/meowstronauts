@@ -14,7 +14,7 @@
   --rust-ink: #9a4a2b;
   --radius: 18px;
   --shadow: 0 18px 50px rgba(23, 32, 51, 0.16);
-  font-family: 'Nunito', 'Noto Sans TC', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', sans-serif;
   color: var(--ink);
   background: var(--paper);
   font-synthesis: none;
@@ -149,6 +149,8 @@ h1 {
   gap: 12px;
   align-items: center;
   padding: 10px 18px;
+  padding-left: max(18px, env(safe-area-inset-left));
+  padding-right: max(18px, env(safe-area-inset-right));
   background: rgba(247, 243, 234, 0.96);
   border-bottom: 2px solid var(--silver);
   backdrop-filter: blur(8px);
@@ -229,6 +231,8 @@ h1 {
   width: min(1180px, 100%);
   margin: 0 auto;
   padding: clamp(14px, 3vw, 34px);
+  padding-left: max(clamp(14px, 3vw, 34px), env(safe-area-inset-left));
+  padding-right: max(clamp(14px, 3vw, 34px), env(safe-area-inset-right));
 }
 
 .title-shell {
@@ -1075,7 +1079,23 @@ h1 {
 }
 
 /* Responsive ----------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .resource-label {
+    display: none;
+  }
+}
+
 @media (max-width: 1050px) {
+  .choices {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-button {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 900px) {
   .hud {
     grid-template-columns: 1fr auto;
   }
@@ -1088,14 +1108,6 @@ h1 {
 
   .hud-actions {
     justify-self: end;
-  }
-
-  .choices {
-    grid-template-columns: 1fr;
-  }
-
-  .choice-button {
-    min-height: 0;
   }
 }
 
@@ -1119,6 +1131,8 @@ h1 {
     grid-template-columns: minmax(0, 1fr) auto;
     flex: 0 0 auto;
     padding: 5px 10px;
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
     gap: 8px;
   }
 
@@ -1168,6 +1182,8 @@ h1 {
   .event-shell,
   .report-shell {
     padding: 8px;
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
   }
 
   .event-card,
@@ -1359,6 +1375,8 @@ h1 {
   flex-direction: column;
   min-height: 100dvh;
   padding: clamp(14px, 2.6vw, 32px);
+  padding-left: max(clamp(14px, 2.6vw, 32px), env(safe-area-inset-left));
+  padding-right: max(clamp(14px, 2.6vw, 32px), env(safe-area-inset-right));
   overflow: auto;
   color: var(--paper);
   background:
@@ -1369,7 +1387,7 @@ h1 {
 .story-skip {
   position: fixed;
   top: 14px;
-  right: 14px;
+  right: max(14px, env(safe-area-inset-right));
   z-index: 40;
   min-width: 44px;
   min-height: 44px;
