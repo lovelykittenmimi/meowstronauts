@@ -416,21 +416,21 @@
       "note": "background plate candidate (no cats), 2026-11-14"
     },
     {
-      "file": "scenes/11-cold-patrol-nocat.webp",
+      "file": "scenes/11-cold-patrol-nocar.webp",
       "type": "scene",
       "background": "opaque",
-      "source": "11.jpeg (no-cat plate)",
+      "source": "11.jpeg (no-rover, no-cat plate)",
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
       "bytes": 154104,
       "quality": 82,
       "alt": {
-        "en": "A frost-dusted Martian plain with fresh rover tracks and a thin dust devil at dawn.",
-        "zh-TW": "覆霜的火星平原，有新的探測車車轍與遠方細長塵捲風。"
+        "en": "A frost-dusted Martian plain with fresh rover tracks and a thin dust devil at dawn; no rover in frame.",
+        "zh-TW": "覆霜的火星平原，有新的探測車車轍與遠方細長塵捲風；畫面中沒有探測車。"
       },
       "credit": null,
-      "note": "background plate candidate (no cats), 2026-11-14; the rover is omitted in this plate — only the tracks remain"
+      "note": "background plate candidate (no rover, no cats), 2026-11-14; scene 11 is offered only as rover+crew or as this empty landscape — no empty-cabin version"
     },
     {
       "file": "scenes/12-debrief-nocat.webp",
