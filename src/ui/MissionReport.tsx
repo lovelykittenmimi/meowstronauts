@@ -70,9 +70,11 @@ export function MissionReport({ state, onRestart }: MissionReportProps) {
             </strong>
           </div>
           <div>
-            <span className="eyebrow">Emergency supply</span>
+            <span className="eyebrow">{t(lang, 'report.emergency')}</span>
             <strong data-testid="report-emergency-unused">
-              {state.emergencyUsed ? 'Used' : 'Unused'}
+              {state.emergencyUsed
+                ? t(lang, 'report.emergency.used')
+                : t(lang, 'report.emergency.unused')}
             </strong>
           </div>
         </div>

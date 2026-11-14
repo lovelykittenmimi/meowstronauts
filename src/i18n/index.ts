@@ -114,6 +114,13 @@ export const STRINGS = {
     en: 'Everyone made it home. Next time, check the supplies sooner.',
     'zh-TW': '大家都回來了。下次早一點檢查補給。',
   },
+  'report.emergency': { en: 'Emergency supply', 'zh-TW': '緊急補給' },
+  'report.emergency.used': { en: 'Used', 'zh-TW': '已使用' },
+  'report.emergency.unused': { en: 'Unused', 'zh-TW': '未使用' },
+  'title.snapshotNote': {
+    en: 'NASA data snapshots · Historical weather and space-weather records, not live.',
+    'zh-TW': 'NASA 資料快照 · 歷史天氣與太空天氣紀錄，非即時資料。',
+  },
   'gameover.title': { en: 'Mission paused', 'zh-TW': '任務暫停' },
   'gameover.text': {
     en: 'The crew needs rest and repair. Try the sol again.',

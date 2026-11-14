@@ -58,9 +58,7 @@ export function TitleScreen({
           <button type="button" className="primary-button start-button" data-testid="start-game" onClick={onStart}>
             {t(lang, 'title.start')}
           </button>
-          <p className="snapshot-note">
-            NASA data snapshots · Historical weather and space-weather records, not live.
-          </p>
+          <p className="snapshot-note">{t(lang, 'title.snapshotNote')}</p>
         </div>
       </section>
     </main>
