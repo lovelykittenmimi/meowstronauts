@@ -36,7 +36,7 @@
 | 11 | `solarPower` | 太陽能 | solar power | engineering | 太陽能板把陽光轉成電，是火星探測車常用的電力來源；夜間、季節與灰塵都會讓輸出下降。 | S12 |
 | 12 | `dustStorm` | 沙塵暴 | dust storm | mars | 火星風可揚起區域性甚至全球性的沙塵暴，NASA 指出塵埃可在大氣中懸浮數月才沉降。 | S4 |
 | 13 | `commsDelay` | 通訊延遲 | communication delay | engineering | 無線電以光速傳播；地球與火星距離 54.6 至 400.2 百萬公里時，單向訊號約需 3 到 22.4 分鐘，無法即時遙控。 | S13 |
-| 14 | `sol` | 火星日 | sol | mars | 火星自轉一圈約 24.6 小時，稱為一個 sol；一個火星年約 669.6 sol。地球日約 24 小時。 | S4, S5 |
+| 14 | `sol` | 火星日 | sol | mars | 火星自轉一圈約 24.6 小時，稱為一個 sol；一個火星年約 669.6 sol。地球日約 24 小時。因為 sol 比地球日稍長，日曆日期會慢慢漂移；有些地球日期沒有對應的 sol。 | S4, S5 |
 | 15 | `micrometeorite` | 微隕石 | micrometeoroid | spaceWeather | 極小但速度極高的塵粒或碎片，能穿透薄殼；NASA 用多層遮蔽與撞擊風險模型（如 BUMPER）保護太空船。 | S14 |
 | 16 | `gravity` | 重力 | gravity | mars | 物體之間的吸引力；質量越大，重力越強。地球表面約 1g；火星約 0.38g（約地球三分之一），是低重力，不是無重力。長期無重力會讓體液往頭部移動，骨密度每月約流失 1–1.5%（4–6 個月任務）。 | S5, S18, S20, S21 |
 | 17 | `geomagneticStorm` | 地磁風暴 | geomagnetic storm | spaceWeather | 太陽風或 CME 擾動地球磁層造成；強度常用 Kp 指數表示，Kp 7 以上屬於強烈風暴。**火星沒有全球磁場**，遊戲只把 Kp 當成太陽風暴強度的簡化代理。 | S1 |

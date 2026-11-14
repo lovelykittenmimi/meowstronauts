@@ -311,8 +311,8 @@
       "zh-TW": "一個火星日。"
     },
     "example": {
-      "en": "A sol is about 24.6 hours; a Martian year is about 669.6 sols.",
-      "zh-TW": "一個 sol 約 24.6 小時；火星年約 669.6 sol。"
+      "en": "A sol is about 24.6 hours—a little longer than an Earth day—so the calendar date drifts; some Earth dates have no sol.",
+      "zh-TW": "一個 sol 約 24.6 小時，比地球日稍長，所以日曆日期會慢慢漂移；有些地球日期沒有對應的 sol。"
     },
     "why": {
       "en": "The mission lasts seven sols.",
