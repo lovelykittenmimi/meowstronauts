@@ -1,9 +1,9 @@
 import { briefForSol } from '../game/daily';
+import { artForEvent } from '../game/eventArt';
 import { getKnowledgeCard } from '../game/knowledge';
 import type { EventCard, GameState } from '../game/types';
 import { t } from '../i18n';
 import baseExterior from '../assets/generated/scenes/07-base-exterior.webp';
-import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
 
@@ -19,18 +19,20 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
   const brief = briefForSol(state.sol);
   const isCold = state.weather.tags.includes('cold_snap') || state.weather.tags.includes('severe_cold');
 
+  // The same scene the sol's event card uses: the briefing footer already
+  // names that event, so the picture must not contradict it.
+  const art = artForEvent(event.id);
+
   return (
     <main className="briefing-shell">
       <SceneStage
-        src={isCold ? coldPatrol : baseExterior}
+        src={art?.src ?? baseExterior}
         alt={
-          isCold
-            ? lang === 'en'
-              ? 'A rover crosses a frost-dusted Martian plain with Shadow and Ginger inside.'
-              : '探測車駛過結霜的火星平原，暗影與金桔坐在車內。'
+          art
+            ? art.alt[lang]
             : lang === 'en'
-              ? 'Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.'
-              : '希望一號火星基地外觀，含圓頂、太陽能陣列與探測車。'
+              ? 'Exterior view of the Hope-1 Mars outpost with its dome, dish, solar farm and rover.'
+              : '希望一號火星基地外觀，含圓頂、碟型天線、太陽能陣列與探測車。'
         }
       />
       <section className="briefing-card">

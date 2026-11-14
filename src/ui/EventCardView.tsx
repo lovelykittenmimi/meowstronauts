@@ -12,9 +12,11 @@ import { SceneStage } from './SceneStage';
 /**
  * Choices that get a short hands-on beat before they resolve. Only the ones
  * where the crew actually goes out to the panels — "leave it for now" must
- * not open a sweeping game.
+ * not open a sweeping game. T1 is the first card of every run, so the player
+ * meets the sweeping game on Sol 1, not only when P1 happens to be drawn.
  */
 const DUST_CHOICES: Record<string, string[]> = {
+  T1: ['sweep'],
   P1: ['clean', 'shake'],
 };
 

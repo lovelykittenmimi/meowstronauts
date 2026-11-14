@@ -305,6 +305,16 @@ export default defineConfig({
 
 3. 建 tests/e2e/full-run.spec.ts：從標題畫面玩完 7 個 sol（開場可跳過），
    每個 sol 點第一個 enabled 的 choice，最後看到 mission-report。
+   清塵小遊戲（11/14 18:00 新增）：sol 1 的「Sweep the panels」與 P1 的
+   「Send Shadow to clean / Shake off the dust」會先開 dust-game，清完 6 團沙塵
+   才出現 result-panel。點完 choice 後照這樣處理：
+   ```ts
+   if (await page.getByTestId('dust-game').isVisible().catch(() => false)) {
+     for (let i = 0; i < 6; i += 1) await page.getByTestId('dust-spot').first().click();
+   }
+   await page.getByTestId('result-panel').waitFor();
+   ```
+   不處理就會卡在 sol 1 等不到 result-panel。
 
 4. 跑：npm run test:e2e。全綠就 commit：
    git pull --rebase origin main
