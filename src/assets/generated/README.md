@@ -39,7 +39,7 @@
 - 事件卡的貓咪表情頭像來自 [`../avatars/`](../avatars/)（`src/ui/catFaces.ts`，3 貓 × determined／happy／worried）。
 - `scenes/*-nocat.webp` 是 2026-11-14 加入的無貓背景底板（06、08–10、12–13），**候選素材，尚未接入遊戲**。
   11 只有兩個版本：原圖（探測車＋兩隻貓）與 `11-cold-patrol-nocar.webp`（沒車也沒貓，只剩車轍與塵捲風）；
-  不做「空車」版。06 與 13 的艙身仍有美國國旗貼布；13 為 1.98:1，比其他張寬。
+  不做「空車」版。06 與 13 的底板已於同日重出，艙身沒有美國國旗貼布；13 為 2.02:1，比其他張寬；06 仍有風格化的小火焰。
 - `manifest.json` 的 `alt.en`／`alt.zh-TW` 可直接給 `<img alt>`；
   `credit` 皆為 `null`（本批為 AI 生成圖，不是 NASA 照片）。
 - 去背圖的 alpha 已保留，可直接疊在 `--paper`、`--navy` 或場景圖上。

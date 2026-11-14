@@ -355,14 +355,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 85574,
+      "bytes": 87056,
       "quality": 82,
       "alt": {
         "en": "The crashed spacecraft with its hatch open beside broken solar panels, no crew in frame.",
         "zh-TW": "迫降的太空船艙門敞開，旁邊是破裂的太陽能板，畫面中沒有貓。"
       },
       "credit": null,
-      "note": "background plate candidate (no cats), 2026-11-14; ship still shows the US flag decal and small flames"
+      "note": "background plate candidate (no cats), 2026-11-14; re-rolled without the US flag decal; small stylized crash flames remain"
     },
     {
       "file": "scenes/08-control-room-nocat.webp",
@@ -453,18 +453,18 @@
       "file": "scenes/13-ending-nocat.webp",
       "type": "scene",
       "background": "opaque",
-      "source": "13.jpeg (no-cat plate)",
-      "originalPixels": "2912x1472",
+      "source": "13.jpeg (no-cat plate, re-rolled)",
+      "originalPixels": "2912x1440",
       "width": 1280,
-      "height": 647,
-      "bytes": 56912,
+      "height": 633,
+      "bytes": 50612,
       "quality": 82,
       "alt": {
         "en": "A supply ship descending toward the landing pad at sunrise, no crew in frame.",
         "zh-TW": "日出時補給船降向停機坪，畫面中沒有貓。"
       },
       "credit": null,
-      "note": "background plate candidate (no cats), 2026-11-14; 1.98:1 crop; capsule still shows the US flag decal and tiny lettering"
+      "note": "background plate candidate (no cats), 2026-11-14; re-rolled without the US flag decal and lettering; 2.02:1 crop"
     },
     {
       "file": "cutouts/14-silver-turnaround.webp",
