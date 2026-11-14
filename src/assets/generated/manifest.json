@@ -49,14 +49,14 @@
       "originalPixels": "2752x1536",
       "width": 1280,
       "height": 714,
-      "bytes": 102758,
+      "bytes": 99226,
       "quality": 82,
       "alt": {
-        "en": "The crew's spacecraft crashed nose-down across solar panels while the three cats climb out.",
-        "zh-TW": "太空船機鼻朝下撞上太陽能板，三隻貓正從艙口爬出。"
+        "en": "The three cats stand on rocks in front of their spacecraft and a solar panel array after the crash.",
+        "zh-TW": "三隻貓站在岩石上，背後是迫降的太空船與太陽能板。"
       },
       "credit": null,
-      "note": "opening / crash site; re-rolled 2026-11-14 without the US flag decal (a tomato sits on the rock beside Ginger)"
+      "note": "opening / crash site; re-rolled 2026-11-14 without the US flag decal, then again without the tomato"
     },
     {
       "file": "scenes/07-base-exterior.webp",
