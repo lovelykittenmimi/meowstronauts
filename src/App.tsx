@@ -113,7 +113,9 @@ export default function App() {
     return (
       <>
         <RotateHint lang={state.lang} />
-        <MissionReport state={state} onRestart={() => dispatch({ type: 'RESTART' })} />
+        <div className="app-shell">
+          <MissionReport state={state} onRestart={() => dispatch({ type: 'RESTART' })} />
+        </div>
         {knowledgeId && (
           <KnowledgeSheet
             cardId={knowledgeId}
@@ -130,7 +132,9 @@ export default function App() {
   if (state.phase === 'gameover') {
     return (
       <>
-        <GameOver lang={state.lang} onRestart={() => dispatch({ type: 'RESTART' })} />
+        <div className="app-shell">
+          <GameOver lang={state.lang} onRestart={() => dispatch({ type: 'RESTART' })} />
+        </div>
         <RotateHint lang={state.lang} />
       </>
     );

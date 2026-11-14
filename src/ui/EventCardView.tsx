@@ -6,6 +6,7 @@ import { RESOURCE_LABEL_KEY, CAT_NAMES, t } from '../i18n';
 import { faceFor } from './catFaces';
 import { ICONS } from './ResourceHud';
 import { RichText } from './RichText';
+import { SceneStage } from './SceneStage';
 
 const CATEGORY_LABEL: Record<string, { en: string; 'zh-TW': string }> = {
   power: { en: 'Power', 'zh-TW': '電力' },
@@ -59,12 +60,12 @@ export function EventCardView({
   onContinue,
   onOpenCard,
 }: EventCardViewProps) {
-  const shellRef = useRef<HTMLElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const shell = shellRef.current;
-    if (state.phase === 'result' && shell && shell.scrollHeight > shell.clientHeight) {
-      shell.scrollTop = shell.scrollHeight;
+    const body = bodyRef.current;
+    if (state.phase === 'result' && body && body.scrollHeight > body.clientHeight) {
+      body.scrollTop = body.scrollHeight;
     }
   }, [state.phase]);
 
@@ -82,39 +83,26 @@ export function EventCardView({
   const facePhase = isResult ? (state.lastSuccess ? 'success' : 'fail') : 'choice';
 
   return (
-    <main ref={shellRef} className={`event-shell ${isResult ? 'is-result' : ''}`}>
+    <main className={`event-shell ${isResult ? 'is-result' : ''}`}>
+      {art && <SceneStage src={art.src} alt={art.alt[lang]} />}
       <article className="event-card" data-testid={`event-card-${event.id}`}>
-        <div className="event-banner">
-          {art && (
-            <img
-              className="event-banner-art"
-              src={art.src}
-              alt={art.alt[lang]}
-              style={art.position ? { objectPosition: art.position } : undefined}
-              onError={(imageEvent) => {
-                imageEvent.currentTarget.style.display = 'none';
-              }}
-            />
-          )}
-          <div className="event-banner-shade" />
-          <header className="event-head">
-            <img
-              className="cat-avatar"
-              data-testid="event-avatar"
-              key={facePhase}
-              src={faceFor(event.cat, facePhase)}
-              alt={CAT_NAMES[event.cat][lang]}
-            />
-            <div>
-              <p className="eyebrow">
-                {category[lang]} · {t(lang, 'briefing.sol', { sol: state.sol })}
-              </p>
-              <h1>{event.title[lang]}</h1>
-            </div>
-          </header>
-        </div>
+        <div className="event-body" ref={bodyRef}>
+        <header className="event-head">
+          <img
+            className="cat-avatar"
+            data-testid="event-avatar"
+            key={facePhase}
+            src={faceFor(event.cat, facePhase)}
+            alt={CAT_NAMES[event.cat][lang]}
+          />
+          <div>
+            <p className="eyebrow">
+              {category[lang]} · {t(lang, 'briefing.sol', { sol: state.sol })}
+            </p>
+            <h1>{event.title[lang]}</h1>
+          </div>
+        </header>
 
-        <div className="event-body">
         <p className="event-brief">
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>

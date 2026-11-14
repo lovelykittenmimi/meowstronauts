@@ -5,6 +5,7 @@ import { t } from '../i18n';
 import baseExterior from '../assets/generated/scenes/07-base-exterior.webp';
 import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import { RichText } from './RichText';
+import { SceneStage } from './SceneStage';
 
 interface BriefingScreenProps {
   state: GameState;
@@ -20,20 +21,19 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
 
   return (
     <main className="briefing-shell">
+      <SceneStage
+        src={isCold ? coldPatrol : baseExterior}
+        alt={
+          isCold
+            ? lang === 'en'
+              ? 'A rover crosses a frost-dusted Martian plain with Shadow and Ginger inside.'
+              : '探測車駛過結霜的火星平原，暗影與金桔坐在車內。'
+            : lang === 'en'
+              ? 'Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.'
+              : '希望一號火星基地外觀，含圓頂、太陽能陣列與探測車。'
+        }
+      />
       <section className="briefing-card">
-        <div className="card-banner card-banner-briefing">
-          <img
-            src={isCold ? coldPatrol : baseExterior}
-            alt={
-              isCold
-                ? 'A rover crosses a frost-dusted Martian plain with Shadow and Ginger inside.'
-                : 'Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.'
-            }
-            onError={(imageEvent) => {
-              imageEvent.currentTarget.style.display = 'none';
-            }}
-          />
-        </div>
         <div className="briefing-body">
         <p className="eyebrow">{t(lang, 'briefing.title')}</p>
         <h1>{t(lang, 'briefing.sol', { sol: state.sol })}</h1>
@@ -68,10 +68,11 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
                 className="term-chip"
                 onClick={() => onTerm(term)}
               >
-                📖 {card.term[lang]}
+                {card.term[lang]}
               </button>
             );
           })}
+        </div>
         </div>
 
         <div className="briefing-next">
@@ -86,7 +87,6 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
           >
             {t(lang, 'briefing.begin')}
           </button>
-        </div>
         </div>
       </section>
     </main>

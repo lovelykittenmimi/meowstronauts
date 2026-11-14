@@ -3,6 +3,7 @@ import { starsFor } from '../game/reducer';
 import type { GameState } from '../game/types';
 import { t } from '../i18n';
 import ending from '../assets/generated/scenes/13-ending.webp';
+import { SceneStage } from './SceneStage';
 
 const width = 640;
 const height = 240;
@@ -42,16 +43,15 @@ export function MissionReport({ state, onRestart }: MissionReportProps) {
 
   return (
     <main className="report-shell" data-testid="mission-report">
+      <SceneStage
+        src={ending}
+        alt={
+          lang === 'en'
+            ? 'A supply ship descends toward the landing pad as the three cats watch at sunrise.'
+            : '補給船在日出時降落在停機坪，三隻貓在一旁觀看。'
+        }
+      />
       <section className="report-card">
-        <div className="card-banner card-banner-report">
-          <img
-            src={ending}
-            alt="A supply ship descends toward the landing pad as the three cats watch at sunrise."
-            onError={(imageEvent) => {
-              imageEvent.currentTarget.style.display = 'none';
-            }}
-          />
-        </div>
         <div className="report-body">
         <p className="eyebrow">{t(lang, 'report.title')}</p>
         <h1>{t(lang, 'report.survived')}</h1>
@@ -131,10 +131,12 @@ export function MissionReport({ state, onRestart }: MissionReportProps) {
             <span className="swatch swatch-teal" aria-hidden="true" /> {t(lang, 'report.science')}
           </p>
         </section>
+        </div>
 
-        <button type="button" className="primary-button" onClick={onRestart}>
-          {t(lang, 'report.again')}
-        </button>
+        <div className="report-actions">
+          <button type="button" className="primary-button" onClick={onRestart}>
+            {t(lang, 'report.again')}
+          </button>
         </div>
       </section>
     </main>

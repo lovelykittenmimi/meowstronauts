@@ -15,8 +15,6 @@ import gingerWide from '../assets/generated/scenes/28-ginger-wide.webp';
 export interface EventArt {
   src: string;
   alt: Localized;
-  /** CSS object-position for the banner crop. Only needed when a scene repeats. */
-  position?: string;
 }
 
 /**
@@ -31,7 +29,6 @@ export const EVENT_ART: Record<string, EventArt> = {
       en: 'Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.',
       'zh-TW': '希望一號火星基地外觀，含圓頂、太陽能陣列與探測車。',
     },
-    position: 'center 62%',
   },
   P1: {
     src: shadowWide,
@@ -88,7 +85,6 @@ export const EVENT_ART: Record<string, EventArt> = {
       en: 'Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.',
       'zh-TW': '希望一號火星基地外觀，含圓頂、太陽能陣列與探測車。',
     },
-    position: 'center 35%',
   },
   F1: {
     src: gingerWide,

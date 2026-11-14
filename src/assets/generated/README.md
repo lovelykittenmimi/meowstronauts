@@ -30,8 +30,12 @@
 ## 使用規則
 
 - 遊戲目前打包 16 張場景：`01`（標題）、`05`、`06`（開場）、`06`–`11` 與 `20`–`22`、`26`–`28`
-  （事件橫幅，對應表在 [`src/game/eventArt.ts`](../../game/eventArt.ts)）、
+  （事件場景舞台，對應表在 [`src/game/eventArt.ts`](../../game/eventArt.ts)）、
   `07`／`11`（每日簡報）、`12`（失敗）、`13`（任務報告）；其餘與 `cutouts/` 是替換與後續使用的素材。
+- 場景舞台由 [`src/ui/SceneStage.tsx`](../../ui/SceneStage.tsx) 呈現：同一張圖的模糊 cover 填滿框、
+  清晰版用 `object-fit: contain` 完整顯示（不裁切），換圖只改 `eventArt.ts`。
+- 寬螢幕（≥1024px 橫放）場景在左、內容卡在右；窄螢幕與手機橫放改成場景在上、卡片在下。
+  舞台會依圖片載入後的長寬比調整高度（`--art-ratio`），避免上下留黑邊。
 - 事件卡的貓咪表情頭像來自 [`../avatars/`](../avatars/)（`src/ui/catFaces.ts`，3 貓 × determined／happy／worried）。
 - `manifest.json` 的 `alt.en`／`alt.zh-TW` 可直接給 `<img alt>`；
   `credit` 皆為 `null`（本批為 AI 生成圖，不是 NASA 照片）。
