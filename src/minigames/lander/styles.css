@@ -178,18 +178,23 @@ dd {
 .lander-main {
   flex: 1;
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   min-height: 0;
 }
 
 /* Map ------------------------------------------------------------------- */
 .stage-frame {
   position: relative;
-  width: min(1280px, 100%, calc((100dvh - 300px) * 16 / 9));
+  flex: 1 1 auto;
+  min-width: 0;
+  width: auto;
+  max-width: min(100%, calc((100dvh - 230px) * 16 / 9));
   aspect-ratio: 16 / 9;
   border: 3px solid var(--navy);
   border-radius: 24px;
@@ -722,14 +727,14 @@ dd {
 
 /* Controls --------------------------------------------------------------- */
 .control-deck {
-  width: 100%;
-  max-width: 1280px;
-  display: grid;
-  grid-template-columns: auto minmax(180px, 1fr) auto;
-  grid-template-areas: 'dpad guide actions';
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  flex: 0 0 210px;
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
   border: 2px solid var(--navy);
   border-radius: 22px;
   background: rgba(247, 243, 234, 0.96);
@@ -738,20 +743,21 @@ dd {
 
 .dpad {
   grid-area: dpad;
+  align-self: center;
   display: grid;
-  grid-template-columns: repeat(3, 46px);
-  grid-template-rows: repeat(3, 46px);
-  gap: 4px;
+  grid-template-columns: repeat(3, 38px);
+  grid-template-rows: repeat(3, 38px);
+  gap: 3px;
 }
 
 .dpad-button {
   display: grid;
   place-items: center;
   border: 2px solid var(--navy);
-  border-radius: 12px;
+  border-radius: 10px;
   background: var(--paper);
   color: var(--navy);
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1;
   touch-action: none;
   user-select: none;
@@ -778,17 +784,17 @@ dd {
 .guide-bubble {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
-  padding: 7px 11px;
+  padding: 6px 8px;
   border: 1px solid rgba(27, 42, 91, 0.16);
-  border-radius: 16px;
+  border-radius: 14px;
   background: rgba(78, 140, 138, 0.1);
 }
 
 .guide-bubble img {
-  width: 46px;
-  height: 46px;
+  width: 36px;
+  height: 36px;
   flex: none;
   border-radius: 50%;
   border: 2px solid var(--navy);
@@ -798,7 +804,7 @@ dd {
 
 .guide-name {
   color: var(--teal-ink);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -807,44 +813,49 @@ dd {
 .guide-bubble p {
   margin: 1px 0 0;
   color: var(--ink);
-  font-size: 13px;
+  font-size: 11.5px;
   font-weight: 700;
-  line-height: 1.28;
+  line-height: 1.25;
 }
 
 .control-actions {
   grid-area: actions;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
+  align-items: center;
+  gap: 7px;
 }
 
 .land-button {
-  width: 88px;
-  height: 88px;
+  width: 68px;
+  height: 68px;
   border: 3px solid var(--navy);
   border-radius: 50%;
   background: var(--amber);
   color: var(--navy);
   font-family: 'Baloo 2', 'Nunito', sans-serif;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 800;
   letter-spacing: 0.05em;
-  box-shadow: 0 6px 0 rgba(27, 42, 91, 0.34);
+  box-shadow: 0 5px 0 rgba(27, 42, 91, 0.34);
   transition: transform 100ms ease, box-shadow 100ms ease;
 }
 
 .land-button:active {
-  transform: translateY(3px);
+  transform: translateY(2px);
   box-shadow: 0 3px 0 rgba(27, 42, 91, 0.34);
 }
 
 .secondary-actions {
   display: flex;
-  gap: 5px;
+  gap: 4px;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.control-deck .ghost-button {
+  padding: 5px 9px;
+  font-size: 10px;
 }
 
 .ghost-button,
@@ -879,9 +890,9 @@ dd {
 .control-hint {
   margin: 0;
   color: #6b7180;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
-  text-align: right;
+  text-align: center;
 }
 
 .hint-touch {
@@ -923,12 +934,14 @@ dd {
 }
 
 .feedback-card {
+  width: min(500px, 100%);
+  padding: 18px;
   text-align: center;
 }
 
 .result-face img {
-  width: 92px;
-  height: 92px;
+  width: 74px;
+  height: 74px;
   border-radius: 50%;
   border: 3px solid var(--navy);
   background: #dce4ee;
@@ -966,19 +979,23 @@ dd {
   line-height: 1.05;
 }
 
+.feedback-card h2 {
+  font-size: clamp(22px, 2.8vw, 28px);
+}
+
 .result-body {
   margin: 6px 0 0;
   color: #4a5160;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
 .result-stats {
   display: flex;
   justify-content: center;
-  gap: 28px;
-  margin: 16px 0 18px;
+  gap: 20px;
+  margin: 12px 0 14px;
 }
 
 .result-stats > div {
@@ -997,7 +1014,7 @@ dd {
 
 .result-stats dd {
   color: var(--navy);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
 }
 
@@ -1006,6 +1023,12 @@ dd {
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.feedback-card .primary-button,
+.feedback-card .ghost-button {
+  padding: 6px 11px;
+  font-size: 11px;
 }
 
 .confetti {
@@ -1210,51 +1233,63 @@ dd {
     font-size: 13px;
   }
 
-  .control-deck {
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      'guide guide'
-      'dpad actions';
+  .lander-main {
     gap: 8px;
-    padding: 8px 10px;
+  }
+
+  .control-deck {
+    flex-basis: 180px;
+    width: 180px;
+    gap: 8px;
+    padding: 8px;
     border-radius: 18px;
   }
 
   .dpad {
-    grid-template-columns: repeat(3, 40px);
-    grid-template-rows: repeat(3, 40px);
+    grid-template-columns: repeat(3, 34px);
+    grid-template-rows: repeat(3, 34px);
     gap: 3px;
   }
 
+  .dpad-button {
+    font-size: 11px;
+  }
+
   .guide-bubble {
-    padding: 5px 8px;
+    gap: 6px;
+    padding: 5px 7px;
   }
 
   .guide-bubble img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
   }
 
   .guide-bubble p {
-    font-size: 12px;
+    font-size: 10.5px;
   }
 
   .control-actions {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
+    justify-content: center;
+    gap: 6px;
   }
 
   .land-button {
-    width: 68px;
-    height: 68px;
-    font-size: 17px;
+    width: 58px;
+    height: 58px;
+    font-size: 14px;
   }
 
   .secondary-actions {
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .control-deck .ghost-button {
+    padding: 4px 7px;
+    font-size: 9px;
   }
 
   .control-hint {
@@ -1347,64 +1382,149 @@ dd {
   .lander-app {
     height: 100dvh;
     min-height: 0;
-    display: block;
-    padding: 0;
+    gap: 4px;
+    padding: 4px 6px 6px;
     overflow: hidden;
   }
 
   .lander-header {
-    position: fixed;
-    top: 6px;
-    right: 6px;
-    left: auto;
-    z-index: 30;
-    width: auto;
-    padding: 0;
-    background: none;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
   }
 
   .brand {
     display: none;
   }
 
+  .header-actions {
+    margin-left: auto;
+    gap: 4px;
+  }
+
   .header-actions .chip-button {
-    padding: 5px 9px;
-    font-size: 10px;
+    padding: 4px 7px;
+    font-size: 9px;
   }
 
   .lander-main {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    padding: 0;
+    flex: 1;
+    min-height: 0;
+    flex-direction: row;
+    gap: 6px;
   }
 
   .stage-frame {
-    width: min(100vw, calc(100dvh * 16 / 9));
-    max-width: none;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    max-width: calc((100dvh - 110px) * 16 / 9);
     aspect-ratio: 16 / 9;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
+    border-width: 2px;
+    border-radius: 14px;
+    margin: 0 auto;
+  }
+
+  .control-deck {
+    flex: 0 0 104px;
+    width: 104px;
+    height: 100%;
+    max-height: calc(100dvh - 36px);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 14px;
+  }
+
+  .dpad {
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(3, 30px);
+    gap: 2px;
+  }
+
+  .dpad-button {
+    border-width: 1.5px;
+    border-radius: 7px;
+    font-size: 10px;
+  }
+
+  .guide-bubble {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    text-align: center;
+  }
+
+  .guide-bubble img {
+    width: 26px;
+    height: 26px;
+    border-width: 1.5px;
+  }
+
+  .guide-bubble p {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .guide-name {
+    font-size: 8px;
+  }
+
+  .control-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .land-button {
+    width: 48px;
+    height: 48px;
+    border-width: 2px;
+    font-size: 12px;
+    box-shadow: 0 3px 0 rgba(27, 42, 91, 0.34);
+  }
+
+  .secondary-actions {
+    flex-direction: column;
+    gap: 2px;
+    justify-content: center;
+  }
+
+  .control-deck .ghost-button {
+    padding: 2px 5px;
+    border-width: 1.5px;
+    font-size: 8px;
+  }
+
+  .control-hint {
+    display: none;
   }
 
   .weather-hud {
-    top: 6px;
-    left: 6px;
-    width: 44%;
-    padding: 6px 8px;
-    border-radius: 12px;
+    top: 5px;
+    left: 5px;
+    width: 48%;
+    padding: 5px 6px;
+    border-radius: 10px;
   }
 
   .wind-value {
-    font-size: 21px;
+    font-size: 18px;
+  }
+
+  .wind-from {
+    font-size: 8.5px;
   }
 
   .hud-numbers {
-    margin-top: 4px;
-    padding-top: 4px;
+    margin-top: 3px;
+    padding-top: 3px;
+  }
+
+  .hud-numbers > div:first-child {
+    display: none;
   }
 
   .condition-row,
@@ -1416,60 +1536,12 @@ dd {
     display: none;
   }
 
-  .control-deck {
-    position: fixed;
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
-    z-index: 30;
-    width: auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    pointer-events: none;
-  }
-
-  .dpad {
-    pointer-events: auto;
-    grid-template-columns: repeat(3, 36px);
-    grid-template-rows: repeat(3, 36px);
-    gap: 3px;
-    padding: 4px;
-    border-radius: 14px;
-    background: rgba(247, 243, 234, 0.92);
-    box-shadow: 0 6px 18px rgba(10, 20, 44, 0.3);
-  }
-
-  .dpad-button {
-    border-radius: 9px;
-    font-size: 12px;
-  }
-
-  .guide-slot,
-  .secondary-actions,
-  .control-hint {
+  .target-label {
     display: none;
   }
 
-  .control-actions {
-    pointer-events: auto;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-  }
-
-  .land-button {
-    width: 60px;
-    height: 60px;
-    font-size: 15px;
-  }
-
   .ship-wrap {
-    width: clamp(30px, 7vw, 46px);
+    width: clamp(24px, 6vw, 38px);
   }
 }
 
