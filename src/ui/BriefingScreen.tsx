@@ -2,6 +2,8 @@ import { briefForSol } from '../game/daily';
 import { getKnowledgeCard } from '../game/knowledge';
 import type { EventCard, GameState } from '../game/types';
 import { t } from '../i18n';
+import baseExterior from '../assets/generated/scenes/07-base-exterior.webp';
+import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import { RichText } from './RichText';
 
 interface BriefingScreenProps {
@@ -19,6 +21,20 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
   return (
     <main className="briefing-shell">
       <section className="briefing-card">
+        <div className="card-banner card-banner-briefing">
+          <img
+            src={isCold ? coldPatrol : baseExterior}
+            alt={
+              isCold
+                ? 'A rover crosses a frost-dusted Martian plain with Shadow and Ginger inside.'
+                : 'Exterior view of the Hope-1 Mars outpost with its dome, solar farm and rover.'
+            }
+            onError={(imageEvent) => {
+              imageEvent.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
+        <div className="briefing-body">
         <p className="eyebrow">{t(lang, 'briefing.title')}</p>
         <h1>{t(lang, 'briefing.sol', { sol: state.sol })}</h1>
 
@@ -70,6 +86,7 @@ export function BriefingScreen({ state, event, onBegin, onTerm }: BriefingScreen
           >
             {t(lang, 'briefing.begin')}
           </button>
+        </div>
         </div>
       </section>
     </main>

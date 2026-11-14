@@ -2,7 +2,7 @@ import { RESOURCE_ORDER, BACKPACK_SIZE } from '../game/balance';
 import type { GameState, ResourceKey } from '../game/types';
 import { RESOURCE_LABEL_KEY, t } from '../i18n';
 
-const ICONS: Record<ResourceKey, string> = {
+export const ICONS: Record<ResourceKey, string> = {
   power: '⚡',
   lifeSupport: '💧',
   shield: '🛡️',

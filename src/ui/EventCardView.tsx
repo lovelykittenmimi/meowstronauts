@@ -1,7 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { EVENT_BY_ID } from '../game/events';
+import { artForEvent } from '../game/eventArt';
 import type { CatId, Choice, EffectMap, GameState, ResourceKey } from '../game/types';
 import { RESOURCE_LABEL_KEY, CAT_NAMES, t } from '../i18n';
+import { faceFor } from './catFaces';
+import { ICONS } from './ResourceHud';
 import { RichText } from './RichText';
 
 const CATEGORY_LABEL: Record<string, { en: string; 'zh-TW': string }> = {
@@ -31,7 +34,8 @@ function EffectChips({
     <span className="effect-chips">
       {entries.map(([key, value]) => (
         <span className={value < 0 ? 'effect-chip effect-negative' : 'effect-chip'} key={key}>
-          {t(lang, RESOURCE_LABEL_KEY[key])} {signed(value)}
+          <span aria-hidden="true">{ICONS[key]}</span> {t(lang, RESOURCE_LABEL_KEY[key])}{' '}
+          {signed(value)}
         </span>
       ))}
     </span>
@@ -74,24 +78,43 @@ export function EventCardView({
   const isChoice = state.phase === 'choice';
   const isResult = state.phase === 'result';
   const category = CATEGORY_LABEL[event.category] ?? CATEGORY_LABEL.power;
+  const art = artForEvent(event.id);
+  const facePhase = isResult ? (state.lastSuccess ? 'success' : 'fail') : 'choice';
 
   return (
     <main ref={shellRef} className={`event-shell ${isResult ? 'is-result' : ''}`}>
       <article className="event-card" data-testid={`event-card-${event.id}`}>
-        <header className="event-head">
-          <img
-            className="cat-avatar"
-            src={`/brand/avatar-${event.cat}-512.webp`}
-            alt={CAT_NAMES[event.cat][lang]}
-          />
-          <div>
-            <p className="eyebrow">
-              {category[lang]} · {t(lang, 'briefing.sol', { sol: state.sol })}
-            </p>
-            <h1>{event.title[lang]}</h1>
-          </div>
-        </header>
+        <div className="event-banner">
+          {art && (
+            <img
+              className="event-banner-art"
+              src={art.src}
+              alt={art.alt[lang]}
+              style={art.position ? { objectPosition: art.position } : undefined}
+              onError={(imageEvent) => {
+                imageEvent.currentTarget.style.display = 'none';
+              }}
+            />
+          )}
+          <div className="event-banner-shade" />
+          <header className="event-head">
+            <img
+              className="cat-avatar"
+              data-testid="event-avatar"
+              key={facePhase}
+              src={faceFor(event.cat, facePhase)}
+              alt={CAT_NAMES[event.cat][lang]}
+            />
+            <div>
+              <p className="eyebrow">
+                {category[lang]} · {t(lang, 'briefing.sol', { sol: state.sol })}
+              </p>
+              <h1>{event.title[lang]}</h1>
+            </div>
+          </header>
+        </div>
 
+        <div className="event-body">
         <p className="event-brief">
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
@@ -211,6 +234,7 @@ export function EventCardView({
             </button>
           </section>
         )}
+        </div>
       </article>
     </main>
   );
