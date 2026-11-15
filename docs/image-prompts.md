@@ -492,6 +492,41 @@ Exterior of the Mars outpost at dawn: a large dish antenna in the foreground ang
 
 ---
 
+### 3.4 F1 事件卡換圖 43（2026-11-15，已出圖並接入）
+
+> `09` 那張是幼苗期＋檯面上一顆熟番茄，拍不到「第一批番茄紅了」；`09` 同時是番茄
+> 採收小遊戲背景（`src/minigames/tomato/assets/greenhouse-harvest.webp`）的來源圖，
+> 所以不重出、另補一張豐收當下的 43 給 F1 事件卡。
+> 原始 JPEG 2752×1536，已處理成 1280×714 WebP q=82（139,702 B）放進
+> `src/assets/generated/scenes/`。母檔在 repo 外的 `C:\Users\carri\project\jpeg`。
+> 接線：`EVENT_ART.F1.src`（`src/game/eventArt.ts`）。**Sol 7 艦長日誌不動**，
+> 仍是 `09-greenhouse-nocat`（`SOL_BRIEF_ART[7]`）；`F1.briefingSrc` 也保留 `09` 的底板當後備。
+> 與 prompt 的差異：成品裡金桔戴著透明頭盔、左手肩章是抽象三角任務布章（不是國旗）；
+> 構圖與 prompt 一致（藤上紅果夾幾顆綠果、兩三箱滿出來的番茄、圓窗外紅色火星）。
+
+| 檔案 | 用在哪 | 接進 code |
+|---|---|---|
+| `43-tomato-harvest.webp` | F1 事件卡（金桔） | `EVENT_ART.F1` |
+
+#### 43. 溫室番茄豐收（F1）
+
+**比例：16:9｜成品：2752×1536 → 1280×714 WebP q=82｜檔名：`43-tomato-harvest.webp`**
+
+```text
+Wide cinematic still inside the Mars outpost greenhouse during harvest week. Rows of tomato plants under soft pink-purple grow lights, vines heavy with ripe red tomatoes and a few still-green ones near the leaves; a small robotic watering arm rests beside a picking basket. Two shallow crates on the floor overflow with ripe red tomatoes, one crate tilted against the seedling shelf. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, warm amber-green eyes, wearing a puffy orange-and-cream astronaut suit covered in utility pockets, straps and small abstract mission patches, with a rounded orange backpack, stands on all fours beside the fullest crate, tail up and curled, looking up proudly at the loaded vines. Behind a compact galley counter a warm amber lamp glows, echoing the same greenhouse corner; ribbed cream habitat walls, a small round porthole showing rust-red Mars outside. Keep Ginger and both crates inside the central 80% of the frame. Abundant, warm, hopeful mood, the payoff of a week's waiting. Pixar-style 3D animated film still, physically based lighting, soft depth of field, wide 16:9. No text, no logos, no humans.
+```
+
+**不要出現**：
+
+```text
+No tomato apron, no watering can in paw, no standing upright on two legs.
+No tomatoes lying on the Martian ground outside the greenhouse.
+No American flag patch, no readable lettering, no NASA logo.
+No flower-shaped rock — nothing that could read as a plant on Mars' surface.
+```
+
+---
+
 ## 4. 角色多角度分鏡
 
 ### 4.1 六視圖 turnaround
@@ -719,6 +754,7 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 | 40 | `40-ice-survey.jpeg` | 16:9 | 2752×1536（實際） | SC2 事件卡：地下冰探測（§3.3） | `scenes/40-ice-survey.webp`（1280×714；另有 `40-ice-survey-nocat.webp`，目前未接入） |
 | 41 | `41-water-recycling.jpeg` | 16:9 | 2752×1536（實際） | Sol 5 艦長日誌（§3.3） | `scenes/41-water-recycling.webp`（1280×714；成品有三隻貓，與 prompt 的 `No cats` 不同） |
 | 42 | `42-dish-forecast.jpeg` | 16:9 | 2752×1536（實際） | Sol 3 艦長日誌（§3.3） | `scenes/42-dish-forecast.webp`（1280×714） |
+| 43 | `43-tomato-harvest.jpeg` | 16:9 | 2752×1536（實際） | F1 事件卡：溫室番茄豐收（§3.4） | `scenes/43-tomato-harvest.webp`（1280×714；139,702 B） |
 
 ---
 
