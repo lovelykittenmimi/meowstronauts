@@ -6,9 +6,10 @@ interface ModalProps {
   children: ReactNode;
   testId?: string;
   wide?: boolean;
+  bare?: boolean;
 }
 
-export function Modal({ title, onClose, children, testId, wide }: ModalProps) {
+export function Modal({ title, onClose, children, testId, wide, bare }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,7 +51,13 @@ export function Modal({ title, onClose, children, testId, wide }: ModalProps) {
     <div className="modal-backdrop" role="presentation" onMouseDown={onClose}>
       <div
         ref={panelRef}
-        className={wide ? 'modal-panel modal-panel-wide' : 'modal-panel'}
+        className={[
+          'modal-panel',
+          wide ? 'modal-panel-wide' : '',
+          bare ? 'modal-panel-bare' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
         role="dialog"
         aria-modal="true"
         aria-label={title}
@@ -58,12 +65,14 @@ export function Modal({ title, onClose, children, testId, wide }: ModalProps) {
         data-testid={testId}
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <div className="modal-head">
-          <h2>{title}</h2>
-          <button type="button" className="icon-button" onClick={onClose} aria-label="Close">
-            ×
-          </button>
-        </div>
+        {!bare && (
+          <div className="modal-head">
+            <h2>{title}</h2>
+            <button type="button" className="icon-button" onClick={onClose} aria-label="Close">
+              ×
+            </button>
+          </div>
+        )}
         {children}
       </div>
     </div>

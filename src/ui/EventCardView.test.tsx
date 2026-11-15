@@ -201,15 +201,60 @@ function renderResult(eventId: string, choiceId: string) {
 }
 
 describe('T1 photo album', () => {
-  it('shows three Curiosity photos with a rover credit after the crew rests', () => {
+  it('shows the crew dialogue, then takes the first Curiosity photo', () => {
     renderResult('T1', 'rest');
 
     const album = screen.getByTestId('rest-photos');
-    expect(album.querySelectorAll('img')).toHaveLength(3);
-    expect(screen.getByText('A rock shaped like a flower')).toBeTruthy();
+    expect(album.querySelectorAll('.rest-photo-frame')).toHaveLength(0);
+    expect(screen.getByText(/Listen up/)).toBeTruthy();
+
+    fireEvent.click(screen.getByTestId('rest-photo-next'));
+    expect(album.querySelectorAll('.rest-photo-frame')).toHaveLength(1);
+    expect(
+      screen.getByAltText("Mars landscape photographed by NASA's Curiosity rover"),
+    ).toBeTruthy();
+    expect(screen.getByText('Gale Crater, Mars')).toBeTruthy();
     expect(screen.getByTestId('rest-photos-credit').textContent).toContain(
       "Actually photographed by NASA's Curiosity rover",
     );
+  });
+
+  it('steps through one photo at a time and closes on the last', () => {
+    renderResult('T1', 'rest');
+
+    fireEvent.click(screen.getByTestId('rest-photo-next'));
+    expect(
+      screen.getByAltText("Mars landscape photographed by NASA's Curiosity rover"),
+    ).toBeTruthy();
+
+    fireEvent.click(screen.getByTestId('rest-photo-next'));
+    expect(
+      screen.getByAltText('Curiosity rover at the Mary Anning location on Mars'),
+    ).toBeTruthy();
+    expect(screen.getByText('A rare photo of the photographer')).toBeTruthy();
+
+    fireEvent.click(screen.getByTestId('rest-photo-next'));
+    expect(
+      screen.getByAltText('Close-up of a flower-shaped rock photographed by Curiosity'),
+    ).toBeTruthy();
+    expect(screen.getByText('A rock shaped like a flower')).toBeTruthy();
+
+    fireEvent.click(screen.getByTestId('rest-photo-next'));
+    expect(screen.queryByTestId('rest-photos')).toBeNull();
+    expect(screen.getByTestId('rest-photos-open')).toBeTruthy();
+  });
+
+  it('closes the album popup and can reopen it', () => {
+    renderResult('T1', 'rest');
+
+    fireEvent.click(screen.getByLabelText('Close'));
+    expect(screen.queryByTestId('rest-photos')).toBeNull();
+
+    fireEvent.click(screen.getByTestId('rest-photos-open'));
+    expect(screen.getByTestId('rest-photos')).toBeTruthy();
+    expect(
+      screen.getByAltText("Mars landscape photographed by NASA's Curiosity rover"),
+    ).toBeTruthy();
   });
 
   it('does not show the album for the sweep choice', () => {

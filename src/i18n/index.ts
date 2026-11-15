@@ -94,25 +94,33 @@ export const STRINGS = {
   'event.riskHit': { en: 'it hit', 'zh-TW': '觸發了' },
   'event.riskMiss': { en: 'it held', 'zh-TW': '撐過了' },
   'rest.photos.title': { en: 'Crew photo album', 'zh-TW': '船員相簿' },
-  'rest.photos.claim': {
-    en: '“Photographed by the cats”',
-    'zh-TW': '「貓咪親自拍攝」',
-  },
-  'rest.photos.credit': {
-    en: "Actually photographed by NASA's Curiosity rover. NASA/JPL-Caltech.",
-    'zh-TW': '其實是 NASA 好奇號探測車拍的。NASA/JPL-Caltech。',
-  },
   'rest.photo.landscape': {
     en: 'Gale Crater, Mars',
     'zh-TW': '火星蓋爾撞擊坑',
   },
-  'rest.photo.selfie': {
-    en: "The crew's group selfie",
-    'zh-TW': '船員團體自拍',
+  'rest.photo.photographer': {
+    en: 'A rare photo of the photographer',
+    'zh-TW': '攝影師難得入鏡',
   },
   'rest.photo.rock': {
     en: 'A rock shaped like a flower',
     'zh-TW': '像花的岩石',
+  },
+  'rest.photos.credit': {
+    en: "Actually photographed by NASA's Curiosity rover. NASA/JPL-Caltech · NASA/JPL-Caltech/MSSS.",
+    'zh-TW': '其實是 NASA 好奇號探測車拍的。NASA/JPL-Caltech、NASA/JPL-Caltech/MSSS。',
+  },
+  'rest.photos.open': {
+    en: 'View the crew photo album',
+    'zh-TW': '查看船員相簿',
+  },
+  'rest.photos.next': {
+    en: 'Take picture',
+    'zh-TW': '拍照',
+  },
+  'rest.photos.close': {
+    en: 'Back to the result',
+    'zh-TW': '回到結果',
   },
   'dust.title': { en: 'Sweep the panels', 'zh-TW': '清掃太陽能板' },
   'dust.hint': { en: 'Tap every dust patch', 'zh-TW': '點掉每一團沙塵' },
