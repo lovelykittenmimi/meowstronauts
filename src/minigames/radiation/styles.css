@@ -1530,6 +1530,614 @@ a:focus-visible {
   color: #6b7180;
 }
 
+/* Readability pass -----------------------------------------------------
+   The first pass was tuned like a dashboard; the drill is a game for
+   7–12 year olds, so the type and the shelter diagram get more room. */
+.eyebrow {
+  font-size: 13px;
+}
+
+.shelter-header h1 {
+  font-size: 32px;
+}
+
+.shelter-brand .eyebrow {
+  font-size: 14px;
+}
+
+.shelter-subtitle {
+  font-size: 15px;
+}
+
+.shelter-mark {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+}
+
+.shelter-header-button {
+  padding: 8px 13px;
+  font-size: 14px;
+}
+
+.prep-layout {
+  grid-template-columns: minmax(0, 1.1fr) minmax(430px, 0.9fr);
+  gap: 16px;
+}
+
+.shelter-stage {
+  min-height: 360px;
+  max-height: min(62dvh, 600px);
+}
+
+/* Bigger, closer stage graphics. */
+.stage-sun {
+  top: 5%;
+  left: 5%;
+  width: 88px;
+  height: 88px;
+}
+
+.stage-habitat {
+  left: 3%;
+  bottom: 34%;
+  width: 22%;
+  height: 23%;
+  border-width: 3px;
+  font-size: 12px;
+}
+
+.stage-habitat::before {
+  top: -10px;
+  height: 14px;
+  border-width: 3px;
+}
+
+.stage-path {
+  left: 25%;
+  bottom: 31%;
+  width: 20%;
+}
+
+.stage-player {
+  left: 13%;
+  bottom: 29%;
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+  font-size: 25px;
+}
+
+.stage-shelter {
+  left: 41%;
+  top: 24%;
+  width: 48%;
+  height: 44%;
+}
+
+.shelter-slot {
+  min-height: 44px;
+  gap: 6px;
+  padding: 4px 10px;
+  border-width: 3px;
+  font-size: 13px;
+}
+
+.shelter-slot-roof {
+  margin-bottom: 2px;
+}
+
+.shelter-slot-wall {
+  margin-top: 2px;
+}
+
+.shelter-slot-label {
+  padding: 3px 6px;
+  font-size: 19px;
+}
+
+.shelter-slot-icon {
+  font-size: 18px;
+}
+
+.shelter-slot-name,
+.shelter-slot-empty {
+  font-size: 13px;
+}
+
+.shelter-body {
+  border-width: 4px;
+  border-radius: 22px;
+}
+
+.shelter-interior {
+  inset: 12px;
+  gap: 4px;
+  border-radius: 15px;
+}
+
+.shelter-cats {
+  gap: 1px;
+}
+
+.shelter-cats img {
+  width: 48px;
+  height: 48px;
+  border-width: 3px;
+}
+
+.shelter-label {
+  font-size: 12px;
+}
+
+.shelter-crew-out {
+  max-width: 95%;
+  font-size: 13px;
+}
+
+.shelter-door {
+  right: 10px;
+  width: 28px;
+  height: 42px;
+  border-width: 3px;
+}
+
+.shelter-late img {
+  width: 36px;
+  height: 36px;
+}
+
+/* The result stage is a thumbnail; the debrief panel carries the large type. */
+.result-stage .shelter-stage {
+  min-height: 0;
+}
+
+.result-stage .stage-sun {
+  width: 56px;
+  height: 56px;
+}
+
+.result-stage .stage-player {
+  width: 34px;
+  height: 34px;
+  font-size: 17px;
+}
+
+.result-stage .stage-shelter {
+  left: 34%;
+  top: 20%;
+  width: 58%;
+  height: 56%;
+}
+
+.result-stage .shelter-slot {
+  min-height: 32px;
+  gap: 4px;
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.result-stage .shelter-slot-label {
+  padding: 2px 5px;
+  font-size: 14px;
+}
+
+.result-stage .shelter-slot-icon {
+  font-size: 14px;
+}
+
+.result-stage .shelter-slot-name {
+  display: none;
+}
+
+.result-stage .shelter-slot-empty {
+  font-size: 10px;
+}
+
+.result-stage .shelter-cats img {
+  width: 32px;
+  height: 32px;
+}
+
+.result-stage .shelter-label {
+  font-size: 9px;
+}
+
+.result-stage .shelter-door {
+  right: 8px;
+  width: 20px;
+  height: 32px;
+}
+
+.result-stage .shelter-late img {
+  width: 26px;
+  height: 26px;
+}
+
+.result-stage .stage-habitat {
+  width: 22%;
+  height: 22%;
+  font-size: 9px;
+}
+
+/* Event card */
+.event-card {
+  padding: 14px 16px;
+}
+
+.event-tag {
+  font-size: 13px;
+}
+
+.event-info-button {
+  font-size: 13px;
+}
+
+.event-time {
+  font-size: 22px;
+}
+
+.event-timeline {
+  gap: 7px;
+  font-size: 14px;
+}
+
+.event-instrument,
+.event-note {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Prep panel */
+.prep-panel {
+  gap: 12px;
+  max-height: calc(100dvh - 130px);
+  padding: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--silver) transparent;
+}
+
+.prep-panel::-webkit-scrollbar,
+.result-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.prep-panel::-webkit-scrollbar-thumb,
+.result-panel::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--silver);
+}
+
+.prep-panel-head h2 {
+  font-size: 26px;
+}
+
+.prep-clear {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.prep-slot-tab {
+  padding: 9px 10px;
+}
+
+.prep-slot-tab-label {
+  font-size: 14px;
+}
+
+.prep-slot-tab-value {
+  font-size: 16px;
+}
+
+.prep-budget-top {
+  font-size: 14px;
+}
+
+.prep-budget-track,
+.prep-meter-track {
+  height: 10px;
+}
+
+.prep-section-label {
+  font-size: 14px;
+}
+
+.prep-meter,
+.prep-meter strong {
+  font-size: 14px;
+}
+
+.prep-shield-note {
+  font-size: 12px;
+}
+
+.material-list {
+  gap: 8px;
+}
+
+.material-card {
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+.material-icon {
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+}
+
+.material-name {
+  font-size: 19px;
+}
+
+.material-over {
+  font-size: 11px;
+}
+
+.material-note {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.material-stats {
+  gap: 4px 10px;
+  font-size: 13px;
+}
+
+.prep-hint {
+  font-size: 13px;
+}
+
+.prep-move-button {
+  min-height: 52px;
+  font-size: 18px;
+}
+
+/* Alert board */
+.alert-board {
+  padding: 18px;
+}
+
+.alert-heading h2 {
+  font-size: 26px;
+}
+
+.alert-remaining span {
+  font-size: 13px;
+}
+
+.alert-remaining strong {
+  font-size: 30px;
+}
+
+.alert-banner {
+  padding: 8px 12px;
+  font-size: 15px;
+}
+
+.alert-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(230px, 0.9fr);
+  gap: 10px;
+}
+
+.alert-cat {
+  gap: 7px;
+  min-height: 205px;
+  padding: 12px;
+}
+
+.alert-cat-top img {
+  width: 52px;
+  height: 52px;
+}
+
+.alert-cat-top strong {
+  font-size: 19px;
+}
+
+.alert-cat-top small {
+  font-size: 13px;
+}
+
+.alert-cat-station {
+  font-size: 11px;
+}
+
+.alert-cat-status {
+  font-size: 16px;
+}
+
+.alert-cat-track {
+  height: 10px;
+}
+
+.alert-cat-late,
+.alert-cat-meta {
+  font-size: 14px;
+}
+
+.alert-shelter {
+  gap: 10px;
+  padding: 14px;
+}
+
+.alert-shelter-door {
+  width: 66px;
+  height: 80px;
+}
+
+.alert-shelter strong {
+  font-size: 19px;
+}
+
+.alert-shelter p {
+  font-size: 14px;
+}
+
+.alert-hatch strong {
+  font-size: 14px;
+}
+
+.alert-close-hatch {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.alert-hint {
+  font-size: 14px;
+}
+
+.storm-caption h2 {
+  font-size: 30px;
+}
+
+.storm-caption p {
+  font-size: 16px;
+}
+
+/* Result panel */
+.result-layout {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 16px;
+}
+
+.result-panel {
+  gap: 14px;
+  padding: 18px;
+  max-height: calc(100dvh - 130px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--silver) transparent;
+}
+
+.result-head h2 {
+  font-size: 28px;
+}
+
+.result-body {
+  font-size: 16px;
+}
+
+.result-stars {
+  font-size: 34px;
+}
+
+.result-stars small {
+  font-size: 13px;
+}
+
+.result-section-label {
+  font-size: 13px;
+}
+
+.result-cat {
+  gap: 9px;
+  margin: 8px 0;
+}
+
+.result-cat img {
+  width: 44px;
+  height: 44px;
+}
+
+.result-cat-top {
+  font-size: 17px;
+}
+
+.result-dose-track {
+  height: 12px;
+}
+
+.result-cat small {
+  font-size: 14px;
+}
+
+.result-tip,
+.result-sim-note {
+  font-size: 14px;
+}
+
+.result-meter {
+  font-size: 15px;
+}
+
+.result-meter > div {
+  height: 10px;
+}
+
+.result-meter strong {
+  font-size: 15px;
+}
+
+.result-layers li {
+  padding: 3px 8px;
+  font-size: 14px;
+}
+
+.result-stats {
+  font-size: 14px;
+}
+
+.result-quote {
+  padding: 9px 11px;
+}
+
+.result-quote img {
+  width: 40px;
+  height: 40px;
+}
+
+.result-quote p {
+  font-size: 16px;
+}
+
+.result-quote strong {
+  font-size: 13px;
+}
+
+.result-knowledge h3 {
+  font-size: 22px;
+}
+
+.result-knowledge p {
+  font-size: 15px;
+}
+
+.result-knowledge-badge {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.result-actions .primary-button,
+.result-actions .ghost-button {
+  padding: 10px 16px;
+  font-size: 17px;
+}
+
+/* Data modal */
+.shelter-modal-head h2 {
+  font-size: 24px;
+}
+
+.shelter-icon-button {
+  font-size: 30px;
+}
+
+.shelter-modal-note {
+  font-size: 15px;
+}
+
+.shelter-modal-list {
+  font-size: 14px;
+}
+
+.shelter-modal-links a {
+  font-size: 15px;
+}
+
+.shelter-modal-fine {
+  font-size: 12px;
+}
+
 /* Responsive ----------------------------------------------------------- */
 @media (max-width: 980px) {
   .prep-layout,
@@ -1542,11 +2150,7 @@ a:focus-visible {
   }
 
   .result-stage {
-    position: static;
-  }
-
-  .result-stage .shelter-stage {
-    max-height: 46dvh;
+    display: none;
   }
 
   .result-panel {
@@ -1565,8 +2169,8 @@ a:focus-visible {
   }
 
   .alert-shelter-door {
-    width: 44px;
-    height: 52px;
+    width: 52px;
+    height: 64px;
   }
 }
 
@@ -1577,7 +2181,7 @@ a:focus-visible {
   }
 
   .shelter-brand h1 {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .shelter-subtitle {
@@ -1589,8 +2193,8 @@ a:focus-visible {
   }
 
   .shelter-header-button {
-    padding: 4px 7px;
-    font-size: 10px;
+    padding: 5px 8px;
+    font-size: 12px;
   }
 
   .shelter-main {
@@ -1598,6 +2202,7 @@ a:focus-visible {
   }
 
   .shelter-stage {
+    min-height: 0;
     max-height: 44dvh;
     aspect-ratio: 4 / 3;
   }
@@ -1619,9 +2224,9 @@ a:focus-visible {
   }
 
   .stage-player {
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
   }
 
   .alert-heading {
@@ -1649,7 +2254,7 @@ a:focus-visible {
   }
 
   .result-stars {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   .result-grid {
@@ -1662,59 +2267,8 @@ a:focus-visible {
     padding: 5px 10px;
   }
 
-  .prep-panel {
-    gap: 6px;
-    padding: 8px;
-  }
-
-  .prep-panel-head h2 {
-    font-size: 15px;
-  }
-
-  .prep-slot-tab {
-    padding: 4px 6px;
-  }
-
-  .prep-slot-tab-label {
-    font-size: 8px;
-  }
-
-  .prep-slot-tab-value {
-    font-size: 9px;
-  }
-
-  .prep-shield {
-    display: none;
-  }
-
-  .prep-budget-top {
-    font-size: 8px;
-  }
-
-  .material-list {
-    gap: 4px;
-  }
-
-  .material-card {
-    padding: 5px 6px;
-  }
-
-  .material-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-  }
-
-  .material-name {
-    font-size: 10px;
-  }
-
-  .material-stats {
-    font-size: 7px;
-  }
-
   .shelter-brand h1 {
-    font-size: 17px;
+    font-size: 22px;
   }
 
   .shelter-brand .eyebrow,
@@ -1722,50 +2276,240 @@ a:focus-visible {
     display: none;
   }
 
+  .shelter-header-button {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
   .shelter-main {
     padding: 6px 10px 12px;
   }
 
   .shelter-stage {
-    max-height: 64dvh;
+    min-height: 0;
+    max-height: 68dvh;
+  }
+
+  .stage-sun {
+    width: 60px;
+    height: 60px;
+  }
+
+  .stage-habitat {
+    width: 20%;
+    height: 20%;
+    font-size: 10px;
+  }
+
+  .stage-player {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+  }
+
+  .stage-shelter {
+    left: 40%;
+    top: 20%;
+    width: 50%;
+    height: 58%;
+  }
+
+  .shelter-slot {
+    min-height: 36px;
+    gap: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
+  .shelter-slot-label {
+    padding: 2px 4px;
+    font-size: 14px;
+  }
+
+  .shelter-slot-icon {
+    font-size: 14px;
+  }
+
+  .shelter-slot-name {
+    display: none;
+  }
+
+  .shelter-slot-empty {
+    font-size: 11px;
+  }
+
+  .shelter-cats img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .shelter-label {
+    font-size: 10px;
+  }
+
+  .shelter-crew-out {
+    font-size: 11px;
+  }
+
+  .shelter-door {
+    width: 22px;
+    height: 34px;
   }
 
   .prep-panel {
+    gap: 8px;
     max-height: calc(100dvh - 60px);
+    padding: 10px;
   }
 
-  .result-panel {
-    max-height: calc(100dvh - 60px);
+  .prep-panel-head h2 {
+    font-size: 20px;
   }
 
-  .result-stage .shelter-stage {
-    max-height: 56dvh;
+  .prep-slot-tab {
+    padding: 6px 8px;
+  }
+
+  .prep-slot-tab-label {
+    font-size: 11px;
+  }
+
+  .prep-slot-tab-value {
+    font-size: 13px;
+  }
+
+  .prep-shield {
+    display: none;
+  }
+
+  .prep-budget-top {
+    font-size: 11px;
+  }
+
+  .material-list {
+    gap: 6px;
+  }
+
+  .material-card {
+    padding: 7px 8px;
+  }
+
+  .material-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 17px;
+  }
+
+  .material-name {
+    font-size: 14px;
+  }
+
+  .material-note {
+    display: none;
+  }
+
+  .material-stats {
+    font-size: 10px;
+  }
+
+  .prep-hint {
+    font-size: 11px;
+  }
+
+  .alert-board {
+    padding: 10px;
+  }
+
+  .alert-heading h2 {
+    font-size: 20px;
+  }
+
+  .alert-timer {
+    margin: 5px 0;
+  }
+
+  .alert-remaining strong {
+    font-size: 26px;
   }
 
   .alert-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(150px, 0.9fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .alert-cat {
-    min-height: 120px;
+    gap: 4px;
+    min-height: 135px;
+    padding: 8px;
+  }
+
+  .alert-cat-top img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .alert-cat-top strong {
+    font-size: 16px;
+  }
+
+  .alert-cat-top small {
+    font-size: 11px;
+  }
+
+  .alert-cat-station {
+    display: none;
+  }
+
+  .alert-cat-status {
+    font-size: 14px;
+  }
+
+  .alert-cat-late,
+  .alert-cat-meta {
+    font-size: 11px;
+  }
+
+  .alert-shelter {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  .alert-shelter-door {
+    width: 46px;
+    height: 56px;
+  }
+
+  .alert-shelter strong {
+    font-size: 17px;
+  }
+
+  .alert-shelter p {
+    font-size: 13px;
   }
 
   .alert-hint {
     display: none;
   }
 
-  .material-note {
+  .result-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .result-stage {
     display: none;
+  }
+
+  .result-panel {
+    max-height: none;
   }
 }
 
 @media (max-height: 520px) and (orientation: landscape) and (min-width: 760px) {
   .prep-layout {
-    grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
-  }
-
-  .result-layout {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
   }
 }
 
