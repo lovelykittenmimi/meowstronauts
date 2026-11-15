@@ -22,7 +22,7 @@ interface BriefingScreenProps {
   onHopPractice?: () => void;
   /** Optional Sol 7 practice run; other sols do not show the button. */
   onFoodPractice?: () => void;
-  /** Optional water & fuel factory; shown on every sol when provided. */
+  /** Optional Sol 5 practice: the day's brief is about reusing water. */
   onFactoryPractice?: () => void;
 }
 
@@ -90,7 +90,7 @@ export function BriefingScreen({
           })}
         </div>
 
-        {onFactoryPractice && (
+        {state.sol === 5 && onFactoryPractice && (
           <button
             type="button"
             className="factory-practice-button"

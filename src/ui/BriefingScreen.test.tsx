@@ -117,9 +117,9 @@ describe('space food flip entry', () => {
 });
 
 describe('water & fuel factory entry', () => {
-  it('offers the factory on a middle sol and calls back', () => {
+  it('offers the factory on Sol 5 and calls back', () => {
     let opened = 0;
-    renderBriefing('T1', 4, undefined, undefined, () => {
+    renderBriefing('T1', 5, undefined, undefined, () => {
       opened += 1;
     });
 
@@ -129,17 +129,16 @@ describe('water & fuel factory entry', () => {
     expect(opened).toBe(1);
   });
 
-  it('shows the factory on Sol 1 and Sol 7 too', () => {
-    renderBriefing('T1', 1, undefined, undefined, () => {});
-    expect(screen.getByTestId('factory-practice')).toBeTruthy();
-    cleanup();
-
-    renderBriefing('T1', 7, undefined, undefined, () => {});
-    expect(screen.getByTestId('factory-practice')).toBeTruthy();
+  it('keeps the factory out of the other sol briefings', () => {
+    for (const sol of [1, 4, 6, 7]) {
+      renderBriefing('T1', sol, undefined, undefined, () => {});
+      expect(screen.queryByTestId('factory-practice')).toBeNull();
+      cleanup();
+    }
   });
 
   it('stays out of the briefing when video mode withholds the prop', () => {
-    renderBriefing('T1', 4);
+    renderBriefing('T1', 5);
     expect(screen.queryByTestId('factory-practice')).toBeNull();
   });
 });

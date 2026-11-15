@@ -108,6 +108,12 @@ interface EventCardViewProps {
   onOpenCard: (cardId: string) => void;
   /** Adds a mini-game reward to the backpack without opening the sheet. */
   onCollectCard?: (cardId: string) => void;
+  /**
+   * L3's saturated scrubber is the natural place to try the water & fuel
+   * factory: the same zeolite filter and CO₂ chemistry appear there. Video
+   * mode withholds the prop, like the other practice entries.
+   */
+  onFactoryPractice?: () => void;
 }
 
 export function EventCardView({
@@ -118,6 +124,7 @@ export function EventCardView({
   onContinue,
   onOpenCard,
   onCollectCard,
+  onFactoryPractice,
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState<PendingInteraction | null>(null);
@@ -212,6 +219,18 @@ export function EventCardView({
         <p className="event-brief">
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
+
+        {event.id === 'L3' && isChoice && onFactoryPractice && (
+          <button
+            type="button"
+            className="factory-practice-button"
+            data-testid="event-factory-practice"
+            onClick={onFactoryPractice}
+          >
+            <span aria-hidden="true">🏭</span>
+            {t(lang, 'briefing.factoryGame')}
+          </button>
+        )}
 
         {isChoice &&
           !showDustGame &&

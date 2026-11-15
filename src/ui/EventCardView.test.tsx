@@ -28,7 +28,11 @@ function choiceState(eventId: string): GameState {
   };
 }
 
-function renderChoiceCard(eventId: string, onChoose: (choiceId: string) => void) {
+function renderChoiceCard(
+  eventId: string,
+  onChoose: (choiceId: string) => void,
+  onFactoryPractice?: () => void,
+) {
   return render(
     <EventCardView
       state={choiceState(eventId)}
@@ -38,6 +42,7 @@ function renderChoiceCard(eventId: string, onChoose: (choiceId: string) => void)
       onContinue={() => {}}
       onOpenCard={() => {}}
       onCollectCard={() => {}}
+      onFactoryPractice={onFactoryPractice}
     />,
   );
 }
@@ -218,6 +223,28 @@ describe('incident labelling', () => {
     renderChoiceCard('T1', vi.fn());
 
     expect(screen.getByText("Today's incident").className).toBe('incident-tag');
+  });
+});
+
+describe('L3 saturated scrubber factory entry', () => {
+  it('offers the water & fuel factory while the card waits for a choice', () => {
+    const open = vi.fn();
+    renderChoiceCard('L3', vi.fn(), open);
+
+    const button = screen.getByTestId('event-factory-practice');
+    expect(button.textContent).toContain('water & fuel factory');
+    fireEvent.click(button);
+    expect(open).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps the entry on L3 only', () => {
+    renderChoiceCard('L2', vi.fn(), () => {});
+    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
+  });
+
+  it('stays out when video mode withholds the prop', () => {
+    renderChoiceCard('L3', vi.fn());
+    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
   });
 });
 

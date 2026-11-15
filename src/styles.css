@@ -848,7 +848,8 @@ h1 {
   }
 
   .hop-practice-button,
-  .food-practice-button {
+  .food-practice-button,
+  .factory-practice-button {
     margin-top: 8px;
     padding: 5px 10px;
     font-size: 12px;

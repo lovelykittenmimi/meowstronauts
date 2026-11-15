@@ -329,6 +329,7 @@ export default function App() {
               onContinue={() => dispatch({ type: 'CONTINUE' })}
               onOpenCard={openCard}
               onCollectCard={collectCard}
+              onFactoryPractice={videoMode ? undefined : openFactory}
             />
           )}
         </>
