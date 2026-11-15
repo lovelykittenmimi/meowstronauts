@@ -4,10 +4,7 @@ import { t, type StringKey } from '../i18n';
 interface TitleScreenProps {
   lang: Lang;
   difficulty: Difficulty;
-  seed: string;
   onDifficulty: (difficulty: Difficulty) => void;
-  onSeedChange: (seed: string) => void;
-  onRandomSeed: () => void;
   onStart: () => void;
   onToggleLang: () => void;
 }
@@ -17,10 +14,7 @@ const DIFFICULTIES: Difficulty[] = ['cadet', 'officer', 'ace'];
 export function TitleScreen({
   lang,
   difficulty,
-  seed,
   onDifficulty,
-  onSeedChange,
-  onRandomSeed,
   onStart,
   onToggleLang,
 }: TitleScreenProps) {
@@ -63,31 +57,6 @@ export function TitleScreen({
               </button>
             ))}
           </fieldset>
-
-          <div className="seed-picker">
-            <label htmlFor="run-seed">{t(lang, 'title.seed')}</label>
-            <div className="seed-row">
-              <input
-                id="run-seed"
-                data-testid="seed-input"
-                value={seed}
-                onChange={(event) => onSeedChange(event.target.value)}
-                placeholder={t(lang, 'title.seed.placeholder')}
-                maxLength={40}
-                autoComplete="off"
-                spellCheck={false}
-              />
-              <button
-                type="button"
-                className="ghost-button"
-                data-testid="seed-random"
-                onClick={onRandomSeed}
-              >
-                {t(lang, 'title.seed.random')}
-              </button>
-            </div>
-            <p className="seed-note">{t(lang, 'title.seed.help')}</p>
-          </div>
 
           <button type="button" className="primary-button start-button" data-testid="start-game" onClick={onStart}>
             {t(lang, 'title.start')}

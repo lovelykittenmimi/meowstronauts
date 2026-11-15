@@ -220,10 +220,7 @@ export default function App() {
         <TitleScreen
           lang={state.lang}
           difficulty={selectedDifficulty}
-          seed={seed}
           onDifficulty={setSelectedDifficulty}
-          onSeedChange={setSeed}
-          onRandomSeed={() => setSeed(randomSeed())}
           onStart={startGame}
           onToggleLang={toggleLang}
         />
