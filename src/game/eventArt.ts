@@ -2,7 +2,6 @@ import type { Localized } from './types';
 import keyArt from '../assets/generated/scenes/01-keyart.webp';
 import controlRoom from '../assets/generated/scenes/08-control-room.webp';
 import controlRoomEmpty from '../assets/generated/scenes/08-control-room-nocat.webp';
-import greenhouse from '../assets/generated/scenes/09-greenhouse.webp';
 import greenhouseEmpty from '../assets/generated/scenes/09-greenhouse-nocat.webp';
 import coldPatrolEmpty from '../assets/generated/scenes/11-cold-patrol-nocar.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
@@ -25,6 +24,7 @@ import iceSurvey from '../assets/generated/scenes/40-ice-survey.webp';
 import iceSurveyEmpty from '../assets/generated/scenes/40-ice-survey-nocat.webp';
 import waterRecycling from '../assets/generated/scenes/41-water-recycling.webp';
 import dishForecast from '../assets/generated/scenes/42-dish-forecast.webp';
+import tomatoHarvest from '../assets/generated/scenes/43-tomato-harvest.webp';
 
 export interface EventArt {
   src: string;
@@ -185,17 +185,19 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '銀白穿著白色太空衣，用前掌按下避難艙厚重圓門旁亮著綠燈的控制面板，兩側架上放著毯子與收納箱。',
     },
   },
-  // F1 — the tomato harvest.
+  // F1 — the tomato harvest. The card shows the payoff (vines heavy with
+  // ripe tomatoes, crates overflowing); 09 stays the week's seedling corner
+  // and remains Sol 7's captain's-log picture.
   F1: {
-    src: greenhouse,
+    src: tomatoHarvest,
     briefingSrc: greenhouseEmpty,
     briefingAlt: {
       en: 'An empty greenhouse with tomato seedlings, a robotic watering arm and a ripe tomato on the counter.',
       'zh-TW': '空無一貓的溫室，番茄幼苗、自動澆水臂與檯面上的一顆熟番茄。',
     },
     alt: {
-      en: 'Ginger beside a tomato plant and a watering arm in the greenhouse under pink grow lights.',
-      'zh-TW': '金桔在溫室裡守著番茄植株與澆水機械臂，頭頂是粉紫色植物燈。',
+      en: 'Ginger in a clear helmet stands beside wooden crates overflowing with ripe tomatoes, under vines heavy with red tomatoes and a few green ones, while a round window shows red Mars outside.',
+      'zh-TW': '金桔戴著透明頭盔站在堆滿熟番茄的木箱旁，溫室藤架上掛滿紅番茄與幾顆綠番茄，圓窗外是紅色火星。',
     },
   },
   // F3 — the delayed crate; Ginger checks the cargo console by the empty cradle.

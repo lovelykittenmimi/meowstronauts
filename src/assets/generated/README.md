@@ -1,15 +1,15 @@
 # 已處理圖像資產（2026-11-14）
 
-此資料夾是工作區 `pic/` 原圖的網頁用衍生物，供遊戲與 submission 使用。
-**原圖未被修改或覆寫**（仍在 repo 外的 `C:\Projects\Meow\pic`）。
+此資料夾是原圖的網頁用衍生物，供遊戲與 submission 使用。
+**原圖未被修改或覆寫**（31–43 這批 JPEG 母檔在 repo 外的 `C:\Users\carri\project\jpeg`）。
 
 ## 目錄
 
 | 路徑 | 內容 |
 |---|---|
-| `scenes/` | 32 張有背景的場景、劇照、對話頭像、英雄鏡、遠景與故事板（含 7 張無貓底板候選、11/14 新增的 31–35），WebP（不透明） |
+| `scenes/` | 47 張有背景的場景、劇照、對話頭像、英雄鏡、遠景與故事板（含無貓底板候選、31–43），WebP（不透明） |
 | `cutouts/` | 9 張去背角色設定表（14–19 與 `_hat` 頭盔版），WebP（透明 alpha） |
-| `manifest.json` | 本資料夾 43 張圖的尺寸、bytes、處理參數、英文與繁中 `alt`、`credit` |
+| `manifest.json` | 本資料夾圖片的尺寸、bytes、處理參數、英文與繁中 `alt`、`credit` |
 
 單格頭像不在本資料夾，已獨立放在 [`../avatars/`](../avatars/)（36 張，108 個 WebP）。
 
@@ -30,16 +30,18 @@
 ## 使用規則
 
 - 遊戲目前打包 30 張場景：`01`（Sol 1 艦長日誌）、`05`、`06`（開場迫降，**不當事件卡背景**）、
-  `08`、`09`、`11-nocar`、`12`、`13`、`21`、`31`–`42`（事件卡與艦長日誌，對應表在
+  `08`、`09-nocat`、`11-nocar`、`12`、`13`、`21`、`31`–`43`（事件卡與艦長日誌，對應表在
   [`src/game/eventArt.ts`](../../game/eventArt.ts)），另加 `*-nocat`／`*-nocar` 無貓底板
   （08、09、21、36–40）；其餘與 `cutouts/` 是替換與後續使用的素材。
+  `09-greenhouse`（有貓版）自 11/15 起不再上卡，F1 改用 `43-tomato-harvest`。
 - **11/14 事件卡換圖**：S2 用 `31-meteorite-breach`、L1 用 `32-oxygen-unit`、S3 用 `33-shelter-door`、
   L2 用 `34-water-line`、F3 用 `35-supply-crate`（原圖 JPEG 2752×1536 → WebP 1280×714、q=82、46–95 KB）。
   P1 用 `37-night-dust`（夜間積塵，和 T1 的黃昏陣列區隔）；
   掃沙小遊戲仍沿用 `21` 的積塵／清乾淨底板（同一座太陽能陣列）。
 - **11/15 追加**：P4 用 `38-cold-week`、C1 用 `39-earth-call`、SC2 用 `40-ice-survey`、
-  Sol 5 艦長日誌用 `41-water-recycling`、Sol 3 艦長日誌用 `42-dish-forecast`
-  （原圖 JPEG 2752×1536 → WebP 1280×714、q=82、48–159 KB）。
+  Sol 5 艦長日誌用 `41-water-recycling`、Sol 3 艦長日誌用 `42-dish-forecast`、
+  F1 用 `43-tomato-harvest`（原圖 JPEG 2752×1536 → WebP 1280×714、q=82、48–159 KB；
+  43 為 139,702 B）。
   `35` 第一版的 Ginger 右肩帶美國國旗貼布，已於同日重出移除、同名替換，`eventArt.ts` 不需再改。
 - 場景舞台由 [`src/ui/SceneStage.tsx`](../../ui/SceneStage.tsx) 呈現：同一張圖的模糊 cover 填滿框、
   清晰版用 `object-fit: contain` 完整顯示（不裁切），換圖只改 `eventArt.ts`。
@@ -60,7 +62,7 @@
 - 去背圖的 alpha 已保留，可直接疊在 `--paper`、`--navy` 或場景圖上。
 - 14–19 設定表保留原 3×2 排版；單格頭像已切在 `../avatars/`，不用再自行切格。
 - 14–16 原圖有部分視圖的腳掌被原圖邊界裁掉，去背不會補回。
-- 不要覆寫 `pic/` 原圖；重出圖時沿用 `docs/image-prompts.md` 的同一批 prompt。
+- 不要覆寫 `C:\Users\carri\project\jpeg` 裡的母檔；重出圖時沿用 `docs/image-prompts.md` 的同一批 prompt。
 
 ## 產製
 

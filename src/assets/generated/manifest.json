@@ -5,7 +5,7 @@
     "cutouts": "resize longest edge to 1600 px (Lanczos), rembg bria-rmbg, WebP q=85 (lossless alpha)",
     "tooling": "Pillow, rembg 2.0.87 (onnxruntime CPU)"
   },
-  "originals": "C:/Projects/Meow/pic (outside this repository; never modified)",
+  "originals": "C:/Users/carri/project/jpeg (outside this repository; never modified)",
   "assets": [
     {
       "file": "scenes/01-keyart.webp",
@@ -850,6 +850,23 @@
       },
       "credit": null,
       "note": "background plate candidate (no cats), 2026-11-14"
+    },
+    {
+      "file": "scenes/43-tomato-harvest.webp",
+      "type": "scene",
+      "background": "opaque",
+      "source": "43-tomato-harvest.jpeg",
+      "originalPixels": "2752x1536",
+      "width": 1280,
+      "height": 714,
+      "bytes": 139702,
+      "quality": 82,
+      "alt": {
+        "en": "Ginger in a clear helmet stands beside wooden crates overflowing with ripe tomatoes, under vines heavy with red tomatoes and a few green ones, while a round window shows red Mars outside.",
+        "zh-TW": "金桔戴著透明頭盔站在堆滿熟番茄的木箱旁，溫室藤架上掛滿紅番茄與幾顆綠番茄，圓窗外是紅色火星。"
+      },
+      "credit": null,
+      "note": "event card F1 / greenhouse tomato harvest / added 2026-11-15"
     }
   ],
   "avatars": {
