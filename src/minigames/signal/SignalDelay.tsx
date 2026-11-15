@@ -30,6 +30,13 @@ type RoundPhase = 'ask' | 'fly' | 'reply' | 'ready';
 
 const TOTAL = SIGNAL_ROUNDS.length;
 
+/**
+ * NASA/JPL states the average Earth–Mars distance (225 million km); the game's
+ * 12.5-minute average is that distance divided by the speed of light.
+ */
+const AVERAGE_DISTANCE_SOURCE =
+  'https://www.jpl.nasa.gov/news/nasas-perseverance-rover-completes-first-ai-planned-drive-on-mars/';
+
 function optionLabel(lang: Lang, option: SignalOption): string {
   if (option.id === 'seconds') {
     return signalT(lang, 'optionSeconds', { minutes: option.minutes });
@@ -293,6 +300,7 @@ export default function SignalDelay({ lang, onExit }: SignalDelayProps) {
                 <ul className="signal-facts">
                   <li>{signalT(lang, 'introRule')}</li>
                   <li>{signalT(lang, 'introFact')}</li>
+                  <li>{signalT(lang, 'introRange')}</li>
                 </ul>
               </div>
               <div className="signal-intro-art" aria-hidden="true">
@@ -331,6 +339,12 @@ export default function SignalDelay({ lang, onExit }: SignalDelayProps) {
                 <p className="signal-result-wrong" data-testid="signal-result-wrong">
                   {signalT(lang, 'resultWrong', { count: game.wrong })}
                 </p>
+                <h4 className="signal-fact-title">
+                  {signalT(lang, 'distanceTitle')}
+                </h4>
+                <p className="signal-distance-body" data-testid="signal-distance">
+                  {signalT(lang, 'distanceBody')}
+                </p>
                 <h4 className="signal-fact-title">{signalT(lang, 'factTitle')}</h4>
                 {(() => {
                   const card = getKnowledgeCard('commsDelay');
@@ -360,6 +374,15 @@ export default function SignalDelay({ lang, onExit }: SignalDelayProps) {
                               </a>
                             </li>
                           ))}
+                          <li key="average-distance">
+                            <a
+                              href={AVERAGE_DISTANCE_SOURCE}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {signalT(lang, 'sourceAverage')}
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </>

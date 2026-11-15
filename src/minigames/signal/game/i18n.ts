@@ -18,8 +18,12 @@ export const SIGNAL_COPY = {
     'zh-TW': '答錯會出現提示，不會失去任何東西。',
   },
   introFact: {
-    en: 'Earth–Mars one-way delay: about 3 to 22 minutes.',
-    'zh-TW': '地球到火星的單向延遲：大約 3 到 22 分鐘。',
+    en: 'Earth and Mars orbit the Sun at different speeds, so the distance between them keeps changing.',
+    'zh-TW': '地球和火星以不同速度繞太陽，所以兩者距離一直在變。',
+  },
+  introRange: {
+    en: 'One-way message: about 3 to 22.4 minutes; about 12.5 minutes on average.',
+    'zh-TW': '訊息單程：大約 3 到 22.4 分鐘，平均約 12.5 分鐘。',
   },
   start: { en: 'Send a message', 'zh-TW': '送出訊息' },
   back: { en: 'Back', 'zh-TW': '返回' },
@@ -69,8 +73,17 @@ export const SIGNAL_COPY = {
     'zh-TW': '地球和火星之間的每一則訊息都要花上單程延遲。船員不能等地球即時操控基地。',
   },
   resultWrong: { en: 'Wrong answers: {count}', 'zh-TW': '答錯次數：{count}' },
+  distanceTitle: { en: 'Why the delay changes', 'zh-TW': '為什麼延遲會變' },
+  distanceBody: {
+    en: 'Earth and Mars move around the Sun at different speeds. When they are on the same side of the Sun, the distance is shortest — about 3 minutes one way. When the Sun is between them, it is longest — about 22 minutes. The average is about 12.5 minutes.',
+    'zh-TW': '地球和火星以不同速度繞太陽移動。兩者在太陽同一側時距離最短，單程大約 3 分鐘；太陽在兩者之間時距離最遠，大約 22 分鐘。平均約 12.5 分鐘。',
+  },
   factTitle: { en: 'What the delay means', 'zh-TW': '延遲代表什麼' },
   sources: { en: 'Source', 'zh-TW': '資料來源' },
+  sourceAverage: {
+    en: 'NASA/JPL — average Earth–Mars distance',
+    'zh-TW': 'NASA/JPL — 地球到火星的平均距離',
+  },
   replay: { en: 'Try again', 'zh-TW': '再試一次' },
   landscapeNote: { en: 'Best in landscape.', 'zh-TW': '橫向遊玩效果最好。' },
 } satisfies Record<string, Localized>;

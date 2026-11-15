@@ -43,6 +43,10 @@ describe('SignalDelay', () => {
   it('opens on the intro and starts round 1', () => {
     renderGame();
     expect(screen.getByTestId('signal-intro')).toBeTruthy();
+    const intro = screen.getByTestId('signal-intro').textContent ?? '';
+    expect(intro).toContain('different speeds');
+    expect(intro).toContain('3 to 22.4');
+    expect(intro).toContain('12.5');
 
     fireEvent.click(screen.getByTestId('signal-start'));
 
@@ -99,11 +103,16 @@ describe('SignalDelay', () => {
 
     expect(screen.getByTestId('signal-result')).toBeTruthy();
     expect(screen.getByTestId('signal-result-wrong').textContent).toContain('0');
+    expect(screen.getByTestId('signal-distance').textContent).toContain('12.5');
     expect(screen.getByText(/3 to 22.4 minutes/)).toBeTruthy();
     const source = screen.getByRole('link', {
       name: /Mars Relay Network/,
     }) as HTMLAnchorElement;
     expect(source.href).toContain('science.nasa.gov');
+    const average = screen.getByRole('link', {
+      name: /average Earth.Mars distance/,
+    }) as HTMLAnchorElement;
+    expect(average.href).toContain('jpl.nasa.gov');
   });
 
   it('counts wrong answers in the result', () => {

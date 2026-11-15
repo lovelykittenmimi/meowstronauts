@@ -243,6 +243,22 @@ Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 �
 - **不新增知識卡**：背包維持 20 張；這些詞只出現在小遊戲與本節。
 - **連結檢查（2026-11-15）**：S27–S29、S31–S32 以 `curl` 取得 HTTP 200；S26 連線未回應、S30 對 `curl` 回 403（JPL 常擋非瀏覽器請求）。上線前用瀏覽器再點一次 S26／S30。
 
+### 3.8 訊號延遲小遊戲的教學引用
+
+`src/minigames/signal/` 的三回合只使用下表可回指的頁面。小遊戲不進 7 sol 主線、不改平衡表、不給資源、不新增知識卡（背包維持 20 張）。
+
+| ID | 來源 | 可寫的事實 | 遊戲用法 |
+|---|---|---|---|
+| S13 | NASA Science — [Mars Relay Network](https://science.nasa.gov/mars/mars-relay-network/) | 地球與火星距離隨兩者在軌道上的位置改變；最近 54.6 百萬公里約 3 分鐘光行時間，最遠 400.2 百萬公里約 22.4 分鐘 | 開場與結果的「3 到 22.4 分鐘」、最短／最遠說明 |
+| S33 | NASA/JPL — [Perseverance Completes First AI-Planned Drive](https://www.jpl.nasa.gov/news/nasas-perseverance-rover-completes-first-ai-planned-drive-on-mars/) | 「Mars is on average about 140 million miles (225 million kilometers) away from Earth.」 | 平均距離 225 百萬公里；遊戲的「平均約 12.5 分鐘」是換算，不是 NASA 原文 |
+
+使用注意：
+
+- **12.5 分鐘是換算**：225,000,000 km ÷ 299,792.458 km/s ≈ 750.5 秒 ≈ 12.5 分鐘。NASA 頁面只寫平均距離，沒有直接寫 12.5 分鐘；遊戲寫「about 12.5 minutes on average」，並在結果列出 S33，不寫成 NASA 的引述。
+- **最近／最遠用「大約」**：54.6／400.2 百萬公里與 3／22.4 分鐘都來自 S13；不寫 55／401 百萬公里、3 分 03 秒或 22 分 18 秒等未在 S13 出現的精確數字。
+- **回合距離是示例**：遊戲的 3／14／22 光分是整數示例，不宣稱剛好是最近／平均／最遠；結果頁才說明實際範圍與平均。
+- **不寫軌道術語**：不使用「火星大衝」「火星合日」「opposition」「conjunction」，只用「太陽同一側」「太陽在兩者之間」。
+
 ## 4. 重新產生
 
 ```bash
