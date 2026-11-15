@@ -175,34 +175,28 @@ await encodeStill({
   ].join(','),
 });
 
-// 3. In-game crash clip (4.0-7.6). The 10.00 s clip is three shots: orbital hit
+// 3. In-game crash clip (4.0-9.0). The 10.00 s clip is three shots: orbital hit
 // (0-3.5), fireball descent (3.5-5.0), then the ground shot (5.0-10.0). The ship
-// enters at 5.0 and hits at ~5.2; after 6.8 the cats are only standing in dust.
-// Take 5.000-6.800 and play it at 0.5x (setpts 2.0), so the fall, impact,
-// explosion and the cats emerging each get room instead of flashing past.
+// enters at 5.0 and hits at ~5.2; the cats emerge around 6.5. Take 5.000-7.500
+// at 0.5x (setpts 2.0): fall, impact, explosion, then two seconds of the three
+// cats standing in the settling dust. No title card after this any more; the
+// crash runs straight into the first sol.
 await encodeVideo({
   input: path.join(root, 'src/assets/video/scene2-crash.mp4'),
   start: 5.00,
-  seconds: 3.6,
+  seconds: 5.0,
   out: seg('s03'),
   vf: 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,setpts=(PTS-STARTPTS)*2.0',
-  post: 'fade=t=in:st=0:d=0.15,fade=t=out:st=3.40:d=0.20',
+  post: 'fade=t=in:st=0:d=0.15,fade=t=out:st=4.80:d=0.20',
 });
 
-// 4. Title card (7.6-9.7)
-await encodeStill({
-  image: path.join(cards, 'title.png'),
-  out: seg('s04'),
-  seconds: 2.1,
-  zoom: 0.02,
-  extra: 'fade=t=in:st=0:d=0.25,fade=t=out:st=1.85:d=0.25',
-});
-
-// 5. S1 card -> shield up -> result (9.7-13.3)
+// 4. S1 card -> shield up -> result (9.0-13.3). Starts 0.7 s earlier in the clip
+// (the alert card is up before the click) so the shot ends on the same frame as
+// before and every later cut keeps its time.
 await encodeVideo({
   input: clip('s1'),
-  start: F.s1 + 1.5,
-  seconds: 3.6,
+  start: F.s1 + 0.8,
+  seconds: 4.3,
   out: seg('s05'),
   // Rebasing PTS makes the fade start on frame 0; the webm's first frame is a
   // few hundredths late, which otherwise steps straight to ~27% brightness.
@@ -210,7 +204,7 @@ await encodeVideo({
   post: 'fade=t=in:st=0:d=0.15',
 });
 
-// 6. HUD/result close-up (13.3-15.4)
+// 5. HUD/result close-up (13.3-15.4)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 5.1,
@@ -219,7 +213,7 @@ await encodeVideo({
   vf: 'crop=1680:945:150:0,scale=1920:1080:flags=lanczos',
 });
 
-// 7. Mars Weather Lander (15.4-17.6)
+// 6. Mars Weather Lander (15.4-17.6)
 await encodeVideo({
   input: clip('lander'),
   start: F.lander + mark('lander', 'landed') - 1.30,
@@ -228,7 +222,7 @@ await encodeVideo({
   vf: 'crop=1725:970:110:0,scale=1920:1080:flags=lanczos',
 });
 
-// 8. Two practice opening screens (17.6-19.7): Low-gravity hop intro for 1.0 s,
+// 7. Two practice opening screens (17.6-19.7): Low-gravity hop intro for 1.0 s,
 // then the Harvest the tomatoes first screen for 1.1 s. No gameplay in this shot.
 await encodeVideo({
   input: clip('hopIntro'),
@@ -246,7 +240,7 @@ await encodeVideo({
 });
 await concatFiles([path.join(segDir, 's08a.mp4'), path.join(segDir, 's08b.mp4')], seg('s08'));
 
-// 9. Knowledge card -> backpack (19.7-22.1)
+// 8. Knowledge card -> backpack (19.7-22.1)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 8.4,
@@ -263,7 +257,7 @@ await encodeVideo({
 });
 await concatFiles([path.join(segDir, 's09a.mp4'), path.join(segDir, 's09b.mp4')], seg('s09'));
 
-// 10. NASA data panel (22.1-26.0)
+// 9. NASA data panel (22.1-26.0)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 15.2,
@@ -272,7 +266,7 @@ await encodeVideo({
   vf: 'scale=1920:1080',
 });
 
-// 11. Mission report -> end card (26.0-30.0). The end card only holds for the
+// 10. Mission report -> end card (26.0-30.0). The end card only holds for the
 // last second: players freeze on the final frame, so it does not need more.
 const reportFrames = 96; // 3.2 s
 const endFrames = 30; // 1.0 s
@@ -301,7 +295,7 @@ await run([
 ], 's11');
 
 const parts = [
-  's01', 's02', 's03', 's04', 's05', 's06',
+  's01', 's02', 's03', 's05', 's06',
   's07', 's08', 's09', 's10', 's11',
 ].map(seg);
 await concatFiles(parts, path.join(outDir, 'picture.mp4'));
