@@ -35,7 +35,7 @@ These images are **video-only**; they are not game assets and are not in the gam
 ## Credit placement
 
 - Small lower-right credit on screen for ~1.5 s while the still is shown: `NASA/USGS/Viking` and `NASA/SDO`.
-- Full line in the YouTube description and in `docs/submission.md` References.
+- Full line in the YouTube description and on the official project page.
 - No NASA logo or badge is added.
 
 ## Rejected

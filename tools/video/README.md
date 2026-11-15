@@ -19,6 +19,7 @@ part of the game build.
 | `narration-ana-45-v3.mp3` | The current Ana +45% narration take. The shot list and cue table are in `docs/video-script.md` §0.4–§0.6. |
 | `assets/apod/` | NASA stills for the opening shots; video-only, not game assets. Credits and crop rules in `assets/apod/CREDITS.md` |
 | `assets/opening/` | The two team-generated stills that replaced the in-game crash clip in the demo (`ship-in-space.png` 4.0–6.2, `crash-on-mars.png` 6.2–9.0). Not NASA imagery; credits in `assets/opening/CREDITS.md` |
+| `assets/screens/` | The 11/15 player screenshots for s05/s06/s09a/s09b/s10, pre-cropped to 16:9. Game captures, not NASA imagery |
 | `assets/mars-trek/` | Gale Crater wide/mid/close stills exported from Mars Trek. **Not used by the final cut since the 11/15 opening revision** (the intro is the SDO flare, then the two crash stills); kept for reference. Credits in `assets/mars-trek/CREDITS.md` |
 | `output/` | Git-ignored; all raw and final media goes here |
 

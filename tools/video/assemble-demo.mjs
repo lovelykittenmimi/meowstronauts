@@ -148,6 +148,10 @@ console.log('flash ends', F);
 
 const cards = path.join(outDir, 'cards');
 const stills = path.join(outDir, 'stills');
+// The 15 Nov player screenshots, cropped to 16:9. The old s1/report clips were
+// recorded in ?video= mode, which hides the practice icons in SolNav, so the
+// game shots read as a build without the icon row.
+const prepped = (name) => path.join(assets, 'screens', name);
 const assets = path.join(__dirname, 'assets');
 const opening = path.join(assets, 'opening');
 const seg = (name) => path.join(segDir, `${name}.mp4`);
@@ -199,27 +203,23 @@ await encodeStill({
 });
 await concatFiles([path.join(segDir, 's03a.mp4'), path.join(segDir, 's03b.mp4')], seg('s03'));
 
-// 4. S1 card -> shield up -> result (9.0-13.3). Starts 0.7 s earlier in the clip
-// (the alert card is up before the click) so the shot ends on the same frame as
-// before and every later cut keeps its time.
-await encodeVideo({
-  input: clip('s1'),
-  start: F.s1 + 0.8,
-  seconds: 4.3,
+// 4. S1 event card (9.0-13.3): the 15 Nov screenshot, full player nav with the
+// practice icons. A slow zoom keeps it from sitting perfectly still.
+await encodeStill({
+  image: prepped('s1-card.png'),
   out: seg('s05'),
-  // Rebasing PTS makes the fade start on frame 0; the webm's first frame is a
-  // few hundredths late, which otherwise steps straight to ~27% brightness.
-  vf: 'scale=1920:1080,setpts=PTS-STARTPTS',
-  post: 'fade=t=in:st=0:d=0.15',
+  seconds: 4.3,
+  zoom: 0.02,
+  extra: 'fade=t=in:st=0:d=0.15',
 });
 
-// 5. HUD/result close-up (13.3-15.4)
-await encodeVideo({
-  input: clip('s1'),
-  start: F.s1 + 5.1,
-  seconds: 2.1,
+// 5. Same screen, closer on the choices (13.3-15.4). The old cut was a crop of
+// the same event card, so the two stills keep that rhythm.
+await encodeStill({
+  image: prepped('hud.png'),
   out: seg('s06'),
-  vf: 'crop=1680:945:150:0,scale=1920:1080:flags=lanczos',
+  seconds: 2.1,
+  zoom: 0.02,
 });
 
 // 6. Mars Weather Lander (15.4-17.6)
@@ -249,30 +249,27 @@ await encodeVideo({
 });
 await concatFiles([path.join(segDir, 's08a.mp4'), path.join(segDir, 's08b.mp4')], seg('s08'));
 
-// 8. Knowledge card -> backpack (19.7-22.1)
-await encodeVideo({
-  input: clip('s1'),
-  start: F.s1 + 8.4,
-  seconds: 1.2,
+// 8. Knowledge card -> backpack (19.7-22.1), 15 Nov screenshots.
+await encodeStill({
+  image: prepped('knowledge.png'),
   out: path.join(segDir, 's09a.mp4'),
-  vf: 'scale=1920:1080',
-});
-await encodeVideo({
-  input: clip('s1'),
-  start: F.s1 + 11.8,
   seconds: 1.2,
+  zoom: 0.01,
+});
+await encodeStill({
+  image: prepped('backpack.png'),
   out: path.join(segDir, 's09b.mp4'),
-  vf: 'scale=1920:1080',
+  seconds: 1.2,
+  zoom: 0.01,
 });
 await concatFiles([path.join(segDir, 's09a.mp4'), path.join(segDir, 's09b.mp4')], seg('s09'));
 
-// 9. NASA data panel (22.1-26.0)
-await encodeVideo({
-  input: clip('s1'),
-  start: F.s1 + 15.2,
-  seconds: 3.9,
+// 9. NASA data panel (22.1-26.0), 15 Nov screenshot.
+await encodeStill({
+  image: prepped('data.png'),
   out: seg('s10'),
-  vf: 'scale=1920:1080',
+  seconds: 3.9,
+  zoom: 0.02,
 });
 
 // 10. Mission report -> end card (26.0-30.0). The end card only holds for the

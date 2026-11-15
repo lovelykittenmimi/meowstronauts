@@ -1,6 +1,6 @@
 # 30 秒 Demo 影片腳本（11/12）
 
-> 最後更新：2026-11-15（第七版：第 3 鏡的遊戲內迫降影片**換成兩張靜圖**——`ship-in-space.png` 4.0–6.2、`crash-on-mars.png` 6.2–9.0，總長不變，旁白與 9.0 之後的剪點都不動；同時修掉全片黑位被抬高的色彩範圍問題，並把片頭卡的成人姓名移到**右上角三行 44px**。第六版刪掉 7.6–9.7 的標題卡，三隻貓站到 9.0，多出的 0.7 秒給第 4 鏡的警報卡；第五版拿掉 Gale 衛星圖、只留 SDO 閃焰 1.5 秒並加上暗轉。逐格時間表見 `tools/video/DEMO-TIMELINE.md`，重做清單見 §0.7）
+> 最後更新：2026-11-15（第八版：第 4、5、8、9 鏡改成 **11/15 玩家實機截圖**——正常流程、Sol 列的小遊戲 icon 完整；先前 `?video=s1` 錄的畫面會把小遊戲 icon 藏起來。剪點、旁白、字幕全部不變。第七版：第 3 鏡的遊戲內迫降影片**換成兩張靜圖**——`ship-in-space.png` 4.0–6.2、`crash-on-mars.png` 6.2–9.0，總長不變，旁白與 9.0 之後的剪點都不動；同時修掉全片黑位被抬高的色彩範圍問題，並把片頭卡的成人姓名移到**右上角三行 44px**。第六版刪掉 7.6–9.7 的標題卡，三隻貓站到 9.0，多出的 0.7 秒給第 4 鏡的警報卡；第五版拿掉 Gale 衛星圖、只留 SDO 閃焰 1.5 秒並加上暗轉。逐格時間表見 `tools/video/DEMO-TIMELINE.md`，重做清單見 §0.7）
 > 對應 PLAN 12.3。英文旁白＋英文字幕（全球評審）；可另附繁中字幕檔。
 > **定版：總長 30.0 秒。** 0–2.5 秒文字卡不配音；旁白 v3 **9 句 59 字**，燒字幕唯一來源是 `narration-ana-45-v3.srt`（重拍後重跑 `make-narration.mjs`）；結尾卡只佔 **最後 1.0 秒**（29.0–30.0，播完停在這一頁）。鏡表見 §0.4、旁白見 §0.6。
 >
@@ -62,7 +62,7 @@
 | Relevance | 對應 Junior Astronaut Mission Trainer、7–12 歲 |
 | Presentation | 英文字幕、清楚可讀、≤30 秒、無 debug 畫面 |
 
-### 0.4 定版鏡表（2026-11-15 第七版；第二～七版改動列在下方）
+### 0.4 定版鏡表（2026-11-15 第八版；第二～八版改動列在下方）
 
 > 錄影、剪輯與 QA 的唯一依據；§0.2 的 8 鏡表保留作修訂過程。旁白 `tools/video/narration-ana-45-v3.mp3`、字幕 `narration-ana-45-v3.srt`（9 句，時間軸由 `make-narration.mjs` 產生；第 6、9 句改字後**必須重跑**）。音樂候選見 `tools/video/assets/music/CREDITS.md`。
 >
@@ -101,6 +101,11 @@
 > 14. **修掉全片黑位抬高**：所有段落與最終檔都加 `-color_range tv`。先前沒有任何一段標色彩範圍，最後一次壓縮把「未標示」當 full range 再轉 limited，全片黑位由 16 抬到 30（SDO 那張 JPEG 靜圖是來源）。修完片尾卡 SSIM 0.850 → 0.958。
 > 15. **片頭卡名字移到右上角**：`demo-cards.html` 的 `.intro .names` 由右下角單行 27px 改成**右上角三行 44px 右對齊**（`WU, CHIA-LING`／`LIN, YU-YU`／`our junior astronaut`，第三行 `span` 保留淡一階的顏色）。只影響第 1 鏡，重拍卡片後整片重壓；14 格驗證仍全過。
 >
+> **第八版（11/15 深夜，主遊戲改實機截圖）**
+>
+> 16. **第 4、5、8、9 鏡換成 11/15 玩家實機截圖**：先前這四鏡用 `?video=s1` 錄，那個模式會把 SolNav 的小遊戲 icon 整排藏起來，影片看起來像舊版。現在 s05＝`prepped/s1-card.png`（4.3 秒，zoom 0.02，淡入 0.15）、s06＝`prepped/hud.png`（2.1 秒，同卡特寫）、s09a＝`prepped/knowledge.png`（1.2 秒）、s09b＝`prepped/backpack.png`（1.2 秒）、s10＝`prepped/data.png`（3.9 秒），全部 `encodeStill`；長度與剪點不變。第 6、7 鏡本來就是正常流程錄的，第 10 鏡任務報告沒有 SolNav，兩者不動。
+> 17. **截圖先裁成 16:9**：原始截圖比例不一（1622×878 到 1904×893），先置中裁成 16:9 存到 `output/demo/stills/prepped/`，`encodeStill` 才不會變形；驗證探針直接指向 prepped 檔，14 格仍全過。
+>
 > **結尾卡只吃最後 1 秒。** 播放器播完會停在最後一格，所以識別卡不需要自己站 3 秒；維持 29.0–30.0，不把多出來的秒數吃掉，多出來的時間給前面的鏡頭。
 
 | # | 秒數 | 英文旁白 | 字數 | 畫面／螢幕文字 |
@@ -108,12 +113,12 @@
 | 1 | 0.0–2.5 | （無旁白） | 0 | 全螢幕文字卡：背景 `brand/og-1200x630.jpg` 等比 1920×1008、上下 36px 同色底；**右上角三行 44px 右對齊**（`WU, CHIA-LING`／`LIN, YU-YU`／`our junior astronaut`，第三行淡一階）；左上角與左下角的 `MEOWSTRONAUTS: MARS OUTPOST`、`Fly My Mind` 是 OG 圖原本就有的 |
 | 2 | 2.5–4.0 | A Mars mission trainer for kids seven to twelve. | 9 | SDO 閃焰淡入 0.25 秒、持 1.5 秒、淡出 0.25 秒；右下 `NASA/SDO`（先畫再淡）。**片頭不放 Gale 衛星圖推近**。**不提這張圖的日期** |
 | 3 | 4.0–9.0 | （第 1 句收尾）＋ Three cats. One crash.＋ Meowstronauts: Mars Outpost. | 4 | **兩張靜圖**：4.0–6.2 `assets/opening/ship-in-space.png`（三隻貓在圓艙內、左邊地球、右邊太陽閃焰），6.2 暗轉；6.2–9.0 `assets/opening/crash-on-mars.png`（迫降後的紅色地表、冒煙的艙體、破裂的太陽能板、三隻貓並排）。兩段都 zoom 0.02 慢慢推近，8.8–9.0 淡出。本版起**沒有標題卡**；片名由旁白第 3 句帶（07.80），背景就是三隻貓。原本的 `scene2-crash.mp4` 0.5× 慢動作剪法太難看，影片段不用 |
-| 4 | 9.0–13.3 | Seven sols. Every choice costs something. | 6 | `?video=s1`：S1 閃焰警報卡（從 1.60 起，多 0.7 秒讀卡）→ 點「加厚遮蔽」→ HUD ⚡62→42、🛡️55→80 |
-| 5 | 13.3–15.4 | Save the shield, or save the crew. | 7 | HUD 特寫：`⚡ −20`、`🛡️ +25`（以 build 為準） |
+| 4 | 9.0–13.3 | Seven sols. Every choice costs something. | 6 | **11/15 玩家實機截圖**（正常流程，Sol 列與小遊戲 icon 完整）：S1 閃焰警報卡＋三個選項（`⚡ −20`／`🛡️ +25`）。**不要再用 `?video=s1` 錄這個鏡頭**——那個模式會把小遊戲 icon 整排藏起來 |
+| 5 | 13.3–15.4 | Save the shield, or save the crew. | 7 | 同一張卡的**特寫截圖**（`1115hud.png` 裁右半），`⚡ −20`、`🛡️ +25` 清楚可見 |
 | 6 | 15.4–17.6 | Then practice with mini-games: land the ship, hop the ridge, pick tomatoes. | 12 | **小遊戲 1：Mars Weather Lander**（**2.2 秒**，比第一版短 0.6 秒）：Gale 地圖＋MEDA 樣本 HUD，假游標按 LAND，`Perfect landing!`（final distance 每次錄影不同；11/15 這一版是 15 km，畫面只認 `Perfect landing!`，不寫死數字）。收尾改成 `landed − 1.30` 起剪，落地後至少留 **0.9 秒**看 `Perfect landing!`。畫面已標 `MEDA sample · Jezero Crater`；旁白不說「即時天氣」 |
 | 7 | 17.6–19.7 | （同一句，不停） | 0 | **小遊戲 2＆3：只拍開場畫面，不錄遊玩**。17.6–18.6 Low-gravity hop 的 `hop-intro`：標題、`0.38 g practice`、玩法說明、`Start hopping`（**不按** JUMP）；18.6–19.7 Harvest the tomatoes 的第一屏：標題、`Tap the glowing ripe tomatoes…`、`Crate 0/6`、番茄都還在藤上（**不採收**）。兩段都用正常流程從 Sol 列 🦘／🍅 開啟（`?video=` 會把小遊戲列整個藏起來），開啟後停住錄 2–3 秒，剪輯各取約 1 秒 |
-| 8 | 19.7–22.1 | Tap a word. Learn the science. | 6 | 點 `solar flare` 開知識卡 → 收入背包 8/20→9/20（不口播） |
-| 9 | 22.1–26.0 | Real NASA data: the May 2025 X2.7 flare. | 8 | 資料面板：DONKI 折線（X2.7）＋REMS 曲線，`snapshot, not live` |
+| 8 | 19.7–22.1 | Tap a word. Learn the science. | 6 | 知識卡截圖（`solar flare`，來源 S2）→ 背包截圖 9/20（不口播） |
+| 9 | 22.1–26.0 | Real NASA data: the May 2025 X2.7 flare. | 8 | 資料面板**實機截圖**：DONKI 折線（X2.7）＋REMS 曲線，`snapshot, not live` |
 | 10 | 26.0–30.0 | One choice they'll remember. | 4 | 任務報告 ★★★（health 78、science 8、背包 9/20）停到 **29.0**，0.2 秒淡入結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`FREE · BILINGUAL`、`mars.flymymind.com`、`A FLY MY MIND PROJECT`；**結尾卡 29.0–30.0，最後一格就是這張卡**。旁白與字卡都不再出現「10 minutes」（字卡已於 11/15 重生） |
 
 - 旁白 **59 字、9 句**；剪輯點照上表，字幕時間軸照 SRT（兩者都由 §0.6 的同一組 `start` 產生），不要再套 §1 的 26.5 秒舊時間。
@@ -123,7 +128,7 @@
 - 第 6 鏡（著陸）的 MEDA 數值是 Jezero 的訓練樣本、地圖是 Gale；畫面上兩者已分開標示，旁白只說「land the ship」，不說是 Gale 的即時風。
 - 第 7 鏡走**正常流程**錄，不能用 `?video=s1`：`video` 模式把小遊戲列整個藏起來（`src/ui/SolNav.tsx`，`onMinigame` 不傳）。錄法：首頁 → `Officer` → 跳過開場 → SolNav 的 🦘 → 停在 `hop-intro`（**不按** `Start hopping`／JUMP）；關閉後再點 🍅 → 停在 `Harvest the tomatoes` 第一屏（**不點**任何番茄）。兩段各錄 2–3 秒，剪輯各取約 1 秒；是部署版實錄，不是 AI 圖。
 - 第 10 鏡的結尾卡是**整支影片的最後一格**，不再往後留黑。YouTube 播完會停在這個畫面，所以看得到網址；若改放不 freeze 的平台（例如 Google Drive 預覽），把結尾卡加回 2 秒。
-- 第 4–10 鏡全部是部署版實錄：`?video=s1`（S1 卡→加厚遮蔽→知識卡→背包→資料面板）與 `?video=report`；契約見 `docs/video-path.md`。
+- 第 4、5、8、9 鏡是 **11/15 玩家實機截圖**（正常流程，Sol 列與小遊戲 icon 完整）；第 6、7 鏡是正常流程實錄，第 10 鏡任務報告沒有 SolNav，沿用 `?video=report` 實錄。契約見 `docs/video-path.md`。
 - 音樂：兩首 Pixabay 曲目皆為 Content ID Registered。預設 `paulyudin-space-space-music-607605.mp3` 鋪 30 秒床（淡入 1 秒、28.0 秒起 2 秒淡出收在結尾卡、旁白 −18dB 以下）；被 YouTube claim 就用曲目頁與授權申訴，不用下架。
 
 ### 0.5 錄法：Playwright＋假游標（2026-11-14，11/15 補英文語系規則）
@@ -163,13 +168,13 @@
 > 11/15 早上重拍。**只重拍，不改遊戲程式**；下面是唯一要動的地方。
 
 1. **英文語系**（不用改程式）：`tools/video/capture-demo.mjs` 的五個 `page.goto`（`s1`／`lander`／`report`／`hopIntro`／`tomatoIntro`）都要帶 `lang=en`。正常流程的片段要先移除「中文」切換鈕（`hideLangToggles()`，見 §0.5）。動手前先確認 `.mjs` 沒被人改掉；錄完逐鏡目視，**畫面出現任何中文就重錄該段**（不是遮掉）。
-2. **片頭先 SDO、再兩張迫降圖**：`assemble-demo.mjs` 第 2 段是 SDO 靜圖 **1.5 秒**（`2.5–4.0`，0.25 秒淡入／淡出，`NASA/SDO` 先畫再淡），不再放 Gale 衛星圖；第 3 段換成 `encodeStill` 的兩張圖（`seconds: 2.2` ＋ `2.8`，各自 `zoom: 0.02`，淡入淡出寫在 `extra`），`concatFiles` 串成 s03。**不要再改回 `encodeVideo` 的慢動作剪法**（`-ss` 若放 `-i` 之後會讓來源 PTS 帶著偏移、淡出濾鏡以為已播完而整段變黑；這是先前踩過的坑）。**這一版不要放標題卡**：第 3 段之後直接接第 4 段（`?video=s1`）；第 4 段 `start: F.s1 + 0.8`、`seconds: 4.3`，讓 13.3 之後的剪點維持不變。**每一段與最終檔都要 `-color_range tv`**，否則最後一次壓縮會把未標示的範圍當 full range 再轉 limited，全片黑位被抬高。
+2. **片頭先 SDO、再兩張迫降圖**：`assemble-demo.mjs` 第 2 段是 SDO 靜圖 **1.5 秒**（`2.5–4.0`，0.25 秒淡入／淡出，`NASA/SDO` 先畫再淡），不再放 Gale 衛星圖；第 3 段換成 `encodeStill` 的兩張圖（`seconds: 2.2` ＋ `2.8`，各自 `zoom: 0.02`，淡入淡出寫在 `extra`），`concatFiles` 串成 s03。**不要再改回 `encodeVideo` 的慢動作剪法**（`-ss` 若放 `-i` 之後會讓來源 PTS 帶著偏移、淡出濾鏡以為已播完而整段變黑；這是先前踩過的坑）。**這一版不要放標題卡**：第 3 段之後直接接第 4 段（`?video=s1`）；第 4 段自第八版起是 `encodeStill` 的 11/15 實機截圖（`output/demo/stills/prepped/`，`seconds: 4.3`），讓 13.3 之後的剪點維持不變。**每一段與最終檔都要 `-color_range tv`**，否則最後一次壓縮會把未標示的範圍當 full range 再轉 limited，全片黑位被抬高。
 3. **著陸小遊戲縮短**：第 6 段 `seconds: 2.8 → 2.2`、`start: landed − 1.75 → landed − 1.30`（落地後留 0.9 秒的 `Perfect landing!`）。
 4. **兩個開場畫面**：hop 取 `hop-intro`（17.6–18.6）、tomato 取第一屏（18.6–19.7），各約 1 秒，**不要再 JUMP、不要採收**。`capture-demo.mjs` 的 hop 段改成只停在開場，並新增 tomato 段；`assemble-demo.mjs` 用 `s08a`／`s08b` 串接。
 5. **旁白改兩句**：`make-narration.mjs` 的 `CUES` 第 6 句改成 `Then practice with mini-games: land the ship, hop the ridge, pick tomatoes.`，最後一句改成 `One choice they'll remember.`；重跑後把新的結束秒數填回 §0.6、確認 26.10 起、29.0 前收完；SRT 會一起重寫。
    - **結尾卡已同步改掉**：`demo-cards.html` 的 chips 改成 `FREE · BILINGUAL`，`end.png` 已重生（11/15），旁白與畫面都不再出現「10 minutes」。重拍時直接用新卡，不要用舊的 `end.png` 備份。
 6. **重跑順序**：`node make-narration.mjs` → `node capture-demo.mjs`（五段都重錄；只想補一段就帶 clip 名）→ `node assemble-demo.mjs`。最後用 `ffprobe` 確認長度 ≤30.000 秒、有音軌、有燒字幕。
-7. **驗收**：先對 `tools/video/DEMO-TIMELINE.md` 的逐格表，再跑 `node tools/video/verify-timeline.mjs`，**14 個抽格要全部 PASS**（圖卡與片頭兩張靜圖 ≥0.90、SDO ≥0.84、影片 ≥0.82、s05 ≥0.88）。另外目視確認片頭沒有 Gale、第 3 鏡順序是「太空船在太空 → 暗轉 → 迫降後的三隻貓」而且**貓停留到 9.0 秒**、沒有標題卡、6.2 與 9.0 看得見黑格、第 7 鏡兩段都停在開場（沒有遊玩畫面）、片尾卡在 29.0 秒出現、第 10 鏡最後一格是結尾卡、全片無中文、黑位沒有灰霧。
+7. **驗收**：先對 `tools/video/DEMO-TIMELINE.md` 的逐格表，再跑 `node tools/video/verify-timeline.mjs`，**14 個抽格要全部 PASS**（圖卡、片頭兩張靜圖與 15 日截圖 ≥0.90、SDO ≥0.84、遊戲影片 ≥0.82）。另外目視確認片頭沒有 Gale、第 3 鏡順序是「太空船在太空 → 暗轉 → 迫降後的三隻貓」而且**貓停留到 9.0 秒**、沒有標題卡、6.2 與 9.0 看得見黑格、第 7 鏡兩段都停在開場（沒有遊玩畫面）、片尾卡在 29.0 秒出現、第 10 鏡最後一格是結尾卡、全片無中文、黑位沒有灰霧。
 
 ---
 
@@ -241,7 +246,7 @@
 - [ ] build 在 21:00 凍結；21:00 後沒有再改遊戲程式。
 - [ ] 影片路徑可用 `?video=s1`／`?video=report` 重現（契約見 `docs/video-path.md`）：Sol 4 S1 卡 → 加厚遮蔽 → `solar flare` 知識卡 → 背包 → 資料面板 → 任務報告。
 - [ ] 英文介面已切好；沒有 debug 面板、測試資料、console error。
-- [ ] 鏡表照 **§0.4 定版**（10 鏡：文字卡→SDO 閃焰→兩張迫降圖（太空船→迫降後的三隻貓，貓停到 9.0）→S1 卡→HUD→Mars Weather Lander→Low-gravity hop 開場＋Harvest the tomatoes 開場→知識卡＋背包→資料面板→任務報告／結尾卡；第六版起沒有標題卡、第七版起沒有迫降影片）；旁白 `narration-ana-45-v3.mp3`、字幕 `narration-ana-45-v3.srt`；音樂兩首候選見 §7.2。
+- [ ] 鏡表照 **§0.4 定版**（10 鏡：文字卡→SDO 閃焰→兩張迫降圖（太空船→迫降後的三隻貓，貓停到 9.0）→S1 卡→HUD→Mars Weather Lander→Low-gravity hop 開場＋Harvest the tomatoes 開場→知識卡＋背包→資料面板→任務報告／結尾卡；第六版起沒有標題卡、第七版起沒有迫降影片、第八版起主遊戲四鏡是 11/15 實機截圖）；旁白 `narration-ana-45-v3.mp3`、字幕 `narration-ana-45-v3.srt`；音樂兩首候選見 §7.2。
 - [ ] 實照已加 credit（`NASA/SDO`）；沒有把 SDO 閃焰說成 2025-05-14 的 X2.7。
 - [ ] 遊戲為最終版，沒有測試資料、沒有 `localhost`、沒有開發者工具。
 - [ ] 畫面中的數字與腳本一致（⚡ −20、🛡️ +25、9/20）；不一致就改腳本，不改畫面。

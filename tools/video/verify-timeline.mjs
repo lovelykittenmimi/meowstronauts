@@ -63,6 +63,7 @@ async function ssim(a, b) {
 const clip = (name) => path.join(demoDir, `${name}.webm`);
 const opening = (name) => path.join(assets, 'opening', name);
 const stills = (name) => path.join(cards, name);
+const prepped = (name) => path.join(assets, 'screens', name);
 
 const SCALE = 'scale=1920:1080';
 const CROP_HUD = 'crop=1680:945:150:0,scale=1920:1080:flags=lanczos';
@@ -74,14 +75,14 @@ const probes = [
   { seg: 's02', t: 3.20, kind: 'still', file: path.join(assets, 'apod', 'sun-flare-sdo-2017-09-14.jpg'), start: 2.5, frames: 45, zoom: 0.04, pre: SDO, min: 0.84 },
   { seg: 's03a', t: 5.00, kind: 'still', file: opening('ship-in-space.png'), start: 4.0, frames: 66, zoom: 0.02, pre: '', min: 0.90 },
   { seg: 's03b', t: 7.60, kind: 'still', file: opening('crash-on-mars.png'), start: 6.2, frames: 84, zoom: 0.02, pre: '', min: 0.90 },
-  { seg: 's05', t: 10.50, kind: 'video', file: clip('s1'), src: 3.100, vf: SCALE, min: 0.88 },
-  { seg: 's06', t: 14.00, kind: 'video', file: clip('s1'), src: 6.600, vf: CROP_HUD, min: 0.82 },
+  { seg: 's05', t: 10.50, kind: 'still', file: prepped('s1-card.png'), start: 9.0, frames: 129, zoom: 0.02, pre: '', min: 0.90 },
+  { seg: 's06', t: 14.00, kind: 'still', file: prepped('hud.png'), start: 13.3, frames: 63, zoom: 0.02, pre: '', min: 0.90 },
   { seg: 's07', t: 16.00, kind: 'video', file: clip('lander'), src: 9.194, vf: CROP_LANDER, min: 0.82 },
   { seg: 's08a', t: 18.00, kind: 'video', file: clip('hopIntro'), src: 4.285, vf: SCALE, min: 0.82 },
   { seg: 's08b', t: 19.00, kind: 'video', file: clip('tomatoIntro'), src: 4.537, vf: SCALE, min: 0.82 },
-  { seg: 's09a', t: 20.00, kind: 'video', file: clip('s1'), src: 9.500, vf: SCALE, min: 0.82 },
-  { seg: 's09b', t: 21.50, kind: 'video', file: clip('s1'), src: 13.200, vf: SCALE, min: 0.82 },
-  { seg: 's10', t: 23.00, kind: 'video', file: clip('s1'), src: 16.900, vf: SCALE, min: 0.82 },
+  { seg: 's09a', t: 20.00, kind: 'still', file: prepped('knowledge.png'), start: 19.7, frames: 36, zoom: 0.01, pre: '', min: 0.90 },
+  { seg: 's09b', t: 21.50, kind: 'still', file: prepped('backpack.png'), start: 20.9, frames: 36, zoom: 0.01, pre: '', min: 0.90 },
+  { seg: 's10', t: 23.00, kind: 'still', file: prepped('data.png'), start: 22.1, frames: 117, zoom: 0.02, pre: '', min: 0.90 },
   { seg: 's11a', t: 27.00, kind: 'video', file: clip('report'), src: 3.240, vf: SCALE, min: 0.82 },
   { seg: 's11b', t: 29.50, kind: 'still', file: stills('end.png'), start: 29.0, frames: 30, zoom: 0.01, pre: '', min: 0.90 },
 ];

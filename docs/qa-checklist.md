@@ -150,7 +150,6 @@
 - [ ] OG 卡在社群預覽正常（標題、三貓、`Fly My Mind`）。
 - [ ] favicon 是腳印版（或定案的版本）。
 - [ ] 截圖 3–5 張，含手機版、事件卡、知識卡背包。
-- [ ] `docs/submission.md` 的 `【 】` 全部填完或刪除。
 - [ ] `docs/ai-disclosure.md` 版本欄位填完。
 - [ ] repo 轉 public；`.dev.vars`、`node_modules`、`dist` 不在 repo。
 
