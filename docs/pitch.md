@@ -59,7 +59,7 @@
 |---|---|---|
 | 資料是真的嗎？ | 是，三組 NASA 資料，賽前快照 | `docs/data-sources.md`；DONKI X2.7、REMS 冷週、Image Library 7 張 |
 | 為什麼說是快照？ | 場地網路不可靠；快照不冒充即時 | 介面標 `snapshot, not live` |
-| 你們是不是賽前就做好遊戲？ | 沒有。賽前只有研究、資料、品牌與文件；程式從 11/14 09:00 開始 | private repo 的 commit 時間戳；`docs/ai-disclosure.md` 第 7 節 |
+| 你們是不是賽前就做好遊戲？ | 沒有。賽前只有研究、資料、品牌與文件；程式從 11/14 09:00 開始 | repo 的 commit 時間戳；`docs/ai-disclosure.md` 第 7 節 |
 | 為什麼是貓？ | 與團隊前作同一組三隻貓，兒童記得住；貓是船員，不是吉祥物 | 角色設定與語氣 guide |
 | 教育性夠嗎？ | 學習目標是「取捨與理由」，不是背名詞；20 張知識卡可選讀 | `docs/glossary.md`、`docs/event-cards.md` |
 | 會不會太難？ | 三個選項都顯示代價；失敗是「任務暫停」，不責備 | `docs/wireframes.md`、`docs/playtest.md` |

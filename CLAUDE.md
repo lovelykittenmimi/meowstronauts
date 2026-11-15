@@ -1,7 +1,7 @@
 # CLAUDE.md — Meowstronauts: Mars Outpost
 
 > 給所有 Claude Code session 的共同規則。三個 session（A 主機／B 小孩測試機／C 協作機）都適用。
-> 分工細節見 `docs/pre-event/multi-machine-plan.md`。
+> 分工細節見內部紀錄（已於 2026-11-15 移出 repo）。
 
 ## 專案
 
@@ -18,7 +18,7 @@
 4. **不 force push、不用 `git reset --hard origin/main`、不改 repo visibility。** repo 11/15 才轉 public。
 5. **一個檔案，同一時間只有一台機器在改。** 動共用檔前先 LOCK；跨區修改先開 issue。
 6. **不錄音、不錄影、不拍小孩。** Playtest 只截遊戲畫面，記錄用代號，不寫姓名或學校。
-7. **夜間自動修復只在 A 機**（`docs/test-plan.md` §14、`docs/pre-event/multi-machine-plan.md` §7.1）：測試檔不可改、綠色才 commit、**不 push**（push 即上線）、不 deploy；早上 A 驗收後再 push，壞的 `git revert`。C 機晚上做 30 秒影片，不跑測試迴圈。
+7. **夜間自動修復只在 A 機**（`docs/test-plan.md` §14）：測試檔不可改、綠色才 commit、**不 push**（push 即上線）、不 deploy；早上 A 驗收後再 push，壞的 `git revert`。C 機晚上做 30 秒影片，不跑測試迴圈。
 
 ## 直接推送 `main`
 
@@ -44,7 +44,7 @@ git push origin main
 
 ## 夜間自動修復（11/14 晚上）
 
-- 只在 A 機跑（`docs/test-plan.md` §14、`docs/pre-event/multi-machine-plan.md` §7.1）；B 關機，C 做 30 秒影片。
+- 只在 A 機跑（`docs/test-plan.md` §14）；B 關機，C 做 30 秒影片。
 - runner 腳本管迴圈；Claude 一次只修一個 failing test；測試檔 hash 不可變、`package.json`／lock 不可改、不 deploy、不碰 secret。
 - 全套綠才 commit，**commit 留在 A 本機不 push**（`main` 每次 push 由 Workers Builds 自動上線；早上 A 驗收後才推）；最多 6 次、3 個未解、02:00 停止；失敗不 commit，寫 `output/overnight/report.md`。
 - 影片從 A 21:00 部署的 freeze build 錄；A 夜間不 deploy。影片路徑（HUD 數值）是 freeze lock，修正不得改測試／fixture 來配合。
@@ -82,8 +82,6 @@ B 的 Claude 只有拿到 `fix-ok` 標籤的 issue 才能動手修；修完照�
 ## 文件入口
 
 - 計畫與排程：`PLAN.md` §9–§10
-- 賽前檢查：`docs/pre-event/preflight.md`
-- 三台電腦分工：`docs/pre-event/multi-machine-plan.md`；B／C 預裝與指令：`docs/pre-event/b-c-setup-and-prompts.md`
 - 資料來源：`docs/data-sources.md`；授權：`docs/licenses.md`
 - 影片：`docs/video-script.md`、`docs/video-path.md`
 - 測試規格：`docs/test-plan.md`；手動 QA：`docs/qa-checklist.md`

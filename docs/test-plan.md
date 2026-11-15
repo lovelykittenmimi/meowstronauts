@@ -1,7 +1,7 @@
 # 測試計畫（2026-11-12 起草）
 
 > **這是測試規格，不是測試程式。** `.test.ts`、Playwright spec、fixture 程式碼一律 11/14 09:00 後才寫。
-> 關聯：`PLAN.md` §10.1、`docs/event-cards.md` §3–§4、`docs/video-path.md`、`docs/qa-checklist.md`、`docs/playtest.md`、`docs/pre-event/multi-machine-plan.md`。
+> 關聯：`PLAN.md` §10.1、`docs/event-cards.md` §3–§4、`docs/video-path.md`、`docs/qa-checklist.md`、`docs/playtest.md`。
 
 ## 0. 原則
 
@@ -136,7 +136,7 @@
 
 - `docs/qa-checklist.md` 第 2–9 節：響應式、核心流程、知識卡、雙語、無障礙、資料誠實、效能。
 - `docs/playtest.md` §6：11/14 17:30，一位 12 歲兒童，家長在場；不錄影錄音。
-- B 回報格式與嚴重度見 `docs/pre-event/multi-machine-plan.md` §5。
+- B 回報格式與嚴重度見 `CLAUDE.md`「回報格式（B）」。
 - C 用無痕視窗截圖：1440×900、844×390；每次 UI 大改重截。
 
 ## 9. 修 bug 的定義（完成的條件）
@@ -208,7 +208,7 @@
 - 失敗不 commit；夜間不 push，所以不會觸發 Workers Builds 部署。runner 停下來後報告寫 `output/overnight/report.md`，同時用 `gh issue comment` 貼到 `overnight` issue，C／B 從 GitHub 讀。
 - 22:30 前由 A 選模式：`logic-only`（預設，只修 logic／state／data／i18n key／a11y，不改字串值；視覺問題只寫報告）或 `allow-visual`（可改 UI／文案，commit 加 `[visual]`，早上 C 重錄或 A revert）。
 - C 的影片從 A 21:00 部署的 freeze build 錄；A 夜間**不 deploy**，也不改 `tools/video/**`（22:00 已交接給 C）。
-- 完整時間表與風險見 `docs/pre-event/multi-machine-plan.md` §7.1、§11。
+- 完整時間表與風險見內部紀錄（已移出 repo）。
 
 ### 14.3 早上驗收
 

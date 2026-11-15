@@ -36,7 +36,6 @@ are never presented as live data.
 |---|---|
 | `PLAN.md` | Full project plan: scope, game design, responsive rules, runbook |
 | `docs/data-sources.md` | NASA APIs, verified values, honesty rules |
-| `docs/pre-event/` | Internal pre-event records: work log, final-check runbook, snapshot audit, B/C setup prompts, 11/13 review |
 | `docs/image-prompts.md` | 30 image-generation prompts and output specs |
 | `docs/gem-instructions.md` | Instructions for the Gemini GEM image workflow |
 | `docs/playtest.md` | Child playtest protocol, observation sheet, fix log |
@@ -61,11 +60,6 @@ are never presented as live data.
 | `scripts/` | Snapshot fetch script and raw download inputs |
 | `tools/video/` | Standalone 30-second video pipeline: title card, SRT, Playwright capture, ffmpeg assembly |
 | `output/` | Local video output (git-ignored) |
-
-`docs/pre-event/` holds operational records from before the event: the 11/12
-work log, the 11/13 final-check runbook and review, the snapshot audit, and the
-B/C setup prompts. They document how the project was prepared and are kept for
-transparency; they are not game content or part of the submission.
 
 ## Language
 
