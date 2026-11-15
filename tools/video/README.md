@@ -10,6 +10,8 @@ part of the game build.
 | `make-narration.mjs` | Generates `narration-ana-45-v3.mp3/.srt` from the `CUES` table (edge-tts Ana +45%, per-cue start times; fails if a cue overruns the next) |
 | `capture-demo.mjs` | Records the demo clips from the deployed build with Playwright and a fake cursor; writes `output/demo/<clip>.webm` and `capture.json` marks |
 | `assemble-demo.mjs` | Cuts the 11 shots exactly on the §0.4 timeline and muxes narration, music and burned subtitles into `output/meowstronauts-demo-30s.mp4` |
+| `DEMO-TIMELINE.md` | The frame-by-frame manifest: every shot's output in/out, its source file and source time, the fades, the crash slow-mo mapping, and the narration/SRT cue table. `assemble-demo.mjs` is built from this table — change the table first, then the code |
+| `verify-timeline.mjs` | Grabs the output frame at 17 probe times, grabs the frame the timeline names from the source file, and prints an SSIM per probe. Exits 1 on any FAIL, so a timing slip cannot ship silently |
 | `capture-cards.mjs` | Renders the intro/title/end cards to `output/demo/cards/*.png` from `demo-cards.html` |
 | `demo-cards.html` | The three full-screen cards (intro, title, end) used by `capture-cards.mjs` |
 | `title-card.html` | Early 10-second title-card animation used to prove capture, subtitles, and audio muxing; not used by the final cut |
@@ -70,6 +72,7 @@ node make-narration.mjs   # narration-ana-45-v3.mp3/.srt (needs edge-tts + ffmpe
 node capture-cards.mjs    # output/demo/cards/*.png
 node capture-demo.mjs     # all five clips; add a clip name, e.g. hopIntro, to redo one
 node assemble-demo.mjs    # output/meowstronauts-demo-30s.mp4
+node verify-timeline.mjs  # 17 SSIM probes; must print "17/17 probes passed"
 ```
 
 The five clips are `s1`, `lander`, `report`, `hopIntro`, `tomatoIntro`.
