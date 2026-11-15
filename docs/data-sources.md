@@ -219,6 +219,30 @@ Challenge 頁面的 resources 共 7 個（5 NASA、2 CSA），2026-11-13 20:00 �
 - **封存副本只當備援**：`src/data/msl-latest.json` 是公開 feed 的小份複本，只用於顯示；不作為任務狀態，也不取代 `src/data/*.json` 的 2025 快照。
 - **沒有 Worker proxy**：`wrangler.jsonc` 是純靜態資產；這個功能直接從瀏覽器打 NASA 公開 feed，沒有新增 Worker route 或 secret。
 
+### 3.7 水與燃料工廠小遊戲的教學引用
+
+`src/minigames/factory/` 的四站（挖冰 → 電解 → CO₂ 捕集 → 薩巴提爾反應器）只使用下表可回指的 NASA 頁面。小遊戲不進 7 sol 主線、不改平衡表、不新增知識卡（背包維持 20 張），燃料槽只是遊戲內視覺目標，不進 `GameState`。
+
+| ID | 來源 | 可寫的事實 | 遊戲用法 |
+|---|---|---|---|
+| S26 | NASA — [Mars Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html) | 表面氣壓 6.36 mb（地球 1014 mb，約 0.6%）；大氣 CO₂ 95.32% | 站 1「不到地球 1%」、站 3「約 95%」 |
+| S27 | NASA Marshall — [The Bare Necessities](https://www.nasa.gov/centers-and-facilities/marshall/the-bare-necessities-surviving-the-rigors-of-space-travel/) | ISS 氧氣產生系統以電解水製造氧氣：「pulling oxygen from water by running an electric current through it」 | 站 2 |
+| S28 | NASA — [ISS Water System Successfully Activated（2010 Sabatier）](https://www3.nasa.gov/home/hqnews/2010/oct/HQ_10-275_Sabatier.html) | ISS 薩巴提爾系統用 CO₂＋H₂ 製造水與甲烷；甲烷排到太空 | 站 4；註明「遊戲把甲烷存成燃料」是遊戲設定 |
+| S29 | NASA NTRS — [CO₂ on the International Space Station: An Operations Update](https://ntrs.nasa.gov/citations/20160005077) | ISS CDRA 用可再生沸石床抓 CO₂，再加熱釋放 | 站 3；「沸石」是礦物濾材的簡化說法 |
+| S30 | NASA/JPL — [Phoenix Results Point to Martian Climate Cycles](https://www.jpl.nasa.gov/news/nasa-phoenix-results-point-to-martian-climate-cycles/) | 鳳凰號確認表面下有水冰；土壤中發現過氯酸鹽 | 站 1；不寫濃度、不寫毒性 |
+| S31 | NASA Science — [SWIM Map Shows Subsurface Water Ice on Mars](https://science.nasa.gov/resource/swim-map-shows-subsurface-water-ice-on-mars/) | 藍色區域是 NASA 探測到的地下冰；SWIM 用來選未來著陸點；冰可提供飲用水與火箭燃料 | 結果畫面「為什麼重要」 |
+| S32 | NASA — [Perseverance Extracts First Oxygen from Mars](https://www.nasa.gov/news-release/nasas-perseverance-mars-rover-extracts-first-oxygen-from-red-planet/) | MOXIE 在毅力號上從火星大氣製造氧氣 | 結果畫面 bonus；註明是和電解水不同的方法 |
+
+使用注意：
+
+- **工廠是簡化工程模型，不是 NASA 已飛的系統**：密封烤箱、鹽分濾網、把甲烷存成燃料都是遊戲機制；NASA 事實只支持「鳳凰號找到水冰／過氯酸鹽」「ISS 電解水」「ISS CDRA 用沸石」「ISS 薩巴提爾做水與甲烷」「SWIM 找冰」「MOXIE 從 CO₂ 做氧」。
+- **不可寫**「NASA 已經在火星採水／蓋工廠」「NASA 用甲烷當 ISS 燃料」「過氯酸鹽有毒／濃度多少」「Starship／SpaceX 時程」；也不要寫「strong geomagnetic storm」。火星天氣在此遊戲不談，避免和主線天氣混淆。
+- **數字只留兩個**：氣壓「不到地球 1%」（文件記 0.6%）與 CO₂「約 95%」（文件記 95.32%）。不寫 530 加侖、12 g/hr、122 g 等計畫數字。
+- **甲烷**：ISS 把甲烷排掉是事實；遊戲存成燃料是設定。結果畫面用「this factory」區分，不寫成 NASA 的做法。
+- **MOXIE 是另一條路**：CO₂ → O₂，不是水電解；放在結果的 bonus，不混進站 2。
+- **不新增知識卡**：背包維持 20 張；這些詞只出現在小遊戲與本節。
+- **連結檢查（2026-11-15）**：S27–S29、S31–S32 以 `curl` 取得 HTTP 200；S26 連線未回應、S30 對 `curl` 回 403（JPL 常擋非瀏覽器請求）。上線前用瀏覽器再點一次 S26／S30。
+
 ## 4. 重新產生
 
 ```bash
