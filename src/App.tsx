@@ -306,6 +306,9 @@ export default function App() {
               onContinue={() => dispatch({ type: 'CONTINUE' })}
               onOpenCard={openCard}
               onCollectCard={collectCard}
+              onFoodComplete={(pairs) =>
+                dispatch({ type: 'COMPLETE_FOOD_GAME', pairs })
+              }
             />
           )}
         </>

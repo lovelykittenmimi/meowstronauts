@@ -177,6 +177,8 @@ export interface EventCard {
 
 **F1 故事鉤子（設計筆記，非最終文案；11/14 才寫定稿）：** 金桔看到第一朵番茄花，提到 NASA 在火星找到過一朵「花」，結果是石頭（PIA25077，2022-02-24，水礦物膠結的岩石，不是植物）。銀白：「你的番茄會是真的花。」金桔：「那我要種大一點。」只放在遊戲內 F1，**不進 30 秒影片**。照片已加入 `src/data/mars-photos/PIA25077.jpg`（1280×956，credit NASA/JPL-Caltech/MSSS），卡面建議當小圖（inset），主圖仍是溫室／番茄，caption 要寫「岩石，不是植物」。表格資料來源的「＋ PIA25077 照片」只表示**圖片來源與 credit**；`EventCard.source` 仍只放 S11，圖片走 photo metadata，不要因為這張照片寫「火星有花」。
 
+**F3 的操作橋段（2026-11-15）：** 選「配給」`ration` 或「吃庫存」`stores` 都先開太空食物翻卡（見 `docs/space-food-flip.md` §1），按 Back／✕ 直接結算；「派探測車」`rover` 不開遊戲。小遊戲的 +1 food 仍是每次任務一次的選配獎勵，不寫進固定 7 sol 平衡表，也不改卡上的 `effects`。
+
 **健康知識點（2026-11-14）：** 不新增事件卡，也不新增資源。Sol 1 每日簡報、開場幕 3、任務報告各加一句身體適應台詞；健康事實併入 `gravity` 知識卡（見 `glossary.md` #16）。**7 個 sol 內不演骨質快速流失**——骨質與肌肉流失是旅程數月的結果，不是這 7 天的結果。若 11/15 要加 `H1 健康檢查` 卡，放設計庫、不進 MVP，數值要先進 `balance-sheet.csv` 重跑。
 
 **這 12 張的分類：** power 2、lifeSupport 3、shield 3、food 2、comms 1、science 1；沒有 morale 卡。`SC1 岩石樣本` 是第 13 張擴充；若三星太難，11/15 優先加 SC1，或把三星科學門檻 8→6。

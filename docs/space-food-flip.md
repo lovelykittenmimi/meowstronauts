@@ -1,8 +1,8 @@
 # 太空食物翻卡小遊戲（Space food flip）
 
-> 最後更新：2026-11-14
+> 最後更新：2026-11-15
 > 程式：`src/minigames/food/`；資料來源：`docs/data-sources.md` §3.5；手動 QA：`docs/qa-checklist.md` §3
-> 定位：Sol 7「溫室與新鮮食物」的延伸練習。**不是主線**，不玩也能完成 7 sol；不改事件牌庫與平衡表。
+> 定位：Sol 7「溫室與新鮮食物」的延伸練習，加上 **F3「補給箱延誤」的操作橋段**（選「配給」或「吃庫存」時先開）。F3 那一關可以按 Back 跳過直接結算，所以**不玩也走得完 7 sol**；不改事件牌庫與平衡表。
 
 ## 1. 入口
 
@@ -10,9 +10,10 @@
 |---|---|---|---|
 | Sol 7 每日簡報 | 只在 `state.sol === 7`，術語 chip 下方 | `food-practice` | `Try the space food flip`／`試試太空食物翻卡` |
 | Sol 切換列 | 任何 sol，〔🦘 低重力跳躍〕之後 | `food-open` | `Space food flip`／`太空食物翻卡` |
+| F3 補給箱延誤（事件卡） | 選「配給」`ration` 或「吃庫存」`stores` 後、結算前；「派探測車」`rover` 不開 | `food-game`（`food-back` 可跳過） | 沿用遊戲內建文案 |
 | `?video=` 錄影模式 | **不顯示**（`onFood`／`onFoodPractice` 都不傳） | — | — |
 
-兩者開同一個全螢幕 `SpaceFoodFlip`（`role="dialog"`、`aria-modal`、Escape 關閉）。關閉後回到原本畫面；除了 §4 的一次性獎勵，不動任何任務狀態。
+三者開同一個全螢幕 `SpaceFoodFlip`（`role="dialog"`、`aria-modal`、Escape 關閉）。從 Sol 7 簡報或 Sol 列開啟時，關閉後回到原本畫面；除了 §4 的一次性獎勵，不動任何任務狀態。從 F3 開啟時，**關閉（Back／✕／Escape）等於完成該選項的結算**——按鈕已經按下，不能再改選其他選項；「派探測車」是唯一不經小遊戲的選項。
 
 ## 2. 玩法
 
@@ -66,7 +67,8 @@
 | `src/minigames/food/styles.css` | 全部 `.food-*` 前綴，不動共用樣式 |
 | `src/game/types.ts`、`src/game/reducer.ts`、`src/game/balance.ts` | `foodGameRewarded`、`COMPLETE_FOOD_GAME`、獎勵常數 |
 | `src/App.tsx`、`src/ui/BriefingScreen.tsx`、`src/ui/SolNav.tsx`、`src/i18n/index.ts`、`src/styles.css` | 入口按鈕與兩條入口文案 |
-| `src/minigames/food/game/state.test.ts`、`i18n.test.ts`、`src/minigames/food/SpaceFoodFlip.test.tsx`、`src/game/foodGameReward.test.ts` | 單元與元件測試 |
+| `src/ui/EventCardView.tsx` | F3 的橋段：`FOOD_CHOICES`（`ration`／`stores`）→ 開小遊戲，`onExit` 才 `onChoose`；獎勵由 `App` 傳入的 `onFoodComplete` 派送 |
+| `src/minigames/food/game/state.test.ts`、`i18n.test.ts`、`src/minigames/food/SpaceFoodFlip.test.tsx`、`src/game/foodGameReward.test.ts`、`src/ui/EventCardView.test.tsx` | 單元與元件測試 |
 
 ## 7. 手動 QA
 
@@ -78,9 +80,12 @@
 6. 關閉（✕ 或 Escape）回到原本畫面，任務進度與其他資源不變。
 7. `?video=s1` 與 `?video=report` 沒有任何 food 入口；影片 fixture 的 HUD 數字不變。
 8. 568×320 與 1280×800：12 張卡都在視窗內、無 console error、無水平滾動條；`prefers-reduced-motion` 下動畫關閉但可玩。
-9. 單元測試：`npm test`（`state.test.ts`、`i18n.test.ts`、`SpaceFoodFlip.test.tsx`、`foodGameReward.test.ts`、`BriefingScreen.test.tsx`）。
+9. 單元測試：`npm test`（`state.test.ts`、`i18n.test.ts`、`SpaceFoodFlip.test.tsx`、`foodGameReward.test.ts`、`BriefingScreen.test.tsx`、`EventCardView.test.tsx`）。
+10. F3「補給箱延誤」：選「配給」或「吃庫存」都先開翻卡；按 Back／✕ 直接進結算，選項效果只套一次；選「派探測車」不開遊戲。`npx playwright test tests/e2e/full-run.spec.ts` 會走過這條路徑。
 
 ## 8. 已知取捨
+
+- **F3 是主線上的橋段，但可以跳過**：選了「配給」或「吃庫存」就一定要看到翻卡（Back 也算完成），不能改選；這是刻意的——按鈕上的代價在按下時就成立。不想玩的人可以按 Back，選項照樣結算，只是拿不到 6/6 的 +1 food。
 
 - **+1 食物會略微影響生存曲線**：這是刻意選的小獎勵，限制「每次任務一次、只能 6/6、上限 12」，比科學 +1 更不容易動到三星門檻；不寫進固定 7 sol 平衡表，也不改 `docs/balance-sheet.csv`。滿 12 時不發、不標記，避免完成畫面與 HUD 對不上。
 - **記憶遊戲吃運氣**：不計時、不評分，只顯示翻牌次數；固定 seed 只用於測試，正式遊玩每次洗牌。

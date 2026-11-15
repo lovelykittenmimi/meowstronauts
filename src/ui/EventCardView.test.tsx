@@ -1,4 +1,6 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { createInitialState } from '../game/reducer';
+import type { GameState } from '../game/types';
 import { buildVideoState } from '../game/video';
 import { EventCardView } from './EventCardView';
 
@@ -13,6 +15,31 @@ function renderCard(videoMode: boolean, onChoose = vi.fn()) {
       onContinue={() => {}}
       onOpenCard={() => {}}
       onCollectCard={() => {}}
+      onFoodComplete={() => {}}
+    />,
+  );
+}
+
+function choiceState(eventId: string): GameState {
+  return {
+    ...createInitialState('officer', 'en'),
+    phase: 'choice',
+    currentEventId: eventId,
+    sol: 3,
+  };
+}
+
+function renderChoiceCard(eventId: string, onChoose: (choiceId: string) => void) {
+  return render(
+    <EventCardView
+      state={choiceState(eventId)}
+      onChoose={onChoose}
+      onAssist={() => {}}
+      onTerm={() => {}}
+      onContinue={() => {}}
+      onOpenCard={() => {}}
+      onCollectCard={() => {}}
+      onFoodComplete={() => {}}
     />,
   );
 }
@@ -64,5 +91,45 @@ describe('S1 shelter drill integration', () => {
 
     expect(onChoose).toHaveBeenCalledWith('shield-up');
     expect(screen.queryByTestId('shelter-overlay')).toBeNull();
+  });
+});
+
+describe('F3 Supply Crate Delayed', () => {
+  it('opens the space-food flip for "ration" and resolves when it closes', () => {
+    const onChoose = vi.fn();
+    renderChoiceCard('F3', onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-ration'));
+
+    expect(screen.getByTestId('food-game')).toBeTruthy();
+    expect(onChoose).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByTestId('food-back'));
+
+    expect(onChoose).toHaveBeenCalledWith('ration');
+  });
+
+  it('opens the space-food flip for "stores" as well', () => {
+    const onChoose = vi.fn();
+    renderChoiceCard('F3', onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-stores'));
+
+    expect(screen.getByTestId('food-game')).toBeTruthy();
+    expect(onChoose).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByTestId('food-back'));
+
+    expect(onChoose).toHaveBeenCalledWith('stores');
+  });
+
+  it('resolves "send the rover" at once, without the minigame', () => {
+    const onChoose = vi.fn();
+    renderChoiceCard('F3', onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-rover'));
+
+    expect(onChoose).toHaveBeenCalledWith('rover');
+    expect(screen.queryByTestId('food-game')).toBeNull();
   });
 });

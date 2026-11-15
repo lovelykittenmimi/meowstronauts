@@ -24,19 +24,36 @@ const SAFE_CHOICE: Record<string, string> = {
 
 /**
  * T1's sweep (and P1's clean) open the dust minigame first: the card stays in
- * the choice phase until every patch is tapped. Other choices resolve at once,
+ * the choice phase until every patch is tapped. S2's patch opens the
+ * hull-repair minigame, and F3's ration/stores open the space-food flip; Back
+ * resolves the food choice without playing it. Other choices resolve at once,
  * so wait for whichever comes first.
  */
 async function resolveChoice(page: Page): Promise<void> {
   const result = page.getByTestId('result-panel');
   const dust = page.getByTestId('dust-game');
-  await expect(result.or(dust)).toBeVisible();
+  const hull = page.getByTestId('hull-game');
+  const food = page.getByTestId('food-game');
+  await expect(result.or(dust).or(hull).or(food)).toBeVisible();
 
   if (await dust.isVisible()) {
     const spots = page.getByTestId('dust-spot');
     while ((await spots.count()) > 0) {
       await spots.first().click();
     }
+  }
+
+  if (await hull.isVisible()) {
+    const leaks = page.locator('.leak-slot:not(.sealed) .leak');
+    while ((await leaks.count()) > 0) {
+      const before = await leaks.count();
+      await leaks.first().click();
+      await expect(leaks).toHaveCount(before - 1);
+    }
+  }
+
+  if (await food.isVisible()) {
+    await page.getByTestId('food-back').click();
   }
 
   await expect(result).toBeVisible();

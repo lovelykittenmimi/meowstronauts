@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { FOOD_CAP } from '../game/balance';
 import { EVENT_BY_ID } from '../game/events';
 import { artForEvent } from '../game/eventArt';
 import type { CatId, Choice, EffectMap, GameState, ResourceKey } from '../game/types';
@@ -7,6 +8,7 @@ import { faceFor } from './catFaces';
 import { DustMinigame } from './DustMinigame';
 import HullRepairOverlay from '../minigames/HullRepairOverlay';
 import RadiationOverlay from '../minigames/RadiationOverlay';
+import SpaceFoodFlip from '../minigames/food/SpaceFoodFlip';
 import { ICONS } from './ResourceHud';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
@@ -38,8 +40,18 @@ const SHELTER_CHOICES: Record<string, string[]> = {
   S1: ['shield-up', 'shelter'],
 };
 
+/**
+ * F3's crate is late: rationing and opening the emergency stores both mean
+ * handling the crate by hand, so the space-food flip opens before the choice
+ * resolves. "Send the rover" is the crew's other way out and resolves at once.
+ * Design: docs/space-food-flip.md §1.
+ */
+const FOOD_CHOICES: Record<string, string[]> = {
+  F3: ['ration', 'stores'],
+};
+
 interface PendingInteraction {
-  kind: 'dust' | 'hull' | 'shelter';
+  kind: 'dust' | 'hull' | 'shelter' | 'food';
   choiceId: string;
 }
 
@@ -87,6 +99,8 @@ interface EventCardViewProps {
   onOpenCard: (cardId: string) => void;
   /** Adds a mini-game reward to the backpack without opening the sheet. */
   onCollectCard?: (cardId: string) => void;
+  /** Applies the food-game bonus; App owns the reducer dispatch. */
+  onFoodComplete?: (pairs: number) => void;
 }
 
 export function EventCardView({
@@ -97,6 +111,7 @@ export function EventCardView({
   onContinue,
   onOpenCard,
   onCollectCard,
+  onFoodComplete,
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState<PendingInteraction | null>(null);
@@ -124,9 +139,11 @@ export function EventCardView({
   const dustChoices = DUST_CHOICES[event.id];
   const hullChoices = HULL_CHOICES[event.id];
   const shelterChoices = SHELTER_CHOICES[event.id];
+  const foodChoices = FOOD_CHOICES[event.id];
   const showDustGame = isChoice && pending?.kind === 'dust' && Boolean(art);
   const showHullGame = isChoice && pending?.kind === 'hull';
   const showShelterGame = isChoice && pending?.kind === 'shelter';
+  const showFoodGame = isChoice && pending?.kind === 'food';
 
   const handleChoose = (choiceId: string) => {
     if (dustChoices?.includes(choiceId)) {
@@ -140,6 +157,10 @@ export function EventCardView({
     if (shelterChoices?.includes(choiceId) && !state.videoMode) {
       shelterDoneRef.current = false;
       setPending({ kind: 'shelter', choiceId });
+      return;
+    }
+    if (foodChoices?.includes(choiceId) && !state.videoMode) {
+      setPending({ kind: 'food', choiceId });
       return;
     }
     onChoose(choiceId);
@@ -179,7 +200,11 @@ export function EventCardView({
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
 
-        {isChoice && !showDustGame && !showHullGame && !showShelterGame && (
+        {isChoice &&
+          !showDustGame &&
+          !showHullGame &&
+          !showShelterGame &&
+          !showFoodGame && (
           <>
             <h2 className="section-label">{t(lang, 'event.choose')}</h2>
             <div className="choices">
@@ -339,6 +364,16 @@ export function EventCardView({
             shelterDoneRef.current = true;
             onCollectCard?.(cardId);
           }}
+        />
+      )}
+
+      {showFoodGame && pending && (
+        <SpaceFoodFlip
+          lang={lang}
+          rewarded={state.foodGameRewarded}
+          foodFull={state.resources.food >= FOOD_CAP}
+          onComplete={(pairs) => onFoodComplete?.(pairs)}
+          onExit={() => onChoose(pending.choiceId)}
         />
       )}
     </main>
