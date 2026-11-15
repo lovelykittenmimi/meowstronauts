@@ -10,6 +10,7 @@ import RadiationOverlay from '../minigames/RadiationOverlay';
 import SpaceFoodFlip from '../minigames/food/SpaceFoodFlip';
 import TomatoHarvestOverlay from '../minigames/tomato/TomatoHarvestOverlay';
 import { ICONS } from './ResourceHud';
+import { MINIGAME_BY_ID, minigameClass } from './minigameMeta';
 import { RestPhotos } from './RestPhotos';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
@@ -233,11 +234,11 @@ export function EventCardView({
         {isChoice && onFactoryPractice && FACTORY_EVENTS.includes(event.id) && (
           <button
             type="button"
-            className="factory-practice-button"
+            className={`${minigameClass('factory')} briefing-game-button`}
             data-testid="event-factory-practice"
             onClick={onFactoryPractice}
           >
-            <span aria-hidden="true">🏭</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.factory.icon}</span>
             {t(lang, 'briefing.factoryGame')}
           </button>
         )}

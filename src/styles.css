@@ -641,32 +641,41 @@ h1 {
   text-underline-offset: 3px;
 }
 
-.hop-practice-button,
-.food-practice-button,
-.factory-practice-button,
-.shelter-practice-button,
-.dodge-practice-button,
-.signal-practice-button {
+/* Practice games ------------------------------------------------------- */
+/* One colour per mini-game, worn by the same game everywhere: the Sol row,
+   the captain's log and the event cards. Add a game here, not at the site. */
+.minigame-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
-  padding: 8px 14px;
-  border: 2px solid var(--teal);
+  border: 2px solid var(--mg-border, var(--teal));
   border-radius: 999px;
-  background: #e4f1ef;
-  color: var(--navy);
-  font-size: 14px;
+  background: var(--mg-bg, #e4f1ef);
+  color: var(--mg-ink, var(--navy));
   font-weight: 800;
 }
 
-.hop-practice-button:hover,
-.food-practice-button:hover,
-.factory-practice-button:hover,
-.shelter-practice-button:hover,
-.dodge-practice-button:hover,
-.signal-practice-button:hover {
-  background: #d3e9e6;
+.minigame-button:hover {
+  filter: brightness(0.95);
+}
+
+.minigame-lander    { --mg-bg: #cfe7e4; --mg-border: #4e8c8a; }
+.minigame-hop       { --mg-bg: #d9ecd2; --mg-border: #5e8c4e; }
+.minigame-dust      { --mg-bg: #f7ebb1; --mg-border: #c9a227; }
+.minigame-dustdodge { --mg-bg: #4f8fb0; --mg-border: #346a85; --mg-ink: #fff; }
+.minigame-shelter   { --mg-bg: #b85c38; --mg-border: #8f4527; --mg-ink: #fff; }
+.minigame-hull      { --mg-bg: #dde3ec; --mg-border: #7d8797; }
+.minigame-factory   { --mg-bg: #cfe4f5; --mg-border: #4a7fb5; }
+.minigame-signal    { --mg-bg: #e6dcf6; --mg-border: #7a63b8; }
+.minigame-food      { --mg-bg: #f6d3a6; --mg-border: #b87d33; }
+.minigame-tomato    { --mg-bg: #fadfd6; --mg-border: #c96a4b; }
+.minigame-match     { --mg-bg: #f4d9ec; --mg-border: #a3558c; }
+
+/* The log and event-card entry keeps the game's colour and adds its label. */
+.briefing-game-button {
+  margin-top: 14px;
+  padding: 8px 14px;
+  font-size: 14px;
 }
 
 .briefing-next {
@@ -726,35 +735,52 @@ h1 {
   cursor: not-allowed;
 }
 
-/* The practice games sit at the end of the row as actions, not sols. */
-.sol-nav-lander,
-.sol-nav-hop,
-.sol-nav-food,
-.sol-nav-shelter {
+/* The practice games sit at the end of the row as actions, not sols. Nine
+   games only fit as icons, so the name appears on hover or keyboard focus
+   (and to screen readers through aria-label). */
+.sol-nav-game {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  font-size: 17px;
+  line-height: 1;
 }
 
-.sol-nav-lander {
+.sol-nav-game:hover {
+  transform: translateY(-1px);
+}
+
+.sol-nav-games-start {
   margin-left: 10px;
-  background: var(--teal);
 }
 
-.sol-nav-hop {
-  margin-left: 2px;
-  background: #f3dfb8;
+.sol-nav-game::after {
+  content: attr(data-name);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: normal;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
 }
 
-.sol-nav-food {
-  margin-left: 2px;
-  background: #e9e2f6;
-}
-
-.sol-nav-shelter {
-  margin-left: 2px;
-  background: var(--rust);
-  color: #fff;
+.sol-nav-game:hover::after,
+.sol-nav-game:focus-visible::after {
+  opacity: 1;
 }
 
 /* Short landscape: keep the row slim so the card keeps its height. */
@@ -771,26 +797,23 @@ h1 {
     font-size: 12px;
   }
 
-  .sol-nav-lander {
+  /* Nine game icons plus seven sols: shrink both so the row stays one line. */
+  .sol-nav-games-start {
     margin-left: 6px;
   }
 
-  /* Three practice buttons plus seven sols do not fit with labels. */
-  .sol-nav-label {
-    display: none;
+  .sol-nav-game {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
 
-  .sol-nav-hop,
-  .sol-nav-food {
-    margin-left: 0;
+  .sol-nav-game::after {
+    padding: 3px 8px;
+    font-size: 11px;
   }
 
-  .hop-practice-button,
-  .food-practice-button,
-  .factory-practice-button,
-  .shelter-practice-button,
-  .dodge-practice-button,
-  .signal-practice-button {
+  .briefing-game-button {
     margin-top: 8px;
     padding: 5px 10px;
     font-size: 12px;
@@ -3677,6 +3700,14 @@ h1 {
 }
 
 /* Embedded mini-games --------------------------------------------------- */
+/* Practice dust sweep: the game paints its own dim backdrop, the host only
+   pins it to the viewport and lifts it above the HUD. */
+.dust-overlay-host {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+}
+
 .lander-overlay-host,
 .shelter-overlay-host,
 .tomato-overlay-host {

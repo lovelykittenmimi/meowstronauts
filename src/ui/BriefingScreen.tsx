@@ -4,6 +4,7 @@ import { getKnowledgeCard } from '../game/knowledge';
 import type { EventCard, GameState, Localized } from '../game/types';
 import { t } from '../i18n';
 import keyArt from '../assets/generated/scenes/01-keyart.webp';
+import { MINIGAME_BY_ID, minigameClass } from './minigameMeta';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
 
@@ -41,11 +42,8 @@ export function BriefingScreen({
   onFoodPractice,
   onFactoryPractice,
   onShelterPractice,
-<<<<<<< HEAD
   onDodgePractice,
-=======
   onSignalPractice,
->>>>>>> 77f56b4 (feat: add the signal delay practice on Sol 6 [visual])
 }: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
@@ -105,11 +103,11 @@ export function BriefingScreen({
         {state.sol === 5 && onFactoryPractice && (
           <button
             type="button"
-            className="factory-practice-button"
+            className={`${minigameClass('factory')} briefing-game-button`}
             data-testid="factory-practice"
             onClick={onFactoryPractice}
           >
-            <span aria-hidden="true">🏭</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.factory.icon}</span>
             {t(lang, 'briefing.factoryGame')}
           </button>
         )}
@@ -117,11 +115,11 @@ export function BriefingScreen({
         {state.sol === 4 && onShelterPractice && (
           <button
             type="button"
-            className="shelter-practice-button"
+            className={`${minigameClass('shelter')} briefing-game-button`}
             data-testid="shelter-practice"
             onClick={onShelterPractice}
           >
-            <span aria-hidden="true">☢️</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.shelter.icon}</span>
             {t(lang, 'briefing.shelterGame')}
           </button>
         )}
@@ -129,11 +127,11 @@ export function BriefingScreen({
         {state.sol === 1 && onHopPractice && (
           <button
             type="button"
-            className="hop-practice-button"
+            className={`${minigameClass('hop')} briefing-game-button`}
             data-testid="hop-practice"
             onClick={onHopPractice}
           >
-            <span aria-hidden="true">🦘</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.hop.icon}</span>
             {t(lang, 'briefing.hop')}
           </button>
         )}
@@ -141,11 +139,11 @@ export function BriefingScreen({
         {state.sol === 2 && onDodgePractice && (
           <button
             type="button"
-            className="dodge-practice-button"
+            className={`${minigameClass('dustdodge')} briefing-game-button`}
             data-testid="dodge-practice"
             onClick={onDodgePractice}
           >
-            <span aria-hidden="true">🌪️</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.dustdodge.icon}</span>
             {t(lang, 'briefing.dodgeGame')}
           </button>
         )}
@@ -153,11 +151,11 @@ export function BriefingScreen({
         {state.sol === 7 && onFoodPractice && (
           <button
             type="button"
-            className="food-practice-button"
+            className={`${minigameClass('food')} briefing-game-button`}
             data-testid="food-practice"
             onClick={onFoodPractice}
           >
-            <span aria-hidden="true">🍽️</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.food.icon}</span>
             {t(lang, 'briefing.foodGame')}
           </button>
         )}
@@ -165,11 +163,11 @@ export function BriefingScreen({
         {state.sol === 6 && onSignalPractice && (
           <button
             type="button"
-            className="signal-practice-button"
+            className={`${minigameClass('signal')} briefing-game-button`}
             data-testid="signal-practice"
             onClick={onSignalPractice}
           >
-            <span aria-hidden="true">📡</span>
+            <span aria-hidden="true">{MINIGAME_BY_ID.signal.icon}</span>
             {t(lang, 'briefing.signalGame')}
           </button>
         )}

@@ -1,6 +1,7 @@
 import { MAX_SOL } from '../game/balance';
 import type { Lang } from '../game/types';
 import { t } from '../i18n';
+import { MINIGAMES, minigameClass, type MinigameId } from './minigameMeta';
 
 interface SolNavProps {
   /** The sol the crew is on; anything later is still locked. */
@@ -9,14 +10,11 @@ interface SolNavProps {
   selectedSol: number;
   lang: Lang;
   onSelect: (sol: number) => void;
-  /** Opens the landing mini-game; optional so a bare nav still works. */
-  onLander?: () => void;
-  /** Opens the Sol 1 low-gravity practice; omitted in video mode. */
-  onHop?: () => void;
-  /** Opens the Sol 7 space-food practice; omitted in video mode. */
-  onFood?: () => void;
-  /** Opens the radiation shelter drill; optional for the same reason. */
-  onShelter?: () => void;
+  /**
+   * Opens any mini-game as practice. Omitted in video mode, which hides the
+   * game buttons so a recording never wanders into one.
+   */
+  onMinigame?: (id: MinigameId) => void;
 }
 
 const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
@@ -24,18 +22,16 @@ const SOLS = Array.from({ length: MAX_SOL }, (_, index) => index + 1);
 /**
  * A row of Sol 1–7 buttons so the crew can look back at a finished day.
  * Sols the crew has not reached yet are disabled; switching back is a review
- * only, so it never changes the mission. The training games live at the end of
- * the same row, so practice is one tap away between sols.
+ * only, so it never changes the mission. Every mini-game also lives at the end
+ * of the row. They are icon-only so all nine fit; the name appears on hover
+ * and on keyboard focus, and screen readers get it from `aria-label`.
  */
 export function SolNav({
   currentSol,
   selectedSol,
   lang,
   onSelect,
-  onLander,
-  onHop,
-  onFood,
-  onShelter,
+  onMinigame,
 }: SolNavProps) {
   return (
     <nav className="sol-nav" aria-label={t(lang, 'solnav.aria')} data-testid="sol-nav">
@@ -56,58 +52,25 @@ export function SolNav({
           </button>
         );
       })}
-      {onLander && (
-        <button
-          type="button"
-          className="sol-nav-button sol-nav-lander"
-          data-testid="lander-open"
-          aria-label={t(lang, 'solnav.lander')}
-          title={t(lang, 'solnav.lander')}
-          onClick={onLander}
-        >
-          <span aria-hidden="true">🚀</span>
-          <span className="sol-nav-label">{t(lang, 'solnav.lander')}</span>
-        </button>
-      )}
-      {onHop && (
-        <button
-          type="button"
-          className="sol-nav-button sol-nav-hop"
-          data-testid="hop-open"
-          aria-label={t(lang, 'solnav.hop')}
-          title={t(lang, 'solnav.hop')}
-          onClick={onHop}
-        >
-          <span aria-hidden="true">🦘</span>
-          <span className="sol-nav-label">{t(lang, 'solnav.hop')}</span>
-        </button>
-      )}
-      {onFood && (
-        <button
-          type="button"
-          className="sol-nav-button sol-nav-food"
-          data-testid="food-open"
-          aria-label={t(lang, 'solnav.food')}
-          title={t(lang, 'solnav.food')}
-          onClick={onFood}
-        >
-          <span aria-hidden="true">🍽️</span>
-          <span className="sol-nav-label">{t(lang, 'solnav.food')}</span>
-        </button>
-      )}
-      {onShelter && (
-        <button
-          type="button"
-          className="sol-nav-button sol-nav-shelter"
-          data-testid="shelter-open"
-          aria-label={t(lang, 'solnav.shelter')}
-          title={t(lang, 'solnav.shelter')}
-          onClick={onShelter}
-        >
-          <span aria-hidden="true">☢️</span>
-          <span className="sol-nav-label">{t(lang, 'solnav.shelter')}</span>
-        </button>
-      )}
+      {onMinigame &&
+        MINIGAMES.map((game, index) => {
+          const name = t(lang, game.labelKey);
+          return (
+            <button
+              key={game.id}
+              type="button"
+              className={`sol-nav-game ${minigameClass(game.id)}${
+                index === 0 ? ' sol-nav-games-start' : ''
+              }`}
+              data-testid={`${game.id}-open`}
+              data-name={name}
+              aria-label={name}
+              onClick={() => onMinigame(game.id)}
+            >
+              <span aria-hidden="true">{game.icon}</span>
+            </button>
+          );
+        })}
     </nav>
   );
 }

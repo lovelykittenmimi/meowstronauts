@@ -1,10 +1,12 @@
 import { useEffect, useReducer, useState } from 'react';
 import { drawEventFor } from './game/deck';
+import { artForEvent } from './game/eventArt';
 import { KNOWLEDGE_IDS } from './game/knowledge';
 import { DEFAULT_SEED, createInitialState, gameReducer, silverCardFor } from './game/reducer';
 import { randomSeed } from './game/seed';
 import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
+import HullRepairOverlay from './minigames/HullRepairOverlay';
 import LanderOverlay from './minigames/LanderOverlay';
 import RadiationOverlay from './minigames/RadiationOverlay';
 import DustDevilDodge from './minigames/dustdodge/DustDevilDodge';
@@ -13,7 +15,10 @@ import SpaceFoodFlip from './minigames/food/SpaceFoodFlip';
 import LowGravityHop from './minigames/hop/LowGravityHop';
 import KnowledgeMatch from './minigames/match/KnowledgeMatch';
 import SignalDelay from './minigames/signal/SignalDelay';
+import TomatoHarvestOverlay from './minigames/tomato/TomatoHarvestOverlay';
 import { Backpack } from './ui/Backpack';
+import { DustMinigame } from './ui/DustMinigame';
+import { type MinigameId } from './ui/minigameMeta';
 import { BriefingScreen } from './ui/BriefingScreen';
 import { DataPanel } from './ui/DataPanel';
 import { EventCardView } from './ui/EventCardView';
@@ -30,6 +35,9 @@ import { TitleScreen } from './ui/TitleScreen';
 
 const LANG_KEY = 'meowstronauts.lang';
 const BACKPACK_KEY = 'meowstronauts.backpack';
+
+/** The dust practice replays the Sol 1 array; the event keeps its own copy. */
+const DUST_PRACTICE = artForEvent('T1')?.sweep;
 
 function readLang(): Lang {
   try {
@@ -75,14 +83,9 @@ export default function App() {
   const [dataOpen, setDataOpen] = useState(false);
   /** A finished sol the crew is looking back at; null keeps the live screens. */
   const [viewSol, setViewSol] = useState<number | null>(null);
-  const [landerOpen, setLanderOpen] = useState(false);
-  const [hopOpen, setHopOpen] = useState(false);
-  const [foodOpen, setFoodOpen] = useState(false);
-  const [factoryOpen, setFactoryOpen] = useState(false);
-  const [radiationOpen, setRadiationOpen] = useState(false);
-  const [matchOpen, setMatchOpen] = useState(false);
-  const [dodgeOpen, setDodgeOpen] = useState(false);
-  const [signalOpen, setSignalOpen] = useState(false);
+  /** The one practice overlay that is open; null keeps the mission screens. */
+  const [activeGame, setActiveGame] = useState<MinigameId | null>(null);
+  const closeGame = () => setActiveGame(null);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -146,30 +149,6 @@ export default function App() {
 
   const collectCard = (cardId: string) => {
     dispatch({ type: 'COLLECT_CARD', cardId });
-  };
-
-  const openLander = () => {
-    setLanderOpen(true);
-    setRadiationOpen(false);
-    setHopOpen(false);
-    setFoodOpen(false);
-    setFactoryOpen(false);
-  };
-
-  const openShelter = () => {
-    setRadiationOpen(true);
-    setLanderOpen(false);
-    setHopOpen(false);
-    setFoodOpen(false);
-    setFactoryOpen(false);
-  };
-
-  const openFactory = () => {
-    setFactoryOpen(true);
-    setLanderOpen(false);
-    setHopOpen(false);
-    setFoodOpen(false);
-    setRadiationOpen(false);
   };
 
   const startGame = () => {
@@ -289,10 +268,7 @@ export default function App() {
           currentSol={state.sol}
           selectedSol={reviewSol ?? state.sol}
           onSelect={(sol) => setViewSol(sol < state.sol ? sol : null)}
-          onLander={openLander}
-          onHop={videoMode ? undefined : () => setHopOpen(true)}
-          onFood={videoMode ? undefined : () => setFoodOpen(true)}
-          onShelter={videoMode ? undefined : openShelter}
+          onMinigame={videoMode ? undefined : setActiveGame}
         />
       )}
 
@@ -311,12 +287,12 @@ export default function App() {
               event={briefingEvent}
               onBegin={(eventId) => dispatch({ type: 'OPEN_EVENT', eventId })}
               onTerm={openCard}
-              onHopPractice={videoMode ? undefined : () => setHopOpen(true)}
-              onFoodPractice={videoMode ? undefined : () => setFoodOpen(true)}
-              onFactoryPractice={videoMode ? undefined : openFactory}
-              onShelterPractice={videoMode ? undefined : openShelter}
-              onDodgePractice={videoMode ? undefined : () => setDodgeOpen(true)}
-              onSignalPractice={videoMode ? undefined : () => setSignalOpen(true)}
+              onHopPractice={videoMode ? undefined : () => setActiveGame('hop')}
+              onFoodPractice={videoMode ? undefined : () => setActiveGame('food')}
+              onFactoryPractice={videoMode ? undefined : () => setActiveGame('factory')}
+              onShelterPractice={videoMode ? undefined : () => setActiveGame('shelter')}
+              onDodgePractice={videoMode ? undefined : () => setActiveGame('dustdodge')}
+              onSignalPractice={videoMode ? undefined : () => setActiveGame('signal')}
             />
           )}
 
@@ -335,7 +311,7 @@ export default function App() {
               onContinue={() => dispatch({ type: 'CONTINUE' })}
               onOpenCard={openCard}
               onCollectCard={collectCard}
-              onFactoryPractice={videoMode ? undefined : openFactory}
+              onFactoryPractice={videoMode ? undefined : () => setActiveGame('factory')}
             />
           )}
         </>
@@ -351,20 +327,14 @@ export default function App() {
         />
       )}
 
-      {backpackOpen && !matchOpen && (
+      {/* The match practice opens over the backpack and drops back into it. */}
+      {backpackOpen && activeGame !== 'match' && (
         <Backpack
           lang={state.lang}
           collected={state.collectedCards}
           onClose={() => setBackpackOpen(false)}
           onOpenCard={openCard}
-          onMatchPractice={videoMode ? undefined : () => setMatchOpen(true)}
-        />
-      )}
-
-      {matchOpen && (
-        <KnowledgeMatch
-          lang={state.lang}
-          onExit={() => setMatchOpen(false)}
+          onMatchPractice={videoMode ? undefined : () => setActiveGame('match')}
         />
       )}
 
@@ -376,27 +346,24 @@ export default function App() {
         />
       )}
 
-      {landerOpen && (
-        <LanderOverlay initialLang={state.lang} onClose={() => setLanderOpen(false)} />
+      {activeGame === 'lander' && (
+        <LanderOverlay initialLang={state.lang} onClose={closeGame} />
       )}
 
-      {hopOpen && (
+      {activeGame === 'hop' && (
         <LowGravityHop
           lang={state.lang}
           rewarded={state.hopRewarded}
           onComplete={(samples) => dispatch({ type: 'COMPLETE_HOP', samples })}
-          onExit={() => setHopOpen(false)}
+          onExit={closeGame}
         />
       )}
 
-      {foodOpen && (
-        <SpaceFoodFlip
-          lang={state.lang}
-          onExit={() => setFoodOpen(false)}
-        />
+      {activeGame === 'food' && (
+        <SpaceFoodFlip lang={state.lang} onExit={closeGame} />
       )}
 
-      {factoryOpen && (
+      {activeGame === 'factory' && (
         <WaterFuelFactory
           lang={state.lang}
           rewarded={state.factoryRewarded}
@@ -404,27 +371,59 @@ export default function App() {
           onComplete={(stations) =>
             dispatch({ type: 'COMPLETE_FACTORY', stations })
           }
-          onExit={() => setFactoryOpen(false)}
+          onExit={closeGame}
         />
       )}
 
-      {radiationOpen && (
+      {activeGame === 'shelter' && (
         <RadiationOverlay
           initialLang={state.lang}
-          onClose={() => setRadiationOpen(false)}
+          onClose={closeGame}
           onComplete={collectCard}
         />
       )}
 
-      {dodgeOpen && (
-        <DustDevilDodge
-          lang={state.lang}
-          onExit={() => setDodgeOpen(false)}
+      {activeGame === 'dustdodge' && (
+        <DustDevilDodge lang={state.lang} onExit={closeGame} />
+      )}
+
+      {activeGame === 'match' && (
+        <KnowledgeMatch lang={state.lang} onExit={closeGame} />
+      )}
+
+      {activeGame === 'signal' && (
+        <SignalDelay lang={state.lang} onExit={closeGame} />
+      )}
+
+      {activeGame === 'dust' && DUST_PRACTICE && (
+        <div className="dust-overlay-host">
+          <DustMinigame
+            src={DUST_PRACTICE.src}
+            alt={DUST_PRACTICE.alt[state.lang]}
+            clearedSrc={DUST_PRACTICE.clearedSrc}
+            clearedAlt={DUST_PRACTICE.clearedAlt[state.lang]}
+            lang={state.lang}
+            onDone={closeGame}
+            onExit={closeGame}
+          />
+        </div>
+      )}
+
+      {activeGame === 'hull' && (
+        <HullRepairOverlay
+          initialLang={state.lang}
+          sol={state.sol}
+          onDone={closeGame}
+          onExit={closeGame}
         />
       )}
 
-      {signalOpen && (
-        <SignalDelay lang={state.lang} onExit={() => setSignalOpen(false)} />
+      {activeGame === 'tomato' && (
+        <TomatoHarvestOverlay
+          initialLang={state.lang}
+          sol={state.sol}
+          onDone={closeGame}
+        />
       )}
     </div>
   );
