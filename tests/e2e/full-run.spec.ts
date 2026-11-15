@@ -34,7 +34,8 @@ async function resolveChoice(page: Page): Promise<void> {
   const dust = page.getByTestId('dust-game');
   const hull = page.getByTestId('hull-game');
   const food = page.getByTestId('food-game');
-  await expect(result.or(dust).or(hull).or(food)).toBeVisible();
+  const tomato = page.getByTestId('tomato-game');
+  await expect(result.or(dust).or(hull).or(food).or(tomato)).toBeVisible();
 
   if (await dust.isVisible()) {
     const spots = page.getByTestId('dust-spot');
@@ -54,6 +55,15 @@ async function resolveChoice(page: Page): Promise<void> {
 
   if (await food.isVisible()) {
     await page.getByTestId('food-back').click();
+  }
+
+  if (await tomato.isVisible()) {
+    const ripe = page.locator('.tomato.is-ripe');
+    while ((await ripe.count()) > 0) {
+      await ripe.first().click();
+    }
+    await expect(page.getByTestId('tomato-result')).toBeVisible();
+    await page.getByTestId('tomato-continue').click();
   }
 
   await expect(result).toBeVisible();
