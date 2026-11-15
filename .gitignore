@@ -25,5 +25,9 @@ npm-debug.log*
 # original AI video import; the compressed scene 2 clip is committed
 src/assets/gemini_generated_video_*.mp4
 
-# local Claude Code settings (machine-specific permissions)
-.claude/settings.local.json
+# local Claude Code settings — machine-specific, never shared
+.claude/
+
+# video music stays local; license and credits are in the adjacent CREDITS.md
+tools/video/assets/music/*
+!tools/video/assets/music/CREDITS.md
