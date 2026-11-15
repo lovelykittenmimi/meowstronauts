@@ -185,7 +185,7 @@ describe('water & fuel factory entry', () => {
 describe('signal delay entry', () => {
   it('offers the signal delay on Sol 6 and calls back', () => {
     let opened = 0;
-    renderBriefing('C1', 6, undefined, undefined, undefined, undefined, () => {
+    renderBriefing('C1', 6, undefined, undefined, undefined, undefined, undefined, () => {
       opened += 1;
     });
 
@@ -197,7 +197,7 @@ describe('signal delay entry', () => {
 
   it('keeps the signal delay out of the other sol briefings', () => {
     for (const sol of [1, 2, 3, 4, 5, 7]) {
-      renderBriefing('T1', sol, undefined, undefined, undefined, undefined, () => {});
+      renderBriefing('T1', sol, undefined, undefined, undefined, undefined, undefined, () => {});
       expect(screen.queryByTestId('signal-practice')).toBeNull();
       cleanup();
     }

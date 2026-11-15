@@ -735,7 +735,7 @@ h1 {
   cursor: not-allowed;
 }
 
-/* The practice games sit at the end of the row as actions, not sols. Nine
+/* The practice games sit at the end of the row as actions, not sols. Eleven
    games only fit as icons, so the name appears on hover or keyboard focus
    (and to screen readers through aria-label). */
 .sol-nav-game {
@@ -797,7 +797,7 @@ h1 {
     font-size: 12px;
   }
 
-  /* Nine game icons plus seven sols: shrink both so the row stays one line. */
+  /* Eleven game icons plus seven sols: shrink both so the row stays one line. */
   .sol-nav-games-start {
     margin-left: 6px;
   }
