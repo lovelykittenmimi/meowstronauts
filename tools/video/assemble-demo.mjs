@@ -164,16 +164,18 @@ await encodeStill({
   zoom: 0.04,
   pre: 'scale=-1:1080,pad=1920:1080:(ow-iw)/2:0:black',
   extra: [
-    'fade=t=in:st=0:d=0.12:color=white',
+    'fade=t=in:st=0:d=0.20',
     `drawtext=fontfile='${creditFont}':text='NASA/SDO':fontcolor=white@0.9:fontsize=22:x=w-tw-56:y=h-54:box=1:boxcolor=0x00000066:boxborderw=10`,
   ].join(','),
 });
 
-// 3. In-game crash clip (4.0-7.6). The clip is 10.00 s and always cut from the
-// tail: the last 3.6 s, so the shot ends on the impact and aftermath.
+// 3. In-game crash clip (4.0-7.6). The 10.00 s clip is three shots: orbital hit
+// (0-3.5), fireball descent (3.5-5.0), then the ground shot (5.0-10.0) where the
+// ship actually falls and hits at ~5.4. The tail is only settling dust, so start
+// at the 5.0 s cut and take 3.6 s: fall -> impact -> explosion -> dust and cats.
 await encodeVideo({
   input: path.join(root, 'src/assets/video/scene2-crash.mp4'),
-  start: 6.40,
+  start: 5.00,
   seconds: 3.6,
   out: seg('s03'),
   vf: 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080',
