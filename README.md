@@ -36,10 +36,7 @@ are never presented as live data.
 
 | Path | Contents |
 |---|---|
-| `PLAN.md` | Full project plan: scope, game design, responsive rules, runbook |
 | `docs/data-sources.md` | NASA APIs, verified values, honesty rules |
-| `docs/image-prompts.md` | 30 image-generation prompts and output specs |
-| `docs/gem-instructions.md` | Instructions for the Gemini GEM image workflow |
 | `docs/playtest.md` | Child playtest protocol, observation sheet, fix log |
 | `docs/glossary.md` | 20 candidate terms with verified NASA sources |
 | `docs/event-cards.md` | Event-card schema, deck rules, resolution order |
@@ -52,7 +49,6 @@ are never presented as live data.
 | `docs/video-path.md` | Deterministic demo URLs, test IDs, recording route and handoff checks |
 | `docs/pitch.md` | 30-second judge pitch, demo route, Q&A |
 | `docs/qa-checklist.md` | 11/14–15 manual QA: responsive, a11y, i18n, data honesty |
-| `docs/test-plan.md` | Test specification (spec only before 11/14): P0 unit/integration/E2E, video-path fixtures |
 | `docs/licenses.md` | Fonts, icons, NASA media, dependencies, credits |
 | `docs/assets/characters/` | Three character reference images |
 | `brand/` | Pre-event brand kit: avatars, full-body cutouts, favicons, OG card |

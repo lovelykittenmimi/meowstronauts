@@ -30,3 +30,10 @@ src/assets/gemini_generated_video_*.mp4
 
 # the 30-second video pipeline and its footage stay on the recording machine
 tools/video/
+
+# internal process docs — kept on the working machine, not published
+/CLAUDE.md
+/PLAN.md
+/docs/gem-instructions.md
+/docs/image-prompts.md
+/docs/test-plan.md

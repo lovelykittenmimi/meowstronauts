@@ -41,7 +41,7 @@
 
 ## 5. 圖像與影片揭露
 
-- 所有角色與場景圖為 AI 生成，prompt 與產出紀錄保存在 `docs/image-prompts.md` 與 `brand/README.md`。
+- 所有角色與場景圖為 AI 生成；逐張 prompt 與產出紀錄保留在團隊本機（未隨 repo 公開），品牌層級說明見 `brand/README.md`。
 - 幕 2 的背景影片為 AI 生成（Google Gemini 影片生成，2026-11-13），原始檔未進 repo；使用的版本已重新壓縮、移除音軌，只作無聲動態背景，最後一格停在核准的 `06-crash` 構圖。來源與處理記錄見 `src/assets/video/README.md`。
 - 生成圖不含 NASA 標誌、任務徽章、可讀文字或浮水印；標題與按鈕由程式疊字。影片同樣不宣稱是 NASA 畫面或真實任務影像。
 - 火星照片為 NASA/JPL-Caltech 公共領域素材，與 AI 生成圖分開標示；每張照片保留 NASA ID 與 credit。
