@@ -17,7 +17,7 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       cat: 'narrator',
       text: l(
         'At sunrise, the supply ship finally breaks through the dust and lands at Hope-1.',
-        '日出時，補給船終於穿過沙塵，降落在希望一號。',
+        '天一亮，補給船終於穿過沙塵，降落在希望一號。',
       ),
     },
     {
@@ -25,24 +25,24 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       mood: 'happy',
       text: l(
         'Seven sols. Everyone alive, the outpost intact, and the science log is... acceptable.',
-        '七個火星日。大家都活著、基地完好、科學紀錄……勉強合格。',
+        '七個火星日。全員平安，基地完好，科學日誌……勉強及格。',
       ),
     },
     {
       cat: 'narrator',
-      text: l('Translation: Silver is thrilled.', '翻譯：銀白非常滿意。'),
+      text: l('Translation: Silver is thrilled.', '幫大家翻譯：銀白很開心。'),
     },
     {
       cat: 'silver',
       mood: 'surprised',
-      text: l('I said no such thing.', '我沒有這樣說。'),
+      text: l('I said no such thing.', '我沒說。'),
     },
     {
       cat: 'ginger',
       mood: 'happy',
       text: l(
         'The rescue ship is here! Do they have snacks? Wait — I have tomatoes! Tiny, dusty, perfect tomatoes. I grew them!',
-        '補給船來了！他們有帶零食嗎？等等——我有番茄！小小的、有沙塵的、完美的番茄。我種的！',
+        '補給船來了！他們有沒有帶零食？等等——我這裡有番茄！小小顆、沾著沙，完美！是我種的！',
       ),
     },
     {
@@ -50,18 +50,18 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       mood: 'neutral',
       text: l(
         'The solar array is still crooked. I am calling it a design feature.',
-        '太陽能板還是歪的。我決定叫它「設計特色」。',
+        '太陽能板還是歪的。我就叫它設計特色。',
       ),
     },
     {
       cat: 'silver',
       mood: 'determined',
-      text: l('We are not calling it that.', '我們不會叫它那個。'),
+      text: l('We are not calling it that.', '這不叫設計特色。'),
     },
     {
       cat: 'ginger',
       mood: 'happy',
-      text: l('The tomatoes are calling it that.', '番茄說可以。'),
+      text: l('The tomatoes are calling it that.', '番茄說這叫設計特色。'),
     },
     {
       cat: 'silver',
@@ -74,32 +74,32 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       cat: 'narrator',
       text: l(
         'At sunrise, the supply ship finally breaks through the dust and lands at Hope-1.',
-        '日出時，補給船終於穿過沙塵，降落在希望一號。',
+        '天一亮，補給船終於穿過沙塵，降落在希望一號。',
       ),
     },
     {
       cat: 'silver',
       mood: 'neutral',
-      text: l('We survived. That is the headline.', '我們活下來了。這是頭條。'),
+      text: l('We survived. That is the headline.', '我們活下來了。這就夠上頭條了。'),
     },
     {
       cat: 'narrator',
       text: l(
         'The rest of the report is a long list of things they should have done.',
-        '報告其餘部分是一長串他們早該做的事。',
+        '報告其他部分，滿滿都是「你們早就該做」的事。',
       ),
     },
     {
       cat: 'silver',
       mood: 'determined',
-      text: l('The narrator is not on the payroll.', '旁白不在薪資名單上。'),
+      text: l('The narrator is not on the payroll.', '旁白又沒領薪水。'),
     },
     {
       cat: 'shadow',
       mood: 'worried',
       text: l(
         'The outpost is still standing. So is the dent in the solar array. It has become part of the team.',
-        '基地還站著。太陽能板上的凹痕也還站著。它已經成為團隊的一員。',
+        '基地沒倒。太陽能板上的凹痕也還在。它現在也是團隊的一員了。',
       ),
     },
     {
@@ -107,13 +107,13 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       mood: 'happy',
       text: l(
         'I kept everyone fed! Mostly. The emergency cookies were... emergency-adjacent.',
-        '我讓大家都有飯吃！大概吧。緊急餅乾……算是有緊急到。',
+        '我沒讓大家餓到！大概吧。緊急餅乾……至少真的很緊急。',
       ),
     },
     {
       cat: 'silver',
       mood: 'neutral',
-      text: l('We will discuss the cookies later.', '餅乾的事晚點再說。'),
+      text: l('We will discuss the cookies later.', '餅乾的事，晚點再說。'),
     },
     {
       cat: 'ginger',
@@ -123,7 +123,7 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
     {
       cat: 'silver',
       mood: 'determined',
-      text: l('That is what "later" means.', '「晚點」就是這個意思。'),
+      text: l('That is what "later" means.', '「晚點再說」就是這個意思。'),
     },
   ],
   one: [
@@ -131,25 +131,25 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       cat: 'narrator',
       text: l(
         'At sunrise, the supply ship finally breaks through the dust and lands at Hope-1.',
-        '日出時，補給船終於穿過沙塵，降落在希望一號。',
+        '天一亮，補給船終於穿過沙塵，降落在希望一號。',
       ),
     },
     {
       cat: 'silver',
       mood: 'worried',
-      text: l('We are alive. Technically.', '我們還活著。技術上來說。'),
+      text: l('We are alive. Technically.', '我們還活著。勉強算。'),
     },
     {
       cat: 'narrator',
       text: l(
         'The report says "mission complete" in the tone a doctor uses before "you should sit down."',
-        '報告上寫「任務完成」，語氣像醫生說「你先坐下」之前那樣。',
+        '報告寫「任務完成」，但那個語氣，像醫生叫你「先坐下」。',
       ),
     },
     {
       cat: 'silver',
       mood: 'determined',
-      text: l('I resent that comparison. I am sitting down.', '我抗議這個比喻。我已經坐下了。'),
+      text: l('I resent that comparison. I am sitting down.', '我抗議。而且我本來就坐著。'),
     },
     {
       cat: 'shadow',
@@ -158,19 +158,19 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
     },
     {
       cat: 'narrator',
-      text: l('The bad news: everything else.', '壞消息：其他全部。'),
+      text: l('The bad news: everything else.', '壞消息：除了它，其他全有問題。'),
     },
     {
       cat: 'shadow',
       mood: 'surprised',
-      text: l('I was getting to that.', '我正準備要說。'),
+      text: l('I was getting to that.', '我正要說。'),
     },
     {
       cat: 'ginger',
       mood: 'sleepy',
       text: l(
         'I found a tomato in my pocket. It is warm. Does anyone want to split it? ...No? More for me.',
-        '我在口袋裡找到一顆番茄。它是溫的。有人要分嗎？……不要？那我全吃了。',
+        '我在口袋裡找到一顆番茄。還溫溫的。有人要分嗎？……不要？那我吃囉。',
       ),
     },
     {
@@ -178,36 +178,36 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       mood: 'determined',
       text: l(
         'We are not doing a victory lap. We are doing a victory crawl.',
-        '我們不是在跑勝利圈。我們是在爬勝利圈。',
+        '我們不是繞場慶祝。是爬著慶祝。',
       ),
     },
     {
       cat: 'ginger',
       mood: 'happy',
-      text: l('A crawl is still a lap.', '爬也算一圈。'),
+      text: l('A crawl is still a lap.', '爬也算繞一圈。'),
     },
   ],
   lose: [
     {
       cat: 'silver',
       mood: 'worried',
-      text: l('The mission is paused. Not failed. Paused.', '任務暫停。不是失敗。是暫停。'),
+      text: l('The mission is paused. Not failed. Paused.', '任務只是暫停。不是失敗。是暫停。'),
     },
     {
       cat: 'narrator',
       text: l(
         'The outpost is dark, the oxygen is at zero, and the crew is out of snacks. But yes — paused.',
-        '基地停電、氧氣歸零、零食也沒了。不過沒錯——是暫停。',
+        '基地停電、氧氣歸零、零食也沒了。不過對啦——是暫停。',
       ),
     },
     {
       cat: 'silver',
       mood: 'surprised',
-      text: l('Whose side are you on?', '你站在哪一邊？'),
+      text: l('Whose side are you on?', '你到底幫哪邊？'),
     },
     {
       cat: 'narrator',
-      text: l('The side with the electric blanket.', '有電毯的那一邊。'),
+      text: l('The side with the electric blanket.', '有電毯的那邊。'),
     },
     {
       cat: 'shadow',
@@ -219,7 +219,7 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       mood: 'surprised',
       text: l(
         'So... the rescue ship is not coming? I had a whole menu planned.',
-        '所以……補給船不會來了？我已經想好整套菜單了。',
+        '所以……補給船不來了？我菜單都想好了耶。',
       ),
     },
     {
@@ -227,7 +227,7 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
       mood: 'determined',
       text: l(
         'We will try again. And this time, we will check the power before the snacks.',
-        '我們會再試一次。這次，先檢查電力，再談零食。',
+        '我們再試一次。這次先顧電力，再顧零食。',
       ),
     },
     {
@@ -238,7 +238,7 @@ export const ENDING_DIALOGUES: Record<'one' | 'two' | 'three' | 'lose', EndingLi
     {
       cat: 'silver',
       mood: 'neutral',
-      text: l('...That is not how power works.', '……電力不是這樣運作的。'),
+      text: l('...That is not how power works.', '……電力不是這樣來的。'),
     },
   ],
 };
