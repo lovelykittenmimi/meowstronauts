@@ -1,7 +1,7 @@
 # 已處理圖像資產（2026-11-14）
 
 此資料夾是原圖的網頁用衍生物，供遊戲與 submission 使用。
-**原圖未被修改或覆寫**（31–43 這批 JPEG 母檔在 repo 外的 `C:\Users\carri\project\jpeg`）。
+**原圖未被修改或覆寫**（31–43 這批 JPEG 母檔在 repo 外的本機資料夾，不進 repo）。
 
 ## 目錄
 
@@ -62,7 +62,7 @@
 - 去背圖的 alpha 已保留，可直接疊在 `--paper`、`--navy` 或場景圖上。
 - 14–19 設定表保留原 3×2 排版；單格頭像已切在 `../avatars/`，不用再自行切格。
 - 14–16 原圖有部分視圖的腳掌被原圖邊界裁掉，去背不會補回。
-- 不要覆寫 `C:\Users\carri\project\jpeg` 裡的母檔；重出圖時沿用 `docs/image-prompts.md` 的同一批 prompt。
+- 不要覆寫 repo 外的母檔；重出圖時沿用 `docs/image-prompts.md` 的同一批 prompt。
 
 ## 產製
 

@@ -5,7 +5,7 @@
     "cutouts": "resize longest edge to 1600 px (Lanczos), rembg bria-rmbg, WebP q=85 (lossless alpha)",
     "tooling": "Pillow, rembg 2.0.87 (onnxruntime CPU)"
   },
-  "originals": "C:/Users/carri/project/jpeg (outside this repository; never modified)",
+  "originals": "local folder outside this repository (never modified)",
   "assets": [
     {
       "file": "scenes/01-keyart.webp",

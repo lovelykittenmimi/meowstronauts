@@ -498,7 +498,7 @@ Exterior of the Mars outpost at dawn: a large dish antenna in the foreground ang
 > 採收小遊戲背景（`src/minigames/tomato/assets/greenhouse-harvest.webp`）的來源圖，
 > 所以不重出、另補一張豐收當下的 43 給 F1 事件卡。
 > 原始 JPEG 2752×1536，已處理成 1280×714 WebP q=82（139,702 B）放進
-> `src/assets/generated/scenes/`。母檔在 repo 外的 `C:\Users\carri\project\jpeg`。
+> `src/assets/generated/scenes/`。母檔在 repo 外的本機資料夾。
 > 接線：`EVENT_ART.F1.src`（`src/game/eventArt.ts`）。**Sol 7 艦長日誌不動**，
 > 仍是 `09-greenhouse-nocat`（`SOL_BRIEF_ART[7]`）；`F1.briefingSrc` 也保留 `09` 的底板當後備。
 > 與 prompt 的差異：成品裡金桔戴著透明頭盔、左手肩章是抽象三角任務布章（不是國旗）；
