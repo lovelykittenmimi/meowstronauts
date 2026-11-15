@@ -61,24 +61,19 @@ async function ssim(a, b) {
 }
 
 const clip = (name) => path.join(demoDir, `${name}.webm`);
-const crash = path.join(root, 'src/assets/video/scene2-crash.mp4');
+const opening = (name) => path.join(assets, 'opening', name);
 const stills = (name) => path.join(cards, name);
 
 const SCALE = 'scale=1920:1080';
 const CROP_HUD = 'crop=1680:945:150:0,scale=1920:1080:flags=lanczos';
 const CROP_LANDER = 'crop=1725:970:110:0,scale=1920:1080:flags=lanczos';
-const SCALE_CRASH = 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080';
 const SDO = 'scale=-1:1080,pad=1920:1080:(ow-iw)/2:0:black';
 
 const probes = [
   { seg: 's01', t: 1.20, kind: 'still', file: stills('intro.png'), start: 0.0, frames: 75, zoom: 0.02, pre: '', min: 0.90 },
   { seg: 's02', t: 3.20, kind: 'still', file: path.join(assets, 'apod', 'sun-flare-sdo-2017-09-14.jpg'), start: 2.5, frames: 45, zoom: 0.04, pre: SDO, min: 0.84 },
-  { seg: 's03', t: 4.60, kind: 'video', file: crash, src: 5.0 + Math.floor(((4.60 - 4.0) / 2) * 24) / 24, vf: SCALE_CRASH, min: 0.95 },
-  { seg: 's03', t: 5.40, kind: 'video', file: crash, src: 5.0 + Math.floor(((5.40 - 4.0) / 2) * 24) / 24, vf: SCALE_CRASH, min: 0.95 },
-  { seg: 's03', t: 6.60, kind: 'video', file: crash, src: 5.0 + Math.floor(((6.60 - 4.0) / 2) * 24) / 24, vf: SCALE_CRASH, min: 0.95 },
-  { seg: 's03', t: 7.00, kind: 'video', file: crash, src: 5.0 + Math.floor(((7.00 - 4.0) / 2) * 24) / 24, vf: SCALE_CRASH, min: 0.95 },
-  { seg: 's03', t: 8.00, kind: 'video', file: crash, src: 5.0 + Math.floor(((8.00 - 4.0) / 2) * 24) / 24, vf: SCALE_CRASH, min: 0.95 },
-  { seg: 's03', t: 8.60, kind: 'video', file: crash, src: 5.0 + Math.floor(((8.60 - 4.0) / 2) * 24) / 24, vf: SCALE_CRASH, min: 0.95 },
+  { seg: 's03a', t: 5.00, kind: 'still', file: opening('ship-in-space.png'), start: 4.0, frames: 66, zoom: 0.02, pre: '', min: 0.90 },
+  { seg: 's03b', t: 7.60, kind: 'still', file: opening('crash-on-mars.png'), start: 6.2, frames: 84, zoom: 0.02, pre: '', min: 0.90 },
   { seg: 's05', t: 10.50, kind: 'video', file: clip('s1'), src: 3.100, vf: SCALE, min: 0.88 },
   { seg: 's06', t: 14.00, kind: 'video', file: clip('s1'), src: 6.600, vf: CROP_HUD, min: 0.82 },
   { seg: 's07', t: 16.00, kind: 'video', file: clip('lander'), src: 9.194, vf: CROP_LANDER, min: 0.82 },

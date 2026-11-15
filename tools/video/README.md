@@ -10,15 +10,16 @@ part of the game build.
 | `make-narration.mjs` | Generates `narration-ana-45-v3.mp3/.srt` from the `CUES` table (edge-tts Ana +45%, per-cue start times; fails if a cue overruns the next) |
 | `capture-demo.mjs` | Records the demo clips from the deployed build with Playwright and a fake cursor; writes `output/demo/<clip>.webm` and `capture.json` marks |
 | `assemble-demo.mjs` | Cuts the 11 shots exactly on the §0.4 timeline and muxes narration, music and burned subtitles into `output/meowstronauts-demo-30s.mp4` |
-| `DEMO-TIMELINE.md` | The frame-by-frame manifest: every shot's output in/out, its source file and source time, the fades, the crash slow-mo mapping, and the narration/SRT cue table. `assemble-demo.mjs` is built from this table — change the table first, then the code |
-| `verify-timeline.mjs` | Grabs the output frame at 17 probe times, grabs the frame the timeline names from the source file, and prints an SSIM per probe. Exits 1 on any FAIL, so a timing slip cannot ship silently |
+| `DEMO-TIMELINE.md` | The frame-by-frame manifest: every shot's output in/out, its source file and source time, the fades, the two opening stills, and the narration/SRT cue table. `assemble-demo.mjs` is built from this table — change the table first, then the code |
+| `verify-timeline.mjs` | Grabs the output frame at 14 probe times, grabs the frame the timeline names from the source file, and prints an SSIM per probe. Exits 1 on any FAIL, so a timing slip cannot ship silently |
 | `capture-cards.mjs` | Renders the intro/title/end cards to `output/demo/cards/*.png` from `demo-cards.html` |
 | `demo-cards.html` | The three full-screen cards (intro, title, end) used by `capture-cards.mjs` |
 | `title-card.html` | Early 10-second title-card animation used to prove capture, subtitles, and audio muxing; not used by the final cut |
 | `narration-ana-45-v3.srt` | English subtitle cues for the v3 narration (9 lines, timed by `make-narration.mjs`) |
 | `narration-ana-45-v3.mp3` | The current Ana +45% narration take. The shot list and cue table are in `docs/video-script.md` §0.4–§0.6. |
 | `assets/apod/` | NASA stills for the opening shots; video-only, not game assets. Credits and crop rules in `assets/apod/CREDITS.md` |
-| `assets/mars-trek/` | Gale Crater wide/mid/close stills exported from Mars Trek. **Not used by the final cut since the 11/15 opening revision** (the intro is the SDO flare, then the in-game crash); kept for reference. Credits in `assets/mars-trek/CREDITS.md` |
+| `assets/opening/` | The two team-generated stills that replaced the in-game crash clip in the demo (`ship-in-space.png` 4.0–6.2, `crash-on-mars.png` 6.2–9.0). Not NASA imagery; credits in `assets/opening/CREDITS.md` |
+| `assets/mars-trek/` | Gale Crater wide/mid/close stills exported from Mars Trek. **Not used by the final cut since the 11/15 opening revision** (the intro is the SDO flare, then the two crash stills); kept for reference. Credits in `assets/mars-trek/CREDITS.md` |
 | `output/` | Git-ignored; all raw and final media goes here |
 
 ## edge-tts (installed 2026-11-12; chosen voice: Ana +45%)
@@ -72,7 +73,7 @@ node make-narration.mjs   # narration-ana-45-v3.mp3/.srt (needs edge-tts + ffmpe
 node capture-cards.mjs    # output/demo/cards/*.png
 node capture-demo.mjs     # all five clips; add a clip name, e.g. hopIntro, to redo one
 node assemble-demo.mjs    # output/meowstronauts-demo-30s.mp4
-node verify-timeline.mjs  # 17 SSIM probes; must print "17/17 probes passed"
+node verify-timeline.mjs  # 14 SSIM probes; must print "14/14 probes passed"
 ```
 
 The five clips are `s1`, `lander`, `report`, `hopIntro`, `tomatoIntro`.

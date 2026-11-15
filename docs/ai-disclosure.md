@@ -47,6 +47,7 @@
 - 火星照片為 NASA/JPL-Caltech 公共領域素材，與 AI 生成圖分開標示；每張照片保留 NASA ID 與 credit。
 - 幕 2 迫降前先播一組**真實 NASA／ESA 影像**（SDO、SOHO、Viking、Mars Trek），不是 AI 生成；2026-11-14 起這組靜圖在影片前放映約 5 秒，最後一張停在畫面上，等無線電對話推進到「然後，他們就撞上來了。」才播 AI 迫降影片（從 0 秒完整播放），兩者不重疊。畫面逐一標示 credit，清單見 `src/assets/nasa/README.md`。它們是示意鏡頭，不宣稱是當次任務或 2025-05-14 X2.7 閃焰的畫面。
 - OG 社群卡為人工合成（裁切、遮罩、排版），不是單次 AI 生成。
+- 30 秒 Demo 影片的第 3 鏡（04.0–09.0）是兩張**角色與場景 AI 生成圖**（`tools/video/assets/opening/`），不是 NASA 影像，也不是遊戲執行畫面；同一個迫降在遊戲內仍是預先做好的 AI 生成影片。其餘 NASA 影像在畫面右下標 `NASA/SDO` 等 credit。
 
 ## 6. 執行時（runtime）聲明
 

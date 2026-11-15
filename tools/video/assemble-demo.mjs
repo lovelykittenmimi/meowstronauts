@@ -72,9 +72,12 @@ async function flashEnd(file) {
   });
 }
 
+// -color_range tv on every stage: without it the segments carry no range tag,
+// and the final re-encode assumes full range and lifts every black by ~14
+// levels (the SDO JPEG still is what leaks an untagged range into the concat).
 const base = [
   '-c:v', 'libx264', '-preset', 'medium', '-crf', '18',
-  '-pix_fmt', 'yuv420p', '-r', String(fps), '-an',
+  '-pix_fmt', 'yuv420p', '-color_range', 'tv', '-r', String(fps), '-an',
 ];
 
 async function encodeStill({ image, out, seconds, zoom = 0.02, pre = '', extra = '' }) {
@@ -146,6 +149,7 @@ console.log('flash ends', F);
 const cards = path.join(outDir, 'cards');
 const stills = path.join(outDir, 'stills');
 const assets = path.join(__dirname, 'assets');
+const opening = path.join(assets, 'opening');
 const seg = (name) => path.join(segDir, `${name}.mp4`);
 
 // 1. Intro text card (0.0-2.5). Fade out at the end so the cut to the sun is a
@@ -175,20 +179,25 @@ await encodeStill({
   ].join(','),
 });
 
-// 3. In-game crash clip (4.0-9.0). The 10.00 s clip is three shots: orbital hit
-// (0-3.5), fireball descent (3.5-5.0), then the ground shot (5.0-10.0). The ship
-// enters at 5.0 and hits at ~5.2; the cats emerge around 6.5. Take 5.000-7.500
-// at 0.5x (setpts 2.0): fall, impact, explosion, then two seconds of the three
-// cats standing in the settling dust. No title card after this any more; the
-// crash runs straight into the first sol.
-await encodeVideo({
-  input: path.join(root, 'src/assets/video/scene2-crash.mp4'),
-  start: 5.00,
-  seconds: 5.0,
-  out: seg('s03'),
-  vf: 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,setpts=(PTS-STARTPTS)*2.0',
-  post: 'fade=t=in:st=0:d=0.15,fade=t=out:st=4.80:d=0.20',
+// 3. Opening stills (4.0-9.0). The slow-motion cut of scene2-crash.mp4 read
+// badly, so the crash is told with two stills: the ship in space (2.2 s), then
+// the crash site on Mars with the three cats (2.8 s). A short dip through black
+// between them, same as the other opening cuts.
+await encodeStill({
+  image: path.join(opening, 'ship-in-space.png'),
+  out: path.join(segDir, 's03a.mp4'),
+  seconds: 2.2,
+  zoom: 0.02,
+  extra: 'fade=t=in:st=0:d=0.15,fade=t=out:st=2.05:d=0.15',
 });
+await encodeStill({
+  image: path.join(opening, 'crash-on-mars.png'),
+  out: path.join(segDir, 's03b.mp4'),
+  seconds: 2.8,
+  zoom: 0.02,
+  extra: 'fade=t=in:st=0:d=0.15,fade=t=out:st=2.60:d=0.20',
+});
+await concatFiles([path.join(segDir, 's03a.mp4'), path.join(segDir, 's03b.mp4')], seg('s03'));
 
 // 4. S1 card -> shield up -> result (9.0-13.3). Starts 0.7 s earlier in the clip
 // (the alert card is up before the click) so the shot ends on the same frame as
@@ -329,7 +338,7 @@ await run([
     '[a1][a2]amix=inputs=2:duration=longest:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000[a]',
   ].join(';'),
   '-map', '[v]', '-map', '[a]',
-  '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(fps),
+  '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-color_range', 'tv', '-r', String(fps),
   '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2',
   '-t', '29.960',
   '-movflags', '+faststart',
