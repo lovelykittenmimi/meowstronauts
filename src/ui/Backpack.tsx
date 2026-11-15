@@ -9,9 +9,16 @@ interface BackpackProps {
   collected: string[];
   onClose: () => void;
   onOpenCard: (cardId: string) => void;
+  onMatchPractice?: () => void;
 }
 
-export function Backpack({ lang, collected, onClose, onOpenCard }: BackpackProps) {
+export function Backpack({
+  lang,
+  collected,
+  onClose,
+  onOpenCard,
+  onMatchPractice,
+}: BackpackProps) {
   const slots = Array.from({ length: BACKPACK_SIZE }, (_, index) => collected[index]);
 
   return (
@@ -20,6 +27,18 @@ export function Backpack({ lang, collected, onClose, onOpenCard }: BackpackProps
       onClose={onClose}
       testId="backpack-panel"
       wide
+      headerAction={
+        onMatchPractice ? (
+          <button
+            type="button"
+            className="ghost-button backpack-match-button"
+            data-testid="match-practice"
+            onClick={onMatchPractice}
+          >
+            {t(lang, 'backpack.matchPractice')}
+          </button>
+        ) : undefined
+      }
     >
       <div className="backpack-grid">
         {slots.map((cardId, index) => {

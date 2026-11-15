@@ -56,6 +56,10 @@ export const STRINGS = {
     en: 'Try the shelter drill',
     'zh-TW': '試試避難艙演練',
   },
+  'briefing.dodgeGame': {
+    en: 'Try the dust devil dodge',
+    'zh-TW': '試試塵捲風閃避',
+  },
   'briefing.snapshot': {
     en: 'Historical snapshot, not live data or a forecast.',
     'zh-TW': '歷史快照，不是即時資料，也不是預報。',
@@ -175,6 +179,10 @@ export const STRINGS = {
   'knowledge.collected': { en: 'In backpack', 'zh-TW': '已在背包' },
   'knowledge.close': { en: 'Close', 'zh-TW': '關閉' },
   'backpack.title': { en: 'Knowledge backpack', 'zh-TW': '知識背包' },
+  'backpack.matchPractice': {
+    en: 'Knowledge Card Match',
+    'zh-TW': '知識卡配對',
+  },
   'backpack.count': { en: '{count} / {total}', 'zh-TW': '{count} / {total}' },
   'backpack.empty': { en: 'Not collected yet', 'zh-TW': '尚未收藏' },
   'backpack.close': { en: 'Close', 'zh-TW': '關閉' },

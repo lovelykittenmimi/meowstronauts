@@ -7,9 +7,11 @@ import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
 import LanderOverlay from './minigames/LanderOverlay';
 import RadiationOverlay from './minigames/RadiationOverlay';
+import DustDevilDodge from './minigames/dustdodge/DustDevilDodge';
 import WaterFuelFactory from './minigames/factory/WaterFuelFactory';
 import SpaceFoodFlip from './minigames/food/SpaceFoodFlip';
 import LowGravityHop from './minigames/hop/LowGravityHop';
+import KnowledgeMatch from './minigames/match/KnowledgeMatch';
 import { Backpack } from './ui/Backpack';
 import { BriefingScreen } from './ui/BriefingScreen';
 import { DataPanel } from './ui/DataPanel';
@@ -77,6 +79,8 @@ export default function App() {
   const [foodOpen, setFoodOpen] = useState(false);
   const [factoryOpen, setFactoryOpen] = useState(false);
   const [radiationOpen, setRadiationOpen] = useState(false);
+  const [matchOpen, setMatchOpen] = useState(false);
+  const [dodgeOpen, setDodgeOpen] = useState(false);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -309,6 +313,7 @@ export default function App() {
               onFoodPractice={videoMode ? undefined : () => setFoodOpen(true)}
               onFactoryPractice={videoMode ? undefined : openFactory}
               onShelterPractice={videoMode ? undefined : openShelter}
+              onDodgePractice={videoMode ? undefined : () => setDodgeOpen(true)}
             />
           )}
 
@@ -343,12 +348,20 @@ export default function App() {
         />
       )}
 
-      {backpackOpen && (
+      {backpackOpen && !matchOpen && (
         <Backpack
           lang={state.lang}
           collected={state.collectedCards}
           onClose={() => setBackpackOpen(false)}
           onOpenCard={openCard}
+          onMatchPractice={videoMode ? undefined : () => setMatchOpen(true)}
+        />
+      )}
+
+      {matchOpen && (
+        <KnowledgeMatch
+          lang={state.lang}
+          onExit={() => setMatchOpen(false)}
         />
       )}
 
@@ -397,6 +410,13 @@ export default function App() {
           initialLang={state.lang}
           onClose={() => setRadiationOpen(false)}
           onComplete={collectCard}
+        />
+      )}
+
+      {dodgeOpen && (
+        <DustDevilDodge
+          lang={state.lang}
+          onExit={() => setDodgeOpen(false)}
         />
       )}
     </div>

@@ -26,6 +26,8 @@ interface BriefingScreenProps {
   onFactoryPractice?: () => void;
   /** Optional Sol 4 practice: the day's brief is about the shelter. */
   onShelterPractice?: () => void;
+  /** Optional Sol 2 practice: dust devils are not dust storms. */
+  onDodgePractice?: () => void;
 }
 
 export function BriefingScreen({
@@ -37,6 +39,7 @@ export function BriefingScreen({
   onFoodPractice,
   onFactoryPractice,
   onShelterPractice,
+  onDodgePractice,
 }: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
@@ -126,6 +129,18 @@ export function BriefingScreen({
           >
             <span aria-hidden="true">🦘</span>
             {t(lang, 'briefing.hop')}
+          </button>
+        )}
+
+        {state.sol === 2 && onDodgePractice && (
+          <button
+            type="button"
+            className="dodge-practice-button"
+            data-testid="dodge-practice"
+            onClick={onDodgePractice}
+          >
+            <span aria-hidden="true">🌪️</span>
+            {t(lang, 'briefing.dodgeGame')}
           </button>
         )}
 

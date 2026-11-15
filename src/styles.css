@@ -486,6 +486,13 @@ h1 {
   padding: 14px 22px;
 }
 
+.backpack-match-button {
+  min-height: 40px;
+  padding: 6px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
 /* Briefing ------------------------------------------------------------- */
 .briefing-shell {
   display: flex;
@@ -637,7 +644,8 @@ h1 {
 .hop-practice-button,
 .food-practice-button,
 .factory-practice-button,
-.shelter-practice-button {
+.shelter-practice-button,
+.dodge-practice-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -654,7 +662,8 @@ h1 {
 .hop-practice-button:hover,
 .food-practice-button:hover,
 .factory-practice-button:hover,
-.shelter-practice-button:hover {
+.shelter-practice-button:hover,
+.dodge-practice-button:hover {
   background: #d3e9e6;
 }
 
@@ -777,7 +786,8 @@ h1 {
   .hop-practice-button,
   .food-practice-button,
   .factory-practice-button,
-  .shelter-practice-button {
+  .shelter-practice-button,
+  .dodge-practice-button {
     margin-top: 8px;
     padding: 5px 10px;
     font-size: 12px;
@@ -1411,6 +1421,11 @@ h1 {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 10px;
+}
+
+.modal-head-action {
+  display: flex;
+  margin-left: auto;
 }
 
 .modal-head h2 {

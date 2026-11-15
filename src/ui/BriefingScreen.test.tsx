@@ -14,6 +14,7 @@ function renderBriefing(
   onFoodPractice?: () => void,
   onFactoryPractice?: () => void,
   onShelterPractice?: () => void,
+  onDodgePractice?: () => void,
 ) {
   const event = EVENT_BY_ID.get(eventId);
   if (!event) throw new Error(`unknown event ${eventId}`);
@@ -27,6 +28,7 @@ function renderBriefing(
       onFoodPractice={onFoodPractice}
       onFactoryPractice={onFactoryPractice}
       onShelterPractice={onShelterPractice}
+      onDodgePractice={onDodgePractice}
     />,
   );
 }
@@ -86,6 +88,46 @@ describe('low-gravity hop entry', () => {
     renderBriefing('T1', 2, () => {});
 
     expect(screen.queryByTestId('hop-practice')).toBeNull();
+  });
+});
+
+describe('dust devil dodge entry', () => {
+  it('offers the dodge on Sol 2 and calls back', () => {
+    let opened = 0;
+    renderBriefing(
+      'T1',
+      2,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      () => {
+        opened += 1;
+      },
+    );
+
+    const button = screen.getByTestId('dodge-practice');
+    expect(button.textContent).toContain('dust devil dodge');
+    fireEvent.click(button);
+    expect(opened).toBe(1);
+  });
+
+  it('keeps the dodge out of other sol briefings and video mode', () => {
+    for (const sol of [1, 3, 4, 5, 6, 7]) {
+      renderBriefing(
+        'T1',
+        sol,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        () => {},
+      );
+      expect(screen.queryByTestId('dodge-practice')).toBeNull();
+      cleanup();
+    }
+    renderBriefing('T1', 2);
+    expect(screen.queryByTestId('dodge-practice')).toBeNull();
   });
 });
 

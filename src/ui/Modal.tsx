@@ -7,9 +7,18 @@ interface ModalProps {
   testId?: string;
   wide?: boolean;
   bare?: boolean;
+  headerAction?: ReactNode;
 }
 
-export function Modal({ title, onClose, children, testId, wide, bare }: ModalProps) {
+export function Modal({
+  title,
+  onClose,
+  children,
+  testId,
+  wide,
+  bare,
+  headerAction,
+}: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,6 +77,7 @@ export function Modal({ title, onClose, children, testId, wide, bare }: ModalPro
         {!bare && (
           <div className="modal-head">
             <h2>{title}</h2>
+            {headerAction && <div className="modal-head-action">{headerAction}</div>}
             <button type="button" className="icon-button" onClick={onClose} aria-label="Close">
               ×
             </button>
