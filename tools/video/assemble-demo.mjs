@@ -90,12 +90,15 @@ async function encodeStill({ image, out, seconds, zoom = 0.02, pre = '', extra =
   await run(['-y', '-i', image, '-vf', filter, '-frames:v', String(frames), ...base, out], path.basename(out));
 }
 
-async function encodeVideo({ input, start, seconds, out, vf }) {
-  const filter = [vf, `fps=${fps}`, 'format=yuv420p'].filter(Boolean).join(',');
+async function encodeVideo({ input, start, seconds, out, vf, post = '' }) {
+  // Seek before -i: output seeking leaves the source PTS offset in place, and a
+  // time-based fade then thinks it is already past its end (a black segment).
+  // `post` runs after fps=30 so fades step on every output frame.
+  const filter = [vf, `fps=${fps}`, post, 'format=yuv420p'].filter(Boolean).join(',');
   await run([
     '-y',
-    '-i', input,
     '-ss', start.toFixed(3),
+    '-i', input,
     '-t', (seconds + 0.6).toFixed(3),
     '-vf', filter,
     '-frames:v', String(Math.round(seconds * fps)),
@@ -145,17 +148,19 @@ const stills = path.join(outDir, 'stills');
 const assets = path.join(__dirname, 'assets');
 const seg = (name) => path.join(segDir, `${name}.mp4`);
 
-// 1. Intro text card (0.0-2.5)
+// 1. Intro text card (0.0-2.5). Fade out at the end so the cut to the sun is a
+// dip, not a hard brightness jump.
 await encodeStill({
   image: path.join(cards, 'intro.png'),
   out: seg('s01'),
   seconds: 2.5,
   zoom: 0.02,
-  extra: 'fade=t=in:st=0:d=0.25',
+  extra: 'fade=t=in:st=0:d=0.25,fade=t=out:st=2.25:d=0.25',
 });
 
-// 2. SDO flare with a short white-in (2.5-4.0). No Gale stills: the intro is
-// the flare and then the crash, nothing else.
+// 2. SDO flare (2.5-4.0). No Gale stills: the intro is the flare and then the
+// crash, nothing else. A 0.25 s fade in/out keeps the white sun from becoming a
+// one-frame flash between the dark card and the crash.
 const creditFont = 'C\\:/Windows/Fonts/arialbd.ttf';
 await encodeStill({
   image: path.join(assets, 'apod', 'sun-flare-sdo-2017-09-14.jpg'),
@@ -164,25 +169,34 @@ await encodeStill({
   zoom: 0.04,
   pre: 'scale=-1:1080,pad=1920:1080:(ow-iw)/2:0:black',
   extra: [
-    'fade=t=in:st=0:d=0.20',
     `drawtext=fontfile='${creditFont}':text='NASA/SDO':fontcolor=white@0.9:fontsize=22:x=w-tw-56:y=h-54:box=1:boxcolor=0x00000066:boxborderw=10`,
+    'fade=t=in:st=0:d=0.25',
+    'fade=t=out:st=1.25:d=0.25',
   ].join(','),
 });
 
 // 3. In-game crash clip (4.0-7.6). The 10.00 s clip is three shots: orbital hit
-// (0-3.5), fireball descent (3.5-5.0), then the ground shot (5.0-10.0) where the
-// ship actually falls and hits at ~5.4. The tail is only settling dust, so start
-// at the 5.0 s cut and take 3.6 s: fall -> impact -> explosion -> dust and cats.
+// (0-3.5), fireball descent (3.5-5.0), then the ground shot (5.0-10.0). The ship
+// enters at 5.0 and hits at ~5.2; after 6.8 the cats are only standing in dust.
+// Take 5.000-6.800 and play it at 0.5x (setpts 2.0), so the fall, impact,
+// explosion and the cats emerging each get room instead of flashing past.
 await encodeVideo({
   input: path.join(root, 'src/assets/video/scene2-crash.mp4'),
   start: 5.00,
   seconds: 3.6,
   out: seg('s03'),
-  vf: 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080',
+  vf: 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,setpts=(PTS-STARTPTS)*2.0',
+  post: 'fade=t=in:st=0:d=0.15,fade=t=out:st=3.40:d=0.20',
 });
 
 // 4. Title card (7.6-9.7)
-await encodeStill({ image: path.join(cards, 'title.png'), out: seg('s04'), seconds: 2.1, zoom: 0.02 });
+await encodeStill({
+  image: path.join(cards, 'title.png'),
+  out: seg('s04'),
+  seconds: 2.1,
+  zoom: 0.02,
+  extra: 'fade=t=in:st=0:d=0.25,fade=t=out:st=1.85:d=0.25',
+});
 
 // 5. S1 card -> shield up -> result (9.7-13.3)
 await encodeVideo({
@@ -190,7 +204,10 @@ await encodeVideo({
   start: F.s1 + 1.5,
   seconds: 3.6,
   out: seg('s05'),
-  vf: 'scale=1920:1080',
+  // Rebasing PTS makes the fade start on frame 0; the webm's first frame is a
+  // few hundredths late, which otherwise steps straight to ~27% brightness.
+  vf: 'scale=1920:1080,setpts=PTS-STARTPTS',
+  post: 'fade=t=in:st=0:d=0.15',
 });
 
 // 6. HUD/result close-up (13.3-15.4)
