@@ -10,13 +10,13 @@ export const FACTORY_COPY = {
   title: { en: 'Water & fuel factory', 'zh-TW': '水與燃料工廠' },
   introKicker: { en: 'Ice to fuel', 'zh-TW': '從冰到燃料' },
   introBody: {
-    en: 'Future Mars crews need water and fuel. Run four machines: dig ice, split water, catch CO₂, and run the reactor. No timer.',
+    en: 'Wake up the factory! Dig up ice, split water into air, catch CO₂, and make fuel. Four machines, one big job — and no timer.',
     'zh-TW':
-      '未來的火星船員需要水和燃料。啟動四台機器：挖冰、分解水、捕捉二氧化碳、啟動反應器。沒有倒數。',
+      '叫醒工廠！挖冰、把水分解成空氣、抓住二氧化碳，再做燃料。四台機器，一個大任務——沒有倒數。',
   },
   introRule: {
-    en: 'A wrong tap gives a hint. You can always try again.',
-    'zh-TW': '點錯會出現提示，可以再試一次。',
+    en: 'Wrong tap? Silver gives a hint. You can try again as many times as you like.',
+    'zh-TW': '點錯了？銀白會給提示，想試幾次都可以。',
   },
   rewardNote: {
     en: 'Finish all four stations to earn +5 life support (once per mission).',
@@ -32,6 +32,35 @@ export const FACTORY_COPY = {
     'zh-TW': '第 {done}/{total} 站：{station}',
   },
   stationDone: { en: 'Station online!', 'zh-TW': '這一站啟動了！' },
+
+  guideIntro: {
+    en: "Hi! I'm Silver. Let's turn Mars ice into water, air, and fuel!",
+    'zh-TW': '嗨！我是銀白。一起把火星的冰變成水、空氣和燃料！',
+  },
+  guideMine: {
+    en: 'The radar is pinging! Tap the spot with the blue signal.',
+    'zh-TW': '雷達在響！點有藍色訊號的地方。',
+  },
+  guideElectrolysis: {
+    en: 'The ice is melted! Split the water and sort the two gases.',
+    'zh-TW': '冰融化了！把水分解，再把兩種氣體分好。',
+  },
+  guideScrubber: {
+    en: 'Only CO₂ goes in the filter. N₂ and Ar are impostors!',
+    'zh-TW': '只有二氧化碳要進濾芯；N₂ 和 Ar 是冒牌貨！',
+  },
+  guideReactor: {
+    en: "Last machine! Let's turn the gases into fuel and water.",
+    'zh-TW': '最後一台！把氣體變成燃料和水。',
+  },
+  guideStationDone: {
+    en: 'Click! Another machine is online.',
+    'zh-TW': '喀啦！又一台機器上線了。',
+  },
+  guideResult: {
+    en: 'High paws! The whole factory is humming.',
+    'zh-TW': '擊掌！整座工廠都在運轉了。',
+  },
 
   station1Title: { en: 'Ice mine', 'zh-TW': '冰礦場' },
   station1Goal: {

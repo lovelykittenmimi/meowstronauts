@@ -23,7 +23,7 @@ import {
   type FactoryStationId,
   type OvenChoice,
 } from './game/state';
-import { factoryT } from './game/i18n';
+import { factoryT, type FactoryCopyKey } from './game/i18n';
 import './styles.css';
 
 export interface WaterFuelFactoryProps {
@@ -48,6 +48,24 @@ interface FactoryResult {
 const FINISH_DELAY_MS = 700;
 const TOAST_MS = 3200;
 const WRONG_MOLECULE_MS = 500;
+
+/** Short, playful prompts for the cat guide; hints replace these on a miss. */
+const GUIDE_BY_STATION: Record<FactoryStationId, FactoryCopyKey> = {
+  mine: 'guideMine',
+  electrolysis: 'guideElectrolysis',
+  scrubber: 'guideScrubber',
+  reactor: 'guideReactor',
+};
+
+const CONFETTI_COLORS = ['#e8a33d', '#6fc3ff', '#4fd1c5', '#e07a5f', '#c9d2dc'];
+
+/** Deterministic confetti so a re-render never reshuffles mid-fall. */
+const CONFETTI = Array.from({ length: 24 }, (_, index) => ({
+  left: (index * 53 + 9) % 100,
+  delay: (index % 8) * 55,
+  tilt: (index % 2 === 0 ? 1 : -1) * (10 + (index % 4) * 7),
+  color: CONFETTI_COLORS[index % CONFETTI_COLORS.length],
+}));
 
 const SOURCES = [
   {
@@ -89,6 +107,46 @@ function doneById(game: FactoryGame): Record<FactoryStationId, boolean> {
   };
 }
 
+function Confetti({ count = 18 }: { count?: number }) {
+  return (
+    <div className="factory-confetti" aria-hidden="true">
+      {CONFETTI.slice(0, count).map((piece, index) => (
+        <i
+          key={`${index}-${piece.left}`}
+          style={{
+            left: `${piece.left}%`,
+            animationDelay: `${piece.delay}ms`,
+            background: piece.color,
+            rotate: `${piece.tilt}deg`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Guide({ message }: { message: string }) {
+  return (
+    <div className="factory-guide">
+      <span className="factory-guide-face" aria-hidden="true">
+        <img src="/brand/avatar-silver-512.webp" alt="" />
+        <span className="factory-guide-spark">✦</span>
+      </span>
+      <p className="factory-guide-bubble" data-testid="factory-guide">
+        {message}
+      </p>
+    </div>
+  );
+}
+
+function TankGauge({ filled }: { filled: boolean }) {
+  return (
+    <span className="factory-tank-gauge" aria-hidden="true">
+      <i className={filled ? 'is-filled' : ''} />
+    </span>
+  );
+}
+
 export default function WaterFuelFactory({
   lang,
   rewarded,
@@ -105,7 +163,12 @@ export default function WaterFuelFactory({
   const [wrongMolecule, setWrongMolecule] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState('');
+  const [guideKey, setGuideKey] = useState<FactoryCopyKey>('guideIntro');
+  const [guideVars, setGuideVars] = useState<
+    Record<string, string | number> | undefined
+  >(undefined);
   const [result, setResult] = useState<FactoryResult | null>(null);
+  const [burst, setBurst] = useState(0);
 
   const stationRef = useRef<HTMLElement>(null);
   const propsRef = useRef({
@@ -169,13 +232,22 @@ export default function WaterFuelFactory({
     }, TOAST_MS);
   }, []);
 
+  /**
+   * A miss shows the same line in the toast, the live region, and the cat's
+   * speech bubble. The keys keep the guide in the current language.
+   */
   const showHint = useCallback(
-    (message: string) => {
+    (key: FactoryCopyKey) => {
+      const message = factoryT(propsRef.current.lang, key);
       setAnnouncement(message);
+      setGuideKey(key);
+      setGuideVars(undefined);
       showToast(message);
     },
     [showToast],
   );
+
+  const guide = factoryT(lang, guideKey, guideVars);
 
   const finish = useCallback(() => {
     if (finishedRef.current) return;
@@ -198,6 +270,9 @@ export default function WaterFuelFactory({
     setStage('result');
     setToast(null);
     setAnnouncement(factoryT(currentLang, 'allDone'));
+    setGuideKey('guideResult');
+    setGuideVars(undefined);
+    setBurst((count) => count + 1);
     propsRef.current.onComplete(FACTORY_STATION_TOTAL);
   }, []);
 
@@ -212,6 +287,8 @@ export default function WaterFuelFactory({
     setSelectedGas(null);
     setSelectedOutput(null);
     setWrongMolecule(null);
+    setGuideKey('guideMine');
+    setGuideVars(undefined);
     const first = FACTORY_STATIONS[0];
     setAnnouncement(
       first
@@ -245,7 +322,7 @@ export default function WaterFuelFactory({
    * Apply an action and return the next state. A rejected action shows the
    * supplied hint and leaves the station exactly as it was.
    */
-  const act = (action: FactoryAction, hint?: string): FactoryGame | null => {
+  const act = (action: FactoryAction, hint?: FactoryCopyKey): FactoryGame | null => {
     if (stage !== 'playing') return null;
     const next = applyFactoryAction(game, action);
     if (next === game) {
@@ -258,12 +335,17 @@ export default function WaterFuelFactory({
     setGame(next);
 
     if (after > before) {
+      setBurst((count) => count + 1);
       showToast(factoryT(lang, 'stationDone'));
       if (isFactoryComplete(next)) {
         setAnnouncement(factoryT(lang, 'allDone'));
+        setGuideKey('guideStationDone');
+        setGuideVars(undefined);
       } else {
         const station = FACTORY_STATIONS[next.stationIndex];
         if (station) {
+          setGuideKey(GUIDE_BY_STATION[station.id]);
+          setGuideVars(undefined);
           setAnnouncement(
             factoryT(lang, 'stationAnnounce', {
               done: next.stationIndex + 1,
@@ -278,8 +360,12 @@ export default function WaterFuelFactory({
   };
 
   const handleDig = (spot: DigSpotId) => {
-    const next = act({ type: 'DIG', spot }, factoryT(lang, 'digHint'));
-    if (next) setAnnouncement(factoryT(lang, 'iceFound'));
+    const next = act({ type: 'DIG', spot }, 'digHint');
+    if (next) {
+      setAnnouncement(factoryT(lang, 'iceFound'));
+      setGuideKey('iceFound');
+      setGuideVars(undefined);
+    }
   };
 
   const handleOven = (oven: OvenChoice) => {
@@ -287,43 +373,45 @@ export default function WaterFuelFactory({
     const next = applyFactoryAction(game, { type: 'CHOOSE_OVEN', oven });
     setGame(next);
     if (oven === 'open') {
-      showHint(factoryT(lang, 'ovenHint'));
+      showHint('ovenHint');
     } else {
       setAnnouncement(factoryT(lang, 'sealedReady'));
+      setGuideKey('sealedReady');
+      setGuideVars(undefined);
     }
   };
 
   const handleBake = () => {
     if (game.mine.oven !== 'sealed') {
-      showHint(factoryT(lang, 'ovenHint'));
+      showHint('ovenHint');
       return;
     }
-    act({ type: 'BAKE' }, factoryT(lang, 'ovenHint'));
+    act({ type: 'BAKE' }, 'ovenHint');
   };
 
   const handleSplit = () => {
     const next = act({ type: 'SPLIT' });
-    if (next) setAnnouncement(factoryT(lang, 'routeHint'));
+    if (next) {
+      setAnnouncement(factoryT(lang, 'routeHint'));
+      setGuideKey('routeHint');
+      setGuideVars(undefined);
+    }
   };
 
   const handleRoute = (gas: 'o2' | 'h2' | null, to: 'crew' | 'fuel') => {
     if (!gas) return;
-    const next = act(
-      { type: 'ROUTE_GAS', gas, to },
-      factoryT(lang, 'gasHint'),
-    );
+    const next = act({ type: 'ROUTE_GAS', gas, to }, 'gasHint');
     if (!next) return;
     setSelectedGas(null);
     if (!next.electrolysis.done) {
       setAnnouncement(factoryT(lang, 'gasRouted'));
+      setGuideKey('gasRouted');
+      setGuideVars(undefined);
     }
   };
 
   const handleCapture = (molecule: string) => {
-    const next = act(
-      { type: 'CAPTURE', molecule },
-      factoryT(lang, 'moleculeHint'),
-    );
+    const next = act({ type: 'CAPTURE', molecule }, 'moleculeHint');
     if (!next) {
       setWrongMolecule(molecule);
       if (wrongTimerRef.current !== null) {
@@ -335,12 +423,15 @@ export default function WaterFuelFactory({
       }, WRONG_MOLECULE_MS);
       return;
     }
+    const count = next.scrubber.caught.length;
     setAnnouncement(
       factoryT(lang, 'caught', {
-        count: next.scrubber.caught.length,
+        count,
         total: CO2_MOLECULE_IDS.length,
       }),
     );
+    setGuideKey('caught');
+    setGuideVars({ count, total: CO2_MOLECULE_IDS.length });
   };
 
   const handleHeat = () => {
@@ -349,7 +440,11 @@ export default function WaterFuelFactory({
 
   const handleReact = () => {
     const next = act({ type: 'REACT' });
-    if (next) setAnnouncement(factoryT(lang, 'collectHint'));
+    if (next) {
+      setAnnouncement(factoryT(lang, 'collectHint'));
+      setGuideKey('collectHint');
+      setGuideVars(undefined);
+    }
   };
 
   const handleCollect = (
@@ -357,14 +452,13 @@ export default function WaterFuelFactory({
     to: 'fuel' | 'water',
   ) => {
     if (!output) return;
-    const next = act(
-      { type: 'COLLECT_OUTPUT', output, to },
-      factoryT(lang, 'collectHint'),
-    );
+    const next = act({ type: 'COLLECT_OUTPUT', output, to }, 'collectHint');
     if (!next) return;
     setSelectedOutput(null);
     if (!next.reactor.done) {
       setAnnouncement(factoryT(lang, 'outputCollected'));
+      setGuideKey('outputCollected');
+      setGuideVars(undefined);
     }
   };
 
@@ -374,6 +468,8 @@ export default function WaterFuelFactory({
     ] ?? FACTORY_STATIONS[0];
   const done = doneById(game);
   const completed = completedStationCount(game);
+  const caughtCount = game.scrubber.caught.length;
+  const filterFull = caughtCount >= CO2_MOLECULE_IDS.length;
 
   const badge =
     stage === 'playing'
@@ -404,8 +500,15 @@ export default function WaterFuelFactory({
       aria-label={factoryT(lang, 'title')}
       data-testid="factory-game"
     >
+      <div className="factory-world" aria-hidden="true">
+        <span className="factory-world-dust" />
+      </div>
+
       <div className="factory-app">
         <header className="factory-header">
+          <span className="factory-logo" aria-hidden="true">
+            🏭
+          </span>
           <div className="factory-heading">
             <span className="factory-eyebrow">
               {factoryT(lang, 'eyebrow')}
@@ -452,23 +555,17 @@ export default function WaterFuelFactory({
                       aria-label={station.title[lang]}
                       data-testid={`factory-progress-${station.id}`}
                     >
-                      <span
-                        className="factory-progress-icon"
-                        aria-hidden="true"
-                      >
-                        {station.icon}
+                      <span className="factory-progress-node" aria-hidden="true">
+                        <span className="factory-progress-icon">
+                          {station.icon}
+                        </span>
+                        {isDone ? (
+                          <span className="factory-progress-check">✓</span>
+                        ) : null}
                       </span>
                       <span className="factory-progress-label">
                         {station.title[lang]}
                       </span>
-                      {isDone ? (
-                        <span
-                          className="factory-progress-check"
-                          aria-hidden="true"
-                        >
-                          ✓
-                        </span>
-                      ) : null}
                     </li>
                   );
                 })}
@@ -508,62 +605,91 @@ export default function WaterFuelFactory({
                     </div>
                   </header>
 
+                  <Guide message={guide} />
+
                   {current.id === 'mine' ? (
                     <div className="factory-machine">
-                      <div
-                        className="factory-radar"
-                        role="group"
-                        aria-label={factoryT(lang, 'station1Goal')}
-                      >
-                        {DIG_SPOTS.map((spot) => {
-                          const found = game.mine.spot === spot.id;
-                          const correct = spot.id === ICE_SPOT;
-                          return (
-                            <button
-                              key={spot.id}
-                              type="button"
-                              className={`factory-spot${
-                                found ? ' is-found' : ''
-                              }`}
-                              data-correct={correct ? 'true' : undefined}
-                              data-testid={`factory-dig-${spot.id}`}
-                              aria-label={factoryT(lang, 'digSpot', {
-                                spot: spot.label,
-                              })}
-                              disabled={Boolean(game.mine.spot)}
-                              onClick={() => handleDig(spot.id)}
-                            >
-                              <span
-                                className="factory-spot-ping"
-                                aria-hidden="true"
-                              />
-                              <span
-                                className="factory-spot-label"
-                                aria-hidden="true"
+                      <div className="factory-mine-scene">
+                        <span className="factory-mine-moon" aria-hidden="true" />
+                        <span className="factory-mine-rock r1" aria-hidden="true" />
+                        <span className="factory-mine-rock r2" aria-hidden="true" />
+                        <span className="factory-mine-rock r3" aria-hidden="true" />
+                        <div
+                          className="factory-radar"
+                          role="group"
+                          aria-label={factoryT(lang, 'station1Goal')}
+                        >
+                          <span
+                            className="factory-radar-sweep"
+                            aria-hidden="true"
+                          />
+                          {DIG_SPOTS.map((spot) => {
+                            const found = game.mine.spot === spot.id;
+                            const correct = spot.id === ICE_SPOT;
+                            return (
+                              <button
+                                key={spot.id}
+                                type="button"
+                                className={`factory-spot${
+                                  found ? ' is-found' : ''
+                                }`}
+                                data-correct={correct ? 'true' : undefined}
+                                data-testid={`factory-dig-${spot.id}`}
+                                aria-label={factoryT(lang, 'digSpot', {
+                                  spot: spot.label,
+                                })}
+                                disabled={Boolean(game.mine.spot)}
+                                onClick={() => handleDig(spot.id)}
                               >
-                                {spot.label}
-                              </span>
-                              {found ? (
                                 <span
-                                  className="factory-spot-ice"
+                                  className="factory-spot-ping"
+                                  aria-hidden="true"
+                                />
+                                <span
+                                  className="factory-spot-label"
                                   aria-hidden="true"
                                 >
-                                  🧊
+                                  {spot.label}
                                 </span>
-                              ) : null}
-                            </button>
-                          );
-                        })}
+                                {found ? (
+                                  <span
+                                    className="factory-spot-ice"
+                                    aria-hidden="true"
+                                  >
+                                    🧊
+                                  </span>
+                                ) : null}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {game.mine.spot ? (
+                          <span className="factory-ice-pop" aria-hidden="true">
+                            🧊
+                          </span>
+                        ) : null}
                       </div>
 
-                      <div className="factory-flow" aria-hidden="true">
-                        <span>💧</span>
-                        <span className="factory-flow-arrow">→</span>
+                      <div
+                        className={`factory-flow${
+                          game.mine.done ? ' is-live' : ''
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <span className="factory-flow-node">🧊</span>
+                        <span className="factory-flow-pipe">
+                          <i />
+                          <i />
+                          <i />
+                        </span>
                         <span className="factory-flow-label">
                           {factoryT(lang, 'saltFilter')}
                         </span>
-                        <span className="factory-flow-arrow">→</span>
-                        <span>🛢️</span>
+                        <span className="factory-flow-pipe">
+                          <i />
+                          <i />
+                        </span>
+                        <span className="factory-flow-node">🛢️</span>
                       </div>
 
                       {game.mine.spot ? (
@@ -583,6 +709,7 @@ export default function WaterFuelFactory({
                               aria-pressed={game.mine.oven === 'sealed'}
                               onClick={() => handleOven('sealed')}
                             >
+                              <span aria-hidden="true">🔒</span>
                               {factoryT(lang, 'ovenSealed')}
                             </button>
                             <button
@@ -596,6 +723,7 @@ export default function WaterFuelFactory({
                               aria-pressed={game.mine.oven === 'open'}
                               onClick={() => handleOven('open')}
                             >
+                              <span aria-hidden="true">🥘</span>
                               {factoryT(lang, 'ovenOpen')}
                             </button>
                           </div>
@@ -606,6 +734,7 @@ export default function WaterFuelFactory({
                               data-testid="factory-bake"
                               onClick={handleBake}
                             >
+                              <span aria-hidden="true">🔥</span>{' '}
                               {factoryT(lang, 'bake')}
                             </button>
                           ) : null}
@@ -624,6 +753,23 @@ export default function WaterFuelFactory({
 
                   {current.id === 'electrolysis' ? (
                     <div className="factory-machine">
+                      <div
+                        className={`factory-electro-scene${
+                          game.electrolysis.split ? ' is-splitting' : ''
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <div className="factory-water-tank">
+                          <span className="factory-water-fill" />
+                          <span className="factory-water-bubble wb1" />
+                          <span className="factory-water-bubble wb2" />
+                          <span className="factory-water-bubble wb3" />
+                        </div>
+                        <span className="factory-electro-bolt">⚡</span>
+                        <span className="factory-gas-puff gp1">O₂</span>
+                        <span className="factory-gas-puff gp2">H₂</span>
+                      </div>
+
                       {!game.electrolysis.split ? (
                         <button
                           type="button"
@@ -631,6 +777,7 @@ export default function WaterFuelFactory({
                           data-testid="factory-power"
                           onClick={handleSplit}
                         >
+                          <span aria-hidden="true">⚡</span>{' '}
                           {factoryT(lang, 'power')}
                         </button>
                       ) : (
@@ -645,7 +792,7 @@ export default function WaterFuelFactory({
                                 <button
                                   key={gas}
                                   type="button"
-                                  className={`factory-gas${
+                                  className={`factory-gas factory-gas-${gas}${
                                     selectedGas === gas ? ' is-selected' : ''
                                   }${gasDone ? ' is-done' : ''}`}
                                   data-testid={`factory-gas-${gas}`}
@@ -674,7 +821,10 @@ export default function WaterFuelFactory({
                               onClick={() => handleRoute(selectedGas, 'crew')}
                             >
                               <span aria-hidden="true">🧑‍🚀</span>
-                              {factoryT(lang, 'crewAir')}
+                              <span className="factory-tank-name">
+                                {factoryT(lang, 'crewAir')}
+                              </span>
+                              <TankGauge filled={game.electrolysis.o2} />
                             </button>
                             <button
                               type="button"
@@ -684,7 +834,10 @@ export default function WaterFuelFactory({
                               onClick={() => handleRoute(selectedGas, 'fuel')}
                             >
                               <span aria-hidden="true">⛽</span>
-                              {factoryT(lang, 'fuelTank')}
+                              <span className="factory-tank-name">
+                                {factoryT(lang, 'fuelTank')}
+                              </span>
+                              <TankGauge filled={game.electrolysis.h2} />
                             </button>
                           </div>
                           <p className="factory-hint-text">
@@ -697,62 +850,83 @@ export default function WaterFuelFactory({
 
                   {current.id === 'scrubber' ? (
                     <div className="factory-machine">
-                      <div
-                        className="factory-air"
-                        role="group"
-                        aria-label={factoryT(lang, 'station3Goal')}
-                      >
-                        {AIR_MOLECULES.map((molecule) => {
-                          const caught = game.scrubber.caught.includes(
-                            molecule.id,
-                          );
-                          return (
-                            <button
-                              key={molecule.id}
-                              type="button"
-                              className={`factory-molecule${
-                                caught ? ' is-caught' : ''
-                              }${
-                                wrongMolecule === molecule.id
-                                  ? ' is-wrong'
-                                  : ''
-                              }`}
-                              data-testid={`factory-molecule-${molecule.id}`}
-                              disabled={caught || game.scrubber.released}
-                              onClick={() => handleCapture(molecule.id)}
-                            >
-                              <span className="factory-molecule-label">
-                                {molecule.label}
-                              </span>
-                              {caught ? (
-                                <span
-                                  className="factory-molecule-check"
-                                  aria-hidden="true"
-                                >
-                                  ✓
+                      <div className="factory-scrubber-scene">
+                        <div
+                          className={`factory-filter${
+                            filterFull ? ' is-full' : ''
+                          }${game.scrubber.released ? ' is-released' : ''}`}
+                          aria-hidden="true"
+                        >
+                          <span className="factory-filter-drum">🫧</span>
+                          <span className="factory-filter-slots">
+                            {CO2_MOLECULE_IDS.map((id, index) => (
+                              <i
+                                key={id}
+                                className={
+                                  index < caughtCount ? 'is-lit' : ''
+                                }
+                              />
+                            ))}
+                          </span>
+                          <span className="factory-filter-puff">CO₂</span>
+                        </div>
+                        <div
+                          className="factory-air"
+                          role="group"
+                          aria-label={factoryT(lang, 'station3Goal')}
+                        >
+                          {AIR_MOLECULES.map((molecule) => {
+                            const caught = game.scrubber.caught.includes(
+                              molecule.id,
+                            );
+                            return (
+                              <button
+                                key={molecule.id}
+                                type="button"
+                                className={`factory-molecule factory-molecule-${molecule.id}${
+                                  caught ? ' is-caught' : ''
+                                }${
+                                  wrongMolecule === molecule.id
+                                    ? ' is-wrong'
+                                    : ''
+                                }`}
+                                data-testid={`factory-molecule-${molecule.id}`}
+                                disabled={caught || game.scrubber.released}
+                                onClick={() => handleCapture(molecule.id)}
+                              >
+                                <span className="factory-molecule-label">
+                                  {molecule.label}
                                 </span>
-                              ) : null}
-                            </button>
-                          );
-                        })}
+                                {caught ? (
+                                  <span
+                                    className="factory-molecule-check"
+                                    aria-hidden="true"
+                                  >
+                                    ✓
+                                  </span>
+                                ) : null}
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
                       <p className="factory-note">
                         {factoryT(lang, 'sampleNote')}
                       </p>
                       <p className="factory-count" data-testid="factory-caught-count">
                         {factoryT(lang, 'caught', {
-                          count: game.scrubber.caught.length,
+                          count: caughtCount,
                           total: CO2_MOLECULE_IDS.length,
                         })}
                       </p>
-                      {game.scrubber.caught.length >=
-                      CO2_MOLECULE_IDS.length ? (
+                      {filterFull ? (
                         <button
                           type="button"
                           className="factory-button factory-primary"
                           data-testid="factory-heat"
                           onClick={handleHeat}
                         >
+                          <span aria-hidden="true">🔥</span>{' '}
                           {factoryT(lang, 'heat')}
                         </button>
                       ) : null}
@@ -764,6 +938,18 @@ export default function WaterFuelFactory({
 
                   {current.id === 'reactor' ? (
                     <div className="factory-machine">
+                      <div
+                        className={`factory-reactor-scene${
+                          game.reactor.reacted ? ' is-hot' : ''
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <span className="factory-reactor-ring" />
+                        <span className="factory-reactor-core">🔥</span>
+                        <span className="factory-reactor-out o1">CH₄</span>
+                        <span className="factory-reactor-out o2">H₂O</span>
+                      </div>
+
                       {!game.reactor.reacted ? (
                         <button
                           type="button"
@@ -771,6 +957,7 @@ export default function WaterFuelFactory({
                           data-testid="factory-react"
                           onClick={handleReact}
                         >
+                          <span aria-hidden="true">⚙️</span>{' '}
                           {factoryT(lang, 'react')}
                         </button>
                       ) : (
@@ -785,7 +972,7 @@ export default function WaterFuelFactory({
                                 <button
                                   key={output}
                                   type="button"
-                                  className={`factory-gas${
+                                  className={`factory-gas factory-gas-${output}${
                                     selectedOutput === output
                                       ? ' is-selected'
                                       : ''
@@ -818,7 +1005,10 @@ export default function WaterFuelFactory({
                               }
                             >
                               <span aria-hidden="true">⛽</span>
-                              {factoryT(lang, 'fuelTank')}
+                              <span className="factory-tank-name">
+                                {factoryT(lang, 'fuelTank')}
+                              </span>
+                              <TankGauge filled={game.reactor.methane} />
                             </button>
                             <button
                               type="button"
@@ -830,7 +1020,10 @@ export default function WaterFuelFactory({
                               }
                             >
                               <span aria-hidden="true">💧</span>
-                              {factoryT(lang, 'waterTank')}
+                              <span className="factory-tank-name">
+                                {factoryT(lang, 'waterTank')}
+                              </span>
+                              <TankGauge filled={game.reactor.water} />
                             </button>
                           </div>
                         </>
@@ -874,11 +1067,23 @@ export default function WaterFuelFactory({
                 </p>
               </div>
               <div className="factory-intro-art" aria-hidden="true">
-                {FACTORY_STATIONS.map((station) => (
-                  <span key={station.id} className="factory-intro-tile">
-                    {station.icon}
+                <div className="factory-hero">
+                  <span className="factory-hero-moon" />
+                  <span className="factory-hero-hill h1" />
+                  <span className="factory-hero-hill h2" />
+                  <span className="factory-hero-machine m1">⛏️</span>
+                  <span className="factory-hero-pipe p1" />
+                  <span className="factory-hero-machine m2">⚡</span>
+                  <span className="factory-hero-pipe p2" />
+                  <span className="factory-hero-machine m3">🫧</span>
+                  <span className="factory-hero-pipe p3" />
+                  <span className="factory-hero-machine m4">🔥</span>
+                  <span className="factory-hero-smoke s1" />
+                  <span className="factory-hero-smoke s2" />
+                  <span className="factory-hero-cat">
+                    <img src="/brand/avatar-silver-512.webp" alt="" />
                   </span>
-                ))}
+                </div>
               </div>
               <div className="factory-panel-actions">
                 <button
@@ -887,7 +1092,7 @@ export default function WaterFuelFactory({
                   onClick={startGame}
                   data-testid="factory-start"
                 >
-                  {factoryT(lang, 'start')}
+                  <span aria-hidden="true">▶</span> {factoryT(lang, 'start')}
                 </button>
                 <button
                   type="button"
@@ -903,13 +1108,21 @@ export default function WaterFuelFactory({
 
           {stage === 'result' && result ? (
             <div className="factory-panel factory-result" data-testid="factory-result">
+              <Confetti count={24} />
               <div className="factory-result-body">
-                <p className="factory-kicker">
-                  {factoryT(lang, 'eyebrow')}
-                </p>
-                <h3 className="factory-panel-title">
-                  {factoryT(lang, 'resultTitle')}
-                </h3>
+                <div className="factory-result-hero">
+                  <span className="factory-result-trophy" aria-hidden="true">
+                    🏆
+                  </span>
+                  <div>
+                    <p className="factory-kicker">
+                      {factoryT(lang, 'eyebrow')}
+                    </p>
+                    <h3 className="factory-panel-title">
+                      {factoryT(lang, 'resultTitle')}
+                    </h3>
+                  </div>
+                </div>
                 <p className="factory-body">{factoryT(lang, 'resultBody')}</p>
                 <div className="factory-result-stats">
                   <div className="factory-stat">
@@ -921,6 +1134,12 @@ export default function WaterFuelFactory({
                     </span>
                     <span className="factory-stat-label">
                       {factoryT(lang, 'stationsLabel')}
+                    </span>
+                  </div>
+                  <div className="factory-stat factory-stat-cheer">
+                    <span className="factory-stat-value">★★★</span>
+                    <span className="factory-stat-label">
+                      {factoryT(lang, 'guideResult')}
                     </span>
                   </div>
                 </div>
@@ -1019,6 +1238,10 @@ export default function WaterFuelFactory({
                 </button>
               </div>
             </div>
+          ) : null}
+
+          {burst > 0 && stage !== 'result' ? (
+            <Confetti key={`burst-${burst}`} count={16} />
           ) : null}
 
           {toast ? (
