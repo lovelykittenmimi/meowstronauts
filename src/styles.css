@@ -575,6 +575,8 @@ h1 {
   overflow: hidden;
 }
 
+/* The captain's log is a page from the crew's notebook: cream paper, ruled
+   lines, punched holes down the margin, and a weather note taped on. */
 .briefing-card {
   display: flex;
   flex-direction: column;
@@ -583,10 +585,31 @@ h1 {
   max-height: 56%;
   padding: 0;
   overflow: hidden;
-  background: var(--paper);
+  background-color: #fbf4e2;
+  background-image:
+    radial-gradient(circle at 7px 16px, rgba(23, 32, 51, 0.24) 3.4px, transparent 3.9px),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 30px,
+      rgba(27, 42, 91, 0.09) 30px 31px
+    );
+  background-size: 14px 32px, auto;
+  background-repeat: repeat-y, repeat;
+  background-position: 0 10px, 0 10px;
   border: 3px solid var(--navy);
   border-radius: calc(var(--radius) + 8px);
   box-shadow: var(--shadow);
+}
+
+/* The title reads as a stamp pressed onto the page. */
+.briefing-body > .eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 3px 12px;
+  border: 2px dashed var(--rust);
+  border-radius: 10px;
+  background: rgba(184, 92, 56, 0.08);
+  transform: rotate(-1.2deg);
 }
 
 .briefing-body {
@@ -595,15 +618,32 @@ h1 {
   overflow-y: auto;
 }
 
+/* The weather is a clipping taped onto the log page. */
 .weather-strip {
+  position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
   margin: 18px 0 6px;
   padding: 14px 16px;
-  background: var(--paper-2);
-  border-radius: 14px;
+  background: #f4e8cd;
+  border: 2px dashed rgba(154, 74, 43, 0.4);
+  border-radius: 10px;
+  transform: rotate(-0.6deg);
+}
+
+.weather-strip::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 64px;
+  height: 17px;
+  transform: translateX(-50%) rotate(1.6deg);
+  background: rgba(232, 163, 61, 0.42);
+  border-radius: 2px;
+  pointer-events: none;
 }
 
 .weather-strip strong {
@@ -695,8 +735,15 @@ h1 {
   justify-content: space-between;
   gap: 14px;
   padding: 12px clamp(20px, 3.6vw, 38px) clamp(14px, 2.4vw, 20px);
-  background: var(--paper);
-  border-top: 2px solid var(--silver);
+  /* Keep the page grain running through the footer instead of a panel. */
+  background: transparent;
+  border-top: 2px dashed rgba(27, 42, 91, 0.3);
+}
+
+/* Let the incident line wrap; the button keeps its two words on one line. */
+.briefing-next .primary-button {
+  flex: none;
+  white-space: nowrap;
 }
 
 /* Sol switcher ---------------------------------------------------------- */
@@ -2416,6 +2463,12 @@ h1 {
   .weather-strip {
     margin: 6px 0 2px;
     padding: 6px 8px;
+    /* Too tight here for a tilted clipping and its tape. */
+    transform: none;
+  }
+
+  .weather-strip::before {
+    display: none;
   }
 
   .weather-strip strong {
