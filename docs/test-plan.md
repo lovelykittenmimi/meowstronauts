@@ -57,7 +57,7 @@
 - [ ] 歸零懲罰只套一次：power 0 → health −20；lifeSupport 0 → −25；shield 0 → −15；food 0 → −10。
 - [ ] `health ≤ 0` → 任務暫停，不再進下一個 sol。
 - [ ] 選項效果套用 `duration`；`duration > 1` 時後續 sol 仍生效，到期後停止。
-- [ ] 風險選項失敗時用 `risk.effects`，不是成功 effects 疊加。
+- [ ] 風險選項失敗時用 `risk.effects`（不是成功 effects 疊加），並顯示 `risk.outcome`；成功時顯示 `outcome`。
 
 ### 3.2 牌庫與條件
 
