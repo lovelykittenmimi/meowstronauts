@@ -33,8 +33,8 @@ export const SIGNAL_COPY = {
   optionSeconds: { en: 'About {minutes} seconds', 'zh-TW': '大約 {minutes} 秒' },
   optionMinutes: { en: 'About {minutes} minutes', 'zh-TW': '大約 {minutes} 分鐘' },
   optionRoundTrip: {
-    en: 'About {minutes} minutes — there and back',
-    'zh-TW': '大約 {minutes} 分鐘（去和回）',
+    en: 'About {minutes} minutes',
+    'zh-TW': '大約 {minutes} 分鐘',
   },
   hintSeconds: {
     en: 'Radio waves cross space in minutes, not seconds. A light-minute is one minute of travel.',
