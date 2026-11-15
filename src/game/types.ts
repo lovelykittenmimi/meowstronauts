@@ -38,6 +38,8 @@ export type EffectMap = Partial<Record<ResourceKey, number>>;
 export interface Risk {
   chance: number;
   effects: EffectMap;
+  /** Shown when the roll fails; the success text is `Choice.outcome`. */
+  outcome: Localized;
 }
 
 export interface Choice {

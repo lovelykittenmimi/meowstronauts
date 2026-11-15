@@ -92,7 +92,14 @@ export const EVENT_CARDS: EventCard[] = [
         id: 'shake',
         label: l('Shake off the dust', '震動除塵'),
         effects: { power: 8, health: -1 },
-        risk: { chance: 0.2, effects: { power: -5, health: -3 } },
+        risk: {
+          chance: 0.2,
+          effects: { power: -5, health: -3 },
+          outcome: l(
+            'The panels shudder, then the mechanism jams. The dust stays, and the crew spends the rest of the day freeing it.',
+            '太陽能板震了一下就卡住。沙塵還留在板上，大家花了大半天才把機械鬆開。',
+          ),
+        },
         outcome: l(
           'The panels shake. Most dust falls off — if the mechanism holds.',
           '太陽能板開始震動，震落了大部分沙塵——前提是機械結構撐得住。',
@@ -293,7 +300,14 @@ export const EVENT_CARDS: EventCard[] = [
         id: 'filter',
         label: l('Change the filter by hand', '手動更換濾芯'),
         effects: { lifeSupport: 10, health: -6 },
-        risk: { chance: 0.2, effects: { lifeSupport: -6, health: -6 } },
+        risk: {
+          chance: 0.2,
+          effects: { lifeSupport: -6, health: -6 },
+          outcome: l(
+            'The old filter crumbles as it comes out, and dust puffs into the cabin before Silver seals the housing.',
+            '舊濾芯一拉出來就碎了，粉塵噴進艙內，銀白才趕緊把外殼封上。',
+          ),
+        },
         outcome: l(
           'Silver opens the filter housing. It is a dusty, risky job.',
           '銀白打開濾芯外殼。這是個有粉塵、有風險的工作。',
@@ -387,7 +401,14 @@ export const EVENT_CARDS: EventCard[] = [
         id: 'monitor',
         label: l('Monitor first', '先監測'),
         effects: { power: -2, science: 2 },
-        risk: { chance: 0.25, effects: { power: -2, shield: -15, science: 2 } },
+        risk: {
+          chance: 0.25,
+          effects: { power: -2, shield: -15, science: 2 },
+          outcome: l(
+            'The breach widens while the crew watches. A whole layer of shielding flakes away before the hole is sealed.',
+            '船員觀察的時候，破洞變大了。一整層遮蔽剝落，才終於把洞封住。',
+          ),
+        },
         outcome: l(
           'The crew watches the breach. Maybe it will hold.',
           '船員先觀察破洞。也許它撐得住。',
@@ -428,7 +449,14 @@ export const EVENT_CARDS: EventCard[] = [
         id: 'key-points',
         label: l('Check key points', '只查重點'),
         effects: { power: -2, shield: 6 },
-        risk: { chance: 0.2, effects: { power: -2, shield: -6 } },
+        risk: {
+          chance: 0.2,
+          effects: { power: -2, shield: -6 },
+          outcome: l(
+            'One of the seams nobody checked is loose. The team has to start the inspection over.',
+            '有一道沒檢查到的接縫鬆了，大家只好從頭再檢查一遍。',
+          ),
+        },
         outcome: l(
           'Silver checks the main seals. The rest will have to wait.',
           '銀白檢查主要接縫，其餘的只能再等。',
@@ -583,7 +611,14 @@ export const EVENT_CARDS: EventCard[] = [
         id: 'decide',
         label: l('Decide ourselves', '自己決定'),
         effects: { health: -2, science: 1 },
-        risk: { chance: 0.3, effects: { health: -6, science: 1 } },
+        risk: {
+          chance: 0.3,
+          effects: { health: -6, science: 1 },
+          outcome: l(
+            'The crew guesses wrong. Earth’s answer would have helped, and now everyone is worn out.',
+            '大家猜錯了。地球的答案本來幫得上忙，現在所有人都累壞了。',
+          ),
+        },
         outcome: l(
           'The crew acts without waiting. Sometimes that is the right call.',
           '大家不等了，直接行動。有時候當機立斷才是對的。',

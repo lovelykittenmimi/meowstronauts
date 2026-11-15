@@ -96,8 +96,10 @@ export const STRINGS = {
   'event.continue': { en: 'Continue', 'zh-TW': '繼續' },
   'event.newCard': { en: 'New knowledge card', 'zh-TW': '獲得新的知識卡' },
   'event.riskRoll': { en: 'Risk roll', 'zh-TW': '風險骰子' },
-  'event.riskHit': { en: 'it hit', 'zh-TW': '觸發了' },
-  'event.riskMiss': { en: 'it held', 'zh-TW': '撐過了' },
+  'event.riskSuccess': { en: 'Success', 'zh-TW': '成功' },
+  'event.riskFailure': { en: 'Failure', 'zh-TW': '失敗' },
+  'event.riskHit': { en: 'the risk happened', 'zh-TW': '風險發生了' },
+  'event.riskMiss': { en: 'the risk did not happen', 'zh-TW': '風險沒有發生' },
   'rest.photos.title': { en: 'Crew photo album', 'zh-TW': '船員相簿' },
   'rest.photo.landscape': {
     en: 'Gale Crater, Mars',

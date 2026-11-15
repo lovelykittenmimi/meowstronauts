@@ -333,23 +333,23 @@ export function EventCardView({
 
         {isResult && (
           <section className="result-panel" data-testid="result-panel">
-            <p className={`result-status ${state.lastSuccess ? 'result-ok' : 'result-bad'}`}>
-              {state.lastSuccess ? t(lang, 'event.success') : t(lang, 'event.failed')}
-            </p>
             {chosen?.risk && (
-              <p
+              <div
                 className={`risk-roll ${state.lastSuccess ? 'risk-held' : 'risk-hit'}`}
                 data-testid="risk-roll"
               >
                 <span className="risk-die" aria-hidden="true" />
-                <span className="risk-roll-label">{t(lang, 'event.riskRoll')}</span>
-                <span className="risk-roll-odds">
-                  {Math.round(chosen.risk.chance * 100)}%
+                <span className="risk-roll-copy">
+                  <span className="risk-roll-label">
+                    {t(lang, 'event.riskRoll')} · {Math.round(chosen.risk.chance * 100)}%
+                  </span>
+                  <strong className="risk-roll-outcome">
+                    {state.lastSuccess
+                      ? `${t(lang, 'event.riskSuccess')} — ${t(lang, 'event.riskMiss')}`
+                      : `${t(lang, 'event.riskFailure')} — ${t(lang, 'event.riskHit')}`}
+                  </strong>
                 </span>
-                <span className="risk-roll-outcome">
-                  {state.lastSuccess ? t(lang, 'event.riskMiss') : t(lang, 'event.riskHit')}
-                </span>
-              </p>
+              </div>
             )}
             <h2>{t(lang, 'event.result')}</h2>
             <p className="result-outcome">

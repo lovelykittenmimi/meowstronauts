@@ -72,6 +72,20 @@ describe('daily resolution', () => {
     expect(state.resources.health).toBe(97);
     expect(state.lastSuccess).toBe(false);
     expect(state.history.at(-1)?.effects).toEqual({ power: -5, health: -3 });
+
+    const shake = EVENT_BY_ID.get('P1')!.choices.find((choice) => choice.id === 'shake')!;
+    expect(state.lastOutcome).toEqual(shake.risk!.outcome);
+    expect(state.lastOutcome).not.toEqual(shake.outcome);
+  });
+
+  it('keeps the normal outcome when the risk roll holds', () => {
+    let state = started();
+    state = gameReducer(state, { type: 'OPEN_EVENT', eventId: 'P1' });
+    state = gameReducer(state, { type: 'CHOOSE', choiceId: 'shake', roll: 0.99 });
+
+    const shake = EVENT_BY_ID.get('P1')!.choices.find((choice) => choice.id === 'shake')!;
+    expect(state.lastSuccess).toBe(true);
+    expect(state.lastOutcome).toEqual(shake.outcome);
   });
 
   it('clamps every resource and pauses on zero health', () => {

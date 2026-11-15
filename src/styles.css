@@ -1035,14 +1035,36 @@ h1 {
   color: var(--coral-ink);
 }
 
-/* Risk dice: shows the gamble that used to be invisible. */
+/* Risk dice: one boxed verdict so a failed roll cannot be mistaken for an error. */
 .risk-roll {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 2px 0 10px;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border: 2px solid currentColor;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 700;
+}
+
+.risk-roll-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.risk-roll-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.risk-roll-outcome {
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .risk-die {
@@ -1068,18 +1090,19 @@ h1 {
 .risk-die::before { top: 5px; left: 5px; box-shadow: 6px 0 0 currentColor; }
 .risk-die::after { bottom: 5px; right: 5px; box-shadow: -6px 0 0 currentColor; }
 
-.risk-held { color: var(--teal-ink); }
-.risk-hit { color: var(--coral-ink); }
-.risk-hit .risk-die { animation: risk-tumble 520ms ease-out, risk-shake 360ms 520ms ease-in-out; }
-
-.risk-roll-odds {
-  padding: 1px 8px;
-  border-radius: 999px;
-  background: rgba(23, 32, 51, 0.08);
-  font-size: 12px;
+.risk-held {
+  border-color: var(--teal);
+  background: #e4f1ef;
+  color: var(--teal-ink);
 }
 
-.risk-roll-outcome { text-transform: lowercase; }
+.risk-hit {
+  border-color: var(--coral);
+  background: #fbe4df;
+  color: var(--coral-ink);
+}
+
+.risk-hit .risk-die { animation: risk-tumble 520ms ease-out, risk-shake 360ms 520ms ease-in-out; }
 
 @keyframes risk-tumble {
   from { transform: rotate(-140deg) scale(0.6); opacity: 0; }

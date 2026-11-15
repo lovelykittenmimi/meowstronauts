@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { EVENT_BY_ID } from '../game/events';
 import { createInitialState } from '../game/reducer';
 import type { GameState } from '../game/types';
 import { buildVideoState } from '../game/video';
@@ -177,7 +178,11 @@ describe('S1 shelter drill integration', () => {
   });
 });
 
-function renderResult(eventId: string, choiceId: string) {
+function renderResult(
+  eventId: string,
+  choiceId: string,
+  overrides: Partial<GameState> = {},
+) {
   const state: GameState = {
     ...createInitialState('officer', 'en'),
     phase: 'result',
@@ -186,6 +191,7 @@ function renderResult(eventId: string, choiceId: string) {
     lastSuccess: true,
     lastEffects: { health: 6, power: -7 },
     sol: 1,
+    ...overrides,
   };
   return render(
     <EventCardView
@@ -362,5 +368,41 @@ describe('water & fuel factory entry', () => {
   it('stays out when the prop is withheld (video mode)', () => {
     renderChoiceCard('L1', vi.fn());
     expect(screen.queryByTestId('event-factory-practice')).toBeNull();
+  });
+});
+
+describe('risk roll result', () => {
+  const shake = EVENT_BY_ID.get('P1')!.choices.find((choice) => choice.id === 'shake')!;
+
+  it('boxes a failed roll and shows the failure outcome', () => {
+    renderResult('P1', 'shake', {
+      lastSuccess: false,
+      lastEffects: { power: -5, health: -3 },
+      lastOutcome: shake.risk!.outcome,
+    });
+
+    const roll = screen.getByTestId('risk-roll');
+    expect(roll.className).toContain('risk-hit');
+    expect(roll.textContent).toContain('Failure');
+    expect(roll.textContent).toContain('the risk happened');
+    expect(screen.getByText(/mechanism jams/)).toBeTruthy();
+  });
+
+  it('boxes a held roll and shows the normal outcome', () => {
+    renderResult('P1', 'shake', { lastOutcome: shake.outcome });
+
+    const roll = screen.getByTestId('risk-roll');
+    expect(roll.className).toContain('risk-held');
+    expect(roll.textContent).toContain('Success');
+    expect(roll.textContent).toContain('the risk did not happen');
+    expect(screen.getByText(/if the mechanism holds/)).toBeTruthy();
+  });
+
+  it('shows no success or failure badge for a choice without risk', () => {
+    renderResult('SC2', 'radar');
+
+    expect(screen.queryByTestId('risk-roll')).toBeNull();
+    expect(screen.queryByText('It worked.')).toBeNull();
+    expect(screen.queryByText('It went wrong.')).toBeNull();
   });
 });

@@ -196,7 +196,7 @@ function handleChoose(
     lastChoiceId: choice.id,
     lastSuccess: !failed,
     lastEffects: effects,
-    lastOutcome: choice.outcome,
+    lastOutcome: failed && choice.risk ? choice.risk.outcome : choice.outcome,
   };
 }
 
