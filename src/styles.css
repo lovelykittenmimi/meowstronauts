@@ -605,9 +605,11 @@ h1 {
 .briefing-body > .eyebrow {
   display: inline-block;
   margin: 0 0 10px;
-  padding: 3px 12px;
+  padding: 4px 14px;
   border: 2px dashed var(--rust);
   border-radius: 10px;
+  /* A touch larger than the other eyebrows: it is the page's title. */
+  font-size: 15px;
   background: rgba(184, 92, 56, 0.08);
   transform: rotate(-1.2deg);
 }
