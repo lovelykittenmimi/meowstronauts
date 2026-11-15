@@ -59,7 +59,6 @@ are never presented as live data.
 | `.github/workflows/ci.yml` | CI skeleton; runs lint/test/build once `package.json` exists |
 | `src/data/` | Trimmed offline snapshots and Mars photos |
 | `scripts/` | Snapshot fetch script and raw download inputs |
-| `tools/video/` | Standalone 30-second video pipeline: title card, SRT, Playwright capture, ffmpeg assembly |
 | `output/` | Local video output (git-ignored) |
 
 ## Language

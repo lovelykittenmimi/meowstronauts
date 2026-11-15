@@ -28,14 +28,5 @@ src/assets/gemini_generated_video_*.mp4
 # local Claude Code settings — machine-specific, never shared
 .claude/
 
-# video music stays local; license and credits are in the adjacent CREDITS.md
-tools/video/assets/music/*
-!tools/video/assets/music/CREDITS.md
-
-# local-only video test scaffolding (kept on the recording machine)
-tools/video/capture-test.mjs
-tools/video/assemble-test.mjs
-tools/video/make-test-voice.ps1
-tools/video/make-narration-test.ps1
-tools/video/test.srt
-tools/video/narration.txt
+# the 30-second video pipeline and its footage stay on the recording machine
+tools/video/

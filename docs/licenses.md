@@ -62,7 +62,7 @@
 | **Space** — PaulYudin（1:58）<https://pixabay.com/music/607605/> | Pixabay Content License | 30 秒 demo 背景音樂（預設）；頁面標示 **Content ID Registered** |
 | **Space Ambient** — Monume（1:53）<https://pixabay.com/music/498030/> | Pixabay Content License | 備選；頁面標示 **Content ID Registered** |
 
-- Pixabay Content License：可商用、可修改、**不需署名**；不得把曲目本身單獨再散布。檔案與下載日期（2026-11-14）見 `tools/video/assets/music/CREDITS.md`。
+- Pixabay Content License：可商用、可修改、**不需署名**；不得把曲目本身單獨再散布。檔案與下載日期（2026-11-14）記在錄影機上的 `tools/video/assets/music/CREDITS.md`（影片工具不進 repo）。
 - Content ID Registered 代表上傳 YouTube 可能被自動 claim；**claim 不是 strike**，保留曲目頁截圖與授權依據，在 YouTube Studio 選「我有許可或授權」申訴。
 - 只用在影片；遊戲 build 不含音樂檔。音樂不是 NASA 音訊，不宣稱與 NASA 有關。
 
