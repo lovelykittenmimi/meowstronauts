@@ -593,7 +593,8 @@ h1 {
 }
 
 .hop-practice-button,
-.food-practice-button {
+.food-practice-button,
+.factory-practice-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -608,7 +609,8 @@ h1 {
 }
 
 .hop-practice-button:hover,
-.food-practice-button:hover {
+.food-practice-button:hover,
+.factory-practice-button:hover {
   background: #d3e9e6;
 }
 

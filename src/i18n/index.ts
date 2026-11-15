@@ -48,6 +48,10 @@ export const STRINGS = {
     en: 'Try the space food flip',
     'zh-TW': '試試太空食物翻卡',
   },
+  'briefing.factoryGame': {
+    en: 'Try the water & fuel factory',
+    'zh-TW': '試試水與燃料工廠',
+  },
   'briefing.snapshot': {
     en: 'Historical snapshot, not live data or a forecast.',
     'zh-TW': '歷史快照，不是即時資料，也不是預報。',

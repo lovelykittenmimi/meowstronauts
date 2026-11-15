@@ -12,6 +12,7 @@ function renderBriefing(
   sol = 4,
   onHopPractice?: () => void,
   onFoodPractice?: () => void,
+  onFactoryPractice?: () => void,
 ) {
   const event = EVENT_BY_ID.get(eventId);
   if (!event) throw new Error(`unknown event ${eventId}`);
@@ -23,6 +24,7 @@ function renderBriefing(
       onTerm={() => {}}
       onHopPractice={onHopPractice}
       onFoodPractice={onFoodPractice}
+      onFactoryPractice={onFactoryPractice}
     />,
   );
 }
@@ -97,5 +99,33 @@ describe('space food flip entry', () => {
 
     renderBriefing('T1', 6, undefined, () => {});
     expect(screen.queryByTestId('food-practice')).toBeNull();
+  });
+});
+
+describe('water & fuel factory entry', () => {
+  it('offers the factory on a middle sol and calls back', () => {
+    let opened = 0;
+    renderBriefing('T1', 4, undefined, undefined, () => {
+      opened += 1;
+    });
+
+    const button = screen.getByTestId('factory-practice');
+    expect(button.textContent).toContain('water & fuel factory');
+    fireEvent.click(button);
+    expect(opened).toBe(1);
+  });
+
+  it('shows the factory on Sol 1 and Sol 7 too', () => {
+    renderBriefing('T1', 1, undefined, undefined, () => {});
+    expect(screen.getByTestId('factory-practice')).toBeTruthy();
+    cleanup();
+
+    renderBriefing('T1', 7, undefined, undefined, () => {});
+    expect(screen.getByTestId('factory-practice')).toBeTruthy();
+  });
+
+  it('stays out of the briefing when video mode withholds the prop', () => {
+    renderBriefing('T1', 4);
+    expect(screen.queryByTestId('factory-practice')).toBeNull();
   });
 });

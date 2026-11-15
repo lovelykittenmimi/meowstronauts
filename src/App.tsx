@@ -7,6 +7,7 @@ import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
 import LanderOverlay from './minigames/LanderOverlay';
 import RadiationOverlay from './minigames/RadiationOverlay';
+import WaterFuelFactory from './minigames/factory/WaterFuelFactory';
 import SpaceFoodFlip from './minigames/food/SpaceFoodFlip';
 import LowGravityHop from './minigames/hop/LowGravityHop';
 import { Backpack } from './ui/Backpack';
@@ -72,6 +73,7 @@ export default function App() {
   const [landerOpen, setLanderOpen] = useState(false);
   const [hopOpen, setHopOpen] = useState(false);
   const [foodOpen, setFoodOpen] = useState(false);
+  const [factoryOpen, setFactoryOpen] = useState(false);
   const [radiationOpen, setRadiationOpen] = useState(false);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
@@ -133,6 +135,7 @@ export default function App() {
     setRadiationOpen(false);
     setHopOpen(false);
     setFoodOpen(false);
+    setFactoryOpen(false);
   };
 
   const openShelter = () => {
@@ -140,6 +143,15 @@ export default function App() {
     setLanderOpen(false);
     setHopOpen(false);
     setFoodOpen(false);
+    setFactoryOpen(false);
+  };
+
+  const openFactory = () => {
+    setFactoryOpen(true);
+    setLanderOpen(false);
+    setHopOpen(false);
+    setFoodOpen(false);
+    setRadiationOpen(false);
   };
 
   if (opening) {
@@ -279,6 +291,7 @@ export default function App() {
               onTerm={openCard}
               onHopPractice={videoMode ? undefined : () => setHopOpen(true)}
               onFoodPractice={videoMode ? undefined : () => setFoodOpen(true)}
+              onFactoryPractice={videoMode ? undefined : openFactory}
             />
           )}
 
@@ -345,6 +358,18 @@ export default function App() {
           foodFull={state.resources.food >= FOOD_CAP}
           onComplete={(pairs) => dispatch({ type: 'COMPLETE_FOOD_GAME', pairs })}
           onExit={() => setFoodOpen(false)}
+        />
+      )}
+
+      {factoryOpen && (
+        <WaterFuelFactory
+          lang={state.lang}
+          rewarded={state.factoryRewarded}
+          lifeSupport={state.resources.lifeSupport}
+          onComplete={(stations) =>
+            dispatch({ type: 'COMPLETE_FACTORY', stations })
+          }
+          onExit={() => setFactoryOpen(false)}
         />
       )}
 

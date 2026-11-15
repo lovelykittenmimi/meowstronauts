@@ -18,6 +18,11 @@ export const FOOD_GAME_REWARD_FOOD = 1;
 /** Food cannot go above this; the practice bonus waits until there is room. */
 export const FOOD_CAP = 12;
 
+/** Optional water & fuel factory practice: finish all four stations. */
+export const FACTORY_STATION_TOTAL = 4;
+export const FACTORY_REWARD_LIFE_SUPPORT = 5;
+export const LIFE_SUPPORT_CAP = 100;
+
 export const INITIAL_RESOURCES: Record<Difficulty, Resources> = {
   cadet: {
     power: 80,
@@ -61,7 +66,7 @@ export const ZERO_PENALTY: EffectMap = {
 
 const CAPS: Record<ResourceKey, number> = {
   power: 100,
-  lifeSupport: 100,
+  lifeSupport: LIFE_SUPPORT_CAP,
   shield: 100,
   food: FOOD_CAP,
   health: 100,

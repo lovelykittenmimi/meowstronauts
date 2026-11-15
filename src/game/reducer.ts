@@ -1,11 +1,14 @@
 import {
   DAILY_DRAIN,
+  FACTORY_REWARD_LIFE_SUPPORT,
+  FACTORY_STATION_TOTAL,
   FOOD_CAP,
   FOOD_GAME_REWARD_FOOD,
   FOOD_PAIR_TOTAL,
   HOP_REWARD_SCIENCE,
   HOP_SAMPLE_TOTAL,
   INITIAL_RESOURCES,
+  LIFE_SUPPORT_CAP,
   MAX_SOL,
   addEffects,
   clampResources,
@@ -65,6 +68,7 @@ export function createInitialState(
     emergencyUsed: false,
     hopRewarded: false,
     foodGameRewarded: false,
+    factoryRewarded: false,
   };
 }
 
@@ -307,6 +311,43 @@ function handleCompleteFoodGame(state: GameState, pairs: number): GameState {
   return { ...state, resources, resourceHistory, foodGameRewarded: true };
 }
 
+/**
+ * The water & fuel factory is optional practice on any sol: finishing all
+ * four stations pays a small life-support bonus once per mission.
+ */
+function handleCompleteFactory(state: GameState, stations: number): GameState {
+  if (
+    state.videoMode ||
+    state.factoryRewarded ||
+    // A full tank means no bonus now; leave the reward unclaimed so the crew
+    // can still earn it later in the same mission.
+    state.resources.lifeSupport >= LIFE_SUPPORT_CAP ||
+    stations < FACTORY_STATION_TOTAL ||
+    (state.phase !== 'briefing' &&
+      state.phase !== 'choice' &&
+      state.phase !== 'result')
+  ) {
+    return state;
+  }
+
+  const resources = addEffects(state.resources, {
+    lifeSupport: FACTORY_REWARD_LIFE_SUPPORT,
+  });
+
+  // During the result screen the latest history point is already on screen;
+  // keep it in sync so the report curve matches the final resources.
+  let resourceHistory = state.resourceHistory;
+  if (state.phase === 'result' && resourceHistory.length > 0) {
+    const last = resourceHistory[resourceHistory.length - 1];
+    resourceHistory = [
+      ...resourceHistory.slice(0, -1),
+      { ...last, lifeSupport: resources.lifeSupport },
+    ];
+  }
+
+  return { ...state, resources, resourceHistory, factoryRewarded: true };
+}
+
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case 'START_GAME': {
@@ -371,6 +412,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'COMPLETE_FOOD_GAME':
       return handleCompleteFoodGame(state, action.pairs);
+
+    case 'COMPLETE_FACTORY':
+      return handleCompleteFactory(state, action.stations);
 
     case 'RESTART':
       return {

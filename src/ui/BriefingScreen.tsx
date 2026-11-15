@@ -22,6 +22,8 @@ interface BriefingScreenProps {
   onHopPractice?: () => void;
   /** Optional Sol 7 practice run; other sols do not show the button. */
   onFoodPractice?: () => void;
+  /** Optional water & fuel factory; shown on every sol when provided. */
+  onFactoryPractice?: () => void;
 }
 
 export function BriefingScreen({
@@ -31,6 +33,7 @@ export function BriefingScreen({
   onTerm,
   onHopPractice,
   onFoodPractice,
+  onFactoryPractice,
 }: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
@@ -86,6 +89,18 @@ export function BriefingScreen({
             );
           })}
         </div>
+
+        {onFactoryPractice && (
+          <button
+            type="button"
+            className="factory-practice-button"
+            data-testid="factory-practice"
+            onClick={onFactoryPractice}
+          >
+            <span aria-hidden="true">🏭</span>
+            {t(lang, 'briefing.factoryGame')}
+          </button>
+        )}
 
         {state.sol === 1 && onHopPractice && (
           <button
