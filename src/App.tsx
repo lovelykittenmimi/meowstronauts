@@ -12,6 +12,7 @@ import WaterFuelFactory from './minigames/factory/WaterFuelFactory';
 import SpaceFoodFlip from './minigames/food/SpaceFoodFlip';
 import LowGravityHop from './minigames/hop/LowGravityHop';
 import KnowledgeMatch from './minigames/match/KnowledgeMatch';
+import SignalDelay from './minigames/signal/SignalDelay';
 import { Backpack } from './ui/Backpack';
 import { BriefingScreen } from './ui/BriefingScreen';
 import { DataPanel } from './ui/DataPanel';
@@ -81,6 +82,7 @@ export default function App() {
   const [radiationOpen, setRadiationOpen] = useState(false);
   const [matchOpen, setMatchOpen] = useState(false);
   const [dodgeOpen, setDodgeOpen] = useState(false);
+  const [signalOpen, setSignalOpen] = useState(false);
 
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
     if (videoMode) return buildVideoState(videoMode);
@@ -314,6 +316,7 @@ export default function App() {
               onFactoryPractice={videoMode ? undefined : openFactory}
               onShelterPractice={videoMode ? undefined : openShelter}
               onDodgePractice={videoMode ? undefined : () => setDodgeOpen(true)}
+              onSignalPractice={videoMode ? undefined : () => setSignalOpen(true)}
             />
           )}
 
@@ -418,6 +421,10 @@ export default function App() {
           lang={state.lang}
           onExit={() => setDodgeOpen(false)}
         />
+      )}
+
+      {signalOpen && (
+        <SignalDelay lang={state.lang} onExit={() => setSignalOpen(false)} />
       )}
     </div>
   );

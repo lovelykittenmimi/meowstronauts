@@ -645,7 +645,8 @@ h1 {
 .food-practice-button,
 .factory-practice-button,
 .shelter-practice-button,
-.dodge-practice-button {
+.dodge-practice-button,
+.signal-practice-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -663,7 +664,8 @@ h1 {
 .food-practice-button:hover,
 .factory-practice-button:hover,
 .shelter-practice-button:hover,
-.dodge-practice-button:hover {
+.dodge-practice-button:hover,
+.signal-practice-button:hover {
   background: #d3e9e6;
 }
 
@@ -787,7 +789,8 @@ h1 {
   .food-practice-button,
   .factory-practice-button,
   .shelter-practice-button,
-  .dodge-practice-button {
+  .dodge-practice-button,
+  .signal-practice-button {
     margin-top: 8px;
     padding: 5px 10px;
     font-size: 12px;

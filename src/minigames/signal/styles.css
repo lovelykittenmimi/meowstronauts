@@ -1,0 +1,680 @@
+/* Signal delay — all selectors are .signal-* so shared styles stay untouched. */
+
+.signal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(232, 163, 61, 0.16), transparent 44%),
+    radial-gradient(circle at 84% 80%, rgba(49, 122, 116, 0.2), transparent 48%),
+    #0b1320;
+  color: var(--paper);
+}
+
+.signal-app {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.signal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding:
+    max(8px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    8px
+    max(12px, env(safe-area-inset-left));
+  background: rgba(8, 14, 26, 0.94);
+  border-bottom: 2px solid rgba(247, 243, 234, 0.16);
+}
+
+.signal-heading {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.signal-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.signal-title {
+  margin: 0;
+  font-size: clamp(15px, 2.4vh, 21px);
+  line-height: 1.15;
+  color: var(--paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.signal-badge {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--silver);
+  color: #0e1738;
+  font-size: clamp(10px, 1.7vh, 12px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.signal-back-top {
+  flex: none;
+  min-height: 36px;
+  padding: 4px 14px;
+  border: 2px solid rgba(247, 243, 234, 0.5);
+  border-radius: 999px;
+  background: rgba(247, 243, 234, 0.08);
+  color: var(--paper);
+  font: inherit;
+  font-size: clamp(12px, 1.9vh, 14px);
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.signal-back-top:hover {
+  background: rgba(247, 243, 234, 0.2);
+}
+
+.signal-close {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid rgba(247, 243, 234, 0.5);
+  background: rgba(247, 243, 234, 0.08);
+  color: var(--paper);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signal-close:hover {
+  background: rgba(247, 243, 234, 0.2);
+}
+
+.signal-close:focus-visible,
+.signal-back-top:focus-visible,
+.signal-button:focus-visible,
+.signal-option:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.signal-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px max(10px, env(safe-area-inset-right)) 10px
+    max(10px, env(safe-area-inset-left));
+}
+
+/* ---------- Panels ---------- */
+
+.signal-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100% - 24px));
+  max-height: calc(100% - 20px);
+  overflow: auto;
+  padding: clamp(14px, 2.4vh, 26px);
+  border: 3px solid var(--navy);
+  border-radius: 20px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.signal-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(150px, 0.7fr);
+  grid-template-areas:
+    'copy art'
+    'actions actions';
+  gap: 10px 18px;
+}
+
+.signal-intro-copy {
+  grid-area: copy;
+  min-width: 0;
+}
+
+.signal-intro-art {
+  grid-area: art;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 16px;
+  background: #1b2348;
+  color: var(--paper);
+  font-size: clamp(20px, 3.4vh, 30px);
+  line-height: 1;
+}
+
+.signal-intro-line {
+  font-size: clamp(11px, 1.8vh, 14px);
+  letter-spacing: 0.02em;
+  color: var(--amber);
+}
+
+.signal-intro .signal-panel-actions {
+  grid-area: actions;
+}
+
+.signal-kicker {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.signal-panel-title {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 3.6vh, 30px);
+  line-height: 1.1;
+  color: var(--navy);
+}
+
+.signal-body {
+  margin: 0 0 10px;
+  font-size: clamp(14px, 2vh, 16px);
+  line-height: 1.5;
+}
+
+.signal-facts {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: clamp(13px, 1.9vh, 15px);
+  line-height: 1.45;
+}
+
+.signal-facts li::marker {
+  color: var(--amber-ink);
+}
+
+.signal-panel-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+  padding: 8px 0 2px;
+  background: var(--paper);
+}
+
+.signal-button {
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.signal-button:hover {
+  background: #eef1f6;
+}
+
+.signal-primary {
+  background: var(--amber);
+}
+
+.signal-primary:hover {
+  background: #f0b45a;
+}
+
+/* ---------- Playing ---------- */
+
+.signal-play {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signal-question {
+  margin: 0;
+  font-size: clamp(15px, 2.3vh, 19px);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--navy);
+}
+
+.signal-console {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--navy);
+  border-radius: 16px;
+  background: #101a30;
+  color: var(--paper);
+}
+
+.signal-planet {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 46px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.signal-planet > span:first-child {
+  font-size: clamp(18px, 3vh, 26px);
+  line-height: 1;
+}
+
+.signal-path {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 54px;
+}
+
+.signal-path-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed rgba(247, 243, 234, 0.35);
+  transform: translateY(-1px);
+}
+
+.signal-dot {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(232, 163, 61, 0.9);
+  opacity: 0;
+}
+
+.signal-dot-fly {
+  opacity: 1;
+  animation-name: signal-fly-out;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.signal-dot-reply {
+  opacity: 1;
+  animation-name: signal-fly-back;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.signal-dot-ready {
+  opacity: 1;
+}
+
+@keyframes signal-fly-out {
+  from {
+    left: 2%;
+  }
+  to {
+    left: calc(98% - 10px);
+  }
+}
+
+@keyframes signal-fly-back {
+  from {
+    left: calc(98% - 10px);
+  }
+  to {
+    left: 2%;
+  }
+}
+
+.signal-path-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--amber);
+}
+
+.signal-note {
+  margin: -4px 0 0;
+  font-size: 11px;
+  color: #6b7484;
+  text-align: right;
+}
+
+.signal-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.signal-option {
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 2px solid var(--navy);
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--navy);
+  font: inherit;
+  font-size: clamp(13px, 1.9vh, 15px);
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.signal-option:hover:not(:disabled) {
+  background: #eef1f6;
+}
+
+.signal-option-wrong {
+  border-color: #b3402f;
+  background: #fbe4df;
+  color: #7d2b1f;
+  opacity: 0.75;
+}
+
+.signal-option-correct {
+  border-color: var(--teal);
+  background: #e4f1ef;
+}
+
+.signal-option:disabled {
+  cursor: default;
+}
+
+.signal-hint {
+  margin: 0;
+  padding: 8px 10px;
+  border-left: 4px solid var(--amber);
+  border-radius: 8px;
+  background: #fdf0d6;
+  font-size: clamp(13px, 1.9vh, 14px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.signal-next {
+  align-self: flex-end;
+}
+
+/* ---------- Result ---------- */
+
+.signal-result {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.signal-result-body {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.signal-result-wrong {
+  margin: 0 0 8px;
+  font-size: clamp(13px, 1.9vh, 15px);
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.signal-fact-title {
+  margin: 12px 0 4px;
+  font-size: clamp(13px, 1.9vh, 15px);
+  color: var(--navy);
+}
+
+.signal-result-facts {
+  margin-top: 6px;
+}
+
+.signal-sources {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.signal-sources-label {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.signal-sources ul {
+  margin: 3px 0 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 2px;
+}
+
+.signal-sources a {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.signal-sources a:hover {
+  color: var(--rust);
+}
+
+.signal-result .signal-panel-actions {
+  position: static;
+  flex: none;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 2px solid var(--silver);
+}
+
+/* ---------- Screen reader only ---------- */
+
+.signal-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Narrow and short screens ---------- */
+
+@media (max-width: 560px) {
+  .signal-intro {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'actions';
+  }
+
+  .signal-intro-art {
+    display: none;
+  }
+
+  .signal-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 520px) {
+  .signal-header {
+    gap: 8px;
+    padding-bottom: 5px;
+  }
+
+  .signal-eyebrow {
+    font-size: 9px;
+  }
+
+  .signal-close {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .signal-back-top {
+    min-height: 30px;
+    padding: 3px 10px;
+    font-size: 12px;
+  }
+
+  .signal-badge {
+    padding: 3px 8px;
+  }
+
+  .signal-stage {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .signal-panel {
+    padding: 11px 14px;
+    border-radius: 16px;
+    max-height: calc(100% - 12px);
+  }
+
+  .signal-intro {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'actions';
+    gap: 6px;
+  }
+
+  .signal-intro-art,
+  .signal-intro .signal-facts {
+    display: none;
+  }
+
+  .signal-panel-title {
+    margin-bottom: 5px;
+    font-size: 22px;
+  }
+
+  .signal-body {
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .signal-play {
+    gap: 6px;
+  }
+
+  .signal-question {
+    font-size: 14px;
+  }
+
+  .signal-console {
+    padding: 5px 8px;
+  }
+
+  .signal-path {
+    height: 42px;
+  }
+
+  .signal-planet {
+    font-size: 10px;
+  }
+
+  .signal-planet > span:first-child {
+    font-size: 16px;
+  }
+
+  .signal-note {
+    display: none;
+  }
+
+  .signal-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .signal-option {
+    min-height: 40px;
+    padding: 5px 7px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  .signal-hint {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .signal-button {
+    min-height: 38px;
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+
+  .signal-facts {
+    gap: 4px;
+    font-size: 13px;
+  }
+
+  .signal-result-facts {
+    margin-top: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-dot-fly,
+  .signal-dot-reply {
+    animation: none;
+    opacity: 1;
+  }
+
+  .signal-dot-fly {
+    left: calc(98% - 10px);
+  }
+
+  .signal-dot-reply,
+  .signal-dot-ready {
+    left: 2%;
+  }
+
+  .signal-option {
+    transition: none;
+  }
+}

@@ -60,6 +60,10 @@ export const STRINGS = {
     en: 'Try the dust devil dodge',
     'zh-TW': '試試塵捲風閃避',
   },
+  'briefing.signalGame': {
+    en: 'Try the signal delay',
+    'zh-TW': '試試訊號延遲',
+  },
   'briefing.snapshot': {
     en: 'Historical snapshot, not live data or a forecast.',
     'zh-TW': '歷史快照，不是即時資料，也不是預報。',

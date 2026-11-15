@@ -28,6 +28,8 @@ interface BriefingScreenProps {
   onShelterPractice?: () => void;
   /** Optional Sol 2 practice: dust devils are not dust storms. */
   onDodgePractice?: () => void;
+  /** Optional Sol 6 practice: the day's brief is about the comms delay. */
+  onSignalPractice?: () => void;
 }
 
 export function BriefingScreen({
@@ -39,7 +41,11 @@ export function BriefingScreen({
   onFoodPractice,
   onFactoryPractice,
   onShelterPractice,
+<<<<<<< HEAD
   onDodgePractice,
+=======
+  onSignalPractice,
+>>>>>>> 77f56b4 (feat: add the signal delay practice on Sol 6 [visual])
 }: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
@@ -153,6 +159,18 @@ export function BriefingScreen({
           >
             <span aria-hidden="true">🍽️</span>
             {t(lang, 'briefing.foodGame')}
+          </button>
+        )}
+
+        {state.sol === 6 && onSignalPractice && (
+          <button
+            type="button"
+            className="signal-practice-button"
+            data-testid="signal-practice"
+            onClick={onSignalPractice}
+          >
+            <span aria-hidden="true">📡</span>
+            {t(lang, 'briefing.signalGame')}
           </button>
         )}
         </div>

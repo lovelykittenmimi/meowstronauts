@@ -15,6 +15,7 @@ function renderBriefing(
   onFactoryPractice?: () => void,
   onShelterPractice?: () => void,
   onDodgePractice?: () => void,
+  onSignalPractice?: () => void,
 ) {
   const event = EVENT_BY_ID.get(eventId);
   if (!event) throw new Error(`unknown event ${eventId}`);
@@ -29,6 +30,7 @@ function renderBriefing(
       onFactoryPractice={onFactoryPractice}
       onShelterPractice={onShelterPractice}
       onDodgePractice={onDodgePractice}
+      onSignalPractice={onSignalPractice}
     />,
   );
 }
@@ -177,6 +179,33 @@ describe('water & fuel factory entry', () => {
   it('stays out of the briefing when video mode withholds the prop', () => {
     renderBriefing('T1', 5);
     expect(screen.queryByTestId('factory-practice')).toBeNull();
+  });
+});
+
+describe('signal delay entry', () => {
+  it('offers the signal delay on Sol 6 and calls back', () => {
+    let opened = 0;
+    renderBriefing('C1', 6, undefined, undefined, undefined, undefined, () => {
+      opened += 1;
+    });
+
+    const button = screen.getByTestId('signal-practice');
+    expect(button.textContent).toContain('signal delay');
+    fireEvent.click(button);
+    expect(opened).toBe(1);
+  });
+
+  it('keeps the signal delay out of the other sol briefings', () => {
+    for (const sol of [1, 2, 3, 4, 5, 7]) {
+      renderBriefing('T1', sol, undefined, undefined, undefined, undefined, () => {});
+      expect(screen.queryByTestId('signal-practice')).toBeNull();
+      cleanup();
+    }
+  });
+
+  it('stays out of the briefing when video mode withholds the prop', () => {
+    renderBriefing('C1', 6);
+    expect(screen.queryByTestId('signal-practice')).toBeNull();
   });
 });
 
