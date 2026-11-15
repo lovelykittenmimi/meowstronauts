@@ -42,6 +42,26 @@ function renderChoiceCard(eventId: string, onChoose: (choiceId: string) => void)
   );
 }
 
+function renderF1(videoMode: boolean, onChoose = vi.fn()) {
+  const state = buildVideoState('s1');
+  return render(
+    <EventCardView
+      state={{
+        ...state,
+        currentEventId: 'F1',
+        sol: 7,
+        videoMode: videoMode ? 's1' : undefined,
+      }}
+      onChoose={onChoose}
+      onAssist={() => {}}
+      onTerm={() => {}}
+      onContinue={() => {}}
+      onOpenCard={() => {}}
+      onCollectCard={() => {}}
+    />,
+  );
+}
+
 afterEach(cleanup);
 
 describe('S1 shelter drill integration', () => {
@@ -89,6 +109,66 @@ describe('S1 shelter drill integration', () => {
 
     expect(onChoose).toHaveBeenCalledWith('shield-up');
     expect(screen.queryByTestId('shelter-overlay')).toBeNull();
+  });
+
+  it('shows F1 choices without opening the harvest automatically', () => {
+    renderF1(false);
+
+    expect(screen.getByTestId('choice-harvest-all')).toBeTruthy();
+    expect(screen.queryByTestId('tomato-overlay')).toBeNull();
+  });
+
+  it('opens the tomato harvest only from the harvest choice', () => {
+    const onChoose = vi.fn();
+    renderF1(false, onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-harvest-all'));
+
+    expect(screen.getByTestId('tomato-overlay')).toBeTruthy();
+    expect(screen.queryByTestId('choice-harvest-all')).toBeNull();
+    expect(onChoose).not.toHaveBeenCalled();
+  });
+
+  it('resolves the seed-saving choice without the harvest game', () => {
+    const onChoose = vi.fn();
+    renderF1(false, onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-save-seeds'));
+
+    expect(onChoose).toHaveBeenCalledWith('save-seeds');
+    expect(screen.queryByTestId('tomato-overlay')).toBeNull();
+  });
+
+  it('keeps F1 instant in video mode', () => {
+    const onChoose = vi.fn();
+    renderF1(true, onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-harvest-all'));
+
+    expect(onChoose).toHaveBeenCalledWith('harvest-all');
+    expect(screen.queryByTestId('tomato-overlay')).toBeNull();
+  });
+
+  it('returns from a skipped F1 harvest to the choices', async () => {
+    const onChoose = vi.fn();
+    renderF1(false, onChoose);
+    fireEvent.click(screen.getByTestId('choice-harvest-all'));
+
+    const host = screen.getByTestId('tomato-overlay');
+    await waitFor(() => {
+      expect(
+        host.shadowRoot?.querySelector('[data-testid="tomato-skip"]'),
+      ).toBeTruthy();
+    });
+    const skip = host.shadowRoot?.querySelector(
+      '[data-testid="tomato-skip"]',
+    ) as HTMLElement;
+    fireEvent.click(skip);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('choice-harvest-all')).toBeTruthy();
+    });
+    expect(onChoose).not.toHaveBeenCalled();
   });
 });
 

@@ -3643,7 +3643,8 @@ h1 {
 
 /* Embedded mini-games --------------------------------------------------- */
 .lander-overlay-host,
-.shelter-overlay-host {
+.shelter-overlay-host,
+.tomato-overlay-host {
   position: fixed;
   inset: 0;
   z-index: 80;

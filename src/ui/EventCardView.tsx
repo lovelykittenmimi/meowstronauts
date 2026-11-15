@@ -8,6 +8,7 @@ import { DustMinigame } from './DustMinigame';
 import HullRepairOverlay from '../minigames/HullRepairOverlay';
 import RadiationOverlay from '../minigames/RadiationOverlay';
 import SpaceFoodFlip from '../minigames/food/SpaceFoodFlip';
+import TomatoHarvestOverlay from '../minigames/tomato/TomatoHarvestOverlay';
 import { ICONS } from './ResourceHud';
 import { RestPhotos } from './RestPhotos';
 import { RichText } from './RichText';
@@ -50,8 +51,16 @@ const FOOD_CHOICES: Record<string, string[]> = {
   F3: ['ration', 'stores'],
 };
 
+/**
+ * F1's first option is the actual harvest. Clicking it opens the tomato
+ * picking game; the card resolves only after the harvest is finished.
+ */
+const TOMATO_CHOICES: Record<string, string[]> = {
+  F1: ['harvest-all'],
+};
+
 interface PendingInteraction {
-  kind: 'dust' | 'hull' | 'shelter' | 'food';
+  kind: 'dust' | 'hull' | 'shelter' | 'food' | 'tomato';
   choiceId: string;
 }
 
@@ -137,10 +146,12 @@ export function EventCardView({
   const hullChoices = HULL_CHOICES[event.id];
   const shelterChoices = SHELTER_CHOICES[event.id];
   const foodChoices = FOOD_CHOICES[event.id];
+  const tomatoChoices = TOMATO_CHOICES[event.id];
   const showDustGame = isChoice && pending?.kind === 'dust' && Boolean(art);
   const showHullGame = isChoice && pending?.kind === 'hull';
   const showShelterGame = isChoice && pending?.kind === 'shelter';
   const showFoodGame = isChoice && pending?.kind === 'food';
+  const showTomatoGame = isChoice && pending?.kind === 'tomato';
 
   const handleChoose = (choiceId: string) => {
     if (dustChoices?.includes(choiceId)) {
@@ -158,6 +169,10 @@ export function EventCardView({
     }
     if (foodChoices?.includes(choiceId) && !state.videoMode) {
       setPending({ kind: 'food', choiceId });
+      return;
+    }
+    if (tomatoChoices?.includes(choiceId) && !state.videoMode) {
+      setPending({ kind: 'tomato', choiceId });
       return;
     }
     onChoose(choiceId);
@@ -202,7 +217,8 @@ export function EventCardView({
           !showDustGame &&
           !showHullGame &&
           !showShelterGame &&
-          !showFoodGame && (
+          !showFoodGame &&
+          !showTomatoGame && (
           <>
             <h2 className="section-label">{t(lang, 'event.choose')}</h2>
             <div className="choices">
@@ -373,6 +389,18 @@ export function EventCardView({
         <SpaceFoodFlip
           lang={lang}
           onExit={() => onChoose(pending.choiceId)}
+        />
+      )}
+
+      {showTomatoGame && pending && (
+        <TomatoHarvestOverlay
+          initialLang={lang}
+          sol={state.sol}
+          onDone={(completed) => {
+            const choiceId = pending.choiceId;
+            setPending(null);
+            if (completed) onChoose(choiceId);
+          }}
         />
       )}
     </main>
