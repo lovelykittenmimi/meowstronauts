@@ -111,7 +111,6 @@ function renderResult(eventId: string, choiceId: string) {
       onContinue={() => {}}
       onOpenCard={() => {}}
       onCollectCard={() => {}}
-      onFoodComplete={() => {}}
     />,
   );
 }
