@@ -9,6 +9,7 @@ import HullRepairOverlay from '../minigames/HullRepairOverlay';
 import RadiationOverlay from '../minigames/RadiationOverlay';
 import SpaceFoodFlip from '../minigames/food/SpaceFoodFlip';
 import { ICONS } from './ResourceHud';
+import { RestPhotos } from './RestPhotos';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
 
@@ -308,6 +309,9 @@ export function EventCardView({
             <p className="result-outcome">
               <RichText text={state.lastOutcome?.[lang] ?? ''} lang={lang} onTerm={onTerm} />
             </p>
+            {event.id === 'T1' && state.lastChoiceId === 'rest' && (
+              <RestPhotos lang={lang} />
+            )}
             <div className="result-effects">
               <EffectChips effects={state.lastEffects ?? {}} lang={lang} />
             </div>

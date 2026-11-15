@@ -92,6 +92,48 @@ describe('S1 shelter drill integration', () => {
   });
 });
 
+function renderResult(eventId: string, choiceId: string) {
+  const state: GameState = {
+    ...createInitialState('officer', 'en'),
+    phase: 'result',
+    currentEventId: eventId,
+    lastChoiceId: choiceId,
+    lastSuccess: true,
+    lastEffects: { health: 6, power: -7 },
+    sol: 1,
+  };
+  return render(
+    <EventCardView
+      state={state}
+      onChoose={() => {}}
+      onAssist={() => {}}
+      onTerm={() => {}}
+      onContinue={() => {}}
+      onOpenCard={() => {}}
+      onCollectCard={() => {}}
+      onFoodComplete={() => {}}
+    />,
+  );
+}
+
+describe('T1 photo album', () => {
+  it('shows three Curiosity photos with a rover credit after the crew rests', () => {
+    renderResult('T1', 'rest');
+
+    const album = screen.getByTestId('rest-photos');
+    expect(album.querySelectorAll('img')).toHaveLength(3);
+    expect(screen.getByText('A rock shaped like a flower')).toBeTruthy();
+    expect(screen.getByTestId('rest-photos-credit').textContent).toContain(
+      "Actually photographed by NASA's Curiosity rover",
+    );
+  });
+
+  it('does not show the album for the sweep choice', () => {
+    renderResult('T1', 'sweep');
+    expect(screen.queryByTestId('rest-photos')).toBeNull();
+  });
+});
+
 describe('F3 Supply Crate Delayed', () => {
   it('opens the space-food flip for "ration" and resolves when it closes', () => {
     const onChoose = vi.fn();

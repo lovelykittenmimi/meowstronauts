@@ -92,6 +92,27 @@ export const STRINGS = {
   'event.riskRoll': { en: 'Risk roll', 'zh-TW': '風險骰子' },
   'event.riskHit': { en: 'it hit', 'zh-TW': '觸發了' },
   'event.riskMiss': { en: 'it held', 'zh-TW': '撐過了' },
+  'rest.photos.title': { en: 'Crew photo album', 'zh-TW': '船員相簿' },
+  'rest.photos.claim': {
+    en: '“Photographed by the cats”',
+    'zh-TW': '「貓咪親自拍攝」',
+  },
+  'rest.photos.credit': {
+    en: "Actually photographed by NASA's Curiosity rover. NASA/JPL-Caltech.",
+    'zh-TW': '其實是 NASA 好奇號探測車拍的。NASA/JPL-Caltech。',
+  },
+  'rest.photo.landscape': {
+    en: 'Gale Crater, Mars',
+    'zh-TW': '火星蓋爾撞擊坑',
+  },
+  'rest.photo.selfie': {
+    en: "The crew's group selfie",
+    'zh-TW': '船員團體自拍',
+  },
+  'rest.photo.rock': {
+    en: 'A rock shaped like a flower',
+    'zh-TW': '像花的岩石',
+  },
   'dust.title': { en: 'Sweep the panels', 'zh-TW': '清掃太陽能板' },
   'dust.hint': { en: 'Tap every dust patch', 'zh-TW': '點掉每一團沙塵' },
   'dust.left': { en: '{count} left', 'zh-TW': '剩 {count} 團' },
