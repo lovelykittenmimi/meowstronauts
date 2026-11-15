@@ -2,18 +2,21 @@
 
 > 最後更新：2026-11-15
 > 程式：`src/minigames/factory/`；資料來源：`docs/data-sources.md` §3.7；手動 QA：`docs/qa-checklist.md` §3
-> 定位：任何 sol 都能開的延伸練習。**不是主線**，不玩也能完成 7 sol；不改事件牌庫與平衡表。
+> 定位：情境式延伸練習。**不是主線**，不玩也能完成 7 sol；不改事件牌庫與平衡表。
 
 ## 1. 入口
 
 | 入口 | 出現時機 | `data-testid` | 文案（EN／zh-TW） |
 |---|---|---|---|
-| 每日簡報 | **每個 sol** 的簡報，術語 chip 下方（Sol 1 與跳躍並列、Sol 7 與食物並列） | `factory-practice` | `Try the water & fuel factory`／`試試水與燃料工廠` |
+| Sol 5 簡報 | 只有 **Sol 5** 的簡報，當日開場說「水很重，基地幾乎每滴水都回收再用」 | `factory-practice` | `Try the water & fuel factory`／`試試水與燃料工廠` |
+| L3 事件卡 | 二氧化碳超標／洗滌器飽和，選項出現前（固定牌，通常 Sol 6） | `event-factory-practice` | 同上 |
+| 其他 sol 簡報 | **不顯示** | — | — |
 | Sol 切換列 | **不顯示** | — | — |
-| `?video=` 錄影模式 | **不顯示**（`onFactoryPractice` 不傳） | — | — |
+| `?video=` 錄影模式 | **不顯示**（兩個入口都不傳 `onFactoryPractice`） | — | — |
 
-- 只有簡報入口，沒有第 5 個 SolNav 按鈕：Sol 列已有 7 個 sol＋著陸／跳躍／食物／避難四個練習鈕，568×320 再加一個會換行；簡報是每次開新 sol 的固定入口，先不動共用 nav。
-- 開啟同一個全螢幕 `WaterFuelFactory`（`role="dialog"`、`aria-modal`、Escape 關閉）。關閉後回到原本畫面；除了 §4 的一次性獎勵，不動任何任務狀態。
+- 兩個入口都開同一個全螢幕 `WaterFuelFactory`（`role="dialog"`、`aria-modal`、Escape 關閉）。關閉後回到原本畫面；除了 §4 的一次性獎勵，不動任何任務狀態。
+- 選這兩個位置是為了讓工廠和當日內容對得上：Sol 5 的水回收，以及 L3 的 CO₂／沸石濾材。其他 sol 不再放常駐按鈕；SolNav 仍維持 7 sol＋4 個練習鈕，不加第 5 個以免 568×320 換行。
+- 事件卡上的按鈕只出現在 `L3` 且還在選項階段時；開工廠不消耗選項，關掉後仍要選「啟動備用洗滌器」或「船員手動淨化」。
 
 ## 2. 玩法
 
@@ -32,8 +35,10 @@
 - **站 2**：按「啟動電解器」後出現 O₂／H₂ 兩個氣泡；先點氣體、再點目的地（船員空氣／燃料槽）。送錯顯示提示，氣體回到原位（清除選取）。兩個都送對才前進。
 - **站 3**：6 個標示氣泡（4 個 CO₂、1 個 N₂、1 個 Ar）；點 CO₂ 會吸進濾材，點錯只搖一下、不計入。4 個都抓到後才出現「加熱濾材」。畫面註明「空氣樣本，不是按比例」。
 - **站 4**：按「啟動反應器」後出現 CH₄／H₂O；點 CH₄ → 燃料槽、點 H₂O → 水槽。兩個都收好即完成，約 700 ms 後進入結果。
-- **無障礙**：全部是 `<button>`；`aria-live="polite"` 公告站別、成功與提示；`aria-current="step"` 標目前站；Escape 關閉；`prefers-reduced-motion` 關動畫；顏色不是唯一資訊（氣泡有文字標籤）。
-- **短螢幕**：568×320 的進度條只顯示 icon＋目前站名，事實卡收成一行，提示文字顯示在 toast；站內可捲動，結果面板可捲動。
+- **畫面與動畫**：`factory-world` 是火星星空＋山丘背景；進度條是一條會移動訊號點的管線；每站有專屬場景（雷達掃描與冰塊跳出、電解槽與上升氣泡、濾芯與漂浮氣泡、旋轉反應器與脈衝核心）；水箱／燃料槽有充填量表；完成一站放彩紙；開場與結果各有一張 CSS 場景。全部用 CSS、emoji 與既有品牌頭像 `/brand/avatar-silver-512.webp`，不新增圖檔或 credit。
+- **銀白提示**：每站左上角是銀白（Silver）的對話泡泡，說明當下要做什麼；點錯時泡泡換成提示，結果畫面則是「High paws!」。
+- **無障礙**：全部是 `<button>`；`aria-live="polite"` 公告站別、成功與提示；`aria-current="step"` 標目前站；Escape 關閉；`prefers-reduced-motion` 關閉所有動畫與彩紙；顏色不是唯一資訊（雷達點有 A/B/C、氣泡有 CO₂／N₂／Ar 文字標籤）。
+- **短螢幕 568×320**：進度條只顯示 icon＋目前站名；雷達找到冰後收起、電解／反應器場景、事實卡與 toast 隱藏，改用銀白泡泡顯示提示；滑鼠／觸控只需要看得到的主要按鈕（加熱、加熱濾材、收集）都在視窗內，站內必要時可捲動；結果面板可捲動。
 
 ## 3. 四張事實卡
 
@@ -81,33 +86,35 @@
 
 | 檔案 | 內容 |
 |---|---|
-| `src/minigames/factory/WaterFuelFactory.tsx` | 狀態機、4 站 UI、進度、提示、aria-live、Escape |
+| `src/minigames/factory/WaterFuelFactory.tsx` | 狀態機、4 站 UI、場景與動畫、銀白提示、彩紙、進度、aria-live、Escape |
 | `src/minigames/factory/game/state.ts` | 4 站資料、事實卡、雷達點／氣泡、`createFactoryGame`／`applyFactoryAction`／`isFactoryComplete` |
-| `src/minigames/factory/game/i18n.ts` | 小遊戲內 EN／zh-TW 文案與 `factoryT()` |
-| `src/minigames/factory/styles.css` | 全部 `.factory-*` 前綴，不動共用樣式 |
+| `src/minigames/factory/game/i18n.ts` | 小遊戲內 EN／zh-TW 文案、銀白提示與 `factoryT()` |
+| `src/minigames/factory/styles.css` | 全部 `.factory-*` 前綴；星空、場景、動畫、短螢幕與 reduced-motion |
 | `src/game/types.ts`、`src/game/reducer.ts`、`src/game/balance.ts` | `factoryRewarded`、`COMPLETE_FACTORY`、獎勵與上限常數 |
-| `src/App.tsx`、`src/ui/BriefingScreen.tsx`、`src/i18n/index.ts`、`src/styles.css` | 簡報入口按鈕與入口文案 |
-| `src/minigames/factory/game/state.test.ts`、`i18n.test.ts`、`src/minigames/factory/WaterFuelFactory.test.tsx`、`src/game/factoryReward.test.ts` | 單元、文案與元件測試 |
+| `src/App.tsx`、`src/ui/BriefingScreen.tsx`、`src/ui/EventCardView.tsx`、`src/i18n/index.ts`、`src/styles.css` | Sol 5 簡報與 L3 事件卡入口 |
+| `src/minigames/factory/game/state.test.ts`、`i18n.test.ts`、`src/minigames/factory/WaterFuelFactory.test.tsx`、`src/game/factoryReward.test.ts`、`src/ui/BriefingScreen.test.tsx`、`src/ui/EventCardView.test.tsx` | 單元、文案、元件與入口測試 |
 
 ## 7. 手動 QA
 
-1. 新遊戲 → 跳過開場 → Sol 1 簡報出現〔🏭 試試水與燃料工廠〕；推進到 Sol 4、Sol 7 簡報仍在。
-2. Sol 切換列**沒有**工廠按鈕；短螢幕 568×320 的簡報不因新增按鈕而水平溢出。
-3. Intro 的 Start 進入站 1；點 A／C 顯示乾土提示、不前進；點 B 找到冰；選開放托盤顯示稀薄大氣提示；改選密封烤箱＋加熱，進入站 2。
-4. 站 2 送錯氣體不前進；O₂ → 船員空氣、H₂ → 燃料槽後進入站 3。
-5. 站 3 點 N₂／Ar 不計入；4 個 CO₂＋加熱濾材後進入站 4。
-6. 站 4 只收一種不完成；CH₄ → 燃料槽、H₂O → 水槽後約 700 ms 出現結果；第一次領到生命維持 +5；同一任務再玩顯示「已領取」，數值不變。
-7. 生命維持 98 時完成顯示「+2」；生命維持 100 時顯示「已滿」、不發也不標記，之後有空間再完成仍可領取。
-8. 在任務報告（`result` 階段）領獎時，報告曲線最後一點與最終生命維持一致。
-9. 關閉（✕ 或 Escape）回到原本畫面，任務進度與其他資源不變。
-10. `?video=s1` 與 `?video=report` 沒有任何 factory 入口；影片 fixture 的 HUD 數字不變。
-11. 568×320 與 1280×800：4 站都能按、無水平滾動、結果可捲動、無 console error；`prefers-reduced-motion` 下動畫關閉但可玩。
-12. 單元測試：`npx vitest run src/minigames/factory src/game/factoryReward.test.ts src/ui/BriefingScreen.test.tsx`。
+1. 新遊戲 → 跳過開場 → Sol 1–4 簡報**沒有**工廠按鈕；Sol 5 簡報出現〔🏭 試試水與燃料工廠〕；Sol 6、7 不再出現。
+2. 固定牌把 L3（Carbon Dioxide Rising）排在 Sol 6；事件卡在選項上方出現同一個〔🏭〕按鈕。點擊開工廠、關閉後回到 L3 卡，選項仍可選。
+3. Sol 切換列**沒有**工廠按鈕；短螢幕 568×320 的簡報不因新增按鈕而水平溢出。
+4. Intro 的 Start 進入站 1；點 A／C 顯示乾土提示、不前進；點 B 找到冰；選開放托盤顯示稀薄大氣提示；改選密封烤箱＋加熱，進入站 2。
+5. 站 2 送錯氣體不前進；O₂ → 船員空氣、H₂ → 燃料槽後進入站 3。
+6. 站 3 點 N₂／Ar 不計入；4 個 CO₂＋加熱濾材後進入站 4。
+7. 站 4 只收一種不完成；CH₄ → 燃料槽、H₂O → 水槽後約 700 ms 出現結果；第一次領到生命維持 +5；同一任務再玩顯示「已領取」，數值不變。
+8. 生命維持 98 時完成顯示「+2」；生命維持 100 時顯示「已滿」、不發也不標記，之後有空間再完成仍可領取。
+9. 在任務報告（`result` 階段）領獎時，報告曲線最後一點與最終生命維持一致。
+10. 關閉（✕ 或 Escape）回到原本畫面，任務進度與其他資源不變。
+11. `?video=s1` 與 `?video=report` 沒有任何 factory 入口；影片 fixture 的 HUD 數字不變。
+12. 568×320 與 1280×800：4 站都能按、無水平滾動、結果可捲動、無 console error；568×320 的加熱／加熱濾材按鈕不用捲動就看得到；`prefers-reduced-motion` 下動畫與彩紙關閉但可玩。
+13. 單元測試：`npx vitest run src/minigames/factory src/game/factoryReward.test.ts src/ui/BriefingScreen.test.tsx src/ui/EventCardView.test.tsx`。
 
 ## 8. 已知取捨
 
 - **+5 生命維持會略微影響生存曲線**：這是刻意選的小獎勵，限制「每次任務一次、只能 4/4、上限 100」，不寫進固定 7 sol 平衡表，也不改 `docs/balance-sheet.csv`。滿 100 時不發、不標記，避免完成畫面與 HUD 對不上。
-- **沒有 SolNav 入口**：Sol 列在 568×320 已經很滿；簡報是每次開新 sol 的固定入口，先不動共用 nav。若之後要加入 Sol 列，需要先處理換行與 `aria-label`。
+- **只有兩個情境入口**：Sol 5 簡報與 L3 事件卡；其他 sol 不顯示。Sol 列在 568×320 已經很滿，再加第 5 個練習鈕會換行，所以不動共用 nav。若之後要加入 Sol 列，需要先處理換行與 `aria-label`。
 - **遊戲是簡化模型**：沒有真正的質量平衡、能量計算、過氯酸鹽濃度或甲烷儲存工程；四個站是教學節點，不是 NASA 已飛的系統。
 - **結果畫面較長**：4 張事實＋2 張補充＋7 個來源，1280×800 可捲動；568×320 需要捲動才能看完全部來源。這是把可回指來源留在畫面的代價。
-- **不使用照片**：全部是 CSS、emoji、文字；不新增圖檔、不涉及圖片 credit。
+- **568×320 收起事實卡**：進行中的 NASA 事實條與場景切換在短螢幕隱藏，把加熱／收集按鈕留在視窗內；4 張事實仍在結果畫面完整列出。
+- **只用既有品牌素材**：場景是 CSS、emoji 與 `/brand/avatar-silver-512.webp`（銀白頭像）；不新增圖檔、不涉及新的圖片 credit。

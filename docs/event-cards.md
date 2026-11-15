@@ -154,6 +154,7 @@ export interface EventCard {
 4. 約束無法滿足時，依序放寬：類別上限 2→3；再放寬「至少 1 張 power／lifeSupport／food」為「候選池有什麼就抽什麼」，不為了湊類別硬塞不符合 `when` 的卡。
 5. 每日種子挑戰：用日期當 seed，同一日同一牌序。
 6. 候選池先過 §3.3 的 `when` 條件；不符合故事／天氣／資源狀態的卡不得硬塞。
+7. **Sol 5 科學保底（2026-11-15）**：若到 Sol 5 時 `science < STAR_3_SCIENCE`（6）且這局還沒看過 `SC2`，直接發 `SC2`。它是唯一 science 卡，玩家仍要花電力選科學選項才拿得到 +4；Sol 5 早於電力／生命維持的 Sol 6 最後抽牌，不會擠掉必要類別。
 
 ### 3.2 MVP 12 張（先做）
 
@@ -166,14 +167,14 @@ export interface EventCard {
 | P4 | power | 金桔 | 冷週暖氣吃電 | `atmosphere` | Sol 2–6；當日 `cold_snap` 或 `severe_cold`；不是冷天不出 |
 | L1 | lifeSupport | 暗影 | 氧氣回收機故障 | `oxygenRecovery` | Sol 2–6；`lifeSupport < 65`；`≥ 80` 不抽 |
 | L2 | lifeSupport | 金桔 | 水循環堵塞 | `waterRecycling` | Sol 2–6；`lifeSupport < 70`；`≥ 80` 不抽 |
-| L3 | lifeSupport | 銀白 | 二氧化碳超標 | `atmosphere`, `pressure` | Sol 3–6；`lifeSupport < 60`；`≥ 75` 不抽 |
+| L3 | lifeSupport | 銀白 | 二氧化碳超標 | `atmosphere`, `pressure` | Sol 3–6；`lifeSupport < 60`；`≥ 75` 不抽；選項階段可開水與燃料工廠 |
 | S1 | shield | 銀白 | 太陽閃焰警報 | `solarFlare`, `radiationShielding` | 固定 Sol 4；不受條件影響 |
 | S2 | shield | 暗影 | 微隕石破損 | `micrometeorite`, `radiationShielding` | Sol 2–6；`shield < 60`，或 S1 後 Sol 5–6；`≥ 80` 不抽 |
 | S3 | shield | 銀白 | 避難艙檢查 | `radiation`, `radiationShielding` | Sol 3–5；已收到 `flareForecast` flag；`shield < 75` |
 | F1 | food | 金桔 | 溫室番茄豐收 | `greenhouse` | Sol 3–7；`food ≤ 4`；`food ≥ 5` 不抽 |
 | F3 | food | 金桔 | 補給箱延誤 | `commsDelay` | Sol 2–6；`food ≤ 4` 或 `commsWindow` flag；`food ≥ 5` 不抽 |
 | C1 | comms | 暗影 | 地球來電 | `commsDelay` | Sol 3–5；`commsWindow` 於 Sol 3 艦長日誌開啟；不因資源滿而硬出 |
-| SC2 | science | 銀白 | 地下冰探測 | `subsurfaceIce` | Sol 2–6；`science < 4`；`science` 高不抽 |
+| SC2 | science | 銀白 | 地下冰探測 | `subsurfaceIce` | Sol 2–6；`science < STAR_3_SCIENCE`（6）；science 已達三星線不抽；Sol 5 保底見 §3.1 規則 7 |
 
 **F1 故事鉤子（設計筆記，非最終文案；11/14 才寫定稿）：** 金桔看到第一朵番茄花，提到 NASA 在火星找到過一朵「花」，結果是石頭（PIA25077，2022-02-24，水礦物膠結的岩石，不是植物）。銀白：「你的番茄會是真的花。」金桔：「那我要種大一點。」只放在遊戲內 F1，**不進 30 秒影片**。照片已加入 `src/data/mars-photos/PIA25077.jpg`（1280×956，credit NASA/JPL-Caltech/MSSS），卡面建議當小圖（inset），主圖仍是溫室／番茄，caption 要寫「岩石，不是植物」。表格資料來源的「＋ PIA25077 照片」只表示**圖片來源與 credit**；`EventCard.source` 仍只放 S11，圖片走 photo metadata，不要因為這張照片寫「火星有花」。
 
@@ -183,9 +184,11 @@ export interface EventCard {
 
 **F1 的採收橋段（2026-11-15）：** F1 先顯示原本三個選項；點「全部收成」才開「番茄採收」遊戲（6 紅 3 綠，點成熟紅番茄、綠的留著繼續熟），完成後才套用 `harvest-all` effects。「留種」「開派對」直接結算；跳過採收會回到選項，不套用。沒有第一顆番茄儀式。影片模式（`?video=s1`／`?video=report`）跳過互動。
 
+**L3 的工廠入口（2026-11-15）：** L3 進到選項階段時，卡上多一個「試試水與燃料工廠」按鈕（`event-factory-practice`），開同一套 4 站小遊戲；不消耗選項、不推進事件，關閉後仍要選「啟動備用洗滌器」或「船員手動淨化」。`?video=` 不顯示。Sol 5 簡報另有入口，見 `docs/water-fuel-factory.md` §1。
+
 **健康知識點（2026-11-14）：** 不新增事件卡，也不新增資源。Sol 1 艦長日誌、開場幕 3、任務報告各加一句身體適應台詞；健康事實併入 `gravity` 知識卡（見 `glossary.md` #16）。**7 個 sol 內不演骨質快速流失**——骨質與肌肉流失是旅程數月的結果，不是這 7 天的結果。若 11/15 要加 `H1 健康檢查` 卡，放設計庫、不進 MVP，數值要先進 `balance-sheet.csv` 重跑。
 
-**這 12 張的分類：** power 2、lifeSupport 3、shield 3、food 2、comms 1、science 1；沒有 morale 卡。`SC1 岩石樣本` 是第 13 張擴充；若三星太難，11/15 優先加 SC1，或把三星科學門檻 8→6。
+**這 12 張的分類：** power 2、lifeSupport 3、shield 3、food 2、comms 1、science 1；沒有 morale 卡。`SC1 岩石樣本` 是第 13 張擴充；若三星太難，11/15 優先加 SC1，或把三星科學門檻 8→6。**2026-11-15 已採用門檻 6（`STAR_3_SCIENCE`）並加 Sol 5 的 SC2 保底**；SC1 仍未加入。
 
 **S1 的固定狀態：** Sol 4 一定出 S1；其他卡不得提前用掉 S1 的台詞或結果。
 
@@ -292,7 +295,7 @@ export interface EventCard {
 
 **兩個發現：**
 
-1. **生存太容易，三星太難。** 初始健康 100、七個 sol 的歸零懲罰不足以造成失敗；但科學供給太薄，連「科學優先」平均只有 5.3，達不到三星的 8。
+1. **生存太容易，三星太難。** 初始健康 100、七個 sol 的歸零懲罰不足以造成失敗；但科學供給太薄，連「科學優先」平均只有 5.3，達不到三星的 8。（2026-11-15 已把門檻調成 6，並加 Sol 5 的 SC2 保底；這張表仍是門檻 8 的模擬。）
 2. **食物最緊，電力最吃策略。** 食物起點 6、每天 −1，沒有食物卡就會歸零；電力則是「維修要花、太陽能卡才補得回來」的貨幣。
 
 > 這張表是 24 張設計庫的模擬（每種策略 8,000 局），不是 MVP 12 張的最終數字。11/14 用真實 12 張與貓咪專長重跑後再調整；submission 不引用 8,000 這個數字，除非重跑後仍成立。
@@ -304,7 +307,7 @@ export interface EventCard {
 | 初始健康 100→80 | 失敗率明顯上升 | 對兒童最直觀，但會改變 UI 愛心數 |
 | 每日消耗 8/6/5→10/8/6 | 全面變緊 | 電力會變成主要瓶頸 |
 | 歸零懲罰 20/25/15/10→30/35/25/20 | 失誤更痛 | 容易讓兒童挫折，慎用 |
-| 三星科學 8→6 | 三星率上升 | 不改生存曲線，只改追求目標 |
+| 三星科學 8→6 | 三星率上升 | 不改生存曲線，只改追求目標；**2026-11-15 已採用**（`STAR_3_SCIENCE`） |
 | 科學卡 +1（SC1/SC2/C3） | 三星率上升 | 比放寬門檻更有內容感 |
 
 **建議：** 這是給 7–12 歲的 10 分鐘遊戲，**先保住「大家都玩得完」**，把挑戰放在三星與知識卡收集；不要為了 55–65% 勝率把歸零懲罰調到兒童會哭的程度。若評審需要「有難度」，再做一個「困難」模式，而不是把預設變難。
