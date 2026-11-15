@@ -1,15 +1,13 @@
 import type { Localized } from './types';
-import baseExterior from '../assets/generated/scenes/07-base-exterior.webp';
+import keyArt from '../assets/generated/scenes/01-keyart.webp';
 import controlRoom from '../assets/generated/scenes/08-control-room.webp';
 import controlRoomEmpty from '../assets/generated/scenes/08-control-room-nocat.webp';
 import greenhouse from '../assets/generated/scenes/09-greenhouse.webp';
 import greenhouseEmpty from '../assets/generated/scenes/09-greenhouse-nocat.webp';
-import coldPatrol from '../assets/generated/scenes/11-cold-patrol.webp';
 import coldPatrolEmpty from '../assets/generated/scenes/11-cold-patrol-nocar.webp';
 import shadowHero from '../assets/generated/scenes/21-shadow-hero.webp';
 import shadowHeroEmpty from '../assets/generated/scenes/21-shadow-hero-nocat.webp';
 import shadowHeroSwept from '../assets/generated/scenes/21-shadow-hero-nocat-clean.webp';
-import silverWide from '../assets/generated/scenes/26-silver-wide.webp';
 import meteoriteBreach from '../assets/generated/scenes/31-meteorite-breach.webp';
 import oxygenUnit from '../assets/generated/scenes/32-oxygen-unit.webp';
 import shelterDoor from '../assets/generated/scenes/33-shelter-door.webp';
@@ -19,6 +17,14 @@ import co2Scrubber from '../assets/generated/scenes/36-co2-scrubber.webp';
 import co2ScrubberEmpty from '../assets/generated/scenes/36-co2-scrubber-nocat.webp';
 import nightDust from '../assets/generated/scenes/37-night-dust.webp';
 import nightDustEmpty from '../assets/generated/scenes/37-night-dust-nocat.webp';
+import coldWeek from '../assets/generated/scenes/38-cold-week.webp';
+import coldWeekEmpty from '../assets/generated/scenes/38-cold-week-nocat.webp';
+import earthCall from '../assets/generated/scenes/39-earth-call.webp';
+import earthCallEmpty from '../assets/generated/scenes/39-earth-call-nocat.webp';
+import iceSurvey from '../assets/generated/scenes/40-ice-survey.webp';
+import iceSurveyEmpty from '../assets/generated/scenes/40-ice-survey-nocat.webp';
+import waterRecycling from '../assets/generated/scenes/41-water-recycling.webp';
+import dishForecast from '../assets/generated/scenes/42-dish-forecast.webp';
 
 export interface EventArt {
   src: string;
@@ -48,10 +54,11 @@ export interface EventArt {
  * the `src` here only; no other file needs to know which image an event uses.
  * Alt text must describe the picture that is actually imported above.
  *
- * Rule: the picture has to show what the card is about. The daily briefing
- * reuses this map, so the player sees the same scene on the briefing and on
- * the card that follows it. The 06 crash art belongs to the opening, never to
- * a later sol.
+ * Rule: the picture has to show what the card is about. The captain's log has
+ * its own fixed picture per sol (`SOL_BRIEF_ART`), so the briefing matches the
+ * brief text even when the day's event is about something else. `briefingSrc`
+ * stays as the event's crew-free plate for that fallback path. The 06 crash
+ * art belongs to the opening, never to a later sol.
  */
 export const EVENT_ART: Record<string, EventArt> = {
   // T1 — "crash dust covers part of the array; Shadow is outside with a brush."
@@ -107,17 +114,17 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '夜裡，暗影站在積滿沙塵的太陽能板上，護目鏡掃描著板面；銀白在下方地面守候，金桔坐在探測車裡等待。',
     },
   },
-  // P4 — the cold week; a rover out on the frost with a dust devil spinning.
+  // P4 — the cold week; the habitat wrapped up warm while frost covers the ground.
   P4: {
-    src: coldPatrol,
-    briefingSrc: coldPatrolEmpty,
+    src: coldWeek,
+    briefingSrc: coldWeekEmpty,
     briefingAlt: {
-      en: 'A frost-dusted Martian plain with fresh rover tracks and a thin dust devil at dawn; no rover in frame.',
-      'zh-TW': '覆霜的火星平原，有新的探測車車轍與遠方細長塵捲風；畫面中沒有探測車。',
+      en: 'The habitat module at dusk with frost on the ground and its quilted insulation panel, warm light and an orange heater vent glowing; no crew in frame.',
+      'zh-TW': '黃昏的基地艙體，地面結霜，外牆貼著菱格保溫板，窗內暖光與橙色暖氣口亮著，畫面中沒有貓。',
     },
     alt: {
-      en: 'Shadow drives a rover across a frost-dusted plain with Ginger beside him, a dust devil spinning in the distance.',
-      'zh-TW': '暗影開著探測車載著金桔駛過結霜的平原，遠處有塵捲風。',
+      en: 'Ginger lies inside the habitat window beside a glowing heater, while frost covers the ground and the insulated outer wall at dusk.',
+      'zh-TW': '金桔趴在艙窗內的暖氣旁，窗外地面與保溫外牆結著霜，天色是黃昏。',
     },
   },
   // L1 — the oxygen unit fails at night; Shadow watches the drone repair it.
@@ -199,26 +206,103 @@ export const EVENT_ART: Record<string, EventArt> = {
       'zh-TW': '黃昏時金桔按著貨運控制台，旁邊是空著的補給托架，敞開的艙口旁堆著補給箱，遠處平原上有一台探測車。',
     },
   },
-  // C1 — the call from Earth; the outpost's dish is on the base.
+  // C1 — the call from Earth; Shadow works the radio console in the comms bay.
   C1: {
-    src: baseExterior,
+    src: earthCall,
+    briefingSrc: earthCallEmpty,
+    briefingAlt: {
+      en: 'The empty comms bay with a curved radio console and headphones, a screen linking Earth and Mars with a dashed signal arc, and the dish antenna through the round window; no crew.',
+      'zh-TW': '空無一貓的通訊艙，弧形無線電台與耳機，螢幕上地球與火星由虛線訊號弧連著，圓窗外是碟型天線。',
+    },
     alt: {
-      en: 'Exterior view of the Hope-1 Mars outpost with its dome, dish, solar farm and rover.',
-      'zh-TW': '希望一號火星基地外觀，含圓頂、碟型天線、太陽能陣列與探測車。',
+      en: 'Shadow in a black suit and blue visor reaches for a radio console in the comms bay, a screen showing Earth and Mars joined by a dashed signal arc, the dish antenna visible through the porthole.',
+      'zh-TW': '暗影穿著黑色太空衣、戴著藍色護目鏡，伸手操作通訊艙的無線電台；螢幕上地球與火星之間有一條虛線訊號弧，圓窗外是碟型天線。',
     },
   },
-  // SC2 — the ice survey; Silver reads the plain.
+  // SC2 — the ice survey; Silver reads the drill's scan at the borehole.
   SC2: {
-    src: silverWide,
+    src: iceSurvey,
+    briefingSrc: iceSurveyEmpty,
+    briefingAlt: {
+      en: "The rover's drill rests in a small borehole ringed with ice crystals on a frost-dusted plain, a scanner on the ground and fresh tracks curving back; no crew.",
+      'zh-TW': '探測車的鑽頭停在小鑽孔裡，孔口周圍是冰晶，結霜平原上留著車轍，地上放著掃描器，畫面中沒有貓。',
+    },
     alt: {
-      en: 'Wide shot of Silver walking a frost-dusted plain with the outpost on the horizon.',
-      'zh-TW': '遠景：銀白走在結霜的平原上，基地出現在地平線。',
+      en: "Silver crouches beside a rover's lowered drill at a small borehole ringed with ice crystals, one paw on a scanner, the rover screen showing a bright layer below the ground.",
+      'zh-TW': '銀白蹲在探測車降下的鑽頭旁，小鑽孔周圍散著冰晶，前掌按著掃描器，車上螢幕顯示地表下的亮層。',
     },
   },
 };
 
 export function artForEvent(eventId: string): EventArt | undefined {
   return EVENT_ART[eventId];
+}
+
+export interface SolBriefArt {
+  src: string;
+  alt: Localized;
+}
+
+/**
+ * The captain's log text is fixed per sol, so its picture is fixed too. Before
+ * this map the briefing borrowed the day's event art, which meant Sol 2's dust
+ * devil text could sit on a scrubber photo. Event art stays event-only; the
+ * log gets one scene per sol that matches what the log actually says.
+ */
+export const SOL_BRIEF_ART: Record<number, SolBriefArt> = {
+  1: {
+    src: keyArt,
+    alt: {
+      en: 'Three cat astronauts on a rocky Mars ridge at dawn, the lander and the Hope-1 outpost behind them.',
+      'zh-TW': '三隻貓太空人黎明時站在火星岩脊上，背後是登陸艇與希望一號基地。',
+    },
+  },
+  2: {
+    src: coldPatrolEmpty,
+    alt: {
+      en: 'A frost-dusted Martian plain with fresh rover tracks and a thin dust devil at dawn; no rover in frame.',
+      'zh-TW': '覆霜的火星平原，有新的探測車車轍與遠方細長塵捲風；畫面中沒有探測車。',
+    },
+  },
+  3: {
+    src: dishForecast,
+    alt: {
+      en: 'A dust-streaked dish antenna angled toward a low sun with a bright ring of light around it, solar panels and the outpost dome behind.',
+      'zh-TW': '佈滿沙塵的碟型天線朝向低垂的太陽，太陽外有一圈亮光，背後是太陽能板與基地圓頂。',
+    },
+  },
+  4: {
+    src: controlRoomEmpty,
+    alt: {
+      en: 'An empty habitat control room with a curved holographic display and a tomato crate.',
+      'zh-TW': '空無一貓的基地控制室，有弧形全像顯示器與一箱番茄。',
+    },
+  },
+  5: {
+    src: waterRecycling,
+    alt: {
+      en: 'Shadow, Silver and Ginger in the water recycling bay, watching water run through pipes and tanks while a closed-loop droplet diagram glows on the wall.',
+      'zh-TW': '暗影、銀白與金桔在水回收艙裡，看著水在管路與儲水槽間流動，牆上的閉環水滴圖示亮著。',
+    },
+  },
+  6: {
+    src: earthCallEmpty,
+    alt: {
+      en: 'The empty comms bay with a curved radio console and headphones, a screen linking Earth and Mars with a dashed signal arc, and the dish antenna through the round window; no crew.',
+      'zh-TW': '空無一貓的通訊艙，弧形無線電台與耳機，螢幕上地球與火星由虛線訊號弧連著，圓窗外是碟型天線。',
+    },
+  },
+  7: {
+    src: greenhouseEmpty,
+    alt: {
+      en: 'An empty greenhouse with tomato seedlings, a robotic watering arm and a ripe tomato on the counter.',
+      'zh-TW': '空無一貓的溫室，番茄幼苗、自動澆水臂與檯面上的一顆熟番茄。',
+    },
+  },
+};
+
+export function briefArtForSol(sol: number): SolBriefArt | undefined {
+  return SOL_BRIEF_ART[sol];
 }
 
 /**

@@ -45,33 +45,26 @@ describe('captain’s log naming', () => {
   });
 });
 
-describe('daily briefing art', () => {
-  it('shows the cat-free plate of the day’s event', () => {
-    renderBriefing('S1');
+describe('captain’s log art', () => {
+  const cases = [
+    { sol: 1, eventId: 'T1', alt: /three cat astronauts on a rocky Mars ridge/i, file: '01-keyart' },
+    { sol: 2, eventId: 'T1', alt: /dust devil at dawn/i, file: '11-cold-patrol-nocar' },
+    { sol: 3, eventId: 'L1', alt: /dish antenna angled toward a low sun/i, file: '42-dish-forecast' },
+    { sol: 4, eventId: 'S1', alt: /empty habitat control room/i, file: '08-control-room-nocat' },
+    { sol: 5, eventId: 'T1', alt: /water recycling bay/i, file: '41-water-recycling' },
+    { sol: 6, eventId: 'T1', alt: /empty comms bay/i, file: '39-earth-call-nocat' },
+    { sol: 7, eventId: 'T1', alt: /empty greenhouse/i, file: '09-greenhouse-nocat' },
+  ];
 
-    const image = screen.getByAltText(
-      /empty habitat control room/i,
-    ) as HTMLImageElement;
-    expect(image.src).toContain('08-control-room-nocat');
-  });
+  it.each(cases)(
+    'shows the Sol $sol scene, not the event photo',
+    ({ sol, eventId, alt, file }) => {
+      renderBriefing(eventId, sol);
 
-  it('falls back to the card picture when the event has no plate', () => {
-    renderBriefing('L1');
-
-    const image = screen.getByAltText(
-      /opened oxygen unit glows cyan/i,
-    ) as HTMLImageElement;
-    expect(image.src).toContain('32-oxygen-unit');
-  });
-
-  it('shows the Sol 1 dust briefing on the array, not the crew key art', () => {
-    renderBriefing('T1', 1);
-
-    const image = screen.getByAltText(
-      /solar panel array at dusk with dust/i,
-    ) as HTMLImageElement;
-    expect(image.src).toContain('21-shadow-hero-nocat');
-  });
+      const image = screen.getByAltText(alt) as HTMLImageElement;
+      expect(image.src).toContain(file);
+    },
+  );
 });
 
 describe('low-gravity hop entry', () => {

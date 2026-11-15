@@ -1,5 +1,5 @@
 import { briefForSol } from '../game/daily';
-import { briefingArtFor } from '../game/eventArt';
+import { briefArtForSol, briefingArtFor } from '../game/eventArt';
 import { getKnowledgeCard } from '../game/knowledge';
 import type { EventCard, GameState, Localized } from '../game/types';
 import { t } from '../i18n';
@@ -39,9 +39,9 @@ export function BriefingScreen({
   const brief = briefForSol(state.sol);
   const isCold = state.weather.tags.includes('cold_snap') || state.weather.tags.includes('severe_cold');
 
-  // The briefing previews the day's event: the same place the card will show,
-  // with the cat-free plate when the event has one.
-  const art = briefingArtFor(event.id);
+  // The log text is fixed per sol, so the scene is fixed per sol too. The
+  // event art is only a fallback if a sol ever falls outside the map.
+  const art = briefArtForSol(state.sol) ?? briefingArtFor(event.id);
 
   return (
     <main className="briefing-shell">
