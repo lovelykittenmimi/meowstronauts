@@ -1,5 +1,7 @@
 # Meowstronauts: Mars Outpost
 
+https://mars.flymymind.com/
+
 A child-friendly Mars base survival game for the **NASA Space Apps Challenge 2026**.
 
 Three cat astronauts crash near the fictional Hope-1 outpost and must keep the
