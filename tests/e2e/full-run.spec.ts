@@ -64,7 +64,7 @@ test.describe('P0 §5.1 — full run', () => {
     test.slow();
     const errors = watchConsoleErrors(page);
 
-    await page.goto('/?reset=1');
+    await page.goto('/?reset=1&seed=meowstronauts-2025-05-14');
     await expect(page.getByTestId('title-screen')).toBeVisible();
 
     await page.getByTestId('start-game').click();
@@ -97,6 +97,10 @@ test.describe('P0 §5.1 — full run', () => {
       }
     }
 
+    const skipEnding = page.getByTestId('ending-skip');
+    if (await skipEnding.isVisible().catch(() => false)) {
+      await skipEnding.click();
+    }
     await expect(page.getByTestId('mission-report')).toBeVisible();
     await expect(page.getByTestId('mission-report-stars')).toHaveText(/^[★☆]{3}$/);
     expect(errors).toEqual([]);

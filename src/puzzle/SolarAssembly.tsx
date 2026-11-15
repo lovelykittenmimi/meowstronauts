@@ -296,28 +296,30 @@ export function SolarAssembly({
         <aside className="assembly-tray" data-testid="story-puzzle-tray">
           <div className="assembly-cards">
             {MODULES.map((module) => (
-              <button
-                type="button"
-                key={module.id}
-                className={`assembly-card ${selected === module.id ? 'is-selected' : ''} ${dragging === module.id && dragMoved ? 'is-dragging' : ''}`}
-                data-testid={`story-puzzle-piece-${module.id}`}
-                onClick={() => handleClick(module.id)}
-                onPointerDown={(event) => startDrag(event, module.id)}
-                onPointerMove={moveDrag}
-                onPointerUp={(event) => endDrag(event, module.id)}
-                onPointerCancel={cancelDrag}
-                onDragStart={(event) => event.preventDefault()}
-                disabled={isPlaced(module.id)}
-                aria-pressed={selected === module.id}
-                aria-label={module.label[lang]}
-              >
-                <img
-                  className="assembly-card-image"
-                  src={IMAGES[module.id]}
-                  alt=""
-                  draggable={false}
-                />
-              </button>
+              <div className="assembly-card-row" key={module.id}>
+                <span className="assembly-card-label">{module.label[lang]}</span>
+                <button
+                  type="button"
+                  className={`assembly-card ${selected === module.id ? 'is-selected' : ''} ${dragging === module.id && dragMoved ? 'is-dragging' : ''}`}
+                  data-testid={`story-puzzle-piece-${module.id}`}
+                  onClick={() => handleClick(module.id)}
+                  onPointerDown={(event) => startDrag(event, module.id)}
+                  onPointerMove={moveDrag}
+                  onPointerUp={(event) => endDrag(event, module.id)}
+                  onPointerCancel={cancelDrag}
+                  onDragStart={(event) => event.preventDefault()}
+                  disabled={isPlaced(module.id)}
+                  aria-pressed={selected === module.id}
+                  aria-label={module.label[lang]}
+                >
+                  <img
+                    className="assembly-card-image"
+                    src={IMAGES[module.id]}
+                    alt=""
+                    draggable={false}
+                  />
+                </button>
+              </div>
             ))}
           </div>
 

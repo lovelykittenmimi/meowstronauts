@@ -49,6 +49,7 @@ export function createInitialState(
   lang: Lang = 'en',
   resources?: Resources,
   collectedCards: string[] = [],
+  seed: string = DEFAULT_SEED,
 ): GameState {
   return {
     sol: 1,
@@ -63,7 +64,7 @@ export function createInitialState(
     weather: getWeather(1),
     lang,
     difficulty,
-    seed: DEFAULT_SEED,
+    seed,
     resourceHistory: [],
     emergencyUsed: false,
     hopRewarded: false,
@@ -203,6 +204,17 @@ function handleChoose(
   };
 }
 
+export function silverCardFor(state: GameState): string | undefined {
+  const event = state.currentEventId
+    ? EVENT_BY_ID.get(state.currentEventId)
+    : undefined;
+  const eventCard = event?.terms?.find(
+    (term) => getKnowledgeCard(term) && !state.collectedCards.includes(term),
+  );
+  if (eventCard) return eventCard;
+  return KNOWLEDGE_IDS.find((id) => !state.collectedCards.includes(id));
+}
+
 function handleAssist(
   state: GameState,
   cat: CatId,
@@ -223,12 +235,8 @@ function handleAssist(
       variant === 'lifeSupport' ? { lifeSupport: 10 } : { food: 1 },
     );
   } else {
-    const event = state.currentEventId
-      ? EVENT_BY_ID.get(state.currentEventId)
-      : undefined;
-    const candidate = event?.terms?.find(
-      (term) => getKnowledgeCard(term) && !state.collectedCards.includes(term),
-    );
+    resources = addEffects(resources, { science: 1 });
+    const candidate = silverCardFor(state);
     if (candidate) {
       const added = addKnowledgeToState(state, candidate);
       cards = added.collectedCards;
@@ -356,8 +364,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         state.lang,
         undefined,
         state.collectedCards,
+        action.seed ?? state.seed,
       );
-      return enterSol({ ...fresh, seed: state.seed });
+      return enterSol(fresh);
     }
 
     case 'OPEN_EVENT': {

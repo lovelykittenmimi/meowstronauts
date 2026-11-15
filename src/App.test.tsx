@@ -1,8 +1,12 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 
+const TEST_SEED = 'meowstronauts-2025-05-14';
+
 function open(path: string) {
-  window.history.pushState({}, '', path);
+  const url = new URL(path, 'http://localhost');
+  if (!url.searchParams.has('seed')) url.searchParams.set('seed', TEST_SEED);
+  window.history.pushState({}, '', `${url.pathname}${url.search}`);
   return render(<App />);
 }
 

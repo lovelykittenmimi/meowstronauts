@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { BACKPACK_SIZE } from '../game/balance';
 import { starsFor } from '../game/reducer';
 import type { GameState } from '../game/types';
 import { t } from '../i18n';
 import ending from '../assets/generated/scenes/13-ending.webp';
+import { EndingDialogue } from './EndingDialogue';
+import { ENDING_DIALOGUES } from './endingDialogues';
 import { SceneStage } from './SceneStage';
 
 const width = 640;
@@ -34,23 +37,29 @@ export function MissionReport({ state, onRestart }: MissionReportProps) {
   const history = state.resourceHistory.length > 0 ? state.resourceHistory : [state.resources];
   const health = history.map((entry) => entry.health);
   const science = history.map((entry) => Math.min(100, entry.science));
-  const comment =
-    stars === 3
-      ? t(lang, 'report.comment3')
-      : stars === 2
-        ? t(lang, 'report.comment2')
-        : t(lang, 'report.comment1');
+  const endingKey = stars === 3 ? 'three' : stars === 2 ? 'two' : 'one';
+  const sceneAlt =
+    lang === 'en'
+      ? 'A supply ship descends toward the landing pad as the three cats watch at sunrise.'
+      : '補給船在日出時降落在停機坪，三隻貓在一旁觀看。';
+  const [epilogueDone, setEpilogueDone] = useState(Boolean(state.videoMode));
+
+  if (!epilogueDone) {
+    return (
+      <EndingDialogue
+        lines={ENDING_DIALOGUES[endingKey]}
+        lang={lang}
+        sceneSrc={ending}
+        sceneAlt={sceneAlt}
+        finishLabel={t(lang, 'report.epilogueFinish')}
+        onDone={() => setEpilogueDone(true)}
+      />
+    );
+  }
 
   return (
     <main className="report-shell" data-testid="mission-report">
-      <SceneStage
-        src={ending}
-        alt={
-          lang === 'en'
-            ? 'A supply ship descends toward the landing pad as the three cats watch at sunrise.'
-            : '補給船在日出時降落在停機坪，三隻貓在一旁觀看。'
-        }
-      />
+      <SceneStage src={ending} alt={sceneAlt} />
       <section className="report-card">
         <div className="report-body">
         <p className="eyebrow">{t(lang, 'report.title')}</p>
@@ -63,8 +72,6 @@ export function MissionReport({ state, onRestart }: MissionReportProps) {
             </span>
           ))}
         </div>
-        <p className="report-comment">{comment}</p>
-
         <div className="report-stats">
           <div>
             <span className="eyebrow">{t(lang, 'report.health')}</span>

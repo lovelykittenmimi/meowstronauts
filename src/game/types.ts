@@ -155,7 +155,7 @@ export interface GameState {
 }
 
 export type GameAction =
-  | { type: 'START_GAME'; difficulty: Difficulty }
+  | { type: 'START_GAME'; difficulty: Difficulty; seed?: string }
   | { type: 'OPEN_EVENT'; eventId: string }
   | { type: 'CHOOSE'; choiceId: string; roll?: number }
   | { type: 'COLLECT_CARD'; cardId: string }

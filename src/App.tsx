@@ -2,7 +2,8 @@ import { useEffect, useReducer, useState } from 'react';
 import { FOOD_CAP } from './game/balance';
 import { drawEventFor } from './game/deck';
 import { KNOWLEDGE_IDS } from './game/knowledge';
-import { createInitialState, gameReducer } from './game/reducer';
+import { DEFAULT_SEED, createInitialState, gameReducer, silverCardFor } from './game/reducer';
+import { randomSeed } from './game/seed';
 import type { CatId, Difficulty, Lang } from './game/types';
 import { buildVideoState, type VideoMode } from './game/video';
 import LanderOverlay from './minigames/LanderOverlay';
@@ -61,7 +62,9 @@ export default function App() {
   const storySceneNumber = storyScene && storyScene !== '2' ? Number(storyScene) : undefined;
   const langParam = params.get('lang');
   const reset = params.get('reset') === '1';
+  const seedParam = params.get('seed')?.trim();
 
+  const [seed, setSeed] = useState(() => seedParam ?? '');
   const [opening, setOpening] = useState(scene === 'opening2');
   const [storyOpen, setStoryOpen] = useState(Boolean(storySceneNumber));
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>('officer');
@@ -90,9 +93,19 @@ export default function App() {
 
     const lang: Lang =
       langParam === 'en' || langParam === 'zh-TW' ? langParam : readLang();
-    const initial = createInitialState('officer', lang, undefined, reset ? [] : readBackpack());
+    const initial = createInitialState(
+      'officer',
+      lang,
+      undefined,
+      reset ? [] : readBackpack(),
+      seed || DEFAULT_SEED,
+    );
     if (storySceneNumber) {
-      return gameReducer(initial, { type: 'START_GAME', difficulty: 'officer' });
+      return gameReducer(initial, {
+        type: 'START_GAME',
+        difficulty: 'officer',
+        seed: seed || randomSeed(),
+      });
     }
     return initial;
   });
@@ -154,6 +167,13 @@ export default function App() {
     setRadiationOpen(false);
   };
 
+  const startGame = () => {
+    const finalSeed = seed.trim() || randomSeed();
+    if (seed.trim() && finalSeed !== seed) setSeed(finalSeed);
+    dispatch({ type: 'START_GAME', difficulty: selectedDifficulty, seed: finalSeed });
+    setStoryOpen(true);
+  };
+
   if (opening) {
     return (
       <>
@@ -201,11 +221,11 @@ export default function App() {
         <TitleScreen
           lang={state.lang}
           difficulty={selectedDifficulty}
+          seed={seed}
           onDifficulty={setSelectedDifficulty}
-          onStart={() => {
-            dispatch({ type: 'START_GAME', difficulty: selectedDifficulty });
-            setStoryOpen(true);
-          }}
+          onSeedChange={setSeed}
+          onRandomSeed={() => setSeed(randomSeed())}
+          onStart={startGame}
           onToggleLang={toggleLang}
         />
         {knowledgeId && (
@@ -299,9 +319,13 @@ export default function App() {
             <EventCardView
               state={state}
               onChoose={(choiceId) => dispatch({ type: 'CHOOSE', choiceId })}
-              onAssist={(cat: CatId, variant?: 'power' | 'food' | 'lifeSupport') =>
-                dispatch({ type: 'USE_ASSIST', cat, variant })
-              }
+              onAssist={(cat: CatId, variant?: 'power' | 'food' | 'lifeSupport') => {
+                if (cat === 'silver') {
+                  const card = silverCardFor(state);
+                  if (card) setKnowledgeId(card);
+                }
+                dispatch({ type: 'USE_ASSIST', cat, variant });
+              }}
               onTerm={openCard}
               onContinue={() => dispatch({ type: 'CONTINUE' })}
               onOpenCard={openCard}

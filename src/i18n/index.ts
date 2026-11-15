@@ -15,6 +15,13 @@ export const STRINGS = {
   },
   'title.start': { en: 'Start the mission', 'zh-TW': '開始任務' },
   'title.difficulty': { en: 'Choose a difficulty', 'zh-TW': '選擇難度' },
+  'title.seed': { en: 'Run seed', 'zh-TW': '本局種子' },
+  'title.seed.placeholder': { en: 'e.g. MARS-2040', 'zh-TW': '例：MARS-2040' },
+  'title.seed.random': { en: 'Random', 'zh-TW': '隨機' },
+  'title.seed.help': {
+    en: 'Same seed + same choices = same deck.',
+    'zh-TW': '同一 seed＋同樣選擇＝同一牌序。',
+  },
   'difficulty.cadet': { en: 'Cadet', 'zh-TW': '見習生' },
   'difficulty.cadet.desc': {
     en: 'More supplies. A gentler first mission.',
@@ -125,7 +132,7 @@ export const STRINGS = {
     'zh-TW': '請把手機橫放',
   },
   'assist.title': { en: 'Cat assist', 'zh-TW': '貓咪專長' },
-  'assist.silver': { en: 'Silver: find a knowledge card', 'zh-TW': '銀白：找到一張知識卡' },
+  'assist.silver': { en: 'Silver: +1 science + card', 'zh-TW': '銀白：科學 +1＋知識卡' },
   'assist.shadow': { en: 'Shadow: +12 power', 'zh-TW': '暗影：電力 +12' },
   'assist.gingerFood': { en: 'Ginger: +1 food', 'zh-TW': '金桔：食物 +1' },
   'assist.gingerLife': { en: 'Ginger: +10 life support', 'zh-TW': '金桔：生命維持 +10' },
@@ -203,6 +210,7 @@ export const STRINGS = {
   'report.health': { en: 'Health', 'zh-TW': '健康' },
   'report.science': { en: 'Science', 'zh-TW': '科學' },
   'report.again': { en: 'Play again', 'zh-TW': '再玩一次' },
+  'report.epilogueFinish': { en: 'Mission report', 'zh-TW': '任務報告' },
   'report.comment3': {
     en: 'The crew is healthy, curious, and talking about tomorrow.',
     'zh-TW': '隊員們健康又有活力，正滿懷好奇地聊著明天的計畫。',
@@ -228,6 +236,7 @@ export const STRINGS = {
     'zh-TW': '船員需要休息與維修。再試一次這一天。',
   },
   'gameover.restart': { en: 'Back to title', 'zh-TW': '回到標題' },
+  'gameover.debrief': { en: 'Debrief', 'zh-TW': '任務覆盤' },
   'common.lang': { en: '中文', 'zh-TW': 'English' },
 } satisfies Record<string, Localized>;
 

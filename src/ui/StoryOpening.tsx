@@ -176,6 +176,7 @@ const INTRO_QUESTION: Line = {
 const REPLY_LINES: Record<'command' | 'cadet', Line[]> = {
   command: [
     { cat: 'silver', mood: 'happy', text: l('Good. Courage is useful. Now use the same courage on the repair bill.', '很好。勇氣可嘉。現在請用同樣的勇氣面對維修帳單。') },
+    { cat: 'silver', mood: 'happy', text: l('Your salary is one tomato a day.', '薪水是每天一顆番茄。') },
   ],
   cadet: [
     { cat: 'silver', mood: 'happy', text: l('Better. Cadets learn fast, and they are cheap.', '更好。見習生學得快，而且便宜。') },
