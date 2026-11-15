@@ -99,8 +99,8 @@ export function AlertBoard({
                   <strong>{copy.name}</strong>
                   <small>{copy.role}</small>
                 </span>
-                <span className="alert-cat-station">{copy.station}</span>
               </span>
+              <span className="alert-cat-station">{copy.station}</span>
               <span className="alert-cat-status">{status}</span>
               <span className="alert-cat-track" aria-hidden="true">
                 <span style={{ width: `${percent}%` }} />
