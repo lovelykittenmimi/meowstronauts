@@ -1,7 +1,7 @@
 # 喵航員：火星基地 — 圖像生成 Prompt Book
 
 > 用途：Nano Banana 逐張生成遊戲視覺。所有 prompt 以英文書寫，說明以繁中書寫。
-> 最後更新：2026-11-14（01–37 已出圖，見 §0.6、§7；§3.1 的 31–35 與 §3.2 的 36–37 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 同日重出移除國旗貼布）
+> 最後更新：2026-11-15（01–42 已出圖，見 §0.6、§7；§3.1 的 31–35、§3.2 的 36–37、§3.3 的 38–42 已壓成 1280 px WebP 並接入 `eventArt.ts`，35 同日重出移除國旗貼布）
 
 ---
 
@@ -103,7 +103,7 @@
 - 使用說明與表情定義：`src/assets/generated/README.md`、`src/assets/avatars/README.md`。
 - 01、05–29 全部有對應成品；17–19 的 `_hat` 是額外產出（prompt 未要求，用來做戴頭盔頭像）。
 - MVP 打包仍只載入 §0.5 的 8 張（約 779 KB），其餘是替換與後續素材。
-- 2026-11-14 另加入無貓背景底板（`scenes/06`、`08`–`10`、`12`–`13`、`21` 的 `*-nocat.webp`）。艦長日誌跟著當天事件換圖：有 `briefingSrc` 底板就用底板（T1、P1、P4、L3、S1、F1），沒有底板就用事件卡自己的圖（L1、L2、S2、S3、F3、C1、SC2）；`01-keyart.webp` 只當找不到事件圖時的後備。06 的底板仍是候選素材；它來自 06 第二次重出的構圖，晚間第三次重出後已與主圖不同，目前未接入遊戲。11 只有「有車＋貓」原圖與「沒車也沒貓」的 `11-cold-patrol-nocar.webp` 兩個版本，不做空車版。06 與 13 的底板已於同日重出，沒有美國國旗貼布；13 為 2.02:1、比其他張寬；06 仍有風格化的小火焰。21 有兩個底板：`21-shadow-hero-nocat`（同一片陣列、同一黃昏光線，板面積塵）與 `21-shadow-hero-nocat-clean`（同場景、沙子已清乾淨）；T1／P1 的掃沙小遊戲從積塵版開始，清完六個沙塵點後換成乾淨版。
+- 2026-11-14 另加入無貓背景底板（`scenes/06`、`08`–`10`、`12`–`13`、`21` 的 `*-nocat.webp`）。艦長日誌大圖**依 sol 固定**，不跟當天事件換（`SOL_BRIEF_ART`，11/15 起）：Sol 1 `01-keyart`、Sol 2 `11-cold-patrol-nocar`、Sol 3 `42-dish-forecast`、Sol 4 `08-control-room-nocat`、Sol 5 `41-water-recycling`、Sol 6 `39-earth-call-nocat`、Sol 7 `09-greenhouse-nocat`。事件卡自己的圖不再借給簡報；事件圖的 `briefingSrc` 只在 sol 超出 1–7 時當後備。06 的底板仍是候選素材；它來自 06 第二次重出的構圖，晚間第三次重出後已與主圖不同，目前未接入遊戲。11 只有「有車＋貓」原圖與「沒車也沒貓」的 `11-cold-patrol-nocar.webp` 兩個版本，不做空車版。06 與 13 的底板已於同日重出，沒有美國國旗貼布；13 為 2.02:1、比其他張寬；06 仍有風格化的小火焰。21 有兩個底板：`21-shadow-hero-nocat`（同一片陣列、同一黃昏光線，板面積塵）與 `21-shadow-hero-nocat-clean`（同場景、沙子已清乾淨）；T1／P1 的掃沙小遊戲從積塵版開始，清完六個沙塵點後換成乾淨版。
 - OG 底圖由第 30 號 prompt 生成（2848×1504）。原圖貓群高於上方 30%、也超出中央 80%，處理時把整張等比縮進安全區（三貓上緣 y=197、左右 199–1001 px），再用邊緣像素延伸深色漸層補滿留白，最後由程式疊標題與 `Fly My Mind`。
 
 **已知偏差（2026-11-14 抽查 01、06、13、23、25、29 與 OG）：**
@@ -116,6 +116,7 @@
 - 14–16 部分視圖的腳掌被原圖邊界裁掉，去背不會補回（見 `src/assets/generated/README.md`）。
 - OG 的 Shadow 單眼 HUD 內有原圖自帶的極小字樣；縮到 1200×630 後小於 2 px、無法辨識。
 - 2026-11-14 晚間新增 §3.1 的 31–35 與 §3.2 的 36–37（事件卡補圖），皆已出圖並接入 `eventArt.ts`；成品不在上面的批次清單內。
+- 2026-11-15 新增 §3.3 的 38–42（P4／C1／SC2 事件卡補圖＋Sol 5／Sol 3 艦長日誌），38–40 另附 `-nocat` 編輯句；40 的銀白為蹲姿按地上掃描器、41 成品有三隻貓，與 prompt 不同，見 §3.3 開頭。
 
 ---
 
@@ -395,6 +396,102 @@ Aspect ratio 16:9, target size 1920x1080. No cats, no crew anywhere in frame. Ni
 
 ---
 
+### 3.3 事件卡與艦長日誌補圖 38–42（2026-11-15，已出圖並接入）
+
+> 依 `docs/event-art-audit.md` 的巡檢重出 5 張：P4、C1、SC2 三張事件卡拍不到事件本身；
+> Sol 5、Sol 3 兩個艦長日誌沒有對應畫面。原始 JPEG 為 2752×1536，
+> 已處理成 1280×714 WebP q=82 放進 `src/assets/generated/scenes/`（48–159 KB），
+> 其中 38、39、40 另有 `-nocat` 底板（同批編輯生成）。
+> 接線：P4／C1／SC2 走 `EVENT_ART`；Sol 5／Sol 3 走 `SOL_BRIEF_ART`（艦長日誌依 sol 固定，見 §0.6 與 `eventArt.ts`）。
+> **與原始 prompt 的差異**：40 的銀白是蹲姿、前掌按地上的掃描器（不是站姿按車上控制面板）；
+> 41 的 prompt 寫 `No cats`，但成品有三隻貓（暗影、銀白、金桔都在水回收艙裡），
+> 目前當 Sol 5 艦長日誌圖使用，是七個 sol 裡唯一有貓的簡報大圖；
+> 42 的太陽外亮環很明顯（像日食光環），其餘與 prompt 一致；38、39 與 prompt 一致。
+> `38-cold-week-nocat` 與 `40-ice-survey-nocat` 目前未接入遊戲（事件卡用有貓版，簡報已被 sol 固定圖取代）；
+> `39-earth-call-nocat` 當 Sol 6 艦長日誌。
+
+| 檔案 | 用在哪 | 接進 code |
+|---|---|---|
+| `38-cold-week.webp`（＋`-nocat`） | P4 事件卡（金桔） | `EVENT_ART.P4` |
+| `39-earth-call.webp`（＋`-nocat`） | C1 事件卡（暗影）；底板當 Sol 6 艦長日誌 | `EVENT_ART.C1`、`SOL_BRIEF_ART[6]` |
+| `40-ice-survey.webp`（＋`-nocat`） | SC2 事件卡（銀白） | `EVENT_ART.SC2` |
+| `41-water-recycling.webp` | Sol 5 艦長日誌（有貓） | `SOL_BRIEF_ART[5]` |
+| `42-dish-forecast.webp` | Sol 3 艦長日誌（無貓） | `SOL_BRIEF_ART[3]` |
+
+#### 38. 冷週暖氣（P4）
+
+**比例：16:9｜成品：2752×1536 → 1280×714 WebP q=82｜檔名：`38-cold-week.webp`**
+
+```text
+Wide cinematic still of the Mars outpost at cold blue-hour dusk. Frost crystals coat the orange-red soil and the ribs of the cream habitat modules, and the habitat windows glow warm amber. On the outside wall, a quilted silver insulation panel and a vent casting a soft orange heater glow; a power cable runs along the base. Ginger, a chubby orange tabby cat in a cream-and-orange astronaut suit with orange pouches and a small blue triangular mission patch, sits inside the large oval window on a bench close to a glowing heater, looking out at the frost. Thin butterscotch-to-deep-blue sky, first stars, layered mesas behind. Pixar-style 3D animation still, physically based lighting, soft depth of field, wide 16:9. No text, no logos, no humans.
+```
+
+**38-nocat**
+
+編輯句（在生成好的 38 上下）：
+
+```text
+Remove the cat from the window only; keep the warm empty room, the heater glow, the frost and everything else identical.
+```
+
+存成 `38-cold-week-nocat.jpeg`。
+
+#### 39. 地球來電（C1）
+
+**比例：16:9｜成品：2752×1536 → 1280×714 WebP q=82｜檔名：`39-earth-call.webp`**
+
+```text
+Interior of the outpost's small communications bay at dusk. Warm-lit room with coiled cables, a headset hanging beside a low curved radio console. A large rounded wall screen shows a small blue Earth with a dashed signal arc and a thin, mostly empty progress ring, next to a small orange Mars globe; the screen glows softly with no lettering. A tall dish antenna is visible through a round porthole against a pink-orange sky. Shadow, a sleek black cat in a black-and-purple armored tech spacesuit with a glowing blue AR visor, sits at the console with one paw on a dial, ears perked. Pixar-style 3D animation still, physically based lighting, soft depth of field, wide 16:9. No text, no numbers, no logos, no humans.
+```
+
+**39-nocat**
+
+編輯句：
+
+```text
+Remove the cat and fill in only what it covered; keep the empty chair, console, Earth screen and dish; everything else identical.
+```
+
+存成 `39-earth-call-nocat.jpeg`；這張就是 Sol 6 艦長日誌大圖。
+
+#### 40. 地下冰探測（SC2）
+
+**比例：16:9｜成品：2752×1536 → 1280×714 WebP q=82｜檔名：`40-ice-survey.webp`**
+
+```text
+Wide cinematic still on a frost-dusted Martian plain at golden hour. Silver, a fluffy long-haired white cat with big teal-green eyes, in a white astronaut suit with navy-blue and gold trim and a small star badge, stands beside a six-wheeled Mars rover with one paw on its control panel. The rover's small screen shows a simple cross-section of the ground with a bright glowing blue layer below the surface. A lowered drill arm touches the frosty ground beside a small borehole with ice crystals around the rim. Fresh wheel tracks curve away. The cream outpost dome sits far on the horizon. Orange-red soil, thin peach sky, layered mesas. Pixar-style 3D animation still, physically based lighting, soft depth of field, wide 16:9. No text, no logos, no humans.
+```
+
+**40-nocat**
+
+編輯句：
+
+```text
+Remove the cat; keep the rover, drill, borehole and tracks; everything else identical.
+```
+
+存成 `40-ice-survey-nocat.jpeg`（目前未接入遊戲）。
+
+#### 41. 水回收艙（Sol 5 艦長日誌）
+
+**比例：16:9｜成品：2752×1536 → 1280×714 WebP q=82｜檔名：`41-water-recycling.webp`**
+
+```text
+Interior of the outpost's water recycling bay: three upright cylindrical tanks connected by curved pipes, a glass tube where condensation droplets run back down into a tank, a circular closed-loop diagram on the wall panel with a blue droplet icon and arrows, no words. Gauges glow soft cyan, one tank shows a rising water level. Clean, warm-lit engineering room with ribbed cream walls and a small porthole showing rust-red Mars outside. No cats, no people. Pixar-style 3D animated film still, physically based lighting, soft depth of field, wide 16:9. No text, no logos.
+```
+
+> 成品與 `No cats` 不同：畫面裡有三隻貓，所以 `SOL_BRIEF_ART[5]` 的 alt 照實描述牠們，不是空景。
+
+#### 42. 天線與低日（Sol 3 艦長日誌）
+
+**比例：16:9｜成品：2752×1536 → 1280×714 WebP q=82｜檔名：`42-dish-forecast.webp`**
+
+```text
+Exterior of the Mars outpost at dawn: a large dish antenna in the foreground angled toward a low, bright sun on the horizon, with a thin bright ring of light around the sun. Long shadows across rust-red soil, solar panels and the cream dome behind, a tiny red indicator lamp on the antenna mount. Thin dusty peach sky, layered mesas. No cats, no people. Pixar-style 3D animated still, physically based lighting, soft depth of field, wide 16:9. No text, no logos, no watermark.
+```
+
+---
+
 ## 4. 角色多角度分鏡
 
 ### 4.1 六視圖 turnaround
@@ -580,7 +677,7 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 > 「檔名」欄是生成時的原檔名（PNG，原圖不在 repo 內）；repo 內放的是處理後 WebP。
 > 下表 `scenes/`＝`src/assets/generated/scenes/`，`cutouts/`＝`src/assets/generated/cutouts/`；括號內為實際像素。
 
-| # | 檔名（生成原檔） | 比例 | 遊戲內尺寸 | 用途 | repo 內成品（2026-11-14） |
+| # | 檔名（生成原檔） | 比例 | 遊戲內尺寸 | 用途 | repo 內成品（2026-11-15） |
 |---|---|---|---|---|---|
 | 01 | `01-keyart.png` | 16:9 | 1920×1080 | 標題、封面 | `scenes/01-keyart.webp`（1280×714） |
 | 02–04 | `ref-silver.jpg` / `ref-shadow.jpg` / `ref-ginger.jpg`（`docs/assets/characters/`） | 約 16:9 | 2750×1536（現有） | 角色參考圖，已內建於 GEM，不再生成 | 原檔沿用（未重新生成） |
@@ -617,6 +714,11 @@ Aspect ratio 1.9:1, target size 1200x630. Match the three character reference im
 | 35 | `35-supply-crate.png` | 16:9 | 1920×1080 | F3 事件卡：補給箱延誤（§3.1） | `scenes/35-supply-crate.webp`（1280×714；原檔為 `.jpeg`；同日重出移除國旗貼布） |
 | 36 | `36-co2-scrubber.png` | 16:9 | 1920×1080 | L3 事件卡：二氧化碳超標（§3.2） | `scenes/36-co2-scrubber.webp`（1280×714；簡報板 `36-co2-scrubber-nocat.webp`；原檔為 `.jpeg`） |
 | 37 | `37-night-dust.png` | 16:9 | 1920×1080 | P1 事件卡：太陽能板積塵（§3.2） | `scenes/37-night-dust.webp`（1280×714；簡報板 `37-night-dust-nocat.webp`；原檔為 `.jpeg`） |
+| 38 | `38-cold-week.jpeg` | 16:9 | 2752×1536（實際） | P4 事件卡：冷週暖氣（§3.3） | `scenes/38-cold-week.webp`（1280×714；另有 `38-cold-week-nocat.webp`，目前未接入） |
+| 39 | `39-earth-call.jpeg` | 16:9 | 2752×1536（實際） | C1 事件卡：地球來電（§3.3） | `scenes/39-earth-call.webp`（1280×714）；底板 `39-earth-call-nocat.webp` 當 Sol 6 艦長日誌 |
+| 40 | `40-ice-survey.jpeg` | 16:9 | 2752×1536（實際） | SC2 事件卡：地下冰探測（§3.3） | `scenes/40-ice-survey.webp`（1280×714；另有 `40-ice-survey-nocat.webp`，目前未接入） |
+| 41 | `41-water-recycling.jpeg` | 16:9 | 2752×1536（實際） | Sol 5 艦長日誌（§3.3） | `scenes/41-water-recycling.webp`（1280×714；成品有三隻貓，與 prompt 的 `No cats` 不同） |
+| 42 | `42-dish-forecast.jpeg` | 16:9 | 2752×1536（實際） | Sol 3 艦長日誌（§3.3） | `scenes/42-dish-forecast.webp`（1280×714） |
 
 ---
 

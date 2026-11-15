@@ -29,13 +29,17 @@
 
 ## 使用規則
 
-- 遊戲目前打包 24 張場景：`01`（標題）、`05`、`06`（開場迫降，**不當事件卡背景**）、
-  `07`–`12`、`21`、`26`、`31`–`35`（事件場景舞台，對應表在 [`src/game/eventArt.ts`](../../game/eventArt.ts)）、
-  `13`（任務報告），另加 `*-nocat`／`*-nocar` 無貓底板（08、09、10、11、12、21）；其餘與 `cutouts/` 是替換與後續使用的素材。
+- 遊戲目前打包 30 張場景：`01`（Sol 1 艦長日誌）、`05`、`06`（開場迫降，**不當事件卡背景**）、
+  `08`、`09`、`11-nocar`、`12`、`13`、`21`、`31`–`42`（事件卡與艦長日誌，對應表在
+  [`src/game/eventArt.ts`](../../game/eventArt.ts)），另加 `*-nocat`／`*-nocar` 無貓底板
+  （08、09、21、36–40）；其餘與 `cutouts/` 是替換與後續使用的素材。
 - **11/14 事件卡換圖**：S2 用 `31-meteorite-breach`、L1 用 `32-oxygen-unit`、S3 用 `33-shelter-door`、
   L2 用 `34-water-line`、F3 用 `35-supply-crate`（原圖 JPEG 2752×1536 → WebP 1280×714、q=82、46–95 KB）。
-  P1 改用 `10-night-repair`：原本和 T1 共用 `21-shadow-hero`，Sol 1 教學卡和後面的積塵卡看起來一模一樣；
+  P1 用 `37-night-dust`（夜間積塵，和 T1 的黃昏陣列區隔）；
   掃沙小遊戲仍沿用 `21` 的積塵／清乾淨底板（同一座太陽能陣列）。
+- **11/15 追加**：P4 用 `38-cold-week`、C1 用 `39-earth-call`、SC2 用 `40-ice-survey`、
+  Sol 5 艦長日誌用 `41-water-recycling`、Sol 3 艦長日誌用 `42-dish-forecast`
+  （原圖 JPEG 2752×1536 → WebP 1280×714、q=82、48–159 KB）。
   `35` 第一版的 Ginger 右肩帶美國國旗貼布，已於同日重出移除、同名替換，`eventArt.ts` 不需再改。
 - 場景舞台由 [`src/ui/SceneStage.tsx`](../../ui/SceneStage.tsx) 呈現：同一張圖的模糊 cover 填滿框、
   清晰版用 `object-fit: contain` 完整顯示（不裁切），換圖只改 `eventArt.ts`。
@@ -43,9 +47,10 @@
   只有直放與窄螢幕才改成場景在上、卡片在下。
   舞台會依圖片載入後的長寬比調整高度（`--art-ratio`），避免上下留黑邊。
 - 事件卡的貓咪表情頭像來自 [`../avatars/`](../avatars/)（`src/ui/catFaces.ts`，3 貓 × determined／happy／worried）。
-- `scenes/*-nocat.webp` 是 2026-11-14 加入的無貓背景底板（06、08–10、12–13、21）。
-  每日簡報跟著當天事件換圖：事件有 `briefingSrc` 底板就用底板（T1、P1、P4、L3、S1、F1），
-  沒有底板就用事件卡自己的圖（L1、L2、S2、S3、F3、C1、SC2）；`01-keyart.webp` 只在找不到事件圖時當後備。
+- `scenes/*-nocat.webp` 是無貓背景底板（06、08–10、12–13、21、36–40；11 為 `-nocar`）。
+  艦長日誌大圖**依 sol 固定**（`SOL_BRIEF_ART`）：1 `01-keyart`、2 `11-cold-patrol-nocar`、
+  3 `42-dish-forecast`、4 `08-control-room-nocat`、5 `41-water-recycling`、6 `39-earth-call-nocat`、
+  7 `09-greenhouse-nocat`；事件卡自己的圖不再借給簡報，`briefingSrc` 只在 sol 超出 1–7 時當後備。
   T1／P1 的掃沙小遊戲用 21 的積塵底板開場，六個沙塵點清完後換成
   `21-shadow-hero-nocat-clean.webp`（同一場景、沙子已清乾淨）。06 的底板仍是候選素材。
   11 只有兩個版本：原圖（探測車＋兩隻貓）與 `11-cold-patrol-nocar.webp`（沒車也沒貓，只剩車轍與塵捲風）；
