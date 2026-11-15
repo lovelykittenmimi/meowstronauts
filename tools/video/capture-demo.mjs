@@ -222,15 +222,31 @@ if (want('s1')) {
   await finish(s);
 }
 
-// --- Clip 2: Mars Weather Lander, fly to the target and land
+// The practice games and the top bar carry 中文 toggles; drop them for the
+// English-only cut. Recording script only — the game code is untouched.
+async function hideLangToggles(page) {
+  await page.getByRole('button', { name: '中文', exact: true })
+    .evaluateAll((els) => els.forEach((el) => el.remove()));
+}
+
+// --- Clip 2: Mars Weather Lander, fly to the target and land. The practice
+// button now lives in SolNav, which `?video=` hides, so take the normal flow.
 if (want('lander')) {
   const s = await newSession('lander');
   const { page } = s;
-  await page.goto(`${base}/?reset=1&video=s1&lang=en`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-  await page.getByTestId('event-card-S1').waitFor({ timeout: 60000 });
-  await page.waitForTimeout(500);
+  await page.goto(`${base}/?reset=1&lang=en`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.getByTestId('title-screen').waitFor({ timeout: 60000 });
+  await page.waitForTimeout(800);
+  await page.getByTestId('difficulty-officer').click();
+  await page.getByTestId('start-game').click();
+  await page.getByTestId('opening-skip').waitFor({ timeout: 30000 });
+  await page.waitForTimeout(300);
+  await page.getByTestId('opening-skip').click();
+  await page.getByTestId('sol-nav').waitFor({ timeout: 30000 });
+  await page.waitForTimeout(700);
   await page.getByTestId('lander-open').click();
   await page.getByTestId('lander-game').waitFor({ timeout: 20000 });
+  await hideLangToggles(page);
   await page.locator('.ship-wrap').waitFor({ timeout: 15000 });
   await page.waitForTimeout(1200);
   s.mark('landerOpen');
@@ -249,21 +265,24 @@ if (want('lander')) {
   await page.keyboard.up('ArrowRight');
 
   // Phase 2: closed-loop pulses on both axes using the real ship position.
-  for (let i = 0; i < 160; i += 1) {
+  // The feedback distance is ~1.8 km per pixel, so aim for a ~2 px deadband
+  // (the shot wants a Perfect landing, not a 10 km one).
+  for (let i = 0; i < 400; i += 1) {
     ship = await readShip(page);
     if (!ship) break;
     const dx = 808 - ship.x;
     const dy = 527 - ship.y;
-    if (Math.hypot(dx, dy) < 12) break;
+    if (Math.hypot(dx, dy) < 2) break;
     const keys = [];
-    if (dx > 8) keys.push('ArrowRight');
-    else if (dx < -8) keys.push('ArrowLeft');
-    if (dy > 8) keys.push('ArrowDown');
-    else if (dy < -8) keys.push('ArrowUp');
+    if (dx > 1.5) keys.push('ArrowRight');
+    else if (dx < -1.5) keys.push('ArrowLeft');
+    if (dy > 1.5) keys.push('ArrowDown');
+    else if (dy < -1.5) keys.push('ArrowUp');
+    if (keys.length === 0) break;
     for (const key of keys) await page.keyboard.down(key);
-    await page.waitForTimeout(70);
+    await page.waitForTimeout(40);
     for (const key of keys) await page.keyboard.up(key);
-    await page.waitForTimeout(70);
+    await page.waitForTimeout(60);
   }
 
   ship = await readShip(page);
@@ -337,6 +356,7 @@ if (want('tomatoIntro')) {
   s.mark('nav');
   await page.getByTestId('tomato-open').click();
   await page.getByTestId('tomato-game').waitFor({ timeout: 15000 });
+  await hideLangToggles(page);
   await page.waitForTimeout(1100);
   s.mark('tomatoIntro');
   await page.screenshot({ path: path.join(stillDir, 'tomato-intro.png') });

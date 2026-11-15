@@ -89,7 +89,7 @@
 | 5 | 7.6–9.7 | Meowstronauts: Mars Outpost. | 3 | 標題卡疊在遊戲畫面上：`SEVEN SOLS · THREE CATS · ONE CHOICE A DAY` |
 | 6 | 9.7–13.3 | Seven sols. Every choice costs something. | 6 | `?video=s1`：S1 閃焰警報卡 → 點「加厚遮蔽」→ HUD ⚡62→42、🛡️55→80 |
 | 7 | 13.3–15.4 | Save the shield, or save the crew. | 7 | HUD 特寫：`⚡ −20`、`🛡️ +25`（以 build 為準） |
-| 8 | 15.4–17.6 | Then practice with mini-games: land the ship, hop the ridge, pick tomatoes. | 12 | **小遊戲 1：Mars Weather Lander**（**2.2 秒**，比第一版短 0.6 秒）：Gale 地圖＋MEDA 樣本 HUD，假游標按 LAND，`Perfect landing!`（final distance 6 km）。收尾改成 `landed − 1.30` 起剪，落地後至少留 **0.9 秒**看 `Perfect landing!`。畫面已標 `MEDA sample · Jezero Crater`；旁白不說「即時天氣」 |
+| 8 | 15.4–17.6 | Then practice with mini-games: land the ship, hop the ridge, pick tomatoes. | 12 | **小遊戲 1：Mars Weather Lander**（**2.2 秒**，比第一版短 0.6 秒）：Gale 地圖＋MEDA 樣本 HUD，假游標按 LAND，`Perfect landing!`（final distance 每次錄影不同；11/15 這一版是 15 km，畫面只認 `Perfect landing!`，不寫死數字）。收尾改成 `landed − 1.30` 起剪，落地後至少留 **0.9 秒**看 `Perfect landing!`。畫面已標 `MEDA sample · Jezero Crater`；旁白不說「即時天氣」 |
 | 9 | 17.6–19.7 | （同一句，不停） | 0 | **小遊戲 2＆3：只拍開場畫面，不錄遊玩**。17.6–18.6 Low-gravity hop 的 `hop-intro`：標題、`0.38 g practice`、玩法說明、`Start hopping`（**不按** JUMP）；18.6–19.7 Harvest the tomatoes 的第一屏：標題、`Tap the glowing ripe tomatoes…`、`Crate 0/6`、番茄都還在藤上（**不採收**）。兩段都用正常流程從 Sol 列 🦘／🍅 開啟（`?video=` 會把小遊戲列整個藏起來），開啟後停住錄 2–3 秒，剪輯各取約 1 秒 |
 | 10 | 19.7–22.1 | Tap a word. Learn the science. | 6 | 點 `solar flare` 開知識卡 → 收入背包 8/20→9/20（不口播） |
 | 11 | 22.1–26.0 | Real NASA data: the May 2025 X2.7 flare. | 8 | 資料面板：DONKI 折線（X2.7）＋REMS 曲線，`snapshot, not live` |
@@ -110,7 +110,8 @@
 - **一律 English 模式錄。** 每一段都用 `lang=en`（English 是預設語言，但不能依賴預設）：`?reset=1&video=s1&lang=en`、`?reset=1&video=report&lang=en`、`?reset=1&lang=en`（低重力跳躍那段的正常流程）。錄前先手動確認頁面是英文；錄完在剪輯前逐格檢查畫面有沒有中文，有就重錄該段，**不要在剪輯裡遮字**。
 - 對**部署版** `https://mars.flymymind.com` 錄，1920×1080、`deviceScaleFactor` 1，輸出 30fps。
 - Playwright 的 `recordVideo` **不會錄到真實游標**，所以在頁面注入假游標（圓點＋光暈，隨 `mousemove` 移動、點擊時縮一下），只影響錄影、不改遊戲程式。
-- `?scene=opening2` 的 Skip 按鈕用注入 CSS 隱藏；注入只在錄影腳本裡，不進 repo 的遊戲程式。
+- `?scene=opening2` 的 Skip 按鈕直接在錄影腳本裡按掉；**不要用注入 CSS 隱藏**——部署版的 CSP 會擋掉 `addStyleTag` 注入的 `<style>`。
+- **「中文」切換鈕錄影時從 DOM 移除**：正常流程錄的著陸、番茄小遊戲與頂端語言鈕都有「中文」按鈕（`?video=` 模式沒有，但第 8、9 鏡走正常流程）。`capture-demo.mjs` 的 `hideLangToggles()` 在開啟遊戲後把這些按鈕 `remove()`；只在錄影腳本裡，不動遊戲程式。CSP 會擋 CSS，所以是移除不是隱藏。
 - 分段錄：A＝Gale／SDO／標題（靜圖與字卡在剪輯做）、B＝`?video=s1` 全程、C＝著陸小遊戲實玩（SolNav `landing game`）、D＝`?video=report`、E＝Low-gravity hop 與 Harvest the tomatoes 的開場畫面（走正常流程，見 §0.4 第 9 鏡）；每段重載並帶 `?reset=1`，避免 localStorage 殘留。
 - 錄影腳本放 `tools/video/`（與遊戲無關、不加遊戲依賴）；輸出到 `tools/video/output/`（git-ignored）。
 - 只重錄某一段：`node capture-demo.mjs hopIntro`／`node capture-demo.mjs tomatoIntro`（參數是 clip 名），標記會併回 `capture.json`，不會動到其他段。
@@ -140,7 +141,7 @@
 
 > 11/15 早上重拍。**只重拍，不改遊戲程式**；下面是唯一要動的地方。
 
-1. **英文語系**（不用改程式）：`tools/video/capture-demo.mjs` 的五個 `page.goto`（`s1`／`lander`／`report`／`hopIntro`／`tomatoIntro`）都要帶 `lang=en`。動手前先確認 `.mjs` 沒被人改掉；錄完逐鏡目視，**畫面出現任何中文就重錄該段**（不是遮掉）。
+1. **英文語系**（不用改程式）：`tools/video/capture-demo.mjs` 的五個 `page.goto`（`s1`／`lander`／`report`／`hopIntro`／`tomatoIntro`）都要帶 `lang=en`。正常流程的片段要先移除「中文」切換鈕（`hideLangToggles()`，見 §0.5）。動手前先確認 `.mjs` 沒被人改掉；錄完逐鏡目視，**畫面出現任何中文就重錄該段**（不是遮掉）。
 2. **片頭迫降只取片尾**：`assemble-demo.mjs` 第 4 段改成 `start: 7.90`、`seconds: 2.1`（來源 `scene2-crash.mp4` 全長 10.00 秒）。**不要再用中間的 3.0 秒。**
 3. **著陸小遊戲縮短**：第 8 段 `seconds: 2.8 → 2.2`、`start: landed − 1.75 → landed − 1.30`（落地後留 0.9 秒的 `Perfect landing!`）。
 4. **第 9 段改成兩個開場畫面**：hop 取 `hop-intro`（17.6–18.6）、tomato 取第一屏（18.6–19.7），各約 1 秒，**不要再 JUMP、不要採收**。`capture-demo.mjs` 的 hop 段改成只停在開場，並新增 tomato 段；`assemble-demo.mjs` 第 9 段用這兩段串接。
