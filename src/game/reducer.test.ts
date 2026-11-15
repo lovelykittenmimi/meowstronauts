@@ -204,14 +204,15 @@ describe('backpack, assists, and scoring', () => {
   });
 
   it('scores three stars only for health and science above the line', () => {
-    expect(scoreStars(70, 8, false)).toBe(3);
-    expect(scoreStars(69, 8, false)).toBe(2);
-    expect(scoreStars(70, 8, true)).toBe(2);
+    expect(scoreStars(70, 6, false)).toBe(3);
+    expect(scoreStars(70, 5, false)).toBe(2);
+    expect(scoreStars(69, 6, false)).toBe(2);
+    expect(scoreStars(70, 6, true)).toBe(2);
     expect(scoreStars(49, 4, false)).toBe(1);
   });
 
   it('reads stars from the state', () => {
     const state = started();
-    expect(starsFor({ ...state, resources: { ...state.resources, health: 78, science: 8 } })).toBe(3);
+    expect(starsFor({ ...state, resources: { ...state.resources, health: 78, science: 6 } })).toBe(3);
   });
 });

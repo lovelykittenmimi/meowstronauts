@@ -1,5 +1,6 @@
 import type { EventCard, Localized } from './types';
 import { isCold } from './conditions';
+import { STAR_3_SCIENCE } from './balance';
 
 const l = (en: string, zh: string): Localized => ({ en, 'zh-TW': zh });
 
@@ -606,7 +607,10 @@ export const EVENT_CARDS: EventCard[] = [
       name: 'NASA — Mars Odyssey Science Highlights',
       url: 'https://science.nasa.gov/mission/odyssey/science-highlights/',
     },
-    when: (ctx) => ctx.resources.science < 4,
+    // Keep the survey visible until the three-star line is already in hand.
+    // With the old < 4 gate the biggest science card vanished exactly when a
+    // strong run needed it least, making 3 stars a draw lottery.
+    when: (ctx) => ctx.resources.science < STAR_3_SCIENCE,
     choices: [
       {
         id: 'drill',

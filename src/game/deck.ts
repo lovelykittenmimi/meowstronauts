@@ -1,3 +1,4 @@
+import { STAR_3_SCIENCE } from './balance';
 import { EVENT_CARDS, EVENT_BY_ID, TUTORIAL_CARD } from './events';
 import { makeContext } from './conditions';
 import { createRng } from './rng';
@@ -53,6 +54,20 @@ export function drawEventFor(state: GameState): EventCard {
     !state.history.some((entry) => entry.eventId === 'S1');
 
   if (s1Pending) return EVENT_BY_ID.get('S1')!;
+
+  // SC2 is the only science card, and its own `when` gate used to hide it from
+  // runs that were doing well. On Sol 5, if the three-star science line is
+  // still out of reach and the survey has not appeared, serve it: the player
+  // still has to spend power and choose the science option. Sol 5 is before
+  // the Sol 6 last-chance draws for power and life support, so this cannot
+  // crowd out a required category.
+  if (
+    state.sol === 5 &&
+    state.resources.science < STAR_3_SCIENCE &&
+    !state.history.some((entry) => entry.eventId === 'SC2')
+  ) {
+    return EVENT_BY_ID.get('SC2')!;
+  }
 
   const context = makeContext(
     state.sol,

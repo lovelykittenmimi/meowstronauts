@@ -66,7 +66,7 @@
 - [ ] 資源良好時排除生存卡：`power ≥ 80` 不抽 P1；`lifeSupport ≥ 80` 不抽 L1／L2、`≥ 75` 不抽 L3；`shield ≥ 80` 不抽 S2；`food ≥ 5` 不抽 F1／F3。
 - [ ] P4 只在 `cold_snap`／`severe_cold` 出現；晴天暖週不出。
 - [ ] S3 只在 Sol 3–5、`flareForecast` 已開、`shield < 75` 出現。
-- [ ] C1 只在 `commsWindow` 開啟後出現；SC2 只在 `science < 4` 出現。
+- [ ] C1 只在 `commsWindow` 開啟後出現；SC2 只在 `science < 6`（`STAR_3_SCIENCE`）出現；Sol 5 科學仍未達 6 且 SC2 沒出現過時保底發 SC2。
 - [ ] 候選不足 6 張：先放寬資源門檻 10；仍不足可重複合格卡，**不得**塞入不符合 `when` 的卡。
 - [ ] 同一局不重複同一張卡（除非 §3.3 的候選不足規則）。
 

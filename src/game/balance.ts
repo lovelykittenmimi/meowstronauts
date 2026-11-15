@@ -63,6 +63,13 @@ export const ZERO_PENALTY: EffectMap = {
   food: -10,
 };
 
+/**
+ * Science needed for three stars. SC2 (the only science card) tops out at +4,
+ * and F1/hop add +1 each, so 8 was a deck lottery; 6 is reachable when the run
+ * plays the science card it is offered. Health ≥ 70 stays the hard half.
+ */
+export const STAR_3_SCIENCE = 6;
+
 const CAPS: Record<ResourceKey, number> = {
   power: 100,
   lifeSupport: LIFE_SUPPORT_CAP,
@@ -107,7 +114,7 @@ export function scoreStars(
   science: number,
   emergencyUsed: boolean,
 ): 1 | 2 | 3 {
-  if (!emergencyUsed && health >= 70 && science >= 8) return 3;
+  if (!emergencyUsed && health >= 70 && science >= STAR_3_SCIENCE) return 3;
   if (health >= 50 && science >= 5) return 2;
   return 1;
 }

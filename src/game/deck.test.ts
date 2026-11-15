@@ -138,11 +138,25 @@ describe('condition filters', () => {
     expect(drawAcrossSeeds(stateAt(3, { resources: { ...HEALTHY, shield: 90 } }))).not.toContain('S3');
   });
 
-  it('gates C1 behind the comms window and SC2 behind low science', () => {
+  it('gates C1 behind the comms window and SC2 behind the three-star line', () => {
     expect(drawAcrossSeeds(stateAt(2))).not.toContain('C1');
     expect(drawAcrossSeeds(stateAt(3))).toContain('C1');
     const science = drawAcrossSeeds(stateAt(3, { resources: { ...HEALTHY, science: 10 } }));
     expect(science).not.toContain('SC2');
+    const near = drawAcrossSeeds(stateAt(3, { resources: { ...HEALTHY, science: 5 } }));
+    expect(near).toContain('SC2');
+  });
+
+  it('serves SC2 on Sol 5 when the science line is still out of reach', () => {
+    const played = ['T1', 'P1', 'L1', 'F3'];
+    const state = stateAt(5, { resources: { ...HEALTHY, science: 4 } }, played);
+    expect(drawEventFor(state).id).toBe('SC2');
+
+    const seen = stateAt(5, { resources: { ...HEALTHY, science: 4 } }, [...played, 'SC2']);
+    expect(drawEventFor(seen).id).not.toBe('SC2');
+
+    const enough = stateAt(5, { resources: { ...HEALTHY, science: 6 } }, played);
+    expect(drawEventFor(enough).id).not.toBe('SC2');
   });
 
   it('skips F1 and F3 while food stocks are healthy', () => {
