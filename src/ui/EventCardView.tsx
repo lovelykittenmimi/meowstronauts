@@ -5,6 +5,7 @@ import type { CatId, Choice, EffectMap, GameState, ResourceKey } from '../game/t
 import { RESOURCE_LABEL_KEY, CAT_NAMES, t } from '../i18n';
 import { faceFor } from './catFaces';
 import { DustMinigame } from './DustMinigame';
+import HullRepairOverlay from '../minigames/HullRepairOverlay';
 import { ICONS } from './ResourceHud';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
@@ -19,6 +20,19 @@ const DUST_CHOICES: Record<string, string[]> = {
   T1: ['sweep'],
   P1: ['clean', 'shake'],
 };
+
+/**
+ * S2's first choice is the physical hull patch. It gets the repair-drone
+ * mini-game before the card resolves; the other two choices resolve at once.
+ */
+const HULL_CHOICES: Record<string, string[]> = {
+  S2: ['patch'],
+};
+
+interface PendingInteraction {
+  kind: 'dust' | 'hull';
+  choiceId: string;
+}
 
 const CATEGORY_LABEL: Record<string, { en: string; 'zh-TW': string }> = {
   power: { en: 'Power', 'zh-TW': '電力' },
@@ -73,7 +87,7 @@ export function EventCardView({
   onOpenCard,
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
-  const [pendingChoice, setPendingChoice] = useState<string | null>(null);
+  const [pending, setPending] = useState<PendingInteraction | null>(null);
 
   useEffect(() => {
     const body = bodyRef.current;
@@ -95,11 +109,17 @@ export function EventCardView({
   const art = artForEvent(event.id);
   const facePhase = isResult ? (state.lastSuccess ? 'success' : 'fail') : 'choice';
   const dustChoices = DUST_CHOICES[event.id];
-  const showDustGame = isChoice && pendingChoice !== null && Boolean(art);
+  const hullChoices = HULL_CHOICES[event.id];
+  const showDustGame = isChoice && pending?.kind === 'dust' && Boolean(art);
+  const showHullGame = isChoice && pending?.kind === 'hull';
 
   const handleChoose = (choiceId: string) => {
     if (dustChoices?.includes(choiceId)) {
-      setPendingChoice(choiceId);
+      setPending({ kind: 'dust', choiceId });
+      return;
+    }
+    if (hullChoices?.includes(choiceId)) {
+      setPending({ kind: 'hull', choiceId });
       return;
     }
     onChoose(choiceId);
@@ -130,7 +150,7 @@ export function EventCardView({
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
 
-        {isChoice && !showDustGame && (
+        {isChoice && !showDustGame && !showHullGame && (
           <>
             <h2 className="section-label">{t(lang, 'event.choose')}</h2>
             <div className="choices">
@@ -263,14 +283,22 @@ export function EventCardView({
         </div>
       </article>
 
-      {showDustGame && art && pendingChoice && (
+      {showDustGame && art && pending && (
         <DustMinigame
           src={art.sweep?.src ?? art.src}
           alt={(art.sweep?.alt ?? art.alt)[lang]}
           clearedSrc={art.sweep?.clearedSrc}
           clearedAlt={art.sweep?.clearedAlt[lang]}
           lang={lang}
-          onDone={() => onChoose(pendingChoice)}
+          onDone={() => onChoose(pending.choiceId)}
+        />
+      )}
+
+      {showHullGame && pending && (
+        <HullRepairOverlay
+          initialLang={lang}
+          sol={state.sol}
+          onDone={() => onChoose(pending.choiceId)}
         />
       )}
     </main>

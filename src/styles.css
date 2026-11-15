@@ -3099,6 +3099,16 @@ h1 {
   overscroll-behavior: contain;
 }
 
+/* The hull repair game is a dark, cinematic overlay. */
+.hull-overlay-host {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow: hidden;
+  background: #060a16;
+  overscroll-behavior: contain;
+}
+
 .story-lander-prompt,
 .story-shelter-prompt {
   display: flex;
