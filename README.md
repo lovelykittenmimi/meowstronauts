@@ -47,7 +47,6 @@ are never presented as live data.
 | `docs/wireframes.md` | Layout specs from 568×320 to 1440×900, panels and backpack |
 | `docs/iconography.md` | Icon strategy: Lucide for UI, paw/logo as team marks |
 | `docs/character-voices.md` | Voice rules for the three cats, calibration lines |
-| `docs/submission.md` | Project-page copy template for the Space Apps submission |
 | `docs/ai-disclosure.md` | AI tools, scope, fact-checking, runtime statement |
 | `docs/video-script.md` | 30-second demo video shot list and narration |
 | `docs/video-path.md` | Deterministic demo URLs, test IDs, recording route and handoff checks |

@@ -667,8 +667,7 @@ Mars/
 ├─ docs/
 │  ├─ data-sources.md
 │  ├─ ai-disclosure.md
-│  ├─ playtest.md
-│  └─ submission.md
+│  └─ playtest.md
 ├─ .github/workflows/ci.yml    # lint / test / build；部署交給 Workers Builds
 ├─ package.json                # 11/14 才建立
 ├─ vite.config.ts
