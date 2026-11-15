@@ -71,6 +71,26 @@
   white-space: nowrap;
 }
 
+/* Visible while the board is open: leaving still counts as done. */
+.food-back-top {
+  flex: none;
+  min-height: 36px;
+  padding: 4px 14px;
+  border: 2px solid rgba(247, 243, 234, 0.5);
+  border-radius: 999px;
+  background: rgba(247, 243, 234, 0.08);
+  color: var(--paper);
+  font: inherit;
+  font-size: clamp(12px, 1.9vh, 14px);
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.food-back-top:hover {
+  background: rgba(247, 243, 234, 0.2);
+}
+
 .food-close {
   width: 40px;
   height: 40px;
@@ -90,6 +110,7 @@
 }
 
 .food-close:focus-visible,
+.food-back-top:focus-visible,
 .food-button:focus-visible,
 .food-card:focus-visible {
   outline: 3px solid var(--amber);
@@ -551,6 +572,12 @@
     width: 32px;
     height: 32px;
     font-size: 13px;
+  }
+
+  .food-back-top {
+    min-height: 30px;
+    padding: 3px 10px;
+    font-size: 12px;
   }
 
   .food-badge {

@@ -96,6 +96,7 @@ export const STRINGS = {
   'dust.hint': { en: 'Tap every dust patch', 'zh-TW': '點掉每一團沙塵' },
   'dust.left': { en: '{count} left', 'zh-TW': '剩 {count} 團' },
   'dust.done': { en: 'Panels clear', 'zh-TW': '清乾淨了' },
+  'dust.back': { en: 'Back', 'zh-TW': '返回' },
   'hull.eyebrow': {
     en: 'MICROMETEORITE BREACH · SOL {sol}',
     'zh-TW': '微隕石擊穿 · 第 {sol} 火星日',

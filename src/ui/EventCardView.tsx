@@ -341,6 +341,7 @@ export function EventCardView({
           clearedAlt={art.sweep?.clearedAlt[lang]}
           lang={lang}
           onDone={() => onChoose(pending.choiceId)}
+          onExit={() => onChoose(pending.choiceId)}
         />
       )}
 

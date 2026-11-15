@@ -25,6 +25,8 @@ interface DustMinigameProps {
   clearedAlt?: string;
   lang: Lang;
   onDone: () => void;
+  /** Back skips the sweeping; the pressed choice still resolves. */
+  onExit: () => void;
 }
 
 /**
@@ -39,6 +41,7 @@ export function DustMinigame({
   clearedAlt,
   lang,
   onDone,
+  onExit,
 }: DustMinigameProps) {
   const [cleared, setCleared] = useState<number[]>([]);
   const left = SPOTS.length - cleared.length;
@@ -55,6 +58,14 @@ export function DustMinigame({
 
   return (
     <div className="dust-game" data-testid="dust-game">
+      <button
+        type="button"
+        className="dust-back"
+        data-testid="dust-back"
+        onClick={onExit}
+      >
+        {t(lang, 'dust.back')}
+      </button>
       <div className="dust-stage" data-testid="dust-stage" data-plate={sweptClean ? 'clean' : 'dusty'}>
         <SceneStage
           src={sweptClean && clearedSrc ? clearedSrc : src}

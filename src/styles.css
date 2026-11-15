@@ -1114,6 +1114,32 @@ h1 {
   min-height: 0;
 }
 
+/* Corner exit: skipping the sweep still resolves the pressed choice. */
+.dust-back {
+  position: absolute;
+  top: clamp(8px, 2vh, 18px);
+  right: clamp(8px, 2vw, 18px);
+  z-index: 3;
+  min-height: 40px;
+  padding: 6px 16px;
+  border: 2px solid var(--paper);
+  border-radius: 999px;
+  background: rgba(11, 16, 38, 0.72);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dust-back:hover {
+  background: rgba(11, 16, 38, 0.9);
+}
+
+.dust-back:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
 .dust-stage .scene-stage { flex: 1 1 auto; }
 
 /* Tints the photo itself; the panel background only reaches the letterbox. */

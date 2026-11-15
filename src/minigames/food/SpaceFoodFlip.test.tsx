@@ -57,6 +57,18 @@ describe('SpaceFoodFlip', () => {
     expect(exits).toBe(2);
   });
 
+  it('leaves the open board from Back', () => {
+    let exits = 0;
+    renderGame(() => {
+      exits += 1;
+    });
+
+    fireEvent.click(screen.getByTestId('food-start'));
+    fireEvent.click(screen.getByTestId('food-back'));
+
+    expect(exits).toBe(1);
+  });
+
   it('leaves on Escape', () => {
     let exits = 0;
     renderGame(() => {

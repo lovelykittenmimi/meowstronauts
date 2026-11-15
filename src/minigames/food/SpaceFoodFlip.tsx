@@ -184,6 +184,16 @@ export default function SpaceFoodFlip({
             <span className="food-eyebrow">{foodT(lang, 'eyebrow')}</span>
             <h2 className="food-title">{foodT(lang, 'title')}</h2>
           </div>
+          {stage === 'playing' && (
+            <button
+              type="button"
+              className="food-back-top"
+              data-testid="food-back"
+              onClick={close}
+            >
+              {foodT(lang, 'back')}
+            </button>
+          )}
           <span className="food-badge">{`${FOOD_PAIRS.length} × 2`}</span>
           <button
             type="button"
