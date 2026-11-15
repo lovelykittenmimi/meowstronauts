@@ -8,7 +8,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
-        puzzle: fileURLToPath(new URL('./puzzle.html', import.meta.url)),
       },
     },
   },
