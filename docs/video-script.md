@@ -1,6 +1,6 @@
 # 30 秒 Demo 影片腳本（11/12）
 
-> 最後更新：2026-11-15（第七版：第 3 鏡的遊戲內迫降影片**換成兩張靜圖**——`ship-in-space.png` 4.0–6.2、`crash-on-mars.png` 6.2–9.0，總長不變，旁白與 9.0 之後的剪點都不動；同時修掉全片黑位被抬高的色彩範圍問題。第六版刪掉 7.6–9.7 的標題卡，三隻貓站到 9.0，多出的 0.7 秒給第 4 鏡的警報卡；第五版拿掉 Gale 衛星圖、只留 SDO 閃焰 1.5 秒並加上暗轉。逐格時間表見 `tools/video/DEMO-TIMELINE.md`，重做清單見 §0.7）
+> 最後更新：2026-11-15（第七版：第 3 鏡的遊戲內迫降影片**換成兩張靜圖**——`ship-in-space.png` 4.0–6.2、`crash-on-mars.png` 6.2–9.0，總長不變，旁白與 9.0 之後的剪點都不動；同時修掉全片黑位被抬高的色彩範圍問題，並把片頭卡的成人姓名移到**右上角三行 44px**。第六版刪掉 7.6–9.7 的標題卡，三隻貓站到 9.0，多出的 0.7 秒給第 4 鏡的警報卡；第五版拿掉 Gale 衛星圖、只留 SDO 閃焰 1.5 秒並加上暗轉。逐格時間表見 `tools/video/DEMO-TIMELINE.md`，重做清單見 §0.7）
 > 對應 PLAN 12.3。英文旁白＋英文字幕（全球評審）；可另附繁中字幕檔。
 > **定版：總長 30.0 秒。** 0–2.5 秒文字卡不配音；旁白 v3 **9 句 59 字**，燒字幕唯一來源是 `narration-ana-45-v3.srt`（重拍後重跑 `make-narration.mjs`）；結尾卡只佔 **最後 1.0 秒**（29.0–30.0，播完停在這一頁）。鏡表見 §0.4、旁白見 §0.6。
 >
@@ -99,12 +99,13 @@
 >
 > 13. **遊戲內迫降影片換成兩張靜圖**：`s03a` = `assets/opening/ship-in-space.png`（4.0–6.2，zoom 0.02，淡入 0.15／淡出 8 格）＋ `s03b` = `assets/opening/crash-on-mars.png`（6.2–9.0，zoom 0.02，淡入 0.15／淡出 0.2），`concat -c copy` 成 s03。**4.0–9.0 的長度、旁白、字幕與 9.0 之後的所有剪點都不變**，只是畫面來源換掉。
 > 14. **修掉全片黑位抬高**：所有段落與最終檔都加 `-color_range tv`。先前沒有任何一段標色彩範圍，最後一次壓縮把「未標示」當 full range 再轉 limited，全片黑位由 16 抬到 30（SDO 那張 JPEG 靜圖是來源）。修完片尾卡 SSIM 0.850 → 0.958。
+> 15. **片頭卡名字移到右上角**：`demo-cards.html` 的 `.intro .names` 由右下角單行 27px 改成**右上角三行 44px 右對齊**（`WU, CHIA-LING`／`LIN, YU-YU`／`our junior astronaut`，第三行 `span` 保留淡一階的顏色）。只影響第 1 鏡，重拍卡片後整片重壓；14 格驗證仍全過。
 >
 > **結尾卡只吃最後 1 秒。** 播放器播完會停在最後一格，所以識別卡不需要自己站 3 秒；維持 29.0–30.0，不把多出來的秒數吃掉，多出來的時間給前面的鏡頭。
 
 | # | 秒數 | 英文旁白 | 字數 | 畫面／螢幕文字 |
 |---:|---:|---|---:|---|
-| 1 | 0.0–2.5 | （無旁白） | 0 | 全螢幕文字卡：`FLY MY MIND` ＋ **WU, CHIA-LING · LIN, YU-YU · our junior astronaut** ＋ `MEOWSTRONAUTS: MARS OUTPOST`；背景 `brand/og-1200x630.jpg` 等比 1920×1008、上下 36px 同色底 |
+| 1 | 0.0–2.5 | （無旁白） | 0 | 全螢幕文字卡：背景 `brand/og-1200x630.jpg` 等比 1920×1008、上下 36px 同色底；**右上角三行 44px 右對齊**（`WU, CHIA-LING`／`LIN, YU-YU`／`our junior astronaut`，第三行淡一階）；左上角與左下角的 `MEOWSTRONAUTS: MARS OUTPOST`、`Fly My Mind` 是 OG 圖原本就有的 |
 | 2 | 2.5–4.0 | A Mars mission trainer for kids seven to twelve. | 9 | SDO 閃焰淡入 0.25 秒、持 1.5 秒、淡出 0.25 秒；右下 `NASA/SDO`（先畫再淡）。**片頭不放 Gale 衛星圖推近**。**不提這張圖的日期** |
 | 3 | 4.0–9.0 | （第 1 句收尾）＋ Three cats. One crash.＋ Meowstronauts: Mars Outpost. | 4 | **兩張靜圖**：4.0–6.2 `assets/opening/ship-in-space.png`（三隻貓在圓艙內、左邊地球、右邊太陽閃焰），6.2 暗轉；6.2–9.0 `assets/opening/crash-on-mars.png`（迫降後的紅色地表、冒煙的艙體、破裂的太陽能板、三隻貓並排）。兩段都 zoom 0.02 慢慢推近，8.8–9.0 淡出。本版起**沒有標題卡**；片名由旁白第 3 句帶（07.80），背景就是三隻貓。原本的 `scene2-crash.mp4` 0.5× 慢動作剪法太難看，影片段不用 |
 | 4 | 9.0–13.3 | Seven sols. Every choice costs something. | 6 | `?video=s1`：S1 閃焰警報卡（從 1.60 起，多 0.7 秒讀卡）→ 點「加厚遮蔽」→ HUD ⚡62→42、🛡️55→80 |
@@ -298,7 +299,7 @@ Meowstronauts: Mars Outpost. A Fly My Mind project.
 ### 7.3 腳本與數字
 
 - [ ] 採用 §0.4 十鏡版：第 1 鏡是**無旁白文字卡**（`Fly My Mind`＋成人名字＋`our junior astronaut`＋專案名）；片頭只有 SDO 閃焰與遊戲內迫降（三隻貓停到 9.0 秒），**沒有 Gale 衛星圖、沒有標題卡**；第 6 鏡是著陸小遊戲實玩，第 7 鏡只給 hop 與 tomato 的開場畫面（不錄遊玩）；結尾卡只吃最後 1 秒。
-- [x] 第 1 鏡名字：**WU, CHIA-LING · LIN, YU-YU · our junior astronaut**（成人兩位用大寫姓氏格式）；小孩只有 `our junior astronaut`，不放姓名、正臉、學校。
+- [x] 第 1 鏡名字：**WU, CHIA-LING · LIN, YU-YU · our junior astronaut**（成人兩位用大寫姓氏格式）；小孩只有 `our junior astronaut`，不放姓名、正臉、學校。11/15 晚改成**卡片右上角三行**（44px，第三行淡一階），不再放在右下角單行。
 - [ ] S1：`⚡−20`、`🛡️+25`（build 不同時以 build 為準：＿＿）。
 - [ ] 背包總數 20、目前 9（build 不同時：＿＿／＿＿）。
 - [ ] 結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`A FLY MY MIND PROJECT`、`FREE · BILINGUAL`（11/15 起不再有 `10 MINUTES`）。標題卡第六版已刪除，`title.png` 不再使用。
