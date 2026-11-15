@@ -2,7 +2,7 @@
 
 > 最後更新：2026-11-15（第三版：第 9 鏡改成 Low-gravity hop 與 Harvest the tomatoes 的開場畫面，不錄遊玩；第 6 句旁白改為 12 字。第二版 01:10 定稿、**尚未重拍**；重做清單見 §0.7）
 > 對應 PLAN 12.3。英文旁白＋英文字幕（全球評審）；可另附繁中字幕檔。
-> **定版：總長 30.0 秒。** 0–2.5 秒文字卡不配音；旁白 v3 **9 句 61 字**，燒字幕唯一來源是 `narration-ana-45-v3.srt`（重拍後重跑 `make-narration.mjs`）；結尾卡只佔 **最後 1.0 秒**（29.0–30.0，播完停在這一頁）。鏡表見 §0.4、旁白見 §0.6。
+> **定版：總長 30.0 秒。** 0–2.5 秒文字卡不配音；旁白 v3 **9 句 59 字**，燒字幕唯一來源是 `narration-ana-45-v3.srt`（重拍後重跑 `make-narration.mjs`）；結尾卡只佔 **最後 1.0 秒**（29.0–30.0，播完停在這一頁）。鏡表見 §0.4、旁白見 §0.6。
 >
 > 11/12 以 Windows SAPI（Zira，rate 3）實測 57 字＝23.8 秒；edge-tts 7.3.1 的 Ana +45%＝**26.5 秒（已選）**、Aria +45%＝24.0 秒（成人聲備案）、Guy +45%＝23.4 秒；+0% 約 34 秒，不能直接用。
 
@@ -93,9 +93,9 @@
 | 9 | 17.6–19.7 | （同一句，不停） | 0 | **小遊戲 2＆3：只拍開場畫面，不錄遊玩**。17.6–18.6 Low-gravity hop 的 `hop-intro`：標題、`0.38 g practice`、玩法說明、`Start hopping`（**不按** JUMP）；18.6–19.7 Harvest the tomatoes 的第一屏：標題、`Tap the glowing ripe tomatoes…`、`Crate 0/6`、番茄都還在藤上（**不採收**）。兩段都用正常流程從 Sol 列 🦘／🍅 開啟（`?video=` 會把小遊戲列整個藏起來），開啟後停住錄 2–3 秒，剪輯各取約 1 秒 |
 | 10 | 19.7–22.1 | Tap a word. Learn the science. | 6 | 點 `solar flare` 開知識卡 → 收入背包 8/20→9/20（不口播） |
 | 11 | 22.1–26.0 | Real NASA data: the May 2025 X2.7 flare. | 8 | 資料面板：DONKI 折線（X2.7）＋REMS 曲線，`snapshot, not live` |
-| 12 | 26.0–30.0 | One choice they'll remember. | 5 | 任務報告 ★★★（health 78、science 8、背包 9/20）停到 **29.0**，0.2 秒淡入結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`FREE · BILINGUAL`、`mars.flymymind.com`、`A FLY MY MIND PROJECT`；**結尾卡 29.0–30.0，最後一格就是這張卡**。旁白與字卡都不再出現「10 minutes」（字卡已於 11/15 重生） |
+| 12 | 26.0–30.0 | One choice they'll remember. | 4 | 任務報告 ★★★（health 78、science 8、背包 9/20）停到 **29.0**，0.2 秒淡入結尾卡：`MEOWSTRONAUTS: MARS OUTPOST`、`FREE · BILINGUAL`、`mars.flymymind.com`、`A FLY MY MIND PROJECT`；**結尾卡 29.0–30.0，最後一格就是這張卡**。旁白與字卡都不再出現「10 minutes」（字卡已於 11/15 重生） |
 
-- 旁白 **61 字、9 句**；剪輯點照上表，字幕時間軸照 SRT（兩者都由 §0.6 的同一組 `start` 產生），不要再套 §1 的 26.5 秒舊時間。
+- 旁白 **59 字、9 句**；剪輯點照上表，字幕時間軸照 SRT（兩者都由 §0.6 的同一組 `start` 產生），不要再套 §1 的 26.5 秒舊時間。
 - **全片英文語系**：`?video=s1`、`?video=report` 之外，正常流程那段（hop／tomato 開場）也要在 English 模式錄完再錄。驗收時逐鏡看過，畫面任何角落都不能出現中文（含遊戲 UI、提示、測試殘留、console 疊字）。英文是預設語言，不帶 `lang=zh` 就不會出現中文，但**不能只靠預設值**，錄完要目視確認。
 - 第 1 鏡名字只用成人團隊成員：**WU, CHIA-LING**、**LIN, YU-YU**；小孩一律 `our junior astronaut`，不放姓名、正臉、學校。
 - 第 4 鏡是**遊戲內同一支影片**（Gemini 生成的迫降動畫，已在 `docs/ai-disclosure.md` 揭露），不是 NASA 畫面；不加 NASA credit，也不說是 NASA 動畫。
@@ -126,13 +126,13 @@
 | 3 | 7.80 | 9.46 | Meowstronauts: Mars Outpost. | 3 | 5 標題卡 |
 | 4 | 9.90 | 12.57 | Seven sols. Every choice costs something. | 6 | 6 S1 卡 |
 | 5 | 13.50 | 15.16 | Save the shield, or save the crew. | 7 | 7 HUD |
-| 6 | 15.60 | ≈19.0（重測後填） | Then practice with mini-games: land the ship, hop the ridge, pick tomatoes. | 12 | 8 著陸＋9 hop／tomato 開場 |
+| 6 | 15.60 | 19.42 | Then practice with mini-games: land the ship, hop the ridge, pick tomatoes. | 12 | 8 著陸＋9 hop／tomato 開場 |
 | 7 | 19.80 | 21.83 | Tap a word. Learn the science. | 6 | 10 知識卡＋背包 |
 | 8 | 22.20 | 25.59 | Real NASA data: the May 2025 X2.7 flare. | 8 | 11 資料面板 |
-| 9 | 26.10 | ≈28.0 | One choice they'll remember. | 5 | 12 任務報告 |
+| 9 | 26.10 | 27.17 | One choice they'll remember. | 4 | 12 任務報告 |
 
-- 總計 **9 句 61 字**（第 6 句 10 字→12 字；第 9 句拿掉 `Ten minutes.`，6 字→5 字）；末句約 28.0 秒結束，留約 1.0 秒給結尾卡淡入。**這版還沒重跑 TTS**，`narration-ana-45-v3.mp3/.srt` 仍是舊的第 6、9 句；重拍時改 `make-narration.mjs` 的 `CUES` 再跑一次，實測值填回上表。第 6 句 `start` 仍是 15.60；若實測收在 19.80 之後，把第 7 句起往後挪 0.2–0.4 秒（第 8、9 句之間還有約 0.5 秒餘裕）。
-- 和第 2 版（61 字）比：砍掉 `Three cats, seven sols.` 與 `Every sol, one choice` 的重複、把練習小遊戲收進同一句（第三版再點名三款，總數仍是 61 字）、結尾從功能清單（`classroom mode` 等）改成北極星句。**「classroom mode」在 `PLAN.md` 與任何產品文件都沒有定義過**，寫在影片裡等於承諾一個不存在的功能，所以拿掉。
+- 總計 **9 句 59 字**（`make-narration.mjs` 以空白斷詞，`they'll` 算一字；第 6 句 10→12 字）；末句 27.17 秒結束，留約 1.8 秒給結尾卡。**已於 11/15 重跑 TTS**：`narration-ana-45-v3.mp3/.srt` 同步更新，第 6 句 15.60–19.42、第 9 句 26.10–27.17。之後再改字仍要重跑；若第 6 句收在 19.80 之後，把第 7 句起往後挪 0.2–0.4 秒。
+- 和第 2 版（61 字）比：砍掉 `Three cats, seven sols.` 與 `Every sol, one choice` 的重複、把練習小遊戲收進同一句（第三版再點名三款）、結尾從功能清單（`classroom mode` 等）改成北極星句。**「classroom mode」在 `PLAN.md` 與任何產品文件都沒有定義過**，寫在影片裡等於承諾一個不存在的功能，所以拿掉。
 - 想保留展望句（官方 0:20–0:30 建議「未來」）就換第 9 句為：`Next: more sols, and live space weather.`（7 字，約 2.5–2.7 秒，26.10 起仍可在結尾卡 29.0 前收完）。
 - 句間停頓至少 0.18 秒；`make-narration.mjs` 遇到排不進去會直接失敗並列出重疊的句子，不會默默擠在一起。
 
@@ -271,8 +271,8 @@ Meowstronauts: Mars Outpost. A Fly My Mind project.
 - [ ] 或：同意用現有角色圖＋字卡簡化開場。
 - [ ] 三隻貓頭像／全身圖路徑：＿＿。
 - [x] 音樂：Pixabay 兩首（`tools/video/assets/music/`）——`paulyudin-space-space-music-607605.mp3`（1:58，預設）、`monume-space-ambient-498030.mp3`（1:53，備選）；皆 Pixabay Content License、**皆標示 Content ID Registered**（claim ≠ strike，用曲目頁申訴）；credit 與授權見同目錄 `CREDITS.md`。
-- [x] 旁白：edge-tts 童聲 Ana +45%，v3 **9 句 60 字** → **`narration-ana-45-v3.mp3`／`.srt`**，由 `make-narration.mjs` 排程產生（§0.6），最後一句 28.41 秒結束。v2（61 字）已被取代，`narration-ana-45.mp3`（§1 的 57 字版）不要再用。
-- [ ] **11/15 重拍版**：第 6 句改成 `Then practice with mini-games: land the ship, hop the ridge, pick tomatoes.`、第 9 句改成 `One choice they'll remember.`（總計 61 字），重跑 `make-narration.mjs` 覆蓋 v3 檔案，新的結束秒數填回 §0.6。11/15 想換人聲也可以，同樣改跑 `make-narration.mjs` 重對時間軸。
+- [x] 旁白：edge-tts 童聲 Ana +45%，v3 **9 句 59 字** → **`narration-ana-45-v3.mp3`／`.srt`**，由 `make-narration.mjs` 排程產生（§0.6），第三版改第 6 句後重跑，最後一句 27.17 秒結束。v2（61 字）已被取代，`narration-ana-45.mp3`（§1 的 57 字版）不要再用。
+- [ ] **11/15 重拍版**：第 6 句改成 `Then practice with mini-games: land the ship, hop the ridge, pick tomatoes.`、第 9 句改成 `One choice they'll remember.`（產生器斷詞 59 字），重跑 `make-narration.mjs` 覆蓋 v3 檔案，新的結束秒數填回 §0.6。11/15 想換人聲也可以，同樣改跑 `make-narration.mjs` 重對時間軸。
 - [ ] 發音確認：Meowstronauts（meow-STRON-awts）、sols（souls）、X2.7（ex-two-point-seven）。
 
 ### 7.3 腳本與數字

@@ -7,7 +7,7 @@ A Mars mission trainer for kids seven to twelve.
 Three cats. One crash.
 
 3
-00:00:07,800 --> 00:00:09,463
+00:00:07,800 --> 00:00:09,496
 Meowstronauts: Mars Outpost.
 
 4
@@ -15,12 +15,12 @@ Meowstronauts: Mars Outpost.
 Seven sols. Every choice costs something.
 
 5
-00:00:13,500 --> 00:00:15,155
+00:00:13,500 --> 00:00:15,154
 Save the shield, or save the crew.
 
 6
-00:00:15,600 --> 00:00:18,515
-Then practice the hard parts: land the ship, hop the ridge.
+00:00:15,600 --> 00:00:19,420
+Then practice with mini-games: land the ship, hop the ridge, pick tomatoes.
 
 7
 00:00:19,800 --> 00:00:21,831
@@ -31,6 +31,6 @@ Tap a word. Learn the science.
 Real NASA data: the May 2025 X2.7 flare.
 
 9
-00:00:26,100 --> 00:00:27,174
+00:00:26,100 --> 00:00:27,173
 One choice they'll remember.
 
