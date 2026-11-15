@@ -271,28 +271,6 @@ describe('incident labelling', () => {
   });
 });
 
-describe('L3 saturated scrubber factory entry', () => {
-  it('offers the water & fuel factory while the card waits for a choice', () => {
-    const open = vi.fn();
-    renderChoiceCard('L3', vi.fn(), open);
-
-    const button = screen.getByTestId('event-factory-practice');
-    expect(button.textContent).toContain('water & fuel factory');
-    fireEvent.click(button);
-    expect(open).toHaveBeenCalledTimes(1);
-  });
-
-  it('keeps the entry on L3 only', () => {
-    renderChoiceCard('L2', vi.fn(), () => {});
-    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
-  });
-
-  it('stays out when video mode withholds the prop', () => {
-    renderChoiceCard('L3', vi.fn());
-    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
-  });
-});
-
 describe('F3 Supply Crate Delayed', () => {
   it('opens the space-food flip for "ration" and resolves when it closes', () => {
     const onChoose = vi.fn();
@@ -330,5 +308,59 @@ describe('F3 Supply Crate Delayed', () => {
 
     expect(onChoose).toHaveBeenCalledWith('rover');
     expect(screen.queryByTestId('food-game')).toBeNull();
+  });
+});
+
+describe('S3 shelter inspection drill', () => {
+  it.each(['full-check', 'key-points'])(
+    'opens the shelter drill for the %s choice',
+    (choiceId) => {
+      const onChoose = vi.fn();
+      renderChoiceCard('S3', onChoose);
+
+      fireEvent.click(screen.getByTestId(`choice-${choiceId}`));
+
+      expect(screen.getByTestId('shelter-overlay')).toBeTruthy();
+      expect(onChoose).not.toHaveBeenCalled();
+    },
+  );
+
+  it('resolves "skip" at once, without the drill', () => {
+    const onChoose = vi.fn();
+    renderChoiceCard('S3', onChoose);
+
+    fireEvent.click(screen.getByTestId('choice-skip'));
+
+    expect(onChoose).toHaveBeenCalledWith('skip');
+    expect(screen.queryByTestId('shelter-overlay')).toBeNull();
+  });
+});
+
+describe('water & fuel factory entry', () => {
+  it.each(['L1', 'L2', 'L3', 'SC2'])(
+    'offers the factory on %s while the card waits for a choice',
+    (eventId) => {
+      const open = vi.fn();
+      renderChoiceCard(eventId, vi.fn(), open);
+
+      const button = screen.getByTestId('event-factory-practice');
+      expect(button.textContent).toContain('water & fuel factory');
+      fireEvent.click(button);
+      expect(open).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  it('keeps the entry off cards without the water story', () => {
+    renderChoiceCard('P1', vi.fn(), () => {});
+    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
+    cleanup();
+
+    renderChoiceCard('S2', vi.fn(), () => {});
+    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
+  });
+
+  it('stays out when the prop is withheld (video mode)', () => {
+    renderChoiceCard('L1', vi.fn());
+    expect(screen.queryByTestId('event-factory-practice')).toBeNull();
   });
 });

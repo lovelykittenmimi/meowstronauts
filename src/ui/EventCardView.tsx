@@ -34,12 +34,21 @@ const HULL_CHOICES: Record<string, string[]> = {
 };
 
 /**
- * Sol 4's flare warning. The first two options both send the crew into the
- * shelter drill; the card resolves only after the player returns from it.
+ * Sol 4's flare warning and S3's shelter inspection. The options that send the
+ * crew into the shelter open the drill first; the card resolves only after the
+ * player returns from it. S3's "skip it" resolves at once.
  */
 const SHELTER_CHOICES: Record<string, string[]> = {
   S1: ['shield-up', 'shelter'],
+  S3: ['full-check', 'key-points'],
 };
+
+/**
+ * Cards whose story is the same water and oxygen chemistry as the factory get
+ * the practice entry while the choice is open: L3's saturated scrubber, L1's
+ * oxygen unit, L2's recycling loop and SC2's subsurface ice.
+ */
+const FACTORY_EVENTS = ['L1', 'L2', 'L3', 'SC2'];
 
 /**
  * F3's crate is late: rationing and opening the emergency stores both mean
@@ -109,9 +118,10 @@ interface EventCardViewProps {
   /** Adds a mini-game reward to the backpack without opening the sheet. */
   onCollectCard?: (cardId: string) => void;
   /**
-   * L3's saturated scrubber is the natural place to try the water & fuel
-   * factory: the same zeolite filter and CO₂ chemistry appear there. Video
-   * mode withholds the prop, like the other practice entries.
+   * The water & fuel factory practice entry. The cards whose story is the
+   * same water and oxygen chemistry — L3's scrubber, L1's oxygen unit, L2's
+   * recycling loop, SC2's subsurface ice — show it while a choice is open.
+   * Video mode withholds the prop, like the other practice entries.
    */
   onFactoryPractice?: () => void;
 }
@@ -220,7 +230,7 @@ export function EventCardView({
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
 
-        {event.id === 'L3' && isChoice && onFactoryPractice && (
+        {isChoice && onFactoryPractice && FACTORY_EVENTS.includes(event.id) && (
           <button
             type="button"
             className="factory-practice-button"

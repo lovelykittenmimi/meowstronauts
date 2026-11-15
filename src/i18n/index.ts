@@ -59,6 +59,10 @@ export const STRINGS = {
     en: 'Try the water & fuel factory',
     'zh-TW': '試試水與燃料工廠',
   },
+  'briefing.shelterGame': {
+    en: 'Try the shelter drill',
+    'zh-TW': '試試避難艙演練',
+  },
   'briefing.snapshot': {
     en: 'Historical snapshot, not live data or a forecast.',
     'zh-TW': '歷史快照，不是即時資料，也不是預報。',

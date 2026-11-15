@@ -24,6 +24,8 @@ interface BriefingScreenProps {
   onFoodPractice?: () => void;
   /** Optional Sol 5 practice: the day's brief is about reusing water. */
   onFactoryPractice?: () => void;
+  /** Optional Sol 4 practice: the day's brief is about the shelter. */
+  onShelterPractice?: () => void;
 }
 
 export function BriefingScreen({
@@ -34,6 +36,7 @@ export function BriefingScreen({
   onHopPractice,
   onFoodPractice,
   onFactoryPractice,
+  onShelterPractice,
 }: BriefingScreenProps) {
   const lang = state.lang;
   const brief = briefForSol(state.sol);
@@ -99,6 +102,18 @@ export function BriefingScreen({
           >
             <span aria-hidden="true">🏭</span>
             {t(lang, 'briefing.factoryGame')}
+          </button>
+        )}
+
+        {state.sol === 4 && onShelterPractice && (
+          <button
+            type="button"
+            className="shelter-practice-button"
+            data-testid="shelter-practice"
+            onClick={onShelterPractice}
+          >
+            <span aria-hidden="true">☢️</span>
+            {t(lang, 'briefing.shelterGame')}
           </button>
         )}
 

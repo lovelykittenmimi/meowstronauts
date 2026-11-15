@@ -311,6 +311,7 @@ export default function App() {
               onHopPractice={videoMode ? undefined : () => setHopOpen(true)}
               onFoodPractice={videoMode ? undefined : () => setFoodOpen(true)}
               onFactoryPractice={videoMode ? undefined : openFactory}
+              onShelterPractice={videoMode ? undefined : openShelter}
             />
           )}
 

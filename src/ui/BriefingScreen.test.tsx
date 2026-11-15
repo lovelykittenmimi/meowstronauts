@@ -13,6 +13,7 @@ function renderBriefing(
   onHopPractice?: () => void,
   onFoodPractice?: () => void,
   onFactoryPractice?: () => void,
+  onShelterPractice?: () => void,
 ) {
   const event = EVENT_BY_ID.get(eventId);
   if (!event) throw new Error(`unknown event ${eventId}`);
@@ -25,6 +26,7 @@ function renderBriefing(
       onHopPractice={onHopPractice}
       onFoodPractice={onFoodPractice}
       onFactoryPractice={onFactoryPractice}
+      onShelterPractice={onShelterPractice}
     />,
   );
 }
@@ -133,5 +135,32 @@ describe('water & fuel factory entry', () => {
   it('stays out of the briefing when video mode withholds the prop', () => {
     renderBriefing('T1', 5);
     expect(screen.queryByTestId('factory-practice')).toBeNull();
+  });
+});
+
+describe('shelter drill entry', () => {
+  it('offers the shelter drill on Sol 4 and calls back', () => {
+    let opened = 0;
+    renderBriefing('S1', 4, undefined, undefined, undefined, () => {
+      opened += 1;
+    });
+
+    const button = screen.getByTestId('shelter-practice');
+    expect(button.textContent).toContain('shelter drill');
+    fireEvent.click(button);
+    expect(opened).toBe(1);
+  });
+
+  it('keeps the shelter drill out of the other sol briefings', () => {
+    for (const sol of [1, 2, 3, 5, 6, 7]) {
+      renderBriefing('T1', sol, undefined, undefined, undefined, () => {});
+      expect(screen.queryByTestId('shelter-practice')).toBeNull();
+      cleanup();
+    }
+  });
+
+  it('stays out of the briefing when video mode withholds the prop', () => {
+    renderBriefing('S1', 4);
+    expect(screen.queryByTestId('shelter-practice')).toBeNull();
   });
 });

@@ -711,7 +711,8 @@ h1 {
 
 .hop-practice-button,
 .food-practice-button,
-.factory-practice-button {
+.factory-practice-button,
+.shelter-practice-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -727,7 +728,8 @@ h1 {
 
 .hop-practice-button:hover,
 .food-practice-button:hover,
-.factory-practice-button:hover {
+.factory-practice-button:hover,
+.shelter-practice-button:hover {
   background: #d3e9e6;
 }
 
@@ -849,7 +851,8 @@ h1 {
 
   .hop-practice-button,
   .food-practice-button,
-  .factory-practice-button {
+  .factory-practice-button,
+  .shelter-practice-button {
     margin-top: 8px;
     padding: 5px 10px;
     font-size: 12px;
