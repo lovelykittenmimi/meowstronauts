@@ -57,17 +57,17 @@
 
 ### 3.5 出場時機對照（所有 20 個術語）
 
-> 規則：每個術語只解說一次，第一次出現時就掛 `{{termId}}`。事件卡最多 2 個術語；`cme`、`geomagneticStorm`、`solarWind`、`gravity` 用每日簡報或「為什麼？」面板出場，不塞進同一張卡。
+> 規則：每個術語只解說一次，第一次出現時就掛 `{{termId}}`。事件卡最多 2 個術語；`cme`、`geomagneticStorm`、`solarWind`、`gravity` 用艦長日誌或「為什麼？」面板出場，不塞進同一張卡。
 >
-> 2026-11-12 調整：MVP 不含 P3 沙塵季（REMS 快照全是晴天冷週）；`dustDevil` 改在 Sol 2 每日簡報出場。
+> 2026-11-12 調整：MVP 不含 P3 沙塵季（REMS 快照全是晴天冷週）；`dustDevil` 改在 Sol 2 艦長日誌出場。
 >
 > 條件式卡（P4、L1–L3、S2、S3、F1、F3、C1、SC2）可能因當日天氣或資源狀況不符而不出場；這是預期行為，**不要為了讓某個術語出現而硬抽卡**。上表的「第一次出場」是設計上的 slot，不保證每一局都會走到。
 
 | # | id | 第一次出場 | 出場句（預定，一律用 token） | 備註 |
 |---:|---|---|---|---|
 | 1 | `solarStorm` | 開場 幕 2 | 「我們被 {{solarStorm}} 打中了！」 | 全遊戲第一個可點詞 |
-| 2 | `solarFlare` | Sol 4 每日簡報（接 S1） | 「{{solarFlare}} 的光已經到了；{{cme}} 的粒子雲還在路上。」 | 與 `cme` 同句；S1 卡再以 `solarFlare`＋`radiationShielding` 回應 |
-| 3 | `cme` | Sol 4 每日簡報 | 「{{solarFlare}} 的光已經到了；{{cme}} 的粒子雲還在路上。」 | 與閃焰分開，不塞進 S1 卡；S1「為什麼？」面板再對照 `solarWind` |
+| 2 | `solarFlare` | Sol 4 艦長日誌（接 S1） | 「{{solarFlare}} 的光已經到了；{{cme}} 的粒子雲還在路上。」 | 與 `cme` 同句；S1 卡再以 `solarFlare`＋`radiationShielding` 回應 |
+| 3 | `cme` | Sol 4 艦長日誌 | 「{{solarFlare}} 的光已經到了；{{cme}} 的粒子雲還在路上。」 | 與閃焰分開，不塞進 S1 卡；S1「為什麼？」面板再對照 `solarWind` |
 | 4 | `radiation` | S3 避難艙檢查 | 「{{radiation}} 升高，先進避難艙。」 | S3 terms：`radiation`＋`radiationShielding` |
 | 5 | `radiationShielding` | 開場 幕 5 外牆 tap | 「{{radiationShielding}}，是我們的盾。」 | 與 atmosphere 同句，共 2 詞 |
 | 6 | `atmosphere` | 開場 幕 5 外牆 tap | 「火星的 {{atmosphere}} 太稀薄，保護不了我們。」 | 與 radiationShielding 同句；不寫「火星沒有大氣」 |
@@ -80,11 +80,11 @@
 | 13 | `commsDelay` | C1 地球來電 | 「{{commsDelay}} 14 分鐘；地球的回覆要等。」 | |
 | 14 | `sol` | 開場 幕 6 | 「7 個 {{sol}}。每個選擇都有代價。」 | |
 | 15 | `micrometeorite` | S2 微隕石破損 | 「{{micrometeorite}} 打穿遮蔽層。」 | S2 terms：`micrometeorite`＋`radiationShielding` |
-| 16 | `gravity` | Sol 1 每日簡報 | 「第 1 個 {{sol}}。火星的 {{gravity}} 是地球的 38%。身體還在適應，體液往頭上跑，骨頭也變弱了——慢慢來。」 | 銀白簡報；P2 再重複；健康內容併入此卡，不新增術語 |
-| 17 | `geomagneticStorm` | Sol 5 每日簡報 | 「Kp 6.33 是地球的 {{geomagneticStorm}} 指數，不是火星的。」 | 只寫這句，不寫「強烈地磁風暴」 |
-| 18 | `solarWind` | Sol 2 每日簡報 | 「{{solarWind}} 一直在吹；這裡沒有全球磁場擋著。」 | S1「為什麼？」面板再與 `cme` 對照 |
+| 16 | `gravity` | Sol 1 艦長日誌 | 「第 1 個 {{sol}}。火星的 {{gravity}} 是地球的 38%。身體還在適應，體液往頭上跑，骨頭也變弱了——慢慢來。」 | 銀白簡報；P2 再重複；健康內容併入此卡，不新增術語 |
+| 17 | `geomagneticStorm` | Sol 5 艦長日誌 | 「Kp 6.33 是地球的 {{geomagneticStorm}} 指數，不是火星的。」 | 只寫這句，不寫「強烈地磁風暴」 |
+| 18 | `solarWind` | Sol 2 艦長日誌 | 「{{solarWind}} 一直在吹；這裡沒有全球磁場擋著。」 | S1「為什麼？」面板再與 `cme` 對照 |
 | 19 | `pressure` | L3 二氧化碳超標 | 「火星 {{pressure}} 不到地球 1%。」 | L3 terms：`atmosphere`＋`pressure` |
-| 20 | `dustDevil` | Sol 2 每日簡報（接在 solarWind 後） | 「晴天也可能出現 {{dustDevil}}。」 | MVP 不含 P3；避免在晴天冷週硬塞沙塵季 |
+| 20 | `dustDevil` | Sol 2 艦長日誌（接在 solarWind 後） | 「晴天也可能出現 {{dustDevil}}。」 | MVP 不含 P3；避免在晴天冷週硬塞沙塵季 |
 
 ## 4. 卡片寫法：一般概念＋地球／火星對照
 

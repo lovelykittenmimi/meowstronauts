@@ -424,7 +424,7 @@ PLAN 6.8 的斷點以寬度分；實作時**高度才是主要變數**，因為 
 | 位置 | 角色 | 繁中 | English | 備註 |
 |---|---|---|---|---|
 | 幕 3 結尾 | 銀白 | 「吃飽之前，先慢慢走。在太空待了好幾個月，我們的身體變弱了。」 | "Before you eat, walk slowly. Months in space made us weaker." | 接在金桔「所以更要先吃飽」之後；若幕 3 超時，砍暗影「工程師的『大概』…」來回，不砍這句 |
-| Sol 1 每日簡報 | 銀白 | 「第 1 個 {{sol}}。火星的 {{gravity}} 是地球的 38%。身體還在適應，體液往頭上跑，骨頭也變弱了——慢慢來。」 | "Sol 1. Mars gravity is 38% of Earth's. Your body is still adjusting — fluids drift toward your head, and bones weaken. Take it slow." | 沿用 `gravity` 卡；不新增 token |
+| Sol 1 艦長日誌 | 銀白 | 「第 1 個 {{sol}}。火星的 {{gravity}} 是地球的 38%。身體還在適應，體液往頭上跑，骨頭也變弱了——慢慢來。」 | "Sol 1. Mars gravity is 38% of Earth's. Your body is still adjusting — fluids drift toward your head, and bones weaken. Take it slow." | 沿用 `gravity` 卡；不新增 token |
 | 任務報告 | 系統 | 「你知道嗎？真實的太空人每天運動約兩小時，減緩骨質與肌肉流失。」 | "Did you know? Real astronauts exercise about two hours a day to slow bone and muscle loss." | 放資料來源上方，小字 |
 
 **紅線：** 不演骨折、流血、輻射病；不把 7 個 sol 寫成骨質快速流失；不給醫療建議；不把 SANS、免疫、癌症細節寫進兒童文案。NASA 對這些仍在研究，遊戲只寫 NASA 已能支撐的部分。

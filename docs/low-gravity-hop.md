@@ -8,7 +8,7 @@
 
 | 入口 | 出現時機 | `data-testid` | 文案（EN／zh-TW） |
 |---|---|---|---|
-| Sol 1 每日簡報 | 只在 `state.sol === 1`，術語 chip 下方 | `hop-practice` | `Try the low-gravity hop`／`試試低重力跳躍` |
+| Sol 1 艦長日誌 | 只在 `state.sol === 1`，術語 chip 下方 | `hop-practice` | `Try the low-gravity hop`／`試試低重力跳躍` |
 | Sol 切換列 | 任何 sol，〔🚀 著陸練習〕之後 | `hop-open` | `Low-gravity hop`／`低重力跳躍` |
 | `?video=` 錄影模式 | **不顯示**（`onHop`／`onHopPractice` 都不傳） | — | — |
 

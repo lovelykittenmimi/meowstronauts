@@ -8,7 +8,7 @@
 
 | 入口 | 出現時機 | `data-testid` | 文案（EN／zh-TW） |
 |---|---|---|---|
-| Sol 7 每日簡報 | 只在 `state.sol === 7`，術語 chip 下方 | `food-practice` | `Try the space food flip`／`試試太空食物翻卡` |
+| Sol 7 艦長日誌 | 只在 `state.sol === 7`，術語 chip 下方 | `food-practice` | `Try the space food flip`／`試試太空食物翻卡` |
 | Sol 切換列 | 任何 sol，〔🦘 低重力跳躍〕之後 | `food-open` | `Space food flip`／`太空食物翻卡` |
 | F3 補給箱延誤（事件卡） | 選「配給」`ration` 或「吃庫存」`stores` 後、結算前；「派探測車」`rover` 不開 | `food-game`（`food-back` 可跳過） | 沿用遊戲內建文案 |
 | `?video=` 錄影模式 | **不顯示**（`onFood`／`onFoodPractice` 都不傳） | — | — |

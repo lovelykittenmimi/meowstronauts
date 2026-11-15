@@ -103,7 +103,7 @@
 - 使用說明與表情定義：`src/assets/generated/README.md`、`src/assets/avatars/README.md`。
 - 01、05–29 全部有對應成品；17–19 的 `_hat` 是額外產出（prompt 未要求，用來做戴頭盔頭像）。
 - MVP 打包仍只載入 §0.5 的 8 張（約 779 KB），其餘是替換與後續素材。
-- 2026-11-14 另加入無貓背景底板（`scenes/06`、`08`–`10`、`12`–`13`、`21` 的 `*-nocat.webp`）。每日簡報跟著當天事件換圖：有 `briefingSrc` 底板就用底板（T1、P1、P4、L3、S1、F1），沒有底板就用事件卡自己的圖（L1、L2、S2、S3、F3、C1、SC2）；`01-keyart.webp` 只當找不到事件圖時的後備。06 的底板仍是候選素材；它來自 06 第二次重出的構圖，晚間第三次重出後已與主圖不同，目前未接入遊戲。11 只有「有車＋貓」原圖與「沒車也沒貓」的 `11-cold-patrol-nocar.webp` 兩個版本，不做空車版。06 與 13 的底板已於同日重出，沒有美國國旗貼布；13 為 2.02:1、比其他張寬；06 仍有風格化的小火焰。21 有兩個底板：`21-shadow-hero-nocat`（同一片陣列、同一黃昏光線，板面積塵）與 `21-shadow-hero-nocat-clean`（同場景、沙子已清乾淨）；T1／P1 的掃沙小遊戲從積塵版開始，清完六個沙塵點後換成乾淨版。
+- 2026-11-14 另加入無貓背景底板（`scenes/06`、`08`–`10`、`12`–`13`、`21` 的 `*-nocat.webp`）。艦長日誌跟著當天事件換圖：有 `briefingSrc` 底板就用底板（T1、P1、P4、L3、S1、F1），沒有底板就用事件卡自己的圖（L1、L2、S2、S3、F3、C1、SC2）；`01-keyart.webp` 只當找不到事件圖時的後備。06 的底板仍是候選素材；它來自 06 第二次重出的構圖，晚間第三次重出後已與主圖不同，目前未接入遊戲。11 只有「有車＋貓」原圖與「沒車也沒貓」的 `11-cold-patrol-nocar.webp` 兩個版本，不做空車版。06 與 13 的底板已於同日重出，沒有美國國旗貼布；13 為 2.02:1、比其他張寬；06 仍有風格化的小火焰。21 有兩個底板：`21-shadow-hero-nocat`（同一片陣列、同一黃昏光線，板面積塵）與 `21-shadow-hero-nocat-clean`（同場景、沙子已清乾淨）；T1／P1 的掃沙小遊戲從積塵版開始，清完六個沙塵點後換成乾淨版。
 - OG 底圖由第 30 號 prompt 生成（2848×1504）。原圖貓群高於上方 30%、也超出中央 80%，處理時把整張等比縮進安全區（三貓上緣 y=197、左右 199–1001 px），再用邊緣像素延伸深色漸層補滿留白，最後由程式疊標題與 `Fly My Mind`。
 
 **已知偏差（2026-11-14 抽查 01、06、13、23、25、29 與 OG）：**
@@ -354,7 +354,7 @@ Aspect ratio 16:9, target size 1920x1080. Match the Ginger reference image in th
 
 > 補最後兩張「圖沒拍到事件本身」的卡：L3（CO₂ 超標）與 P1（太陽能板積塵）。
 > 原圖為 2752×1536 JPEG，處理成 1280×714 WebP q=82 放進 `src/assets/generated/scenes/`，
-> 由 `src/game/eventArt.ts` 接上；卡片圖與每日簡報底板成對生成，接法同 §3.1。
+> 由 `src/game/eventArt.ts` 接上；卡片圖與艦長日誌底板成對生成，接法同 §3.1。
 > P1 的除塵小遊戲仍沿用 21 的黃昏積塵／乾淨兩張板（同一個陣列、同一件工作），
 > 卡片與簡報改用 37 的夜間版本。
 > **與原始 prompt 的差異**：36 的琥珀色狀態燈做成洗滌器右側的直條燈，不是細小指示燈；
@@ -369,7 +369,7 @@ Aspect ratio 16:9, target size 1920x1080. Match the Ginger reference image in th
 Aspect ratio 16:9, target size 1920x1080. Match the Silver reference image in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Night inside a small Mars habitat life-support bay: a wall-mounted carbon dioxide scrubber unit in cream-and-teal casing, with a round filter housing, visible ribbed ducting and a status strip glowing soft amber. Its small screen shows only simple abstract icons — three rising bars and a loose cluster of round molecule symbols — no readable text or numbers. The round filter hatch is open, and a spare filter cartridge lies on the floor beside it. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim and a small round silver tech pack on the back, sits before the open housing with one front paw pressed on the low wall control panel, tail wrapped around her paws, ears slightly back, calm but concerned, looking up at the rising-level screen. Cool cyan light spills out of the unit onto the metal floor; warm amber lamps light the rest of the bay. Keep Silver, the scrubber and the warning strip inside the central 80% of the frame, and keep key detail away from the top and bottom edges because the image is shown as a wide banner. Tense but composed, family-friendly, no fire, no red klaxon lights. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
 
-**36-nocat（L3 每日簡報底板）**
+**36-nocat（L3 艦長日誌底板）**
 
 **比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`36-co2-scrubber-nocat.png`**
 
@@ -385,7 +385,7 @@ Aspect ratio 16:9, target size 1920x1080. No cats, no crew anywhere in frame. Ni
 Aspect ratio 16:9, target size 1920x1080. Match the three character reference images in the GEM exactly for suit design, colors, and quadrupedal cat proportions. Night on Mars outside the Hope-1 habitat: a solar panel array on the plain under a deep blue star-filled sky with the faint Milky Way, every glass face coated in a thick matte rust-red film of dust, fine dust ridges piled along the metal frames and small drifts at the panel feet; dust hangs in the air and catches the light. Shadow, a sleek solid-black cat with amber eyes, wearing a matte black armored spacesuit with purple glowing trim and carbon-fiber panels, a translucent blue holographic visor over one eye, and a twin-thruster backpack with purple glowing rings, stands on the array with one front paw lifted toward a dust-covered panel, its visor scanning the glass. A portable light pod clipped to the panel frame shines a warm pool of light across the dust. Silver, a fluffy white long-haired cat with silver shading, large teal-green eyes and a pink nose, wearing a fitted white-and-silver spacesuit with navy-blue and gold trim, sits on the ground below with her tail wrapped around her paws, watching. Ginger, a chubby orange tabby cat with a cream muzzle, chest and paws, wearing a puffy orange-and-cream astronaut suit covered in utility pockets and straps, waits inside the nearby rounded six-wheeled rover, a thermos beside it. The habitat dome glows warm in the distance. No frost and no ice on the panels — the story here is dust, not cold. Keep the three cats and the dust-covered panels inside the central 80% of the frame, and keep key detail away from the top and bottom edges because the image is shown as a wide banner. Quiet, determined mood, not scary. High-end 3D animated feature film still in a warm Pixar-like style, soft cinematic lighting, expressive stylized cat faces, realistic fur and fabric materials, family-friendly tone, 35mm cinematic composition, shallow depth of field, no text, no lettering, no logos, no watermark.
 ```
 
-**37-nocat（P1 每日簡報底板）**
+**37-nocat（P1 艦長日誌底板）**
 
 **比例：16:9｜遊戲內尺寸：1920×1080｜檔名：`37-night-dust-nocat.png`**
 

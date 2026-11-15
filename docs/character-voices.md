@@ -52,7 +52,7 @@
 
 | # | 場合 | 中文 | English |
 |---:|---|---|---|
-| 1 | 每日簡報 | 別用猜的。先看數據，指揮官。 | Don't guess. Check the data first, Commander. |
+| 1 | 艦長日誌 | 別用猜的。先看數據，指揮官。 | Don't guess. Check the data first, Commander. |
 | 2 | 提示 | 電力不足。立刻修，我不接受賭運氣。 | Power is low. Fix it. I don’t gamble. |
 | 3 | 警告 | 警報不是背景音樂。進避難艙，馬上。 | The alarm isn't music. Shelter, immediately. |
 | 4 | 成功 |計算正確。這只是及格標準。 | Correct calculation. That is the minimum standard.|

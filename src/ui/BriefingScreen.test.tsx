@@ -31,6 +31,20 @@ function renderBriefing(
 
 afterEach(cleanup);
 
+describe('captain’s log naming', () => {
+  it('labels the briefing as the captain’s log', () => {
+    renderBriefing('T1', 1);
+
+    expect(screen.getByText("Captain's log")).toBeTruthy();
+  });
+
+  it('previews the day’s event as today’s incident', () => {
+    renderBriefing('T1', 1);
+
+    expect(screen.getByText(/Today's incident · First Order/)).toBeTruthy();
+  });
+});
+
 describe('daily briefing art', () => {
   it('shows the cat-free plate of the day’s event', () => {
     renderBriefing('S1');

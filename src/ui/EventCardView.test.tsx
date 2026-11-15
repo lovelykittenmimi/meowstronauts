@@ -133,6 +133,14 @@ describe('T1 photo album', () => {
   });
 });
 
+describe('incident labelling', () => {
+  it("marks the day's event apart from the captain's log", () => {
+    renderChoiceCard('T1', vi.fn());
+
+    expect(screen.getByText("Today's incident").className).toBe('incident-tag');
+  });
+});
+
 describe('F3 Supply Crate Delayed', () => {
   it('opens the space-food flip for "ration" and resolves when it closes', () => {
     const onChoose = vi.fn();

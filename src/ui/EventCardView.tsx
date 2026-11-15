@@ -187,6 +187,7 @@ export function EventCardView({
           />
           <div>
             <p className="eyebrow">
+              <span className="incident-tag">{t(lang, 'event.incident')}</span>
               {category[lang]} · {t(lang, 'briefing.sol', { sol: state.sol })}
             </p>
             <h1>{event.title[lang]}</h1>

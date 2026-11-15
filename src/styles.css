@@ -842,6 +842,17 @@ h1 {
   gap: 16px;
 }
 
+/* The day's event is not the captain's log; the pill keeps them apart. */
+.incident-tag {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--rust-ink);
+  color: var(--paper);
+  letter-spacing: 0.06em;
+}
+
 .cat-avatar {
   width: clamp(48px, 5vw, 64px);
   height: clamp(48px, 5vw, 64px);

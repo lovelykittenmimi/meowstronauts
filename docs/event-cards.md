@@ -100,7 +100,7 @@ export interface EventCard {
 
 ## 3. 牌庫（24 張設計庫；MVP 12 張）
 
-> 工作標題只為識別，不是最終文案。`術語` 全部對應 [`glossary.md`](glossary.md) 的 id。所有 20 個術語的出場時機見 `glossary.md` §3.5；事件卡只放與選擇直接相關的 1–2 個詞，其餘用每日簡報或「為什麼？」面板出場。首次出場在事件卡的 8 個術語（MVP 12 張），簡報句列於牌庫表下方；`dustDevil` 移到 Sol 2 每日簡報，因為 MVP 不含 P3 沙塵季。
+> 工作標題只為識別，不是最終文案。`術語` 全部對應 [`glossary.md`](glossary.md) 的 id。所有 20 個術語的出場時機見 `glossary.md` §3.5；事件卡只放與選擇直接相關的 1–2 個詞，其餘用艦長日誌或「為什麼？」面板出場。首次出場在事件卡的 8 個術語（MVP 12 張），簡報句列於牌庫表下方；`dustDevil` 移到 Sol 2 艦長日誌，因為 MVP 不含 P3 沙塵季。
 
 | ID | 類別 | 貓 | 工作標題 | 術語 | 資料來源 |
 |---|---|---|---|---|---|
@@ -144,7 +144,7 @@ export interface EventCard {
 | `micrometeorite` | S2 | 「{{micrometeorite}} 打穿遮蔽層。」 |
 | `pressure` | L3 | 「火星 {{pressure}} 不到地球 1%。」 |
 
-> 其餘 12 個術語在開場或每日簡報首次出場；完整對照見 `docs/glossary.md` §3.5。`dustDevil` 改在 Sol 2 每日簡報出場，避免在晴天冷週硬塞沙塵季。
+> 其餘 12 個術語在開場或艦長日誌首次出場；完整對照見 `docs/glossary.md` §3.5。`dustDevil` 改在 Sol 2 艦長日誌出場，避免在晴天冷週硬塞沙塵季。
 
 ### 3.1 發牌規則
 
@@ -158,7 +158,7 @@ export interface EventCard {
 ### 3.2 MVP 12 張（先做）
 
 > 選擇原則：先覆蓋 8 個「事件卡首次出場」術語＋S1，再保食物與生存；24 張設計庫保留給 11/15 擴充。
-> `P3 沙塵季來臨` 不進 MVP：REMS 快照是晴天冷週，沒有沙塵暴資料；`dustDevil` 改在 Sol 2 每日簡報出場。`P4 冷週暖氣吃電` 進 MVP，且只在 `cold_snap`／`severe_cold` 出，符合真實天氣。
+> `P3 沙塵季來臨` 不進 MVP：REMS 快照是晴天冷週，沒有沙塵暴資料；`dustDevil` 改在 Sol 2 艦長日誌出場。`P4 冷週暖氣吃電` 進 MVP，且只在 `cold_snap`／`severe_cold` 出，符合真實天氣。
 
 | ID | 類別 | 貓 | 工作標題 | 術語 | 觸發條件（符合才進候選池） |
 |---|---|---|---|---|---|
@@ -172,7 +172,7 @@ export interface EventCard {
 | S3 | shield | 銀白 | 避難艙檢查 | `radiation`, `radiationShielding` | Sol 3–5；已收到 `flareForecast` flag；`shield < 75` |
 | F1 | food | 金桔 | 溫室番茄豐收 | `greenhouse` | Sol 3–7；`food ≤ 4`；`food ≥ 5` 不抽 |
 | F3 | food | 金桔 | 補給箱延誤 | `commsDelay` | Sol 2–6；`food ≤ 4` 或 `commsWindow` flag；`food ≥ 5` 不抽 |
-| C1 | comms | 暗影 | 地球來電 | `commsDelay` | Sol 3–5；`commsWindow` 於 Sol 3 每日簡報開啟；不因資源滿而硬出 |
+| C1 | comms | 暗影 | 地球來電 | `commsDelay` | Sol 3–5；`commsWindow` 於 Sol 3 艦長日誌開啟；不因資源滿而硬出 |
 | SC2 | science | 銀白 | 地下冰探測 | `subsurfaceIce` | Sol 2–6；`science < 4`；`science` 高不抽 |
 
 **F1 故事鉤子（設計筆記，非最終文案；11/14 才寫定稿）：** 金桔看到第一朵番茄花，提到 NASA 在火星找到過一朵「花」，結果是石頭（PIA25077，2022-02-24，水礦物膠結的岩石，不是植物）。銀白：「你的番茄會是真的花。」金桔：「那我要種大一點。」只放在遊戲內 F1，**不進 30 秒影片**。照片已加入 `src/data/mars-photos/PIA25077.jpg`（1280×956，credit NASA/JPL-Caltech/MSSS），卡面建議當小圖（inset），主圖仍是溫室／番茄，caption 要寫「岩石，不是植物」。表格資料來源的「＋ PIA25077 照片」只表示**圖片來源與 credit**；`EventCard.source` 仍只放 S11，圖片走 photo metadata，不要因為這張照片寫「火星有花」。
@@ -181,7 +181,7 @@ export interface EventCard {
 
 **F3 的操作橋段（2026-11-15）：** 選「配給」`ration` 或「吃庫存」`stores` 都先開太空食物翻卡（見 `docs/space-food-flip.md` §1），按 Back／✕ 直接結算；「派探測車」`rover` 不開遊戲。小遊戲不給額外資源；F3 三個選項自己的 `effects` 就是唯一獎勵，不改卡上的 `effects`，也不寫進固定 7 sol 平衡表。
 
-**健康知識點（2026-11-14）：** 不新增事件卡，也不新增資源。Sol 1 每日簡報、開場幕 3、任務報告各加一句身體適應台詞；健康事實併入 `gravity` 知識卡（見 `glossary.md` #16）。**7 個 sol 內不演骨質快速流失**——骨質與肌肉流失是旅程數月的結果，不是這 7 天的結果。若 11/15 要加 `H1 健康檢查` 卡，放設計庫、不進 MVP，數值要先進 `balance-sheet.csv` 重跑。
+**健康知識點（2026-11-14）：** 不新增事件卡，也不新增資源。Sol 1 艦長日誌、開場幕 3、任務報告各加一句身體適應台詞；健康事實併入 `gravity` 知識卡（見 `glossary.md` #16）。**7 個 sol 內不演骨質快速流失**——骨質與肌肉流失是旅程數月的結果，不是這 7 天的結果。若 11/15 要加 `H1 健康檢查` 卡，放設計庫、不進 MVP，數值要先進 `balance-sheet.csv` 重跑。
 
 **這 12 張的分類：** power 2、lifeSupport 3、shield 3、food 2、comms 1、science 1；沒有 morale 卡。`SC1 岩石樣本` 是第 13 張擴充；若三星太難，11/15 優先加 SC1，或把三星科學門檻 8→6。
 
@@ -193,7 +193,7 @@ export interface EventCard {
 - 抽卡前先過濾：`sol` 範圍、`weather` tag、資源門檻、story flags；不符合的卡不進候選池。
 - 若候選不足 6 張：先放寬資源門檻 10 點；仍不足，寧可重複一張已符合天氣／故事 flag 的卡，也不要塞不符合的卡。
 - 天氣以 `mars-weather.snapshot.json` 的 `gameplayTags` 為準：`cold_snap`／`severe_cold`／`warm_day`／`pressure_drop`。不要自己發明風速；這份 feed 的 `windSpeedMs` 是 `null`。
-- 故事 flags：`crashDust`（開場迫降，Sol 2–3 有效）、`flareForecast`（Sol 3 每日簡報）、`commsWindow`（Sol 3 每日簡報開啟，C1 可用）、`s1Resolved`（S1 結算後）。
+- 故事 flags：`crashDust`（開場迫降，Sol 2–3 有效）、`flareForecast`（Sol 3 艦長日誌）、`commsWindow`（Sol 3 艦長日誌開啟，C1 可用）、`s1Resolved`（S1 結算後）。
 - 資源門檻是「避免無事硬塞」：`lifeSupport` 高時不出 L1／L2／L3；`shield` 高時不出 S2；`food` 高時不出 F1／F3。這不是絕對禁止，而是 MVP 的預設；11/14 用真實牌庫跑一次，若某卡永遠不出，再調門檻。
 - 24 張擴充的 `when` 在 11/15 補；MVP 只實作上表 12 張。
 

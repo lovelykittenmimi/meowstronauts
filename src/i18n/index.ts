@@ -38,7 +38,7 @@ export const STRINGS = {
     'zh-TW': '什麼都比較少，給硬派任務。',
   },
   'title.language': { en: 'Language', 'zh-TW': '語言' },
-  'briefing.title': { en: 'Daily briefing', 'zh-TW': '每日簡報' },
+  'briefing.title': { en: "Captain's log", 'zh-TW': '艦長日誌' },
   'briefing.sol': { en: 'Sol {sol} of 7', 'zh-TW': '第 {sol} 個火星日／共 7 日' },
   'briefing.weather': { en: 'Curiosity weather snapshot', 'zh-TW': '好奇號天氣快照' },
   'briefing.temp': {
@@ -80,6 +80,7 @@ export const STRINGS = {
   'hud.health': { en: 'Health', 'zh-TW': '健康' },
   'hud.science': { en: 'Science', 'zh-TW': '科學' },
   'hud.backpack': { en: 'Backpack', 'zh-TW': '背包' },
+  'event.incident': { en: "Today's incident", 'zh-TW': '今日突發事件' },
   'event.choose': { en: 'Choose one', 'zh-TW': '選一個' },
   'event.cost': { en: 'Costs', 'zh-TW': '代價' },
   'event.risk': { en: '{percent}% risk', 'zh-TW': '{percent}% 風險' },

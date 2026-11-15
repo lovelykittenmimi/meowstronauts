@@ -129,7 +129,7 @@ export function BriefingScreen({
 
         <div className="briefing-next">
           <span className="muted">
-            {event.category.toUpperCase()} · {event.title[lang]}
+            {t(lang, 'event.incident')} · {event.title[lang]}
           </span>
           <button
             type="button"
