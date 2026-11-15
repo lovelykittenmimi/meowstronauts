@@ -312,7 +312,7 @@
     },
     "example": {
       "en": "A sol is about 24.6 hours—a little longer than an Earth day—so the calendar date drifts; some Earth dates have no sol.",
-      "zh-TW": "一個 sol 約 24.6 小時，比地球日稍長，所以日曆日期會慢慢漂移；有些地球日期沒有對應的 sol。"
+      "zh-TW": "一個 sol 約 24.6 小時，比地球日稍長，所以日曆日期會慢慢漂移；有些地球日期沒有對應的 sol，例如：2025-05-18 沒有火星日。"
     },
     "why": {
       "en": "The mission lasts seven sols.",
