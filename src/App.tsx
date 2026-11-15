@@ -39,9 +39,10 @@ const BACKPACK_KEY = 'meowstronauts.backpack';
 /** The dust practice replays the Sol 1 array; the event keeps its own copy. */
 const DUST_PRACTICE = artForEvent('T1')?.sweep;
 
+/** English every visit: the language choice lives in the tab, not on the device. */
 function readLang(): Lang {
   try {
-    return window.localStorage.getItem(LANG_KEY) === 'zh-TW' ? 'zh-TW' : 'en';
+    return window.sessionStorage.getItem(LANG_KEY) === 'zh-TW' ? 'zh-TW' : 'en';
   } catch {
     return 'en';
   }
@@ -92,10 +93,10 @@ export default function App() {
 
     if (reset) {
       try {
-        window.localStorage.removeItem(LANG_KEY);
+        window.sessionStorage.removeItem(LANG_KEY);
         window.localStorage.removeItem(BACKPACK_KEY);
       } catch {
-        // localStorage may be unavailable; the game still runs in memory.
+        // Storage may be unavailable; the game still runs in memory.
       }
     }
 
@@ -121,7 +122,7 @@ export default function App() {
   useEffect(() => {
     if (videoMode) return;
     try {
-      window.localStorage.setItem(LANG_KEY, state.lang);
+      window.sessionStorage.setItem(LANG_KEY, state.lang);
       window.localStorage.setItem(BACKPACK_KEY, JSON.stringify(state.collectedCards));
     } catch {
       // Ignore storage failures; nothing about the mission depends on it.

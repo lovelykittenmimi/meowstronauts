@@ -40,10 +40,10 @@ type Status = 'playing' | 'landed';
 
 function readLanguage(): Lang {
   try {
-    const stored = window.localStorage.getItem('mars-weather-lander-lang');
+    const stored = window.sessionStorage.getItem('mars-weather-lander-lang');
     if (stored === 'en' || stored === 'zh-TW') return stored;
   } catch {
-    // localStorage can be unavailable in private modes; default to English.
+    // sessionStorage can be unavailable in private modes; default to English.
   }
   return 'en';
 }
@@ -138,7 +138,7 @@ export default function WeatherLanderGame({ initialLang, onExit }: WeatherLander
   useEffect(() => {
     langRef.current = lang;
     try {
-      window.localStorage.setItem('mars-weather-lander-lang', lang);
+      window.sessionStorage.setItem('mars-weather-lander-lang', lang);
     } catch {
       // Ignore storage failures.
     }
