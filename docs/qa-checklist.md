@@ -143,7 +143,7 @@
 - [ ] 影片畫面與最終提交的 build 一致（含 11/15 必要補拍）；沒有測試資料、debug 面板、console error。
 - [ ] 夜間 `[visual]` 修復已重錄或 revert；沒有把 21:00 的影片配上 11/15 改過 UI 的 build。
 - [ ] 影片數字與 `docs/balance-sheet.csv` 一致：S1 `⚡−20`、`🛡️+25`、背包 9/20。
-- [ ] 旁白定稿：Ana +45% 26.5 秒（或 11/15 換人聲，26–27 秒）；字幕與語音同步（`tools/video/narration-ana-45.srt`），燒進影片並另附 `.srt`。
+- [ ] 旁白定稿：Ana +45%；字幕與語音同步（`tools/video/narration-ana-45-v3.srt`），燒進影片並另附 `.srt`。
 - [ ] 影片最後有 1.5 秒標題卡停留。
 - [ ] YouTube 設 public 或 unlisted，無痕視窗可看。
 - [ ] OG 卡在社群預覽正常（標題、三貓、`Fly My Mind`）。

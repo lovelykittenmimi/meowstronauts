@@ -8,26 +8,17 @@ part of the game build.
 | File | Purpose |
 |---|---|
 | `title-card.html` | 10-second 1920×1080 title-card animation used to prove capture, subtitles, and audio muxing; placeholder for the final title card |
-| `capture-test.mjs` | Playwright capture using the installed Chrome (`channel: "chrome"`, no browser download) |
-| `test.srt` | English subtitles burned into the test video |
-| `narration-ana-45.srt` | 8 English subtitle cues timed to the chosen Ana +45% narration (26.5 s) |
-| `narration-ana-45.mp3` | The exact chosen Ana +45% narration (158,832 bytes, 26.5 s). Committed so C can assemble v1 without network TTS; regenerate only if the script changes. |
-| `make-test-voice.ps1` | Windows SAPI scratch voice (Zira) for the 10-second test |
-| `make-narration-test.ps1` | 57-word scratch narration (Zira, rate 3); measured 23.8 s |
-| `assemble-test.mjs` | ffmpeg assembly: scale/pad to 1920×1080, burn SRT, AAC audio, 30fps H.264 |
+| `narration-ana-45-v3.srt` | English subtitle cues for the v3 narration (9 lines, timed by `make-narration.mjs`) |
+| `narration-ana-45-v3.mp3` | The current Ana +45% narration take. The shot list and cue table are in `docs/video-script.md` §0.4–§0.6. |
 | `assets/apod/` | NASA stills for the opening shots; video-only, not game assets. Credits and crop rules in `assets/apod/CREDITS.md` |
 | `assets/mars-trek/` | Gale Crater wide/mid/close stills for the approach zoom; exported from Mars Trek, not screen-recorded. Credits in `assets/mars-trek/CREDITS.md` |
 | `output/` | Git-ignored; all raw and final media goes here |
 
 ## edge-tts (installed 2026-11-12; chosen voice: Ana +45%)
 
-`edge-tts` 7.3.1 is installed for Python 3.14. The console script directory is
-not on PATH, so call it as a module:
-
-```bash
-python -m edge_tts -f narration.txt -v en-US-AnaNeural --rate=+45% \
-  --write-media output/edge-narration-ana-45.mp3
-```
+`edge-tts` 7.3.1 is installed for Python 3.14. The current take is generated
+from the cue table in `docs/video-script.md` §0.6 with `en-US-AnaNeural` at
+`--rate=+45%`.
 
 Measured for the 57-word narration:
 
@@ -67,22 +58,14 @@ retry; the service is occasionally flaky.
 
 ## Run
 
-```bash
-cd tools/video
-npm install
-powershell -NoProfile -ExecutionPolicy Bypass -File make-test-voice.ps1
-npm run test
-```
-
-Then inspect `output/test-10s.mp4`:
-
-```bash
-ffprobe -v error -show_entries format=duration -show_entries stream=codec_type,width,height,r_frame_rate -of default=noprint_wrappers=1 output/test-10s.mp4
-```
+The 30-second cut is built from the shot list and cue table in
+`docs/video-script.md` §0.4–§0.6. Capture and assembly use Playwright and
+ffmpeg from this folder. The original 10-second test scaffolding is kept on
+the recording machine only and is not part of the repository.
 
 ## Notes
 
-- `ffmpeg` is installed through winget; `assemble-test.mjs` resolves the winget
+- `ffmpeg` is installed through winget; the assembly script resolves the winget
   shim (`%LOCALAPPDATA%\Microsoft\WinGet\Links\ffmpeg.exe`) itself, so a shell
   restart is not required.
 - Playwright records through the installed Chrome. If video recording needs
