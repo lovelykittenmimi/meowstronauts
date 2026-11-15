@@ -6,6 +6,7 @@ import { RESOURCE_LABEL_KEY, CAT_NAMES, t } from '../i18n';
 import { faceFor } from './catFaces';
 import { DustMinigame } from './DustMinigame';
 import HullRepairOverlay from '../minigames/HullRepairOverlay';
+import RadiationOverlay from '../minigames/RadiationOverlay';
 import { ICONS } from './ResourceHud';
 import { RichText } from './RichText';
 import { SceneStage } from './SceneStage';
@@ -29,8 +30,16 @@ const HULL_CHOICES: Record<string, string[]> = {
   S2: ['patch'],
 };
 
+/**
+ * Sol 4's flare warning. The first two options both send the crew into the
+ * shelter drill; the card resolves only after the player returns from it.
+ */
+const SHELTER_CHOICES: Record<string, string[]> = {
+  S1: ['shield-up', 'shelter'],
+};
+
 interface PendingInteraction {
-  kind: 'dust' | 'hull';
+  kind: 'dust' | 'hull' | 'shelter';
   choiceId: string;
 }
 
@@ -76,6 +85,8 @@ interface EventCardViewProps {
   onTerm: (cardId: string) => void;
   onContinue: () => void;
   onOpenCard: (cardId: string) => void;
+  /** Adds a mini-game reward to the backpack without opening the sheet. */
+  onCollectCard?: (cardId: string) => void;
 }
 
 export function EventCardView({
@@ -85,9 +96,11 @@ export function EventCardView({
   onTerm,
   onContinue,
   onOpenCard,
+  onCollectCard,
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState<PendingInteraction | null>(null);
+  const shelterDoneRef = useRef(false);
 
   useEffect(() => {
     const body = bodyRef.current;
@@ -110,8 +123,10 @@ export function EventCardView({
   const facePhase = isResult ? (state.lastSuccess ? 'success' : 'fail') : 'choice';
   const dustChoices = DUST_CHOICES[event.id];
   const hullChoices = HULL_CHOICES[event.id];
+  const shelterChoices = SHELTER_CHOICES[event.id];
   const showDustGame = isChoice && pending?.kind === 'dust' && Boolean(art);
   const showHullGame = isChoice && pending?.kind === 'hull';
+  const showShelterGame = isChoice && pending?.kind === 'shelter';
 
   const handleChoose = (choiceId: string) => {
     if (dustChoices?.includes(choiceId)) {
@@ -122,7 +137,21 @@ export function EventCardView({
       setPending({ kind: 'hull', choiceId });
       return;
     }
+    if (shelterChoices?.includes(choiceId) && !state.videoMode) {
+      shelterDoneRef.current = false;
+      setPending({ kind: 'shelter', choiceId });
+      return;
+    }
     onChoose(choiceId);
+  };
+
+  const closeShelter = () => {
+    if (!pending || pending.kind !== 'shelter') return;
+    const choiceId = pending.choiceId;
+    setPending(null);
+    if (shelterDoneRef.current) {
+      onChoose(choiceId);
+    }
   };
 
   return (
@@ -150,7 +179,7 @@ export function EventCardView({
           <RichText text={event.brief[lang]} lang={lang} onTerm={onTerm} />
         </p>
 
-        {isChoice && !showDustGame && !showHullGame && (
+        {isChoice && !showDustGame && !showHullGame && !showShelterGame && (
           <>
             <h2 className="section-label">{t(lang, 'event.choose')}</h2>
             <div className="choices">
@@ -299,6 +328,17 @@ export function EventCardView({
           initialLang={lang}
           sol={state.sol}
           onDone={() => onChoose(pending.choiceId)}
+        />
+      )}
+
+      {showShelterGame && pending && (
+        <RadiationOverlay
+          initialLang={lang}
+          onClose={closeShelter}
+          onComplete={(cardId) => {
+            shelterDoneRef.current = true;
+            onCollectCard?.(cardId);
+          }}
         />
       )}
     </main>

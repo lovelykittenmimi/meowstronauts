@@ -292,6 +292,7 @@ export default function App() {
               onTerm={openCard}
               onContinue={() => dispatch({ type: 'CONTINUE' })}
               onOpenCard={openCard}
+              onCollectCard={collectCard}
             />
           )}
         </>

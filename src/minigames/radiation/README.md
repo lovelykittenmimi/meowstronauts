@@ -16,10 +16,16 @@ solar-particle front arrives, and tests the chosen shielding layers.
    rays still get through. The result shows a relative dose for each cat, a
    shield report, and the `radiationShielding` knowledge card.
 
-The drill is optional. It never changes the seven-sol resource balance.
+The drill never changes the seven-sol resource balance by itself. On Sol 4 it
+gates the first two S1 choices, but the chosen option still applies its original
+effects after the drill.
 
 ## Where it opens
 
+- **Sol 4 · S1 Solar Flare Warning** — the first two choices, `Thicken the
+  shield` and `Shelter the crew`, open the drill before the card resolves. The
+  third choice resolves immediately. `?video=s1` keeps the instant-resolution
+  path so the recording is not blocked.
 - **Story scene 5** — after the player places the outer-wall module, a
   `Shelter drill` button appears at the top left.
 - **Sol row** — the `☢️ Shelter drill` button sits beside `🚀 Landing practice`.
