@@ -8,6 +8,7 @@ interface HullRepairOverlayProps {
   initialLang: Lang;
   sol: number;
   onDone: () => void;
+  onExit?: () => void;
 }
 
 /**
@@ -19,10 +20,11 @@ export default function HullRepairOverlay({
   initialLang,
   sol,
   onDone,
+  onExit,
 }: HullRepairOverlayProps) {
   const hostRef = useRef<HTMLDivElement>(null);
-  const optionsRef = useRef({ initialLang, sol, onDone });
-  optionsRef.current = { initialLang, sol, onDone };
+  const optionsRef = useRef({ initialLang, sol, onDone, onExit });
+  optionsRef.current = { initialLang, sol, onDone, onExit };
 
   useEffect(() => {
     const host = hostRef.current;
@@ -43,6 +45,11 @@ export default function HullRepairOverlay({
         initialLang={optionsRef.current.initialLang}
         sol={optionsRef.current.sol}
         onDone={() => optionsRef.current.onDone()}
+        onExit={
+          optionsRef.current.onExit
+            ? () => optionsRef.current.onExit?.()
+            : undefined
+        }
       />,
     );
 

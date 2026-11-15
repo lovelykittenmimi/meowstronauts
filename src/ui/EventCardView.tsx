@@ -138,7 +138,6 @@ export function EventCardView({
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState<PendingInteraction | null>(null);
-  const shelterDoneRef = useRef(false);
 
   useEffect(() => {
     const body = bodyRef.current;
@@ -180,7 +179,6 @@ export function EventCardView({
       return;
     }
     if (shelterChoices?.includes(choiceId) && !state.videoMode) {
-      shelterDoneRef.current = false;
       setPending({ kind: 'shelter', choiceId });
       return;
     }
@@ -195,13 +193,15 @@ export function EventCardView({
     onChoose(choiceId);
   };
 
+  /** Leaving an event mini-game early still resolves the chosen option. */
+  const resolvePending = (choiceId: string) => {
+    setPending(null);
+    onChoose(choiceId);
+  };
+
   const closeShelter = () => {
     if (!pending || pending.kind !== 'shelter') return;
-    const choiceId = pending.choiceId;
-    setPending(null);
-    if (shelterDoneRef.current) {
-      onChoose(choiceId);
-    }
+    resolvePending(pending.choiceId);
   };
 
   return (
@@ -399,7 +399,8 @@ export function EventCardView({
         <HullRepairOverlay
           initialLang={lang}
           sol={state.sol}
-          onDone={() => onChoose(pending.choiceId)}
+          onDone={() => resolvePending(pending.choiceId)}
+          onExit={() => resolvePending(pending.choiceId)}
         />
       )}
 
@@ -408,7 +409,6 @@ export function EventCardView({
           initialLang={lang}
           onClose={closeShelter}
           onComplete={(cardId) => {
-            shelterDoneRef.current = true;
             onCollectCard?.(cardId);
           }}
         />
@@ -417,7 +417,7 @@ export function EventCardView({
       {showFoodGame && pending && (
         <SpaceFoodFlip
           lang={lang}
-          onExit={() => onChoose(pending.choiceId)}
+          onExit={() => resolvePending(pending.choiceId)}
         />
       )}
 
@@ -425,11 +425,7 @@ export function EventCardView({
         <TomatoHarvestOverlay
           initialLang={lang}
           sol={state.sol}
-          onDone={(completed) => {
-            const choiceId = pending.choiceId;
-            setPending(null);
-            if (completed) onChoose(choiceId);
-          }}
+          onDone={() => resolvePending(pending.choiceId)}
         />
       )}
     </main>

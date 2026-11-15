@@ -84,7 +84,7 @@ describe('S1 shelter drill integration', () => {
     },
   );
 
-  it('returns to the choices without resolving if the drill is left early', async () => {
+  it('resolves the choice if the drill is left early', async () => {
     const onChoose = vi.fn();
     renderCard(false, onChoose);
     fireEvent.click(screen.getByTestId('choice-shield-up'));
@@ -102,9 +102,9 @@ describe('S1 shelter drill integration', () => {
     fireEvent.click(exit);
 
     await waitFor(() => {
-      expect(screen.getByTestId('choice-shield-up')).toBeTruthy();
+      expect(onChoose).toHaveBeenCalledWith('shield-up');
     });
-    expect(onChoose).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('shelter-overlay')).toBeNull();
   });
 
   it('keeps video mode on the instant-resolution path', () => {
@@ -155,7 +155,7 @@ describe('S1 shelter drill integration', () => {
     expect(screen.queryByTestId('tomato-overlay')).toBeNull();
   });
 
-  it('returns from a skipped F1 harvest to the choices', async () => {
+  it('resolves the harvest choice when the harvest is skipped', async () => {
     const onChoose = vi.fn();
     renderF1(false, onChoose);
     fireEvent.click(screen.getByTestId('choice-harvest-all'));
@@ -172,9 +172,9 @@ describe('S1 shelter drill integration', () => {
     fireEvent.click(skip);
 
     await waitFor(() => {
-      expect(screen.getByTestId('choice-harvest-all')).toBeTruthy();
+      expect(onChoose).toHaveBeenCalledWith('harvest-all');
     });
-    expect(onChoose).not.toHaveBeenCalled();
+    expect(screen.queryByTestId('tomato-overlay')).toBeNull();
   });
 });
 
@@ -339,6 +339,52 @@ describe('S3 shelter inspection drill', () => {
 
     expect(onChoose).toHaveBeenCalledWith('skip');
     expect(screen.queryByTestId('shelter-overlay')).toBeNull();
+  });
+
+  it('resolves the choice if the inspection is left early', async () => {
+    const onChoose = vi.fn();
+    renderChoiceCard('S3', onChoose);
+    fireEvent.click(screen.getByTestId('choice-key-points'));
+
+    const host = screen.getByTestId('shelter-overlay');
+    await waitFor(() => {
+      expect(
+        host.shadowRoot?.querySelector('[data-testid="shelter-exit"]'),
+      ).toBeTruthy();
+    });
+    const exit = host.shadowRoot?.querySelector(
+      '[data-testid="shelter-exit"]',
+    ) as HTMLElement;
+    fireEvent.click(exit);
+
+    await waitFor(() => {
+      expect(onChoose).toHaveBeenCalledWith('key-points');
+    });
+    expect(screen.queryByTestId('shelter-overlay')).toBeNull();
+  });
+});
+
+describe('S2 hull repair', () => {
+  it('resolves the choice when the repair game is skipped', async () => {
+    const onChoose = vi.fn();
+    renderChoiceCard('S2', onChoose);
+    fireEvent.click(screen.getByTestId('choice-patch'));
+
+    const host = screen.getByTestId('hull-overlay');
+    await waitFor(() => {
+      expect(
+        host.shadowRoot?.querySelector('[data-testid="hull-exit"]'),
+      ).toBeTruthy();
+    });
+    const exit = host.shadowRoot?.querySelector(
+      '[data-testid="hull-exit"]',
+    ) as HTMLElement;
+    fireEvent.click(exit);
+
+    await waitFor(() => {
+      expect(onChoose).toHaveBeenCalledWith('patch');
+    });
+    expect(screen.queryByTestId('hull-overlay')).toBeNull();
   });
 });
 

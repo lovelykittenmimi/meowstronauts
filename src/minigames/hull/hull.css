@@ -522,6 +522,38 @@ button {
   pointer-events: none;
 }
 
+.hud-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1.2vmin, 12px);
+  pointer-events: auto;
+}
+
+.hull-exit {
+  min-height: 34px;
+  padding: clamp(5px, 0.9vmin, 8px) clamp(10px, 1.6vmin, 16px);
+  border: 1px solid rgba(247, 243, 234, 0.45);
+  border-radius: 999px;
+  background: rgba(11, 16, 38, 0.72);
+  color: var(--cream);
+  font: inherit;
+  font-size: clamp(11px, 1.5vmin, 14px);
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hull-exit:hover {
+  background: rgba(247, 243, 234, 0.18);
+}
+
+.hull-exit:focus-visible {
+  outline: 3px solid var(--teal-bright);
+  outline-offset: 2px;
+}
+
 .hud-title {
   max-width: 56%;
   padding-top: clamp(2px, 0.6vmin, 7px);
@@ -931,9 +963,19 @@ button {
     font-size: 18px;
   }
 
+  .hud-actions {
+    gap: 6px;
+  }
+
   .hull-panel {
     gap: 6px;
     padding: 5px 9px;
+  }
+
+  .hull-exit {
+    min-height: 30px;
+    padding: 4px 9px;
+    font-size: 11px;
   }
 
   .hull-label {

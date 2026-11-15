@@ -160,6 +160,7 @@ export const STRINGS = {
   'hull.sealed': { en: 'HULL SEALED', 'zh-TW': '外殼密封' },
   'hull.sealedSub': { en: 'Pressure holding', 'zh-TW': '艙壓穩定' },
   'hull.dock': { en: 'REPAIR BAY', 'zh-TW': '維修基地' },
+  'hull.exit': { en: 'Skip repair', 'zh-TW': '跳過維修' },
   'hull.repairAria': {
     en: 'Repair leak {i} of {total}',
     'zh-TW': '修補第 {i} 個漏氣點，共 {total} 個',

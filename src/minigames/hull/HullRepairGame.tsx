@@ -48,13 +48,20 @@ interface HullRepairGameProps {
   initialLang: Lang;
   sol: number;
   onDone: () => void;
+  /** Leaving early resolves the event choice, same as the other practice games. */
+  onExit?: () => void;
 }
 
 const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
-export function HullRepairGame({ initialLang, sol, onDone }: HullRepairGameProps) {
+export function HullRepairGame({
+  initialLang,
+  sol,
+  onDone,
+  onExit,
+}: HullRepairGameProps) {
   const lang = initialLang;
   const [sealed, setSealed] = useState<number[]>([]);
   const [busy, setBusy] = useState(false);
@@ -74,9 +81,11 @@ export function HullRepairGame({ initialLang, sol, onDone }: HullRepairGameProps
   const runRef = useRef(0);
   const doneRef = useRef(false);
   const onDoneRef = useRef(onDone);
+  const onExitRef = useRef(onExit);
   const buttonRefs = useRef<Record<number, HTMLButtonElement | null>>({});
 
   onDoneRef.current = onDone;
+  onExitRef.current = onExit;
 
   useEffect(() => {
     mountedRef.current = true;
@@ -85,6 +94,15 @@ export function HullRepairGame({ initialLang, sol, onDone }: HullRepairGameProps
       runRef.current += 1;
     };
   }, []);
+
+  useEffect(() => {
+    if (!onExit) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onExitRef.current?.();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [onExit]);
 
   useEffect(() => {
     if (typeof window.matchMedia !== 'function') return;
@@ -324,26 +342,38 @@ export function HullRepairGame({ initialLang, sol, onDone }: HullRepairGameProps
               <p className="eyebrow">{t(lang, 'hull.eyebrow', { sol })}</p>
               <h1>{t(lang, 'hull.title')}</h1>
             </div>
-            <div className="hull-panel">
-              <span className="hull-label">{t(lang, 'hull.hull')}</span>
-              <div
-                className="segs"
-                role="progressbar"
-                aria-valuemin={0}
-                aria-valuemax={TOTAL}
-                aria-valuenow={sealed.length}
-                aria-label={t(lang, 'hull.progressAria')}
-              >
-                {LEAKS.map((leak, index) => (
-                  <span
-                    key={leak.id}
-                    className={`seg${index < sealed.length ? ' filled' : ''}`}
-                  />
-                ))}
+            <div className="hud-actions">
+              <div className="hull-panel">
+                <span className="hull-label">{t(lang, 'hull.hull')}</span>
+                <div
+                  className="segs"
+                  role="progressbar"
+                  aria-valuemin={0}
+                  aria-valuemax={TOTAL}
+                  aria-valuenow={sealed.length}
+                  aria-label={t(lang, 'hull.progressAria')}
+                >
+                  {LEAKS.map((leak, index) => (
+                    <span
+                      key={leak.id}
+                      className={`seg${index < sealed.length ? ' filled' : ''}`}
+                    />
+                  ))}
+                </div>
+                <span className="leak-count" aria-live="polite">
+                  {countLabel}
+                </span>
               </div>
-              <span className="leak-count" aria-live="polite">
-                {countLabel}
-              </span>
+              {onExit && (
+                <button
+                  type="button"
+                  className="hull-exit"
+                  data-testid="hull-exit"
+                  onClick={onExit}
+                >
+                  {t(lang, 'hull.exit')}
+                </button>
+              )}
             </div>
           </header>
 

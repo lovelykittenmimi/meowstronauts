@@ -26,4 +26,36 @@ describe('HullRepairGame', () => {
 
     expect(onDone).toHaveBeenCalledTimes(1);
   });
+
+  it('can be skipped with its exit button', () => {
+    const onExit = vi.fn();
+    render(
+      <HullRepairGame
+        initialLang="en"
+        sol={2}
+        onDone={() => {}}
+        onExit={onExit}
+      />,
+    );
+
+    fireEvent.click(screen.getByTestId('hull-exit'));
+
+    expect(onExit).toHaveBeenCalledTimes(1);
+  });
+
+  it('can be skipped with Escape', () => {
+    const onExit = vi.fn();
+    render(
+      <HullRepairGame
+        initialLang="en"
+        sol={2}
+        onDone={() => {}}
+        onExit={onExit}
+      />,
+    );
+
+    fireEvent.keyDown(window, { key: 'Escape' });
+
+    expect(onExit).toHaveBeenCalledTimes(1);
+  });
 });
