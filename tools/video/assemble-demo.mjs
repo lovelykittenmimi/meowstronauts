@@ -154,39 +154,13 @@ await encodeStill({
   extra: 'fade=t=in:st=0:d=0.25',
 });
 
-// 2. Gale approach, wide -> mid with a 0.27 s crossfade (2.5-4.8)
-await encodeStill({
-  image: path.join(assets, 'mars-trek', 'gale-wide.jpg'),
-  out: path.join(segDir, 'gale-wide.mp4'),
-  seconds: 39 / fps,
-  zoom: 0.06,
-});
-await encodeStill({
-  image: path.join(assets, 'mars-trek', 'gale-mid.jpg'),
-  out: path.join(segDir, 'gale-mid.mp4'),
-  seconds: 38 / fps,
-  zoom: 0.06,
-});
+// 2. SDO flare with a short white-in (2.5-4.0). No Gale stills: the intro is
+// the flare and then the crash, nothing else.
 const creditFont = 'C\\:/Windows/Fonts/arialbd.ttf';
-// The title card carries the audience line, so the Gale shot only needs the credit.
-const galeLower = [
-  `drawtext=fontfile='${creditFont}':text='NASA/JPL-Caltech · Mars Trek':fontcolor=white@0.9:fontsize=22:x=w-tw-56:y=h-54:box=1:boxcolor=0x00000066:boxborderw=10`,
-].join(',');
-await run([
-  '-y',
-  '-i', path.join(segDir, 'gale-wide.mp4'),
-  '-i', path.join(segDir, 'gale-mid.mp4'),
-  '-filter_complex',
-  `[0:v][1:v]xfade=transition=fade:duration=${(8 / fps).toFixed(4)}:offset=${(31 / fps).toFixed(4)},${galeLower},format=yuv420p[v]`,
-  '-map', '[v]', '-frames:v', '69',
-  ...base, seg('s02'),
-], 'gale');
-
-// 3. SDO still with a short white-in (4.8-5.5)
 await encodeStill({
   image: path.join(assets, 'apod', 'sun-flare-sdo-2017-09-14.jpg'),
-  out: seg('s03'),
-  seconds: 0.7,
+  out: seg('s02'),
+  seconds: 1.5,
   zoom: 0.04,
   pre: 'scale=-1:1080,pad=1920:1080:(ow-iw)/2:0:black',
   extra: [
@@ -195,90 +169,91 @@ await encodeStill({
   ].join(','),
 });
 
-// 4. In-game crash clip (5.5-7.6)
+// 3. In-game crash clip (4.0-7.6). The clip is 10.00 s and always cut from the
+// tail: the last 3.6 s, so the shot ends on the impact and aftermath.
 await encodeVideo({
   input: path.join(root, 'src/assets/video/scene2-crash.mp4'),
-  start: 7.90,
-  seconds: 2.1,
-  out: seg('s04'),
+  start: 6.40,
+  seconds: 3.6,
+  out: seg('s03'),
   vf: 'scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080',
 });
 
-// 5. Title card (7.6-9.7)
-await encodeStill({ image: path.join(cards, 'title.png'), out: seg('s05'), seconds: 2.1, zoom: 0.02 });
+// 4. Title card (7.6-9.7)
+await encodeStill({ image: path.join(cards, 'title.png'), out: seg('s04'), seconds: 2.1, zoom: 0.02 });
 
-// 6. S1 card -> shield up -> result (9.7-13.3)
+// 5. S1 card -> shield up -> result (9.7-13.3)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 1.5,
   seconds: 3.6,
-  out: seg('s06'),
+  out: seg('s05'),
   vf: 'scale=1920:1080',
 });
 
-// 7. HUD/result close-up (13.3-15.4)
+// 6. HUD/result close-up (13.3-15.4)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 5.1,
   seconds: 2.1,
-  out: seg('s07'),
+  out: seg('s06'),
   vf: 'crop=1680:945:150:0,scale=1920:1080:flags=lanczos',
 });
 
-// 8. Mars Weather Lander (15.4-18.2)
+// 7. Mars Weather Lander (15.4-17.6)
 await encodeVideo({
   input: clip('lander'),
   start: F.lander + mark('lander', 'landed') - 1.30,
   seconds: 2.2,
-  out: seg('s08'),
+  out: seg('s07'),
   vf: 'crop=1725:970:110:0,scale=1920:1080:flags=lanczos',
 });
 
-// 9. Two practice opening screens (17.6-19.7): Low-gravity hop intro for 1.0 s,
+// 8. Two practice opening screens (17.6-19.7): Low-gravity hop intro for 1.0 s,
 // then the Harvest the tomatoes first screen for 1.1 s. No gameplay in this shot.
 await encodeVideo({
   input: clip('hopIntro'),
   start: F.hopIntro + mark('hopIntro', 'hopIntro'),
   seconds: 1.0,
-  out: path.join(segDir, 's09a.mp4'),
+  out: path.join(segDir, 's08a.mp4'),
   vf: 'scale=1920:1080',
 });
 await encodeVideo({
   input: clip('tomatoIntro'),
   start: F.tomatoIntro + mark('tomatoIntro', 'tomatoIntro'),
   seconds: 1.1,
-  out: path.join(segDir, 's09b.mp4'),
+  out: path.join(segDir, 's08b.mp4'),
   vf: 'scale=1920:1080',
 });
-await concatFiles([path.join(segDir, 's09a.mp4'), path.join(segDir, 's09b.mp4')], seg('s09'));
+await concatFiles([path.join(segDir, 's08a.mp4'), path.join(segDir, 's08b.mp4')], seg('s08'));
 
-// 10. Knowledge card -> backpack (19.7-22.1)
+// 9. Knowledge card -> backpack (19.7-22.1)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 8.4,
   seconds: 1.2,
-  out: path.join(segDir, 's10a.mp4'),
+  out: path.join(segDir, 's09a.mp4'),
   vf: 'scale=1920:1080',
 });
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 11.8,
   seconds: 1.2,
-  out: path.join(segDir, 's10b.mp4'),
+  out: path.join(segDir, 's09b.mp4'),
   vf: 'scale=1920:1080',
 });
-await concatFiles([path.join(segDir, 's10a.mp4'), path.join(segDir, 's10b.mp4')], seg('s10'));
+await concatFiles([path.join(segDir, 's09a.mp4'), path.join(segDir, 's09b.mp4')], seg('s09'));
 
-// 11. NASA data panel (22.1-26.0)
+// 10. NASA data panel (22.1-26.0)
 await encodeVideo({
   input: clip('s1'),
   start: F.s1 + 15.2,
   seconds: 3.9,
-  out: seg('s11'),
+  out: seg('s10'),
   vf: 'scale=1920:1080',
 });
 
-// 12. Mission report -> end card (26.0-30.0). The end card only holds for the
+// 11. Mission report -> end card (26.0-30.0). The end card only holds for the
 // last second: players freeze on the final frame, so it does not need more.
 const reportFrames = 96; // 3.2 s
 const endFrames = 30; // 1.0 s
@@ -287,28 +262,28 @@ await encodeVideo({
   input: clip('report'),
   start: F.report + 1.6,
   seconds: reportFrames / fps,
-  out: path.join(segDir, 's12a.mp4'),
+  out: path.join(segDir, 's11a.mp4'),
   vf: 'scale=1920:1080',
 });
 await encodeStill({
   image: path.join(cards, 'end.png'),
-  out: path.join(segDir, 's12b.mp4'),
+  out: path.join(segDir, 's11b.mp4'),
   seconds: endFrames / fps,
   zoom: 0.01,
 });
 await run([
   '-y',
-  '-i', path.join(segDir, 's12a.mp4'),
-  '-i', path.join(segDir, 's12b.mp4'),
+  '-i', path.join(segDir, 's11a.mp4'),
+  '-i', path.join(segDir, 's11b.mp4'),
   '-filter_complex',
   `[0:v][1:v]xfade=transition=fade:duration=${(tailFade / fps).toFixed(4)}:offset=${((reportFrames - tailFade) / fps).toFixed(4)},format=yuv420p[v]`,
   '-map', '[v]', '-frames:v', String(reportFrames + endFrames - tailFade),
-  ...base, seg('s12'),
-], 's12');
+  ...base, seg('s11'),
+], 's11');
 
 const parts = [
   's01', 's02', 's03', 's04', 's05', 's06',
-  's07', 's08', 's09', 's10', 's11', 's12',
+  's07', 's08', 's09', 's10', 's11',
 ].map(seg);
 await concatFiles(parts, path.join(outDir, 'picture.mp4'));
 

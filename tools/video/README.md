@@ -9,14 +9,14 @@ part of the game build.
 |---|---|
 | `make-narration.mjs` | Generates `narration-ana-45-v3.mp3/.srt` from the `CUES` table (edge-tts Ana +45%, per-cue start times; fails if a cue overruns the next) |
 | `capture-demo.mjs` | Records the demo clips from the deployed build with Playwright and a fake cursor; writes `output/demo/<clip>.webm` and `capture.json` marks |
-| `assemble-demo.mjs` | Cuts the 12 shots exactly on the §0.4 timeline and muxes narration, music and burned subtitles into `output/meowstronauts-demo-30s.mp4` |
+| `assemble-demo.mjs` | Cuts the 11 shots exactly on the §0.4 timeline and muxes narration, music and burned subtitles into `output/meowstronauts-demo-30s.mp4` |
 | `capture-cards.mjs` | Renders the intro/title/end cards to `output/demo/cards/*.png` from `demo-cards.html` |
 | `demo-cards.html` | The three full-screen cards (intro, title, end) used by `capture-cards.mjs` |
 | `title-card.html` | Early 10-second title-card animation used to prove capture, subtitles, and audio muxing; not used by the final cut |
 | `narration-ana-45-v3.srt` | English subtitle cues for the v3 narration (9 lines, timed by `make-narration.mjs`) |
 | `narration-ana-45-v3.mp3` | The current Ana +45% narration take. The shot list and cue table are in `docs/video-script.md` §0.4–§0.6. |
 | `assets/apod/` | NASA stills for the opening shots; video-only, not game assets. Credits and crop rules in `assets/apod/CREDITS.md` |
-| `assets/mars-trek/` | Gale Crater wide/mid/close stills for the approach zoom; exported from Mars Trek, not screen-recorded. Credits in `assets/mars-trek/CREDITS.md` |
+| `assets/mars-trek/` | Gale Crater wide/mid/close stills exported from Mars Trek. **Not used by the final cut since the 11/15 opening revision** (the intro is the SDO flare, then the in-game crash); kept for reference. Credits in `assets/mars-trek/CREDITS.md` |
 | `output/` | Git-ignored; all raw and final media goes here |
 
 ## edge-tts (installed 2026-11-12; chosen voice: Ana +45%)
@@ -75,7 +75,7 @@ node assemble-demo.mjs    # output/meowstronauts-demo-30s.mp4
 The five clips are `s1`, `lander`, `report`, `hopIntro`, `tomatoIntro`.
 `hopIntro` and `tomatoIntro` go through the normal flow (title → Officer →
 skip opening → SolNav) because `?video=` hides the practice icons, and they
-stop on the opening screen — no gameplay in shot 9.
+stop on the opening screen — no gameplay in shot 8.
 
 The music MP3s under `assets/music/` are git-ignored on purpose (licenses and
 Pixabay links are in `assets/music/CREDITS.md`); copy them onto the recording

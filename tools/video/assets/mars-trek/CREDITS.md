@@ -6,6 +6,10 @@ Credit: **NASA/JPL-Caltech** (Mars Trek). Do not imply NASA endorsement.
 
 These are **video-only** assets, not game art. They are a map, not a photograph taken from the crashing ship.
 
+> **Status 2026-11-15: not used in the final 30-second cut.** The opening was
+> changed to the SDO flare followed by the in-game crash, with no Gale zoom.
+> The files and the timing notes below are kept as a record of the export.
+
 ## Files
 
 | File | Bbox (lon/lat, EPSG:4326) | Size | Use |

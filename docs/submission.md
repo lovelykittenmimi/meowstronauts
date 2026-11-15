@@ -144,10 +144,10 @@ NASA Image Library — seven Mars surface photographs
 - PIA25077 ("Curiosity Finds a Martian Flower") is a rock cemented by water-carried minerals, not a plant or fossil; the caption says so.
 - Source: https://images.nasa.gov/
 
-NASA APOD and Mars Trek stills — 30-second video only, not in the game
-- Mars Trek Gale Crater stills (NASA/JPL-Caltech) and an SDO solar flare still (NASA/SDO, APOD 2017-09-14) open the demo video. The optional whole-Mars beat is a Viking globe (NASA/USGS/Viking, APOD 2024-11-10).
+NASA APOD still — 30-second video only, not in the game
+- An SDO solar flare still (NASA/SDO, APOD 2017-09-14) is the only NASA still in the demo opening. It is followed by the game's own crash animation, which is AI-generated and disclosed in `docs/ai-disclosure.md`.
 - The SDO image is illustrative B-roll. The game's X2.7 claim comes only from the DONKI data panel, never from this still.
-- Mars Trek is a map, not a photograph taken from the crashing ship.
+- The crash shot is the game's opening animation, not NASA footage.
 
 NASA Science and NASA learning pages — knowledge cards
 - Used for: the 20 knowledge-card definitions, each linked to its source page. The `gravity` card also explains how weightlessness affects the body (fluid shift and bone loss).
@@ -159,7 +159,7 @@ Snapshots
 - The interface labels them "snapshot, not live"; the demo works without network access.
 
 Explored but not used in the game
-- NASA OSDR and Mars Trek were reviewed during the event. The OSDR studies we found on lunar-regolith plant growth had no published results in the repository metadata, so we did not turn them into claims. We also reviewed OSDR's human-health records; most are animal, cell, or ground-analog studies, and several list results as pending, so the game says "NASA is studying" rather than presenting findings. Mars Trek was not needed for a card-based game, but its Gale Crater stills are used in the opening of the demo video.
+- NASA OSDR and Mars Trek were reviewed during the event. The OSDR studies we found on lunar-regolith plant growth had no published results in the repository metadata, so we did not turn them into claims. We also reviewed OSDR's human-health records; most are animal, cell, or ground-analog studies, and several list results as pending, so the game says "NASA is studying" rather than presenting findings. Mars Trek was not needed for a card-based game; the demo opening uses the SDO still and the game's own crash animation instead.
 ```
 
 > 「Explored but not used」這段落是加分項：顯示我們看過官方 resources、也守住了「結果未公布就不寫」的紅線。若評審沒問，也不會扣分。
@@ -212,9 +212,7 @@ Thanks
 | NASA DONKI | https://ccmc.gsfc.nasa.gov/tools/DONKI/ | 2025-05-13～17 CME／FLR／GST 快照 |
 | Curiosity REMS weather (MSL) | https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json | 2025-05-08～22 氣溫／氣壓快照 |
 | NASA Image Library | https://images.nasa.gov/ | 7 張火星照片（PIA24487、PIA24542、PIA26344、PIA24173、PIA26632、PIA24264、PIA25077） |
-| NASA APOD — Mars globe | https://science.nasa.gov/image-article/apod-2024-november-10-valles-marineris-the-grand-canyon-of-mars/ | 影片開場火星全景（NASA/USGS/Viking；非遊戲內，備選） |
 | NASA APOD — SDO solar flare | https://science.nasa.gov/image-article/apod-2017-september-14-flare-well-ar2673/ | 影片開場閃焰示意（NASA/SDO；非 2025-05-14 事件） |
-| NASA Mars Trek — Gale | https://trek.nasa.gov/mars/ | 影片開場 Gale 由遠而近（NASA/JPL-Caltech；非遊戲內） |
 
 **NASA pages used for knowledge cards**
 
