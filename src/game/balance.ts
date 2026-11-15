@@ -12,10 +12,9 @@ export const BACKPACK_SIZE = 20;
 export const HOP_SAMPLE_TOTAL = 3;
 export const HOP_REWARD_SCIENCE = 1;
 
-/** Optional Sol 7 practice: match all six food pairs for a one-time bonus. */
+/** The space-food flip's crate: six food/fact pairs, twelve cards. */
 export const FOOD_PAIR_TOTAL = 6;
-export const FOOD_GAME_REWARD_FOOD = 1;
-/** Food cannot go above this; the practice bonus waits until there is room. */
+/** Food cannot go above this. */
 export const FOOD_CAP = 12;
 
 /** Optional water & fuel factory practice: finish all four stations. */

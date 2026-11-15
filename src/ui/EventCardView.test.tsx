@@ -15,7 +15,6 @@ function renderCard(videoMode: boolean, onChoose = vi.fn()) {
       onContinue={() => {}}
       onOpenCard={() => {}}
       onCollectCard={() => {}}
-      onFoodComplete={() => {}}
     />,
   );
 }
@@ -39,7 +38,6 @@ function renderChoiceCard(eventId: string, onChoose: (choiceId: string) => void)
       onContinue={() => {}}
       onOpenCard={() => {}}
       onCollectCard={() => {}}
-      onFoodComplete={() => {}}
     />,
   );
 }

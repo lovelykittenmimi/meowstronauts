@@ -21,10 +21,6 @@ export const FOOD_COPY = {
     en: 'A miss flips back after a moment — try to remember where it was.',
     'zh-TW': '配對失敗，卡片會翻回去；記住它原來的位置。',
   },
-  rewardNote: {
-    en: 'Match all 6 pairs to earn +1 food (once per mission).',
-    'zh-TW': '完成全部 6 組可獲得食物 +1（每次任務一次）。',
-  },
   start: { en: 'Open the crate', 'zh-TW': '打開補給箱' },
   back: { en: 'Back', 'zh-TW': '返回' },
   close: { en: 'Close', 'zh-TW': '關閉' },
@@ -54,19 +50,6 @@ export const FOOD_COPY = {
     'zh-TW': '每種太空食物都找到它的 NASA 事實了。這是整份艙單。',
   },
   resultMoves: { en: 'Flips used', 'zh-TW': '翻牌次數' },
-  rewardEarned: { en: '+1 food — the pantry is stocked!', 'zh-TW': '食物 +1，儲糧更充足了！' },
-  rewardAlready: {
-    en: 'The food bonus was already earned this mission.',
-    'zh-TW': '這次任務的食物獎勵已領取。',
-  },
-  rewardFull: {
-    en: 'The pantry is already full — no food was added this time.',
-    'zh-TW': '儲糧已經滿了，這次不加食物。',
-  },
-  rewardHint: {
-    en: 'Match all 6 pairs to earn +1 food.',
-    'zh-TW': '完成全部 6 組可獲得食物 +1。',
-  },
   factSectionTitle: { en: 'What the crate taught us', 'zh-TW': '艙單上的 NASA 事實' },
   sources: { en: 'Sources', 'zh-TW': '資料來源' },
   sourceFoodSystems: {

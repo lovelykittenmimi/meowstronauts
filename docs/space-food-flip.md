@@ -2,7 +2,7 @@
 
 > 最後更新：2026-11-15
 > 程式：`src/minigames/food/`；資料來源：`docs/data-sources.md` §3.5；手動 QA：`docs/qa-checklist.md` §3
-> 定位：Sol 7「溫室與新鮮食物」的延伸練習，加上 **F3「補給箱延誤」的操作橋段**（選「配給」或「吃庫存」時先開）。F3 那一關可以按 Back 跳過直接結算，所以**不玩也走得完 7 sol**；不改事件牌庫與平衡表。
+> 定位：Sol 7「溫室與新鮮食物」的延伸練習，加上 **F3「補給箱延誤」的操作橋段**（選「配給」或「吃庫存」時先開）。F3 那一關可以按 Back 跳過直接結算，所以**不玩也走得完 7 sol**；不改事件牌庫與平衡表。小遊戲本身**不給任何資源**（§4）。
 
 ## 1. 入口
 
@@ -13,7 +13,7 @@
 | F3 補給箱延誤（事件卡） | 選「配給」`ration` 或「吃庫存」`stores` 後、結算前；「派探測車」`rover` 不開 | `food-game`（`food-back` 可跳過） | 沿用遊戲內建文案 |
 | `?video=` 錄影模式 | **不顯示**（`onFood`／`onFoodPractice` 都不傳） | — | — |
 
-三者開同一個全螢幕 `SpaceFoodFlip`（`role="dialog"`、`aria-modal`、Escape 關閉）。從 Sol 7 簡報或 Sol 列開啟時，關閉後回到原本畫面；除了 §4 的一次性獎勵，不動任何任務狀態。從 F3 開啟時，**關閉（Back／✕／Escape）等於完成該選項的結算**——按鈕已經按下，不能再改選其他選項；「派探測車」是唯一不經小遊戲的選項。
+三者開同一個全螢幕 `SpaceFoodFlip`（`role="dialog"`、`aria-modal`、Escape 關閉）。從 Sol 7 簡報或 Sol 列開啟時，關閉後回到原本畫面；不動任何任務狀態（小遊戲不給資源，見 §4）。從 F3 開啟時，**關閉（Back／✕／Escape）等於完成該選項的結算**——按鈕已經按下，不能再改選其他選項；「派探測車」是唯一不經小遊戲的選項。
 
 ## 2. 玩法
 
@@ -23,7 +23,7 @@
 - **翻牌**：一次翻兩張。同組 → 兩張鎖定、配對數 +1、公告該組事實；不同組 → 顯示「不是一對」，約 900 ms 後自動翻回。判定動畫期間忽略點擊。
 - **洗牌**：正式遊玩每次 `Math.random` 洗牌；測試可傳 seed（mulberry32 + Fisher–Yates），同 seed 牌序固定。
 - **HUD**：配對 `0/6` 與翻牌次數；翻牌次數只在結果顯示，不評價。
-- **結果**：6/6 後約 700 ms 進入結果畫面，顯示 6 條事實總覽、4 個 NASA 來源連結、獎勵結果；可「再翻一次」或返回。
+- **結果**：6/6 後約 700 ms 進入結果畫面，顯示翻牌次數、6 條事實總覽、4 個 NASA 來源連結；可「再翻一次」或返回。
 - **無障礙**：卡片是 `<button>`，未翻開時 `aria-label` 不劇透內容；翻開後讀出食物名或事實；`aria-live="polite"` 公告配對、失誤與完成；`prefers-reduced-motion` 關掉翻牌 pop 與面板淡入，邏輯不變。
 - **觸控**：卡片本身就是按鈕，不需要拖曳。
 
@@ -40,15 +40,11 @@
 
 事實卡用「關鍵字：一句話」開頭，讓 7–12 歲先抓到主題再讀句子；括號外的名詞與數字都對應 `docs/data-sources.md` §3.5。
 
-## 4. 獎勵
+## 4. 獎勵：無
 
-- 條件：6/6 完成、本次任務尚未領過、非 `?video=`、階段是 `briefing`／`choice`／`result` → `food +1`（`FOOD_GAME_REWARD_FOOD = 1`，上限 12）。
-- 每次任務只給一次：`GameState.foodGameRewarded` 標記；`START_GAME`／`RESTART` 由 `createInitialState` 重置。
-- 5/6 或中途離開：可以離開，只是不給獎勵。
-- 已領過再玩：完成畫面顯示「這次任務的食物獎勵已領取」，不再加。
-- 食物已滿 12：**不發獎勵、也不標記**；完成畫面顯示「儲糧已經滿了」，結果不會假裝 +1。之後某個 sol 消耗食物、有空間時再完成，仍可領取。
-- 在 `result` 階段領獎時，同步把 `resourceHistory` 最後一點的 food 對齊，讓任務報告的曲線與最終數值一致；其他階段不動歷史（下一次 `CHOOSE` 自然記進新點）。
-- 相關程式：`GameAction` 的 `{ type: 'COMPLETE_FOOD_GAME'; pairs }`、`handleCompleteFoodGame`（`src/game/reducer.ts`）、`FOOD_PAIR_TOTAL`／`FOOD_GAME_REWARD_FOOD`（`src/game/balance.ts`）。
+- 小遊戲**不給任何資源**，三個入口都一樣。2026-11-15 起移除原本的「6/6 +1 food、每次任務一次」：F3 的三個選項本身就有 food 效果（配給 `+1`、吃庫存 `+2`、派探測車 `+4`），小遊戲再給一次等於同一段劇情重複計分；從 Sol 7 簡報或 Sol 列進入時也一樣不給，避免同一個遊戲「有時有 food、有時沒有」。
+- 完成 6/6 只顯示翻牌次數、六條事實與四個來源；HUD 與任務狀態完全不變。中途離開、重玩、食物滿 12 都不影響任何數值。
+- 移除的程式：`GameState.foodGameRewarded`、`GameAction` 的 `COMPLETE_FOOD_GAME`、`handleCompleteFoodGame`（`src/game/reducer.ts`）、`FOOD_GAME_REWARD_FOOD`（`src/game/balance.ts`）與 `src/game/foodGameReward.test.ts`；`FOOD_PAIR_TOTAL`、`FOOD_CAP` 保留。
 
 ## 5. 文案與事實
 
@@ -65,29 +61,29 @@
 | `src/minigames/food/game/state.ts` | 6 組資料、洗牌、`flipCard`／`resolveMismatch`／`isComplete` |
 | `src/minigames/food/game/i18n.ts` | 小遊戲內 EN／zh-TW 文案 |
 | `src/minigames/food/styles.css` | 全部 `.food-*` 前綴，不動共用樣式 |
-| `src/game/types.ts`、`src/game/reducer.ts`、`src/game/balance.ts` | `foodGameRewarded`、`COMPLETE_FOOD_GAME`、獎勵常數 |
+| `src/game/balance.ts` | `FOOD_PAIR_TOTAL`（6 組）、`FOOD_CAP`；沒有獎勵常數 |
 | `src/App.tsx`、`src/ui/BriefingScreen.tsx`、`src/ui/SolNav.tsx`、`src/i18n/index.ts`、`src/styles.css` | 入口按鈕與兩條入口文案 |
-| `src/ui/EventCardView.tsx` | F3 的橋段：`FOOD_CHOICES`（`ration`／`stores`）→ 開小遊戲，`onExit` 才 `onChoose`；獎勵由 `App` 傳入的 `onFoodComplete` 派送 |
-| `src/minigames/food/game/state.test.ts`、`i18n.test.ts`、`src/minigames/food/SpaceFoodFlip.test.tsx`、`src/game/foodGameReward.test.ts`、`src/ui/EventCardView.test.tsx` | 單元與元件測試 |
+| `src/ui/EventCardView.tsx` | F3 的橋段：`FOOD_CHOICES`（`ration`／`stores`）→ 開小遊戲，`onExit` 才 `onChoose`；不派送任何獎勵 |
+| `src/minigames/food/game/state.test.ts`、`i18n.test.ts`、`src/minigames/food/SpaceFoodFlip.test.tsx`、`src/ui/EventCardView.test.tsx` | 單元與元件測試 |
 
 ## 7. 手動 QA
 
 1. 新遊戲 → 跳過開場 → 推進到 Sol 7 簡報，出現〔🍽️ 試試太空食物翻卡〕；Sol 1 與 Sol 6 簡報沒有。
 2. Sol 列的〔🍽️ 太空食物翻卡〕在任何 sol 都能開；短螢幕（568×320）只顯示 emoji，`aria-label`／`title` 仍在，整列不換行、無水平滾動。
 3. Intro 的 Start 進入牌桌，HUD 顯示 `0/6`；翻一組正確的卡，兩張保持翻開、配對數 +1；翻一組錯的，約 900 ms 後翻回。
-4. 完成 6/6 出現結果畫面；**第一次**領到食物 +1；同一任務再玩一次顯示「已領取」，數值不變。
-5. 在任務報告（`result` 階段）領獎時，報告曲線最後一點與最終食物值一致；食物已滿 12 時不發獎勵、不標記，結果畫面顯示「儲糧已經滿了」，之後有空間再完成仍可領取。
+4. 完成 6/6 出現結果畫面：翻牌次數、六條事實、四個來源；HUD 的六個資源（尤其 food）與背包都不變——小遊戲不給獎勵，重玩也一樣。
+5. 任務報告的資源曲線不因玩過小遊戲而改變；食物滿 12 時照樣可以玩，只是什麼都不加。
 6. 關閉（✕ 或 Escape）回到原本畫面，任務進度與其他資源不變。
 7. `?video=s1` 與 `?video=report` 沒有任何 food 入口；影片 fixture 的 HUD 數字不變。
 8. 568×320 與 1280×800：12 張卡都在視窗內、無 console error、無水平滾動條；`prefers-reduced-motion` 下動畫關閉但可玩。
-9. 單元測試：`npm test`（`state.test.ts`、`i18n.test.ts`、`SpaceFoodFlip.test.tsx`、`foodGameReward.test.ts`、`BriefingScreen.test.tsx`、`EventCardView.test.tsx`）。
-10. F3「補給箱延誤」：選「配給」或「吃庫存」都先開翻卡；按 Back／✕ 直接進結算，選項效果只套一次；選「派探測車」不開遊戲。`npx playwright test tests/e2e/full-run.spec.ts` 會走過這條路徑。
+9. 單元測試：`npm test`（`state.test.ts`、`i18n.test.ts`、`SpaceFoodFlip.test.tsx`、`BriefingScreen.test.tsx`、`EventCardView.test.tsx`）。
+10. F3「補給箱延誤」：選「配給」或「吃庫存」都先開翻卡；按 Back／✕ 直接進結算，選項效果只套一次、小遊戲不另外結算資源；選「派探測車」不開遊戲。`npx playwright test tests/e2e/full-run.spec.ts` 會走過這條路徑。
 
 ## 8. 已知取捨
 
-- **F3 是主線上的橋段，但可以跳過**：選了「配給」或「吃庫存」就一定要看到翻卡（Back 也算完成），不能改選；這是刻意的——按鈕上的代價在按下時就成立。不想玩的人可以按 Back，選項照樣結算，只是拿不到 6/6 的 +1 food。
+- **F3 是主線上的橋段，但可以跳過**：選了「配給」或「吃庫存」就一定要看到翻卡（Back 也算完成），不能改選；這是刻意的——按鈕上的代價在按下時就成立。不想玩的人可以按 Back，選項照樣結算；小遊戲不給資源，所以跳過不吃虧。
 
-- **+1 食物會略微影響生存曲線**：這是刻意選的小獎勵，限制「每次任務一次、只能 6/6、上限 12」，比科學 +1 更不容易動到三星門檻；不寫進固定 7 sol 平衡表，也不改 `docs/balance-sheet.csv`。滿 12 時不發、不標記，避免完成畫面與 HUD 對不上。
+- **刻意不給資源**：原本 6/6 會給 food +1，但 F3 的三個選項已經各自帶 food 效果（+1／+2／+4），小遊戲再給一次等於同一段劇情計分兩次；留著又只在這裡生效，會變成「同一個遊戲在事件裡有 food、在 Sol 列沒有」。移除後平衡表、三星門檻與任務報告曲線都不受小遊戲影響，也少一個要維護的狀態。
 - **記憶遊戲吃運氣**：不計時、不評分，只顯示翻牌次數；固定 seed 只用於測試，正式遊玩每次洗牌。
 - **Sol 列第三個練習鈕**：短螢幕只顯示 icon（🍽️），保留 `aria-label`／`title`；若真的放不下，退路是把 food 入口只留在 Sol 7 簡報。
 - **不使用照片**：卡片是 emoji 與文字，不引用 NASA 影像，也不涉及圖片 credit。

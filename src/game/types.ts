@@ -148,8 +148,6 @@ export interface GameState {
   emergencyUsed: boolean;
   /** True once the Sol 1 hop minigame has paid its once-per-mission bonus. */
   hopRewarded: boolean;
-  /** True once the Sol 7 food flip game has paid its once-per-mission bonus. */
-  foodGameRewarded: boolean;
   /** True once the water & fuel factory has paid its once-per-mission bonus. */
   factoryRewarded: boolean;
 }
@@ -164,5 +162,4 @@ export type GameAction =
   | { type: 'RESTART' }
   | { type: 'SET_LANG'; lang: Lang }
   | { type: 'COMPLETE_HOP'; samples: number }
-  | { type: 'COMPLETE_FOOD_GAME'; pairs: number }
   | { type: 'COMPLETE_FACTORY'; stations: number };

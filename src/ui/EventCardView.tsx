@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { FOOD_CAP } from '../game/balance';
 import { EVENT_BY_ID } from '../game/events';
 import { artForEvent } from '../game/eventArt';
 import type { CatId, Choice, EffectMap, GameState, ResourceKey } from '../game/types';
@@ -99,8 +98,6 @@ interface EventCardViewProps {
   onOpenCard: (cardId: string) => void;
   /** Adds a mini-game reward to the backpack without opening the sheet. */
   onCollectCard?: (cardId: string) => void;
-  /** Applies the food-game bonus; App owns the reducer dispatch. */
-  onFoodComplete?: (pairs: number) => void;
 }
 
 export function EventCardView({
@@ -111,7 +108,6 @@ export function EventCardView({
   onContinue,
   onOpenCard,
   onCollectCard,
-  onFoodComplete,
 }: EventCardViewProps) {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState<PendingInteraction | null>(null);
@@ -370,9 +366,6 @@ export function EventCardView({
       {showFoodGame && pending && (
         <SpaceFoodFlip
           lang={lang}
-          rewarded={state.foodGameRewarded}
-          foodFull={state.resources.food >= FOOD_CAP}
-          onComplete={(pairs) => onFoodComplete?.(pairs)}
           onExit={() => onChoose(pending.choiceId)}
         />
       )}

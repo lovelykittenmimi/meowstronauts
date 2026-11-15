@@ -14,11 +14,6 @@ import './styles.css';
 
 export interface SpaceFoodFlipProps {
   lang: Lang;
-  /** Whether this mission already paid the food bonus. */
-  rewarded: boolean;
-  /** True when food is at its cap; the bonus waits until there is room. */
-  foodFull?: boolean;
-  onComplete: (pairs: number) => void;
   onExit: () => void;
 }
 
@@ -26,9 +21,6 @@ type FoodStage = 'intro' | 'playing' | 'result';
 
 interface FoodResult {
   moves: number;
-  earned: boolean;
-  already: boolean;
-  full: boolean;
 }
 
 const MISMATCH_MS = 900;
@@ -56,9 +48,6 @@ const SOURCES = [
 
 export default function SpaceFoodFlip({
   lang,
-  rewarded,
-  foodFull = false,
-  onComplete,
   onExit,
 }: SpaceFoodFlipProps) {
   const [stage, setStage] = useState<FoodStage>('intro');
@@ -68,15 +57,14 @@ export default function SpaceFoodFlip({
   const [result, setResult] = useState<FoodResult | null>(null);
 
   const boardRef = useRef<HTMLDivElement>(null);
-  const propsRef = useRef({ lang, rewarded, foodFull, onComplete, onExit });
-  const earnedRef = useRef(false);
+  const propsRef = useRef({ lang, onExit });
   const mismatchTimerRef = useRef<number | null>(null);
   const finishTimerRef = useRef<number | null>(null);
   const toastTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    propsRef.current = { lang, rewarded, foodFull, onComplete, onExit };
-  }, [lang, rewarded, foodFull, onComplete, onExit]);
+    propsRef.current = { lang, onExit };
+  }, [lang, onExit]);
 
   const clearTimers = useCallback(() => {
     if (mismatchTimerRef.current !== null) {
@@ -123,15 +111,10 @@ export default function SpaceFoodFlip({
   }, []);
 
   const finish = useCallback((moves: number) => {
-    const already = propsRef.current.rewarded || earnedRef.current;
-    const full = !already && propsRef.current.foodFull;
-    const earned = !already && !full;
-    if (earned) earnedRef.current = true;
-    setResult({ moves, earned, already, full });
+    setResult({ moves });
     setStage('result');
     setToast(null);
     setAnnouncement(foodT(propsRef.current.lang, 'allMatched'));
-    propsRef.current.onComplete(FOOD_PAIRS.length);
   }, []);
 
   const startGame = useCallback(() => {
@@ -186,14 +169,6 @@ export default function SpaceFoodFlip({
       }, MISMATCH_MS);
     }
   };
-
-  const rewardLine = result
-    ? result.earned
-      ? foodT(lang, 'rewardEarned')
-      : result.full
-        ? foodT(lang, 'rewardFull')
-        : foodT(lang, 'rewardAlready')
-    : '';
 
   return (
     <div
@@ -322,7 +297,6 @@ export default function SpaceFoodFlip({
                   <li>{foodT(lang, 'introRuleMatch')}</li>
                   <li>{foodT(lang, 'introRuleMiss')}</li>
                 </ul>
-                <p className="food-reward">{foodT(lang, 'rewardNote')}</p>
               </div>
               <div className="food-intro-art" aria-hidden="true">
                 {FOOD_PAIRS.map((pair) => (
@@ -367,14 +341,6 @@ export default function SpaceFoodFlip({
                     </span>
                   </div>
                 </div>
-                <p
-                  className={
-                    result.earned ? 'food-reward food-reward-won' : 'food-reward'
-                  }
-                  data-testid="food-result-reward"
-                >
-                  {rewardLine}
-                </p>
                 <h4 className="food-fact-title">
                   {foodT(lang, 'factSectionTitle')}
                 </h4>

@@ -1,5 +1,4 @@
 import { useEffect, useReducer, useState } from 'react';
-import { FOOD_CAP } from './game/balance';
 import { drawEventFor } from './game/deck';
 import { KNOWLEDGE_IDS } from './game/knowledge';
 import { DEFAULT_SEED, createInitialState, gameReducer, silverCardFor } from './game/reducer';
@@ -330,9 +329,6 @@ export default function App() {
               onContinue={() => dispatch({ type: 'CONTINUE' })}
               onOpenCard={openCard}
               onCollectCard={collectCard}
-              onFoodComplete={(pairs) =>
-                dispatch({ type: 'COMPLETE_FOOD_GAME', pairs })
-              }
             />
           )}
         </>
@@ -381,9 +377,6 @@ export default function App() {
       {foodOpen && (
         <SpaceFoodFlip
           lang={state.lang}
-          rewarded={state.foodGameRewarded}
-          foodFull={state.resources.food >= FOOD_CAP}
-          onComplete={(pairs) => dispatch({ type: 'COMPLETE_FOOD_GAME', pairs })}
           onExit={() => setFoodOpen(false)}
         />
       )}

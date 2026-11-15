@@ -2,9 +2,6 @@ import {
   DAILY_DRAIN,
   FACTORY_REWARD_LIFE_SUPPORT,
   FACTORY_STATION_TOTAL,
-  FOOD_CAP,
-  FOOD_GAME_REWARD_FOOD,
-  FOOD_PAIR_TOTAL,
   HOP_REWARD_SCIENCE,
   HOP_SAMPLE_TOTAL,
   INITIAL_RESOURCES,
@@ -68,7 +65,6 @@ export function createInitialState(
     resourceHistory: [],
     emergencyUsed: false,
     hopRewarded: false,
-    foodGameRewarded: false,
     factoryRewarded: false,
   };
 }
@@ -283,43 +279,6 @@ function handleCompleteHop(state: GameState, samples: number): GameState {
 }
 
 /**
- * The Sol 7 food flip is optional practice: matching all six pairs pays a
- * small food bonus once per mission. Same guard rails as the hop.
- */
-function handleCompleteFoodGame(state: GameState, pairs: number): GameState {
-  if (
-    state.videoMode ||
-    state.foodGameRewarded ||
-    // A full pantry means no bonus now; leave the reward unclaimed so the
-    // crew can still earn it later in the same mission.
-    state.resources.food >= FOOD_CAP ||
-    pairs < FOOD_PAIR_TOTAL ||
-    (state.phase !== 'briefing' &&
-      state.phase !== 'choice' &&
-      state.phase !== 'result')
-  ) {
-    return state;
-  }
-
-  const resources = addEffects(state.resources, {
-    food: FOOD_GAME_REWARD_FOOD,
-  });
-
-  // During the result screen the latest history point is already on screen;
-  // keep it in sync so the report curve matches the final resources.
-  let resourceHistory = state.resourceHistory;
-  if (state.phase === 'result' && resourceHistory.length > 0) {
-    const last = resourceHistory[resourceHistory.length - 1];
-    resourceHistory = [
-      ...resourceHistory.slice(0, -1),
-      { ...last, food: resources.food },
-    ];
-  }
-
-  return { ...state, resources, resourceHistory, foodGameRewarded: true };
-}
-
-/**
  * The water & fuel factory is optional practice on any sol: finishing all
  * four stations pays a small life-support bonus once per mission.
  */
@@ -418,9 +377,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'COMPLETE_HOP':
       return handleCompleteHop(state, action.samples);
-
-    case 'COMPLETE_FOOD_GAME':
-      return handleCompleteFoodGame(state, action.pairs);
 
     case 'COMPLETE_FACTORY':
       return handleCompleteFactory(state, action.stations);

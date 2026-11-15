@@ -2,21 +2,8 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { FOOD_PAIRS } from './game/state';
 import SpaceFoodFlip from './SpaceFoodFlip';
 
-function renderGame(
-  onExit = () => {},
-  onComplete: (pairs: number) => void = () => {},
-  rewarded = false,
-  foodFull = false,
-) {
-  return render(
-    <SpaceFoodFlip
-      lang="en"
-      rewarded={rewarded}
-      foodFull={foodFull}
-      onComplete={onComplete}
-      onExit={onExit}
-    />,
-  );
+function renderGame(onExit = () => {}) {
+  return render(<SpaceFoodFlip lang="en" onExit={onExit} />);
 }
 
 function card(pairId: string, kind: 'food' | 'fact'): HTMLElement {
@@ -99,14 +86,8 @@ describe('SpaceFoodFlip', () => {
     expect(screen.getByTestId('food-hud-pairs').textContent).toBe('1/6');
   });
 
-  it('finishes at 6/6 and reports the pairs once', () => {
-    const completions: number[] = [];
-    renderGame(
-      () => {},
-      (pairs) => {
-        completions.push(pairs);
-      },
-    );
+  it('finishes at 6/6 with the flipped-card count and the full crate list', () => {
+    renderGame();
     fireEvent.click(screen.getByTestId('food-start'));
 
     for (const pair of FOOD_PAIRS) {
@@ -120,51 +101,7 @@ describe('SpaceFoodFlip', () => {
 
     expect(screen.getByTestId('food-result')).toBeTruthy();
     expect(screen.getByTestId('food-result-moves').textContent).toBe('6');
-    expect(screen.getByTestId('food-result-reward').textContent).toContain(
-      '+1 food',
-    );
+    expect(screen.queryByTestId('food-result-reward')).toBeNull();
     expect(screen.getAllByTestId('food-fact-item')).toHaveLength(6);
-    expect(completions).toEqual([6]);
-  });
-
-  it('shows the already-earned line on a later run', () => {
-    renderGame(() => {}, () => {}, true);
-    fireEvent.click(screen.getByTestId('food-start'));
-
-    for (const pair of FOOD_PAIRS) {
-      matchPair(pair.id);
-    }
-    act(() => {
-      vi.advanceTimersByTime(800);
-    });
-
-    expect(screen.getByTestId('food-result-reward').textContent).toContain(
-      'already earned',
-    );
-  });
-
-  it('does not claim a bonus when the pantry is full', () => {
-    const completions: number[] = [];
-    renderGame(
-      () => {},
-      (pairs) => {
-        completions.push(pairs);
-      },
-      false,
-      true,
-    );
-    fireEvent.click(screen.getByTestId('food-start'));
-
-    for (const pair of FOOD_PAIRS) {
-      matchPair(pair.id);
-    }
-    act(() => {
-      vi.advanceTimersByTime(800);
-    });
-
-    const line = screen.getByTestId('food-result-reward').textContent ?? '';
-    expect(line).toContain('pantry is already full');
-    expect(line).not.toContain('+1 food');
-    expect(completions).toEqual([6]);
   });
 });
