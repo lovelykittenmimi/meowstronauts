@@ -3,9 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "capture": "node capture-test.mjs",
-    "assemble": "node assemble-test.mjs",
-    "test": "node capture-test.mjs && node assemble-test.mjs"
+    "narration": "node make-narration.mjs",
+    "cards": "node capture-cards.mjs",
+    "capture": "node capture-demo.mjs",
+    "assemble": "node assemble-demo.mjs"
   },
   "dependencies": {
     "playwright": "1.65.0"

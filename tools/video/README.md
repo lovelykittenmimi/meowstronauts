@@ -7,7 +7,12 @@ part of the game build.
 
 | File | Purpose |
 |---|---|
-| `title-card.html` | 10-second 1920×1080 title-card animation used to prove capture, subtitles, and audio muxing; placeholder for the final title card |
+| `make-narration.mjs` | Generates `narration-ana-45-v3.mp3/.srt` from the `CUES` table (edge-tts Ana +45%, per-cue start times; fails if a cue overruns the next) |
+| `capture-demo.mjs` | Records the demo clips from the deployed build with Playwright and a fake cursor; writes `output/demo/<clip>.webm` and `capture.json` marks |
+| `assemble-demo.mjs` | Cuts the 12 shots exactly on the §0.4 timeline and muxes narration, music and burned subtitles into `output/meowstronauts-demo-30s.mp4` |
+| `capture-cards.mjs` | Renders the intro/title/end cards to `output/demo/cards/*.png` from `demo-cards.html` |
+| `demo-cards.html` | The three full-screen cards (intro, title, end) used by `capture-cards.mjs` |
+| `title-card.html` | Early 10-second title-card animation used to prove capture, subtitles, and audio muxing; not used by the final cut |
 | `narration-ana-45-v3.srt` | English subtitle cues for the v3 narration (9 lines, timed by `make-narration.mjs`) |
 | `narration-ana-45-v3.mp3` | The current Ana +45% narration take. The shot list and cue table are in `docs/video-script.md` §0.4–§0.6. |
 | `assets/apod/` | NASA stills for the opening shots; video-only, not game assets. Credits and crop rules in `assets/apod/CREDITS.md` |
@@ -20,7 +25,7 @@ part of the game build.
 from the cue table in `docs/video-script.md` §0.6 with `en-US-AnaNeural` at
 `--rate=+45%`.
 
-Measured for the 57-word narration:
+Measured for the earlier 57-word narration (kept for reference):
 
 | Voice | Rate | Duration |
 |---|---|---:|
@@ -30,14 +35,11 @@ Measured for the 57-word narration:
 | `en-US-GuyNeural` | +45% | 23.4 s |
 | `en-US-AriaNeural` | +0% | 34.7 s (too slow) |
 
-The chosen Ana +45% track leaves 3.5 s in the 30-second cut. Convert it to
-48 kHz mono WAV before assembly. `narration-ana-45.srt` is timed from
-`silencedetect`; re-check it if the voice or rate changes:
-
-```bash
-ffmpeg -y -i output/edge-narration-ana-45.mp3 -ar 48000 -ac 1 \
-  output/edge-narration-ana-45.wav
-```
+The current v3 script is 9 cues / 59 words; the take ends at 27.17 s and
+leaves about 1.8 s before the end card. The MP3 and SRT are written together
+by `make-narration.mjs`, so the subtitles stay on the same clock as the cuts:
+change the text in `CUES`, run it again, and copy the measured end times back
+into `docs/video-script.md` §0.6.
 
 Chinese voices (`zh-TW-HsiaoChenNeural`, `zh-TW-YunJheNeural`,
 `zh-TW-HsiaoYuNeural`) also work for samples, but the game does not use in-game
@@ -60,8 +62,24 @@ retry; the service is occasionally flaky.
 
 The 30-second cut is built from the shot list and cue table in
 `docs/video-script.md` §0.4–§0.6. Capture and assembly use Playwright and
-ffmpeg from this folder. The original 10-second test scaffolding is kept on
-the recording machine only and is not part of the repository.
+ffmpeg from this folder.
+
+```bash
+npm ci                 # Playwright (Chrome must be installed)
+node make-narration.mjs   # narration-ana-45-v3.mp3/.srt (needs edge-tts + ffmpeg)
+node capture-cards.mjs    # output/demo/cards/*.png
+node capture-demo.mjs     # all five clips; add a clip name, e.g. hopIntro, to redo one
+node assemble-demo.mjs    # output/meowstronauts-demo-30s.mp4
+```
+
+The five clips are `s1`, `lander`, `report`, `hopIntro`, `tomatoIntro`.
+`hopIntro` and `tomatoIntro` go through the normal flow (title → Officer →
+skip opening → SolNav) because `?video=` hides the practice icons, and they
+stop on the opening screen — no gameplay in shot 9.
+
+The music MP3s under `assets/music/` are git-ignored on purpose (licenses and
+Pixabay links are in `assets/music/CREDITS.md`); copy them onto the recording
+machine before running `assemble-demo.mjs`.
 
 ## Notes
 
@@ -71,4 +89,4 @@ the recording machine only and is not part of the repository.
 - Playwright records through the installed Chrome. If video recording needs
   Playwright's ffmpeg helper, run `npx playwright install ffmpeg` once.
 - The test page is deliberately not game art. Real game footage is recorded from
-  the frozen 11/14 build; see `docs/video-script.md`.
+  the deployed build at `https://mars.flymymind.com`; see `docs/video-script.md`.

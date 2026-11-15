@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Meowstronauts demo cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1024;
+    --cream: #f7f0e1;
+    --gold: #f2b34c;
+    --teal: #7fd8cf;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+  body {
+    font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+  }
+  .card { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+
+  /* ---------- intro ---------- */
+  .intro {
+    background-color: #0b0a18;
+    background-image: url('../../brand/og-1200x630.jpg');
+    background-size: 1920px 1008px;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+  .intro .names {
+    position: absolute;
+    right: 84px;
+    bottom: 56px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #efe9da;
+    text-shadow: 0 2px 10px rgba(0,0,0,.85);
+  }
+  .intro .names span { color: #cfc7b5; font-weight: 700; letter-spacing: .10em; }
+
+  /* ---------- title ---------- */
+  .title { background: #10203a; }
+  .title .bg {
+    position: absolute; inset: 0;
+    background-image: url('output/demo/stills/s1-card.png');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(.32) saturate(.8);
+    transform: scale(1.02);
+  }
+  .title .veil {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 90% at 50% 42%, rgba(16,32,58,.15) 0%, rgba(9,14,30,.88) 68%, rgba(6,10,22,.97) 100%);
+  }
+  .title .stack {
+    position: absolute; left: 50%; top: 48%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 1500px;
+  }
+  .eyebrow {
+    margin: 0 0 22px;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: .30em;
+    color: var(--teal);
+  }
+  .title h1, .end h1 {
+    margin: 0;
+    font-size: 148px;
+    line-height: .92;
+    font-weight: 900;
+    letter-spacing: .035em;
+    text-shadow: 0 10px 36px rgba(0,0,0,.55);
+  }
+  .title h2, .end h2 {
+    margin: 6px 0 0;
+    font-size: 64px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: .26em;
+    color: var(--gold);
+  }
+  .rule {
+    width: 210px; height: 4px; margin: 42px auto 34px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    border-radius: 4px;
+  }
+  .tagline {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: .20em;
+    color: #efe7d6;
+  }
+  .footer-left {
+    position: absolute; left: 84px; bottom: 64px; margin: 0;
+    font-size: 22px; font-weight: 800; letter-spacing: .22em;
+    color: rgba(239,231,214,.75);
+  }
+
+  /* ---------- end ---------- */
+  .end {
+    background:
+      radial-gradient(70% 55% at 50% 0%, rgba(63,120,150,.28), transparent 70%),
+      radial-gradient(55% 45% at 82% 78%, rgba(120,70,60,.22), transparent 70%),
+      #080d1c;
+  }
+  .end .glow {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1.6px 1.6px at 12% 18%, rgba(255,255,255,.55), transparent 60%),
+      radial-gradient(1.4px 1.4px at 84% 12%, rgba(255,255,255,.45), transparent 60%),
+      radial-gradient(1.8px 1.8px at 68% 34%, rgba(255,255,255,.35), transparent 60%),
+      radial-gradient(1.4px 1.4px at 22% 62%, rgba(255,255,255,.30), transparent 60%),
+      radial-gradient(1.6px 1.6px at 90% 58%, rgba(255,255,255,.35), transparent 60%),
+      radial-gradient(1.4px 1.4px at 48% 8%, rgba(255,255,255,.40), transparent 60%);
+  }
+  .end .stack {
+    position: absolute; left: 50%; top: 52%;
+    transform: translate(-50%, -50%);
+    text-align: center; width: 1500px;
+  }
+  .avatars { display: flex; justify-content: center; gap: 30px; margin-bottom: 38px; }
+  .avatars img {
+    width: 128px; height: 128px; border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(242,179,76,.85);
+    box-shadow: 0 12px 34px rgba(0,0,0,.55);
+    background: #141a30;
+  }
+  .end h1 { font-size: 118px; }
+  .end h2 { font-size: 54px; }
+  .chips {
+    margin: 46px 0 26px;
+    font-size: 27px; font-weight: 800; letter-spacing: .18em;
+    color: #efe7d6;
+  }
+  .url {
+    display: inline-block; margin: 0;
+    padding: 16px 44px;
+    border: 2px solid rgba(127,216,207,.75);
+    border-radius: 999px;
+    font-size: 38px; font-weight: 800; letter-spacing: .08em;
+    color: #d9fff8;
+    background: rgba(10,30,40,.45);
+  }
+  .end .footer {
+    position: absolute; left: 0; right: 0; bottom: 56px; margin: 0;
+    text-align: center;
+    font-size: 21px; font-weight: 800; letter-spacing: .26em;
+    color: rgba(239,231,214,.65);
+  }
+</style>
+</head>
+<body>
+  <div class="card intro" id="intro">
+    <p class="names">WU, CHIA-LING &nbsp;·&nbsp; LIN, YU-YU &nbsp;·&nbsp; <span>our junior astronaut</span></p>
+  </div>
+
+  <div class="card title" id="title">
+    <div class="bg"></div>
+    <div class="veil"></div>
+    <div class="stack">
+      <p class="eyebrow">A MARS MISSION TRAINER · KIDS 7–12</p>
+      <h1>MEOWSTRONAUTS</h1>
+      <h2>MARS OUTPOST</h2>
+      <div class="rule"></div>
+      <p class="tagline">SEVEN SOLS · THREE CATS · ONE CHOICE A DAY</p>
+    </div>
+    <p class="footer-left">A FLY MY MIND PROJECT</p>
+  </div>
+
+  <div class="card end" id="end">
+    <div class="glow"></div>
+    <div class="stack">
+      <div class="avatars">
+        <img src="../../brand/avatar-front-silver-neutral-512.webp" alt="">
+        <img src="../../brand/avatar-front-shadow-neutral-512.webp" alt="">
+        <img src="../../brand/avatar-front-ginger-neutral-512.webp" alt="">
+      </div>
+      <p class="eyebrow">NASA SPACE APPS CHALLENGE 2026</p>
+      <h1>MEOWSTRONAUTS</h1>
+      <h2>MARS OUTPOST</h2>
+      <p class="chips">FREE · BILINGUAL</p>
+      <p class="url">mars.flymymind.com</p>
+    </div>
+    <p class="footer">A FLY MY MIND PROJECT</p>
+  </div>
+
+  <script>
+    const which = new URLSearchParams(location.search).get('card');
+    for (const id of ['intro', 'title', 'end']) {
+      document.getElementById(id).style.display = id === which ? 'block' : 'none';
+    }
+    document.fonts.ready.then(() => { window.__fontsReady = true; });
+  </script>
+</body>
+</html>
