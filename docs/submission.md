@@ -256,6 +256,7 @@ Thanks
 | rembg（U2-Net） | MIT（模型權重依來源） | 品牌圖去背 |
 | FFmpeg | LGPL／GPL（依建置） | 影片組裝 |
 | Microsoft Edge TTS | Microsoft 服務條款 | 影片旁白草稿（送出前確認條款） |
+| Pixabay music — “Space”（PaulYudin） | Pixabay Content License | 30 秒 demo 背景音樂（非遊戲內；Content ID Registered） |
 
 **Images and AI**
 

@@ -1,6 +1,6 @@
 # 授權與致謝（Licenses & Credits）
 
-> 最後更新：2026-11-14（新增幕 2 的 NASA／ESA 太陽與火星影像）
+> 最後更新：2026-11-14 23:45（新增 §4a 影片音樂；幕 2 影像照舊）
 > 用途：submission 的 license／credits 欄位、README 致謝段、評審詢問時的依據。
 > 原則：**每一項資產都能說出來源與授權**；不確定的就不要用。
 
@@ -55,6 +55,17 @@
 - 照片若含可辨識人物或第三方版權，先換一張；目前選用的 NASA 影像包含 7 張地表／探測車影像（PIA25077 為 Curiosity MAHLI 近景，credit NASA/JPL-Caltech/MSSS），以及幕 2 開場的 SDO 太陽閃焰、SOHO 日冕物質拋射、Viking 火星全景與 Mars Trek 蓋爾撞擊坑三張；每張都在畫面上標 credit。
 - NASA 媒體指南：<https://www.nasa.gov/nasa-brand-center/images-and-media/>
 
+## 4a. 影片音樂（非遊戲內）
+
+| 曲目 | 授權 | 用途／備註 |
+|---|---|---|
+| **Space** — PaulYudin（1:58）<https://pixabay.com/music/607605/> | Pixabay Content License | 30 秒 demo 背景音樂（預設）；頁面標示 **Content ID Registered** |
+| **Space Ambient** — Monume（1:53）<https://pixabay.com/music/498030/> | Pixabay Content License | 備選；頁面標示 **Content ID Registered** |
+
+- Pixabay Content License：可商用、可修改、**不需署名**；不得把曲目本身單獨再散布。檔案與下載日期（2026-11-14）見 `tools/video/assets/music/CREDITS.md`。
+- Content ID Registered 代表上傳 YouTube 可能被自動 claim；**claim 不是 strike**，保留曲目頁截圖與授權依據，在 YouTube Studio 選「我有許可或授權」申訴。
+- 只用在影片；遊戲 build 不含音樂檔。音樂不是 NASA 音訊，不宣稱與 NASA 有關。
+
 ## 5. 開源依賴（預計）
 
 | 套件 | 授權 | 用途 |
@@ -96,4 +107,5 @@ with or endorsed by NASA. Icons by Lucide (ISC). Fonts: Noto Sans TC, Nunito
 - [ ] 安裝依賴後核對實際套件與授權，補進第 5 節。
 - [ ] 確認 AI 生成圖像的工具條款允許提交與公開展示。
 - [ ] README 加入第 7 節致謝段。
-- [ ] 若使用任何外部音樂或音效，補上來源與授權（目前計畫不使用）。
+- [x] 影片音樂：Pixabay 兩首（見 §4a）；遊戲 build 不含音樂，不需列入遊戲授權。
+- [ ] YouTube 描述補音樂 credit：`Music: "Space" by PaulYudin (Pixabay Content License)`。
